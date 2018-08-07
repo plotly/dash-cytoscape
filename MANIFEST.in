@@ -1,0 +1,4 @@
+include my_dash_component/bundle.js
+include my_dash_component/metadata.json
+include my_dash_component/package.json
+include README.md
