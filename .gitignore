@@ -36,4 +36,6 @@ __pycache__/
 
 *.pyc
 .idea
+*.iml
+*.xml
 src/react-cytoscapejs
