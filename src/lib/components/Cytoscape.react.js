@@ -78,7 +78,7 @@ Cytoscape.propTypes = {
      * This prop is rendered when the component is declared, and might not
      * update if you change it with a callback.
      *
-     * You can find a list of Layout extensions  here:
+     * You can find a list of Layout extensions here:
          arbor : The Arbor physics simulation layout. It’s a basic physics layout.
 
          cola : The Cola.js physics simulation layout. Cola makes beautiful layout results, it animates very smoothly, and it has great options for controlling the layout.

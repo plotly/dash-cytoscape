@@ -4,13 +4,20 @@ Make sure you have access to this repo from git.
 To try the dev version, run this:
 ```
 git clone https://github.com/plotly/dash-cytoscape.git
+cd dash-cytoscape
 git checkout dev
-npm install
-npm run build:all-dev
+cd src
+git clone https://github.com/plotly/react-cytoscapejs.git
+cd ..
 python usage.py
+python usage-colajs-graph.py
 ```
 
-You can find all the other usage files in *demos* directory.
+To rebuild the version, run:
+```
+npm install
+npm run build:all-dev
+```
 
 ## Dash Component Skeleton
 
