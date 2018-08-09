@@ -6,15 +6,15 @@ To try the dev version, run this:
 git clone https://github.com/plotly/dash-cytoscape.git
 cd dash-cytoscape
 git checkout dev
-cd src
-git clone https://github.com/plotly/react-cytoscapejs.git
-cd ..
 python usage.py
 python usage-colajs-graph.py
 ```
 
-To rebuild the version, run:
+To rebuild the version, run (inside dash-cytoscape):
 ```
+cd src
+git clone https://github.com/plotly/react-cytoscapejs.git
+cd ..
 npm install
 npm run build:all-dev
 ```
