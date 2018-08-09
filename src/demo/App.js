@@ -1,7 +1,10 @@
 /* eslint no-magic-numbers: 0 */
+/**
+ * JavaScript Requirements: cytoscape
+ * React.js requirements: cytoscape-reactjs
+ */
 import React from 'react';
-import ReactDOM from 'react-dom';
-import CytoscapeComponent from '../react-cytoscapejs/src/component.js';
+import Cytoscape from '../lib/components/Cytoscape.react.js';
 
 class App extends React.Component {
   constructor(props){
@@ -15,14 +18,9 @@ class App extends React.Component {
        { data: { source: 'one', target: 'two', label: 'Edge from Node1 to Node2' } }
     ];
 
-    return <CytoscapeComponent
+    return <Cytoscape
         elements={elements}
-        style={{
-            width: '1000px',
-            height: '600px',
-            margin: '50px'
-        }}
-    />;
+    />
   }
 }
 

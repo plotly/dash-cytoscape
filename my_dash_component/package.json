@@ -7,13 +7,17 @@
     "start": "webpack-serve ./webpack.serve.config.js --open",
     "build:js-dev": "webpack --mode development",
     "build:js": "webpack --mode production",
-    "build:py": "./extract-meta src/lib/components > my_dash_component/metadata.json && cp package.json my_dash_component"
+    "build:py": "node ./extract-meta src/lib/components > my_dash_component/metadata.json && copyfiles package.json my_dash_component",
+    "build:all": "npm run build:js & npm run build:py",
+    "build:all-dev": "npm run build:js-dev & npm run build:py"
   },
   "author": "my-name my-email",
   "license": "my-license",
   "dependencies": {
+    "cytoscape": "^3.2.15",
     "ramda": "^0.25.0",
     "react": "15.4.2",
+    "react-cytoscapejs": "^0.0.1",
     "react-dom": "15.4.2"
   },
   "devDependencies": {
@@ -22,6 +26,7 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "copyfiles": "^2.0.0",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",

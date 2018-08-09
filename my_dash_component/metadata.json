@@ -1,7 +1,70 @@
 {
-  "src/lib/components/ExampleComponent.react.js": {
-    "description": "ExampleComponent is an example component.\nIt takes a property, `label`, and\ndisplays it.\nIt renders an input with the property `value`\nwhich is editable by the user.",
-    "displayName": "ExampleComponent",
+  "src/lib/components/Cytoscape.react.js": {
+    "description": "ExampleComponent is an example component.\r\nIt takes a property, `label`, and\r\ndisplays it.\r\nIt renders an input with the property `value`\r\nwhich is editable by the user.",
+    "displayName": "Cytoscape",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this compnent in Dash callbacks"
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Add inline styles to the root element",
+        "defaultValue": {
+          "value": "{width: '600px', height: '600px'}",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called whenever any of the\r\nproperties change"
+      },
+      "elements": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": "The flat list of Cytoscape elements to be included in the graph, each\r\nrepresented as non-stringified JSON."
+      },
+      "stylesheet": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": "The Cytoscape stylesheet as non-stringified JSON. N.b. the prop key is\r\nstylesheet rather than style, the key used by Cytoscape itself, so as\r\nto not conflict with the HTML style attribute."
+      },
+      "layout": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Use a layout to automatically position the nodes in the graph. Simply\r\ngive the string denoting the name of the layout.\r\n\nThis prop is rendered when the component is declared, and might not\r\nupdate if you change it with a callback.",
+        "defaultValue": {
+          "value": "'random'",
+          "computed": false
+        }
+      }
+    }
+  },
+  "src/lib/components/TestComponent.react.js": {
+    "description": "ExampleComponent is an example component.\r\nIt takes a property, `label`, and\r\ndisplays it.\r\nIt renders an input with the property `value`\r\nwhich is editable by the user.",
+    "displayName": "TestComponent",
     "methods": [],
     "props": {
       "id": {
@@ -30,7 +93,7 @@
           "name": "func"
         },
         "required": false,
-        "description": "Dash-assigned callback that should be called whenever any of the\nproperties change"
+        "description": "Dash-assigned callback that should be called whenever any of the\r\nproperties change"
       }
     }
   }
