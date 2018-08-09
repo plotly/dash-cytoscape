@@ -9,10 +9,10 @@ app = dash.Dash('')
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
-with open('data-colajs-graph/data.json', 'r') as f:
+with open('data/colajs-graph/data.json', 'r') as f:
     elements = json.loads(f.read())
 
-with open('data-colajs-graph/cy-style.json', 'r') as f:
+with open('data/colajs-graph/cy-style.json', 'r') as f:
     stylesheet = json.loads(f.read())
 
 
