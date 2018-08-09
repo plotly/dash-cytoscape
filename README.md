@@ -1,4 +1,18 @@
-# Dash Component Skeleton
+## Usage
+
+Make sure you have access to this repo from git.
+To try the dev version, run this:
+```
+git clone https://github.com/plotly/dash-cytoscape.git
+git checkout dev
+npm install
+npm run build:all-dev
+python usage.py
+```
+
+You can find all the other usage files in *demos* directory.
+
+## Dash Component Skeleton
 
 This repository contains the minimal set of code required to create your own custom Dash component.
 
@@ -53,7 +67,7 @@ npm run start
     ```
 8. Share your component with the community! https://community.plot.ly/c/dash
 
-# More details
+## More details
 - Include CSS files in your distribution folder (`my_dash_component`) and reference them in `MANIFEST.in`
 - The `tests` folder contains a sample integration test. This will run a sample Dash app in a browser. Run this with:
     ```
@@ -64,6 +78,6 @@ npm run start
 - Watch the [component boilerplate repository](https://github.com/plotly/dash-component-boilerplate) to stay informed of changes to our components.
 
 
-# More Resources
+## More Resources
 - Learn more about Dash: https://dash.plot.ly
 - View the original component boilerplate: https://github.com/plotly/dash-component-boilerplate

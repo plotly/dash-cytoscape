@@ -77,6 +77,27 @@ Cytoscape.propTypes = {
      *
      * This prop is rendered when the component is declared, and might not
      * update if you change it with a callback.
+     *
+     * You can find a list of Layout extensions  here:
+         arbor : The Arbor physics simulation layout. It’s a basic physics layout.
+
+         cola : The Cola.js physics simulation layout. Cola makes beautiful layout results, it animates very smoothly, and it has great options for controlling the layout.
+
+         cose-bilkent : The CoSE layout by Bilkent with enhanced compound node placement. CoSE Bilkent gives near-perfect end results. However, it’s more expensive than the version of CoSE directly included with Cytoscape.js.
+
+         dagre : The Dagre layout for DAGs and trees.
+
+         euler : Euler is a fast, small file-size, high-quality force-directed (physics simulation) layout. It is excellent for non-compound graphs, and it has basic support for compound graphs.
+
+         klay : Klay is a layout that works well for most types of graphs. It gives good results for ordinary graphs, and it handles DAGs and compound graphs very nicely.
+
+         ngraph.forcelayout : A physics simulation layout that works particularly well on planar graphs. It is relatively fast.
+
+         polywas : A layout for GWAS (genome-wide association study) data illustrating inter-locus relationships.
+
+         spread : The speedy Spread physics simulation layout. It tries to use all the viewport space, but it can be configured to produce a tighter result. It uses Fruchterman-Reingold initially, and it uses Gansner and North for the spread phase.
+
+         springy : The Springy physics simulation layout. It’s a basic physics layout.
      */
     layout: PropTypes.string
 };

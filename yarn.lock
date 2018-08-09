@@ -6320,10 +6320,6 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-cytoscapejs@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/react-cytoscapejs/-/react-cytoscapejs-0.0.1.tgz#52672d8b8d90915745e9be0ac49c1f1bfe680d4b"
-
 react-docgen@^2.20.1:
   version "2.21.0"
   resolved "https://registry.yarnpkg.com/react-docgen/-/react-docgen-2.21.0.tgz#e8f9caf50e15510096616850771f243fadbb9d7d"

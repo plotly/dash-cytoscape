@@ -17,7 +17,6 @@
     "cytoscape": "^3.2.15",
     "ramda": "^0.25.0",
     "react": "15.4.2",
-    "react-cytoscapejs": "^0.0.1",
     "react-dom": "15.4.2"
   },
   "devDependencies": {
