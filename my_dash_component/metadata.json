@@ -1,15 +1,35 @@
 {
   "src/lib/components/Cytoscape.react.js": {
-    "description": "ExampleComponent is an example component.\r\nIt takes a property, `label`, and\r\ndisplays it.\r\nIt renders an input with the property `value`\r\nwhich is editable by the user.",
+    "description": "",
     "displayName": "Cytoscape",
-    "methods": [],
+    "methods": [
+      {
+        "name": "checkLayout",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "layout",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "id": {
         "type": {
           "name": "string"
         },
         "required": false,
-        "description": "The ID used to identify this compnent in Dash callbacks"
+        "description": "The ID used to identify this component in Dash callbacks"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Html Class of the component"
       },
       "style": {
         "type": {
@@ -31,32 +51,48 @@
       },
       "elements": {
         "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "object"
-          }
+          "name": "union",
+          "value": [
+            {
+              "name": "object"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "object"
+              }
+            }
+          ]
         },
         "required": false,
         "description": "The flat list of Cytoscape elements to be included in the graph, each\r\nrepresented as non-stringified JSON."
       },
       "stylesheet": {
         "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "object"
-          }
+          "name": "union",
+          "value": [
+            {
+              "name": "object"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "object"
+              }
+            }
+          ]
         },
         "required": false,
         "description": "The Cytoscape stylesheet as non-stringified JSON. N.b. the prop key is\r\nstylesheet rather than style, the key used by Cytoscape itself, so as\r\nto not conflict with the HTML style attribute."
       },
       "layout": {
         "type": {
-          "name": "string"
+          "name": "object"
         },
         "required": false,
-        "description": "Use a layout to automatically position the nodes in the graph. Simply\r\ngive the string denoting the name of the layout.\r\n\nThis prop is rendered when the component is declared, and might not\r\nupdate if you change it with a callback.",
+        "description": "The function of a layout is to set the positions on the nodes in the\r\ngraph. Layouts are extensions of Cytoscape.js such that it is possible\r\nfor anyone to write a layout without modifying the library itself.\r\n\nTo use a layout, input a dictionary with \"name\" as the key, e.g.\r\n```\r\n{\"name\": layout_name}\r\n\nSeveral layouts are included with Cytoscape by default, and their\r\noptions are described with the default values specified in the official\r\ndocumentation\r\n\nnull: The null layout puts all nodes at (0, 0). It’s useful for debugging purposes.\r\nrandom:  The random layout puts nodes in random positions within the viewport.\r\npreset: The preset layout puts nodes in the positions you specify manually.\r\ngrid: The grid layout puts nodes in a well-spaced grid.\r\ncircle: The circle layout puts nodes in a circle.\r\nconcentric: The concentric layout positions nodes in concentric circles, based on a metric that you specify to segregate the nodes into levels.\r\nbreadthfirst: The breadthfirst layout puts nodes in a hierarchy, based on a breadthfirst traversal of the graph.\r\ncose: The cose (Compound Spring Embedder) layout uses a physics simulation to lay out graphs. It works well with noncompound graphs and it has additional logic to support compound graphs well.\r\n\nThe official Cytoscape.js documentation gives an extensive explanation\r\nof the layout property, as well as use cases:\r\nhttp://js.cytoscape.org/#layouts",
         "defaultValue": {
-          "value": "'random'",
+          "value": "{name: 'random'}",
           "computed": false
         }
       }
