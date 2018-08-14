@@ -16,5 +16,7 @@ setup(
     include_package_data=True,
     license=package['license'],
     description=package['description'] if 'description' in package else package_name,
-    install_requires=[]
+    install_requires=[
+        'colour==0.1.5'
+    ]
 )

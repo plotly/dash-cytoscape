@@ -52,7 +52,10 @@ elements = [
 app.layout = html.Div([
     my_dash_component.Cytoscape(
         id='cytoscape',
-        elements=elements
+        elements=elements,
+        layout={
+            'name': 'preset'
+        }
     )
 ])
 

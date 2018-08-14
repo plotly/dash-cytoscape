@@ -2,20 +2,7 @@
   "src/lib/components/Cytoscape.react.js": {
     "description": "",
     "displayName": "Cytoscape",
-    "methods": [
-      {
-        "name": "checkLayout",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "layout",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "methods": [],
     "props": {
       "id": {
         "type": {
@@ -95,6 +82,90 @@
           "value": "{name: 'random'}",
           "computed": false
         }
+      },
+      "pan": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The initial panning position of the graph. Make sure to disable viewport\r\nmanipulation options, such as fit, in your layout so that it is not\r\noverridden when the layout is applied."
+      },
+      "zoom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The initial zoom level of the graph. Make sure to disable viewport\r\nmanipulation options, such as fit, in your layout so that it is not\r\noverridden when the layout is applied. You can set options.minZoom and\r\noptions.maxZoom to set restrictions on the zoom level."
+      },
+      "panningEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether panning the graph is enabled, both by user events and programmatically."
+      },
+      "userPanningEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether user events (e.g. dragging the graph background) are allowed to pan the graph. Programmatic changes to pan are unaffected by this option."
+      },
+      "minZoom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "A minimum bound on the zoom level of the graph. The viewport can not be scaled smaller than this zoom level."
+      },
+      "maxZoom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "A maximum bound on the zoom level of the graph. The viewport can not be\r\nscaled larger than this zoom level."
+      },
+      "zoomingEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether zooming the graph is enabled, both by user events and programmatically."
+      },
+      "userZoomingEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether user events (e.g. dragging the graph background) are allowed to pan the graph. Programmatic changes to pan are unaffected by this option."
+      },
+      "boxSelectionEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether box selection (i.e. drag a box overlay around, and release it to select) is enabled. If enabled, the user must taphold to pan the graph."
+      },
+      "autoungrabify": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether nodes should be ungrabified (not grabbable by user) by default (if true, overrides individual node state)."
+      },
+      "autolock": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether nodes should be locked (not draggable at all) by default (if true, overrides individual node state)."
+      },
+      "autounselectify": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether nodes should be unselectified (immutable selection state) by default (if true, overrides individual element state)."
       }
     }
   },

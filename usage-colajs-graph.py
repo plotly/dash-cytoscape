@@ -30,8 +30,6 @@ app.layout = html.Div([
                 id='dropdown-dataset',
                 options=[
                     {'label': 'Demo with Cola.js', 'value': 'colajs-graph'},
-                    # {'label': 'Tokyo Railway map', 'value': 'tokyo-railway'},
-                    # {'label': 'Wine and Cheese', 'value': 'wineandcheese'},
                     {'label': 'Spread Layout', 'value': 'spread-layout'}
                 ],
                 value='colajs-graph',
