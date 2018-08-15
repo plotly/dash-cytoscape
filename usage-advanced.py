@@ -7,7 +7,8 @@ from dash.dependencies import Input, Output
 import dash_reusable_components as drc
 import my_dash_component
 
-app = dash.Dash('')
+app = dash.Dash(__name__)
+server = app.server
 
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
