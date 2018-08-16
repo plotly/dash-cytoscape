@@ -1,3 +1,10 @@
+"""
+Original Demo: http://js.cytoscape.org/demos/images-breadthfirst-layout/
+Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/images-breadthfirst-layout
+
+Note: Click Animation is not implemented.
+"""
+
 import my_dash_component
 import dash
 from dash.dependencies import Input, Output

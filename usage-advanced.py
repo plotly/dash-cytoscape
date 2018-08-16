@@ -91,7 +91,7 @@ app.layout = html.Div([
             layout={'name': 'preset'},
             elements=elements,
             style={
-                'height': '95vh'
+                'height': 'calc(100vh - 16px)'
             }
         ),
 
@@ -100,10 +100,14 @@ app.layout = html.Div([
             style={
                 'overflow-y': 'auto',
                 'overflow-x': 'hidden',
-                'height': '95vh'
+                'height': 'calc(100vh - 16px)',
+                'float': 'right',
+                'background-color': '#222222'
             },
             children=[
-                drc.NamedCard(title='Layout', size=3, children=[
+                drc.SectionTitle(title='Layout', size=3, color='white'),
+
+                drc.NamedCard(title='Layout', size=4, children=[
                     drc.NamedDropdown(
                         name='Layout',
                         id='dropdown-layout',
@@ -122,7 +126,7 @@ app.layout = html.Div([
                     ),
                 ]),
 
-                drc.SectionTitle(title='Node', size=3),
+                drc.SectionTitle(title='Node', size=3, color='white'),
 
                 drc.NamedCard(title='Shape', size=4, children=[
                     drc.NamedInput(
@@ -169,7 +173,6 @@ app.layout = html.Div([
                     ),
 
                 ]),
-
                 drc.NamedCard(title='Background', size=4, children=[
 
                     drc.NamedInput(
@@ -199,7 +202,6 @@ app.layout = html.Div([
                         value=0
                     ),
                 ]),
-
                 drc.NamedCard(title='Border', size=4, children=[
                     drc.NamedInput(
                         name='Node Border Width (px)',

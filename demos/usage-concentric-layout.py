@@ -1,5 +1,20 @@
 """
-Demo: http://js.cytoscape.org/demos/concentric-layout/
+Original Demo: http://js.cytoscape.org/demos/concentric-layout/
+Original Code: https://github.com/cytoscape/cytoscape.js/blob/master/documentation/demos/concentric-layout/code.js
+
+Note: This example is broken because layout takes a function as input, i.e.
+```
+  layout: {
+    name: 'concentric',
+    concentric: function( node ){
+      return node.degree();
+    },
+    levelWidth: function( nodes ){
+      return 2;
+    }
+  },
+```
+
 """
 import my_dash_component
 import dash
@@ -23,7 +38,9 @@ app.layout = html.Div([
     my_dash_component.Cytoscape(
         id='cytoscape',
         elements=elements,
-        layout={'name': 'concentric'},
+        layout={
+            'name': 'concentric',
+        },
         stylesheet=[{
             'selector': 'node',
             'style': {

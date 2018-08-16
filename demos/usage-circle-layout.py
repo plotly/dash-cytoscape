@@ -1,3 +1,7 @@
+"""
+Original Demo: http://js.cytoscape.org/demos/circle-layout/
+Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/circle-layout
+"""
 import my_dash_component
 import dash
 from dash.dependencies import Input, Output

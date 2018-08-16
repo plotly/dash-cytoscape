@@ -1,3 +1,10 @@
+"""
+Original Demo: http://js.cytoscape.org/demos/cose-bilkent-layout-compound/
+Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/cose-bilkent-layout-compound
+
+Note: This implementation DOES NOT work yet, since cose-bilkent hasn't been implemented yet
+
+"""
 import my_dash_component
 import dash
 from dash.dependencies import Input, Output

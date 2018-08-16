@@ -22,6 +22,7 @@ def Card(children, **kwargs):
             'margin': 5,
             'borderRadius': 5,
             'border': 'thin lightgrey solid',
+            'background-color': 'white',
 
             # Remove possibility to select the text for better UX
             'user-select': 'none',
@@ -33,9 +34,12 @@ def Card(children, **kwargs):
     )
 
 
-def SectionTitle(title, size, align='center'):
+def SectionTitle(title, size, align='center', color='#222'):
     return html.Div(
-        style={'text-align': align},
+        style={
+            'text-align': align,
+            'color': color
+        },
         children=dcc.Markdown('#' * size + ' ' + title),
     )
 
@@ -45,13 +49,11 @@ def NamedCard(title, size, children, **kwargs):
     size = max(size, 1)
 
     return html.Div([
-        SectionTitle(title, size, align='center'),
-
-        Card(children, **kwargs)
+        Card(
+            [SectionTitle(title, size, align='left')] + children,
+            **kwargs
+        )
     ])
-
-
-
 
 
 def NamedSlider(name, **kwargs):
