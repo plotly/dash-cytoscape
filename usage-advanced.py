@@ -72,11 +72,12 @@ elements = [
 ]
 
 
-def validate_float(value):
+def is_float(value):
     try:
-        return float(value)
+        float(value)
+        return True
     except ValueError:
-        return 0
+        return False
 
 
 def validate_color(color, default='#999999'):
@@ -99,17 +100,13 @@ def validate_color(color, default='#999999'):
         return default
 
 
-def validate_px_percentage(value):
-    if 'px' in value:
-        value = value.replace('px', '')
-        value = validate_float(value)
-        return str(value) + 'px'
-    elif '%' in value:
-        value = value.replace('%', '')
-        value = validate_float(value)
-        return str(value) + '%'
+def validate_px_percentage(value, default='0px'):
+    if 'px' in value and is_float(value.replace('px', '')):
+        return value
+    elif '%' in value and is_float(value.replace('%', '')):
+        return value
     else:
-        return '0px'
+        return default
 
 
 app.layout = html.Div([
@@ -222,14 +219,14 @@ app.layout = html.Div([
                 drc.NamedCard(title='Background', size=4, children=[
 
                     drc.NamedInput(
-                        name='Node Background Color',
+                        name='Node Color',
                         id='input-node-color',
                         type='text',
                         placeholder='Enter Color in Hex...'
                     ),
 
                     drc.NamedSlider(
-                        name='Node Background Opacity',
+                        name='Node Opacity',
                         id='slider-node-opacity',
                         min=0,
                         max=1,
@@ -239,7 +236,7 @@ app.layout = html.Div([
                     ),
 
                     drc.NamedSlider(
-                        name='Node Background Blacken',
+                        name='Node Blacken',
                         id='slider-node-blacken',
                         min=0,
                         max=1,
@@ -363,18 +360,108 @@ app.layout = html.Div([
                     size=3,
                     color='white'
                 ),
-
+                # TODO: testing background, multiple bugs seem to exist
                 drc.NamedCard(title='Background Image', size=4, children=[
                     drc.NamedInput(
                         name='Image URL/URI',
                         id='input-background-image-url',
                         type='text',
-                        placeholder='Input URL/URI...'
+                        placeholder='Input URL/URI...',
+                    ),
+
+                    drc.NamedRadioItems(
+                        name='Image Crossorigin',
+                        id='radio-background-image-crossorigin',
+                        value='anonymous',
+                        options=drc.DropdownOptionsList(
+                            'anonymous',
+                            'use-credentials'
+                        )
+                    ),
+
+                    drc.NamedSlider(
+                        name='Image Opacity',
+                        id='slider-background-image-opacity',
+                        min=0,
+                        max=1,
+                        marks={0: '0', 1: '1'},
+                        step=0.05,
+                        value=1
+                    ),
+
+                    drc.NamedInput(
+                        name='Image Width (%)',
+                        id='input-background-image-width',
+                        type='number',
+                        placeholder='Input value in %...'
+                    ),
+
+                    drc.NamedInput(
+                        name='Image Height (%)',
+                        id='input-background-image-height',
+                        type='number',
+                        placeholder='Input value in %...'
+                    ),
+
+                    drc.NamedRadioItems(
+                        name='Image Fit',
+                        id='radio-background-image-fit',
+                        value='none',
+                        options=drc.DropdownOptionsList(
+                            'none',
+                            'contain',
+                            'cover'
+                        )
+                    ),
+
+                    drc.NamedInput(
+                        name='Image Position x (px/%)',
+                        id='input-background-position-x',
+                        type='text',
+                        placeholder='Input value in % or px...',
+                        value='50%'
+                    ),
+                    drc.NamedInput(
+                        name='Image Position y (px/%)',
+                        id='input-background-position-y',
+                        type='text',
+                        placeholder='Input value in % or px...',
+                        value='50%'
+                    ),
+                    drc.NamedRadioItems(
+                        name='Image Width Relative To',
+                        id='radio-background-width-relative-to',
+                        value='include-padding',
+                        options=drc.DropdownOptionsList(
+                            'inner',
+                            'include-padding'
+                        )
+                    ),
+                    drc.NamedRadioItems(
+                        name='Image Height Relative To',
+                        id='radio-background-height-relative-to',
+                        value='include-padding',
+                        options=drc.DropdownOptionsList(
+                            'inner',
+                            'include-padding'
+                        )
                     ),
                 ])
             ])
     ])
 ])
+
+
+@app.callback(Output('input-background-image-height', 'disabled'),
+              [Input('radio-background-image-fit', 'value')])
+def disable_background_image_height(value):
+    return value != 'none'
+
+
+@app.callback(Output('input-background-image-width', 'disabled'),
+              [Input('radio-background-image-fit', 'value')])
+def disable_background_image_width(value):
+    return value != 'none'
 
 
 @app.callback(Output('cytoscape', 'layout'),
@@ -406,7 +493,16 @@ def update_layout(name):
         'input-node-compound-min-height',
         'input-node-compound-min-height-bias-top',
         'input-node-compound-min-height-bias-bottom',
-        'input-background-image-url'
+        'input-background-image-url',
+        'radio-background-image-crossorigin',
+        'slider-background-image-opacity',
+        'input-background-image-width',
+        'input-background-image-height',
+        'radio-background-image-fit',
+        'input-background-position-x',
+        'input-background-position-y',
+        'radio-background-width-relative-to',
+'radio-background-height-relative-to',
     ]]
 )
 def update_stylesheet(node_content,
@@ -429,13 +525,32 @@ def update_stylesheet(node_content,
                       node_compound_min_height,
                       node_compound_min_height_bias_top,
                       node_compound_min_height_bias_bottom,
-                      background_image_url):
+                      background_image_url,
+                      background_image_crossorigin,
+                      background_image_opacity,
+                      background_image_width,
+                      background_image_height,
+                      background_image_fit,
+                      background_position_x,
+                      background_position_y,
+                      background_width_relative_to,
+                      background_height_relative_to):
+    def update_style(stylesheet, selector, addition):
+        for style in stylesheet:
+            if style['selector'] == selector:
+                style['style'].update(addition)
+
     # Validating Input
     node_color = validate_color(node_color)
     node_border_color = validate_color(node_border_color)
     node_padding = validate_px_percentage(node_padding)
+    background_position_x = validate_px_percentage(background_position_x)
+    background_position_y = validate_px_percentage(background_position_y)
 
-    return [
+    if not background_image_url:
+        background_image_url = 'none'
+
+    stylesheet = [
         {
             'selector': 'node',
             'style': {
@@ -454,15 +569,41 @@ def update_stylesheet(node_content,
                 'padding-relative-to': node_padding_relative_to,
                 'compound-sizing-wrt-labels': node_compound_sizing,
                 'min-width': node_compound_min_width,
-                'min-width-bias-left': '{}%'.format(node_compound_min_width_bias_left),
-                'min-width-bias-right': '{}%'.format(node_compound_min_width_bias_right),
+                'min-width-bias-left': node_compound_min_width_bias_left,
+                'min-width-bias-right': node_compound_min_width_bias_right,
                 'min-height': node_compound_min_height,
-                'min-height-bias-top': '{}%'.format(node_compound_min_height_bias_top),
-                'min-height-bias-bottom': '{}%'.format(node_compound_min_height_bias_bottom),
-                'background-image': background_image_url
+                'min-height-bias-top': node_compound_min_height_bias_top,
+                'min-height-bias-bottom': node_compound_min_height_bias_bottom,
+                'background-image': background_image_url,
+                'background-image-crossorigin': background_image_crossorigin,
+                'background-image-opacity': background_image_opacity,
+                'background-fit': background_image_fit,
+                'background-position-x': background_position_x,
+                'background-position-y': background_position_y,
+                'background-width-relative-to': background_width_relative_to,
+                'background-height-relative-to': background_height_relative_to,
             }
         }
     ]
+
+    # Handles background styles
+    if background_image_fit == 'none':
+        if background_image_width is None:
+            background_image_width = 'auto'
+
+        if background_image_height is None:
+            background_image_height = 'auto'
+
+        update_style(
+            stylesheet=stylesheet,
+            selector='node',
+            addition={
+                'background-width': background_image_width,
+                'background-height': background_image_height
+            }
+        )
+
+    return stylesheet
 
 
 if __name__ == '__main__':
