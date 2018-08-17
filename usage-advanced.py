@@ -35,7 +35,7 @@ elements = [
         'position': {'x': 250, 'y': 100}
     },
     {
-        'data': {'id': 'six', 'label': 'Node 6'},
+        'data': {'id': 'six', 'label': 'Node 6', 'parent': 'three'},
         'position': {'x': 150, 'y': 150}
     },
 
@@ -103,7 +103,7 @@ def validate_px_percentage(value):
     if 'px' in value:
         value = value.replace('px', '')
         value = validate_float(value)
-        return str(value)+ 'px'
+        return str(value) + 'px'
     elif '%' in value:
         value = value.replace('%', '')
         value = validate_float(value)
@@ -134,7 +134,11 @@ app.layout = html.Div([
                 'background-color': '#222222'
             },
             children=[
-                drc.SectionTitle(title='Layout', size=3, color='white'),
+                drc.SectionTitle(
+                    title='Layout',
+                    size=3,
+                    color='white'
+                ),
 
                 drc.NamedCard(title='Layout', size=4, children=[
                     drc.NamedDropdown(
@@ -155,8 +159,21 @@ app.layout = html.Div([
                     ),
                 ]),
 
-                drc.SectionTitle(title='Node body', size=3, color='white'),
+                drc.SectionTitle(
+                    title='Node body',
+                    size=3,
+                    color='white'
+                ),
 
+                drc.NamedCard(title='Content', size=4, children=[
+                    drc.NamedInput(
+                        name='Node Display Content',
+                        id='input-node-content',
+                        type='text',
+                        value='data(label)',
+                        placeholder='Enter the content you want for node...'
+                    )
+                ]),
                 drc.NamedCard(title='Shape', size=4, children=[
                     drc.NamedInput(
                         name='Node Width (px)',
@@ -276,7 +293,6 @@ app.layout = html.Div([
                         placeholder='Input value in % or px...',
                         value='0px'
                     ),
-
                     drc.NamedDropdown(
                         name='Node Padding Relative To',
                         id='dropdown-node-padding-relative-to',
@@ -290,6 +306,71 @@ app.layout = html.Div([
                             'max'
                         )
                     )
+                ]),
+                drc.NamedCard(title='Compound parent size', size=4, children=[
+                    drc.NamedRadioItems(
+                        name='Compound Sizing w.r.t. labels',
+                        id='radio-node-compound-sizing',
+                        value='include',
+                        options=drc.DropdownOptionsList('include', 'exclude')
+                    ),
+                    drc.NamedInput(
+                        name='Parent Node Min Width (px)',
+                        id='input-node-compound-min-width',
+                        type='number',
+                        placeholder='Input value in px...',
+                        value=0
+                    ),
+                    drc.NamedInput(
+                        name='Extra width on left side (%)',
+                        id='input-node-compound-min-width-bias-left',
+                        type='number',
+                        placeholder='Input value in px...',
+                        value=0
+                    ),
+                    drc.NamedInput(
+                        name='Extra width on right side (%)',
+                        id='input-node-compound-min-width-bias-right',
+                        type='number',
+                        placeholder='Input value in px...',
+                        value=0
+                    ),
+                    drc.NamedInput(
+                        name='Parent Node Min Height (px)',
+                        id='input-node-compound-min-height',
+                        type='number',
+                        placeholder='Input value in px...',
+                        value=0
+                    ),
+                    drc.NamedInput(
+                        name='Extra height on top side (%)',
+                        id='input-node-compound-min-height-bias-top',
+                        type='number',
+                        placeholder='Input value in px...',
+                        value=0
+                    ),
+                    drc.NamedInput(
+                        name='Extra height on bottom side (%)',
+                        id='input-node-compound-min-height-bias-bottom',
+                        type='number',
+                        placeholder='Input value in px...',
+                        value=0
+                    ),
+                ]),
+
+                drc.SectionTitle(
+                    title='Background image',
+                    size=3,
+                    color='white'
+                ),
+
+                drc.NamedCard(title='Background Image', size=4, children=[
+                    drc.NamedInput(
+                        name='Image URL/URI',
+                        id='input-background-image-url',
+                        type='text',
+                        placeholder='Input URL/URI...'
+                    ),
                 ])
             ])
     ])
@@ -302,22 +383,34 @@ def update_layout(name):
     return {'name': name}
 
 
-@app.callback(Output('cytoscape', 'stylesheet'),
-              [Input(component, 'value') for component in [
-                  'input-node-width',
-                  'input-node-height',
-                  'dropdown-node-shape',
-                  'input-node-color',
-                  'slider-node-opacity',
-                  'slider-node-blacken',
-                  'input-node-border-width',
-                  'dropdown-node-border-style',
-                  'input-node-border-color',
-                  'slider-node-border-opacity',
-                  'input-node-padding',
-                  'dropdown-node-padding-relative-to'
-              ]])
-def update_stylesheet(node_width,
+@app.callback(
+    Output('cytoscape', 'stylesheet'),
+    [Input(component, 'value') for component in [
+        'input-node-content',
+        'input-node-width',
+        'input-node-height',
+        'dropdown-node-shape',
+        'input-node-color',
+        'slider-node-opacity',
+        'slider-node-blacken',
+        'input-node-border-width',
+        'dropdown-node-border-style',
+        'input-node-border-color',
+        'slider-node-border-opacity',
+        'input-node-padding',
+        'dropdown-node-padding-relative-to',
+        'radio-node-compound-sizing',
+        'input-node-compound-min-width',
+        'input-node-compound-min-width-bias-left',
+        'input-node-compound-min-width-bias-right',
+        'input-node-compound-min-height',
+        'input-node-compound-min-height-bias-top',
+        'input-node-compound-min-height-bias-bottom',
+        'input-background-image-url'
+    ]]
+)
+def update_stylesheet(node_content,
+                      node_width,
                       node_height,
                       node_shape,
                       node_color,
@@ -328,7 +421,15 @@ def update_stylesheet(node_width,
                       node_border_color,
                       node_border_opacity,
                       node_padding,
-                      node_padding_relative_to):
+                      node_padding_relative_to,
+                      node_compound_sizing,
+                      node_compound_min_width,
+                      node_compound_min_width_bias_left,
+                      node_compound_min_width_bias_right,
+                      node_compound_min_height,
+                      node_compound_min_height_bias_top,
+                      node_compound_min_height_bias_bottom,
+                      background_image_url):
     # Validating Input
     node_color = validate_color(node_color)
     node_border_color = validate_color(node_border_color)
@@ -338,6 +439,7 @@ def update_stylesheet(node_width,
         {
             'selector': 'node',
             'style': {
+                'content': node_content,
                 'width': node_width,
                 'height': node_height,
                 'background-color': node_color,
@@ -349,7 +451,15 @@ def update_stylesheet(node_width,
                 'border-color': node_border_color,
                 'border-opacity': node_border_opacity,
                 'padding': node_padding,
-                'padding-relative-to': node_padding_relative_to
+                'padding-relative-to': node_padding_relative_to,
+                'compound-sizing-wrt-labels': node_compound_sizing,
+                'min-width': node_compound_min_width,
+                'min-width-bias-left': '{}%'.format(node_compound_min_width_bias_left),
+                'min-width-bias-right': '{}%'.format(node_compound_min_width_bias_right),
+                'min-height': node_compound_min_height,
+                'min-height-bias-top': '{}%'.format(node_compound_min_height_bias_top),
+                'min-height-bias-bottom': '{}%'.format(node_compound_min_height_bias_bottom),
+                'background-image': background_image_url
             }
         }
     ]
