@@ -72,15 +72,44 @@ elements = [
 ]
 
 
-def check_color(color):
+def validate_float(value):
+    try:
+        return float(value)
+    except ValueError:
+        return 0
+
+
+def validate_color(color, default='#999999'):
+    '''
+    Check if a color is valid, if so returns the color, else return a default color
+    :param color: The color to validate
+    :param default: The default color
+    :return: A string representing a color
+    '''
+    if not color:
+        return default
+
     try:
         # Converting 'deep sky blue' to 'deepskyblue'
         color = color.replace(" ", "")
         Color(color)
         # if everything goes fine then return True
-        return True
+        return color
     except:  # The color code was not found
-        return False
+        return default
+
+
+def validate_px_percentage(value):
+    if 'px' in value:
+        value = value.replace('px', '')
+        value = validate_float(value)
+        return str(value)+ 'px'
+    elif '%' in value:
+        value = value.replace('%', '')
+        value = validate_float(value)
+        return str(value) + '%'
+    else:
+        return '0px'
 
 
 app.layout = html.Div([
@@ -126,7 +155,7 @@ app.layout = html.Div([
                     ),
                 ]),
 
-                drc.SectionTitle(title='Node', size=3, color='white'),
+                drc.SectionTitle(title='Node body', size=3, color='white'),
 
                 drc.NamedCard(title='Shape', size=4, children=[
                     drc.NamedInput(
@@ -210,7 +239,6 @@ app.layout = html.Div([
                         value=0,
                         placeholder='Enter a value in pixel...'
                     ),
-
                     drc.NamedDropdown(
                         name='Node Border Style',
                         id='dropdown-node-border-style',
@@ -224,14 +252,12 @@ app.layout = html.Div([
                             'double'
                         )
                     ),
-
                     drc.NamedInput(
                         name='Node Border Color',
                         id='input-node-border-color',
                         type='text',
                         placeholder='Input Color in Hex...'
                     ),
-
                     drc.NamedSlider(
                         name='Node Border Opacity',
                         id='slider-node-border-opacity',
@@ -241,6 +267,29 @@ app.layout = html.Div([
                         step=0.05,
                         value=1
                     ),
+                ]),
+                drc.NamedCard(title='Padding', size=4, children=[
+                    drc.NamedInput(
+                        name='Node Padding',
+                        id='input-node-padding',
+                        type='text',
+                        placeholder='Input value in % or px...',
+                        value='0px'
+                    ),
+
+                    drc.NamedDropdown(
+                        name='Node Padding Relative To',
+                        id='dropdown-node-padding-relative-to',
+                        value='width',
+                        clearable=False,
+                        options=drc.DropdownOptionsList(
+                            'width',
+                            'height',
+                            'average',
+                            'min',
+                            'max'
+                        )
+                    )
                 ])
             ])
     ])
@@ -264,7 +313,9 @@ def update_layout(name):
                   'input-node-border-width',
                   'dropdown-node-border-style',
                   'input-node-border-color',
-                  'slider-node-border-opacity'
+                  'slider-node-border-opacity',
+                  'input-node-padding',
+                  'dropdown-node-padding-relative-to'
               ]])
 def update_stylesheet(node_width,
                       node_height,
@@ -275,12 +326,13 @@ def update_stylesheet(node_width,
                       node_border_width,
                       node_border_style,
                       node_border_color,
-                      node_border_opacity):
-    if not check_color(node_color):
-        node_color = '#999999'
-
-    if not check_color(node_border_color):
-        node_border_color = '#999999'
+                      node_border_opacity,
+                      node_padding,
+                      node_padding_relative_to):
+    # Validating Input
+    node_color = validate_color(node_color)
+    node_border_color = validate_color(node_border_color)
+    node_padding = validate_px_percentage(node_padding)
 
     return [
         {
@@ -295,7 +347,9 @@ def update_stylesheet(node_width,
                 'border-width': node_border_width,
                 'border-style': node_border_style,
                 'border-color': node_border_color,
-                'border-opacity': node_border_opacity
+                'border-opacity': node_border_opacity,
+                'padding': node_padding,
+                'padding-relative-to': node_padding_relative_to
             }
         }
     ]
