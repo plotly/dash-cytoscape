@@ -1,8 +1,11 @@
+import json
+
+import pprint
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from colour import Color
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 
 import dash_reusable_components as drc
 import my_dash_component
@@ -361,12 +364,20 @@ app.layout = html.Div([
                     color='white'
                 ),
                 # TODO: testing background, multiple bugs seem to exist
-                drc.NamedCard(title='Background Image', size=4, children=[
+                drc.Card([
+                    drc.NamedRadioItems(
+                        name='Use Background Image',
+                        id='radio-use-background-image',
+                        options=drc.DropdownOptionsList('yes', 'no'),
+                        value='no'
+                    ),
+
                     drc.NamedInput(
                         name='Image URL/URI',
                         id='input-background-image-url',
                         type='text',
                         placeholder='Input URL/URI...',
+                        value='https://farm8.staticflickr.com/7272/7633179468_3e19e45a0c_b.jpg'
                     ),
 
                     drc.NamedRadioItems(
@@ -413,7 +424,6 @@ app.layout = html.Div([
                             'cover'
                         )
                     ),
-
                     drc.NamedInput(
                         name='Image Position x (px/%)',
                         id='input-background-position-x',
@@ -446,10 +456,133 @@ app.layout = html.Div([
                             'include-padding'
                         )
                     ),
+                ]),
+
+                drc.SectionTitle(
+                    title='Pie Chart Background',
+                    size=3,
+                    color='white'
+                ),
+                drc.Card([
+                    drc.NamedRadioItems(
+                        name='Use Pie Chart for Background',
+                        id='radio-use-pie-chart',
+                        options=drc.DropdownOptionsList('yes', 'no'),
+                        value='no'
+                    ),
+                    drc.NamedDropdown(
+                        name='Select Pie Slice to modify',
+                        id='dropdown-pie-slice-selected',
+                        options=[{
+                            'label': f'Slice #{n}',
+                            'value': f'div-pie-slice-{n}'
+                        } for n in range(1, 17)],
+                        value='div-pie-slice-1',
+                        clearable=False
+                    ),
+                    drc.NamedInput(
+                        name='Diameter of Pie (%/px)',
+                        id='input-pie-size',
+                        type='text',
+                        placeholder='Input value in % or px...'
+                    ),
+                    html.Div(
+                        id='div-storage-pie-background-color',
+                        style={'display': 'none'}
+                    ),
+                    html.Div(
+                        id='div-storage-pie-background-size',
+                        style={'display': 'none'}
+                    ),
+                    html.Div(
+                        id='div-storage-pie-background-opacity',
+                        style={'display': 'none'}
+                    ),
+                    *[html.Div(
+                        id=f'div-pie-slice-{n}',
+                        style={'display': 'block'},
+                        children=[
+                            drc.NamedInput(
+                                name=f'Color of slice #{n}',
+                                id=f'input-pie-{n}-background-color',
+                                type='text',
+                                placeholder='Input Color in Hex...'
+                            ),
+                            drc.NamedInput(
+                                name=f'Size of slice #{n} (%)',
+                                id=f'input-pie-{n}-background-size',
+                                type='number',
+                                placeholder='Input value in %...'
+                            ),
+                            drc.NamedSlider(
+                                name=f'Opacity of slice #{n}',
+                                id=f'slider-pie-{n}-background-opacity',
+                                min=0,
+                                max=1,
+                                marks={0: '0', 1: '1'},
+                                step=0.05,
+                                value=1
+                            )
+                        ]
+                    ) for n in range(1, 17)]
                 ])
-            ])
+            ]
+        )
     ])
 ])
+
+for n in range(1, 17):
+    @app.callback(Output(f'div-pie-slice-{n}', 'style'),
+                  [Input('dropdown-pie-slice-selected', 'value')],
+                  [State(f'div-pie-slice-{n}', 'id')])
+    def hide_div_pie_slice(current_slice_selected, div_id):
+        if current_slice_selected != div_id:
+            return {'display': 'none'}
+        else:
+            return {'display': 'block'}
+
+
+@app.callback(Output('div-storage-pie-background-color', 'children'),
+              [Input(f'input-pie-{n}-background-color', 'value')
+               for n in range(1, 17)])
+def update_color_storage(*args):
+    args = [validate_color(color) for color in args]
+    return json.dumps(
+        dict(
+            zip(
+                [f'pie-{i}-background-color' for i in range(1, 17)],
+                args
+            )
+        )
+    )
+
+
+@app.callback(Output('div-storage-pie-background-size', 'children'),
+              [Input(f'input-pie-{n}-background-size', 'value')
+               for n in range(1, 17)])
+def update_size_storage(*args):
+    return json.dumps(
+        dict(
+            zip(
+                [f'pie-{i}-background-size' for i in range(1, 17)],
+                args
+            )
+        )
+    )
+
+
+@app.callback(Output('div-storage-pie-background-opacity', 'children'),
+              [Input(f'slider-pie-{n}-background-opacity', 'value')
+               for n in range(1, 17)])
+def update_opacity_storage(*args):
+    return json.dumps(
+        dict(
+            zip(
+                [f'pie-{i}-background-opacity' for i in range(1, 17)],
+                args
+            )
+        )
+    )
 
 
 @app.callback(Output('input-background-image-height', 'disabled'),
@@ -473,6 +606,7 @@ def update_layout(name):
 @app.callback(
     Output('cytoscape', 'stylesheet'),
     [Input(component, 'value') for component in [
+        # Node Body
         'input-node-content',
         'input-node-width',
         'input-node-height',
@@ -493,6 +627,9 @@ def update_layout(name):
         'input-node-compound-min-height',
         'input-node-compound-min-height-bias-top',
         'input-node-compound-min-height-bias-bottom',
+
+        # Background Image
+        'radio-use-background-image',
         'input-background-image-url',
         'radio-background-image-crossorigin',
         'slider-background-image-opacity',
@@ -502,7 +639,14 @@ def update_layout(name):
         'input-background-position-x',
         'input-background-position-y',
         'radio-background-width-relative-to',
-'radio-background-height-relative-to',
+        'radio-background-height-relative-to',
+        'radio-use-pie-chart',
+        'input-pie-size',
+    ]] +
+    [Input(div, 'children') for div in [
+        'div-storage-pie-background-color',
+        'div-storage-pie-background-size',
+        'div-storage-pie-background-opacity',
     ]]
 )
 def update_stylesheet(node_content,
@@ -525,6 +669,7 @@ def update_stylesheet(node_content,
                       node_compound_min_height,
                       node_compound_min_height_bias_top,
                       node_compound_min_height_bias_bottom,
+                      use_background_image,
                       background_image_url,
                       background_image_crossorigin,
                       background_image_opacity,
@@ -534,7 +679,12 @@ def update_stylesheet(node_content,
                       background_position_x,
                       background_position_y,
                       background_width_relative_to,
-                      background_height_relative_to):
+                      background_height_relative_to,
+                      use_pie_chart,
+                      pie_size,
+                      string_pie_background_color,
+                      string_pie_background_size,
+                      string_pie_background_opacity):
     def update_style(stylesheet, selector, addition):
         for style in stylesheet:
             if style['selector'] == selector:
@@ -546,6 +696,7 @@ def update_stylesheet(node_content,
     node_padding = validate_px_percentage(node_padding)
     background_position_x = validate_px_percentage(background_position_x)
     background_position_y = validate_px_percentage(background_position_y)
+    pie_size = validate_px_percentage(pie_size, default='100%')
 
     if not background_image_url:
         background_image_url = 'none'
@@ -574,6 +725,16 @@ def update_stylesheet(node_content,
                 'min-height': node_compound_min_height,
                 'min-height-bias-top': node_compound_min_height_bias_top,
                 'min-height-bias-bottom': node_compound_min_height_bias_bottom,
+            }
+        }
+    ]
+
+    # Adds specified parameters if use background image is set to yes
+    if use_background_image == 'yes':
+        update_style(
+            stylesheet=stylesheet,
+            selector='node',
+            addition={
                 'background-image': background_image_url,
                 'background-image-crossorigin': background_image_crossorigin,
                 'background-image-opacity': background_image_opacity,
@@ -583,10 +744,9 @@ def update_stylesheet(node_content,
                 'background-width-relative-to': background_width_relative_to,
                 'background-height-relative-to': background_height_relative_to,
             }
-        }
-    ]
+        )
 
-    # Handles background styles
+    # If Background image fit is not set, we switch to using image width
     if background_image_fit == 'none':
         if background_image_width is None:
             background_image_width = 'auto'
@@ -600,6 +760,27 @@ def update_stylesheet(node_content,
             addition={
                 'background-width': background_image_width,
                 'background-height': background_image_height
+            }
+        )
+
+    if use_pie_chart == 'yes':
+        # Load json data from string format
+        pie_background_color = json.loads(string_pie_background_color)
+        pie_background_size = json.loads(string_pie_background_size)
+        pie_background_opacity = json.loads(string_pie_background_opacity)
+
+        pprint.pprint(pie_background_color)
+        pprint.pprint(pie_background_size)
+        pprint.pprint(pie_background_opacity)
+
+        update_style(
+            stylesheet=stylesheet,
+            selector='node',
+            addition={
+                'pie-size': pie_size,
+                **pie_background_color,
+                **pie_background_size,
+                **pie_background_opacity
             }
         )
 

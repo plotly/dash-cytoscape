@@ -17,19 +17,22 @@ def _omit(omitted_keys, d):
 def Card(children, **kwargs):
     return html.Section(
         children,
-        style=_merge({
-            'padding': 20,
-            'margin': 5,
-            'borderRadius': 5,
-            'border': 'thin lightgrey solid',
-            'background-color': 'white',
+        style=_merge(
+            {
+                'padding': 20,
+                'margin': 5,
+                'borderRadius': 5,
+                'border': 'thin lightgrey solid',
+                'background-color': 'white',
 
-            # Remove possibility to select the text for better UX
-            'user-select': 'none',
-            '-moz-user-select': 'none',
-            '-webkit-user-select': 'none',
-            '-ms-user-select': 'none'
-        }, kwargs.get('style', {})),
+                # Remove possibility to select the text for better UX
+                'user-select': 'none',
+                '-moz-user-select': 'none',
+                '-webkit-user-select': 'none',
+                '-ms-user-select': 'none'
+            },
+            kwargs.get('style', {})
+        ),
         **_omit(['style'], kwargs)
     )
 
@@ -102,5 +105,6 @@ def NamedInput(name, **kwargs):
     )
 
 
+# Utils
 def DropdownOptionsList(*args):
     return [{'label': val.capitalize(), 'value': val} for val in args]
