@@ -69,9 +69,19 @@ elements = [
     }},
     {'data': {
         'source': 'four',
+        'target': 'four',
+        'label': 'Edge from Node 4 to Node 4'
+    }},
+    {'data': {
+        'source': 'four',
         'target': 'six',
         'label': 'Edge from Node 4 to Node 6'
-    }}
+    }},
+    {'data': {
+        'source': 'five',
+        'target': 'one',
+        'label': 'Edge from Node 5 to Node 1'
+    }},
 ]
 
 
@@ -81,6 +91,10 @@ def is_float(value):
         return True
     except ValueError:
         return False
+
+
+def validate_positive(value):
+    return min(0, value)
 
 
 def validate_color(color, default='#999999'):
@@ -181,6 +195,7 @@ app.layout = html.Div([
                         name='Node Width (px)',
                         id='input-node-width',
                         type='number',
+                        min=0,
                         value=25,
                         placeholder='Enter a value in pixel...'
                     ),
@@ -189,6 +204,7 @@ app.layout = html.Div([
                         name='Node Height (px)',
                         id='input-node-height',
                         type='number',
+                        min=0,
                         value=25,
                         placeholder='Enter a value in pixel...'
                     ),
@@ -255,6 +271,7 @@ app.layout = html.Div([
                         name='Node Border Width (px)',
                         id='input-node-border-width',
                         type='number',
+                        min=0,
                         value=0,
                         placeholder='Enter a value in pixel...'
                     ),
@@ -320,6 +337,7 @@ app.layout = html.Div([
                         name='Parent Node Min Width (px)',
                         id='input-node-compound-min-width',
                         type='number',
+                        min=0,
                         placeholder='Input value in px...',
                         value=0
                     ),
@@ -327,6 +345,7 @@ app.layout = html.Div([
                         name='Extra width on left side (%)',
                         id='input-node-compound-min-width-bias-left',
                         type='number',
+                        min=0,
                         placeholder='Input value in px...',
                         value=0
                     ),
@@ -334,6 +353,7 @@ app.layout = html.Div([
                         name='Extra width on right side (%)',
                         id='input-node-compound-min-width-bias-right',
                         type='number',
+                        min=0,
                         placeholder='Input value in px...',
                         value=0
                     ),
@@ -341,6 +361,7 @@ app.layout = html.Div([
                         name='Parent Node Min Height (px)',
                         id='input-node-compound-min-height',
                         type='number',
+                        min=0,
                         placeholder='Input value in px...',
                         value=0
                     ),
@@ -348,6 +369,7 @@ app.layout = html.Div([
                         name='Extra height on top side (%)',
                         id='input-node-compound-min-height-bias-top',
                         type='number',
+                        min=0,
                         placeholder='Input value in px...',
                         value=0
                     ),
@@ -355,6 +377,7 @@ app.layout = html.Div([
                         name='Extra height on bottom side (%)',
                         id='input-node-compound-min-height-bias-bottom',
                         type='number',
+                        min=0,
                         placeholder='Input value in px...',
                         value=0
                     ),
@@ -406,6 +429,7 @@ app.layout = html.Div([
                         name='Image Width (%)',
                         id='input-background-image-width',
                         type='number',
+                        min=0,
                         placeholder='Input value in %...'
                     ),
 
@@ -413,6 +437,7 @@ app.layout = html.Div([
                         name='Image Height (%)',
                         id='input-background-image-height',
                         type='number',
+                        min=0,
                         placeholder='Input value in %...'
                     ),
 
@@ -514,6 +539,7 @@ app.layout = html.Div([
                                 name=f'Size of slice #{n} (%)',
                                 id=f'input-pie-{n}-background-size',
                                 type='number',
+                                min=0,
                                 placeholder='Input value in %...'
                             ),
                             drc.NamedSlider(
@@ -527,6 +553,143 @@ app.layout = html.Div([
                             )
                         ]
                     ) for n in range(1, 17)]
+                ]),
+
+                drc.SectionTitle(
+                    title='Edges',
+                    size=3,
+                    color='white'
+                ),
+
+                # TODO: Add options to modify (unbundled) bezier edges, haystack edges
+                drc.NamedCard(title='Edge line', size=4, children=[
+                    drc.NamedInput(
+                        name='Line Width (px)',
+                        id='input-edge-line-width',
+                        type='number',
+                        min=0,
+                        placeholder='Input value in px...'
+                    ),
+                    drc.NamedDropdown(
+                        name='Curving Method',
+                        id='dropdown-edge-curve-style',
+                        value='haystack',
+                        clearable=False,
+                        searchable=False,
+                        options=drc.DropdownOptionsList(
+                            'haystack',
+                            'bezier',
+                            'unbundled-bezier',
+                            'segments',
+                        )
+                    ),
+                    drc.NamedInput(
+                        name=f'Line Color',
+                        id='input-edge-line-color',
+                        type='text',
+                        placeholder='Input Color in Hex...'
+                    ),
+                    drc.NamedRadioItems(
+                        name='Line Style',
+                        id='radio-edge-line-style',
+                        value='solid',
+                        options=drc.DropdownOptionsList(
+                            'solid',
+                            'dotted',
+                            'dashed'
+                        )
+                    )
+                ]),
+                drc.NamedCard(title='Loop edges', size=4, children=[
+                    drc.NamedInput(
+                        name='Direction of loop (angle degree)',
+                        id='input-edge-loop-direction',
+                        type='number',
+                        value=-45,
+                        placeholder='Input value in deg...'
+                    ),
+                    drc.NamedInput(
+                        name='Loop Sweep (angle degree)',
+                        id='input-edge-loop-sweep',
+                        type='number',
+                        value=-90,
+                        placeholder='Input value in deg...'
+                    )
+                ]),
+                drc.NamedCard(title='Edge Arrow', size=4, children=[
+                    drc.NamedRadioItems(
+                        name='Use Edge Arrow',
+                        id='radio-use-edge-arrow',
+                        options=drc.DropdownOptionsList('yes', 'no'),
+                        value='no'
+                    ),
+
+                    drc.NamedDropdown(
+                        name='Select Arrow Position',
+                        id='dropdown-arrow-position',
+                        options=[{
+                            'label': pos.capitalize(),
+                            'value': f'div-arrow-position-{pos}'
+                        } for pos in [
+                            'source',
+                            'mid-source',
+                            'target',
+                            'mid-target'
+                        ]],
+                        value='div-arrow-position-source',
+                        clearable=False
+                    ),
+
+                    *[html.Div(
+                        id=f'div-arrow-position-{pos}',
+                        style={'display': 'block'},
+                        children=[
+                            drc.NamedInput(
+                                name=f'Arrow Color for {pos}',
+                                id=f'input-{pos}-arrow-color',
+                                type='text',
+                                placeholder='Input Color in Hex...'
+                            ),
+                            drc.NamedDropdown(
+                                name=f'Arrow Shape for {pos}',
+                                id=f'dropdown-{pos}-arrow-color',
+                                options=drc.DropdownOptionsList(
+                                    'triangle',
+                                    'triangle-tee',
+                                    'triangle-cross',
+                                    'triangle-backcurve',
+                                    'vee',
+                                    'tee',
+                                    'square',
+                                    'circle',
+                                    'diamond',
+                                    'none'
+                                ),
+                                clearable=False,
+                                value='triangle'
+                            ),
+                            drc.NamedRadioItems(
+                                name=f'Arrow Fill for {pos}',
+                                id=f'radio-{pos}-arrow-color',
+                                options=drc.DropdownOptionsList(
+                                    'filled',
+                                    'hollow'
+                                ),
+                                value='filled'
+                            )
+                        ]
+                    ) for pos in ['source',
+                                  'mid-source',
+                                  'target',
+                                  'mid-target']],
+
+                    drc.NamedInput(
+                        name=f'Scale of Arrow Size',
+                        id=f'input-arrow-scale',
+                        type='number',
+                        min=0,
+                        placeholder='Input numerical value...'
+                    ),
                 ])
             ]
         )
@@ -539,6 +702,19 @@ for n in range(1, 17):
                   [State(f'div-pie-slice-{n}', 'id')])
     def hide_div_pie_slice(current_slice_selected, div_id):
         if current_slice_selected != div_id:
+            return {'display': 'none'}
+        else:
+            return {'display': 'block'}
+
+for pos in ['source',
+            'mid-source',
+            'target',
+            'mid-target']:
+    @app.callback(Output(f'div-arrow-position-{pos}', 'style'),
+                  [Input('dropdown-arrow-position', 'value')],
+                  [State(f'div-arrow-position-{pos}', 'id')])
+    def hide_div_arrow_position(current_pos_selected, div_id):
+        if current_pos_selected != div_id:
             return {'display': 'none'}
         else:
             return {'display': 'block'}
@@ -649,6 +825,14 @@ def update_layout(name):
         'div-storage-pie-background-color',
         'div-storage-pie-background-size',
         'div-storage-pie-background-opacity',
+    ]] +
+    [Input(component, 'value') for component in [
+        'input-edge-line-width',
+        'dropdown-edge-curve-style',
+        'input-edge-line-color',
+        'radio-edge-line-style',
+        'input-edge-loop-direction',
+        'input-edge-loop-sweep'
     ]]
 )
 def update_stylesheet(node_content,
@@ -686,7 +870,13 @@ def update_stylesheet(node_content,
                       pie_size,
                       string_pie_background_color,
                       string_pie_background_size,
-                      string_pie_background_opacity):
+                      string_pie_background_opacity,
+                      edge_line_width,
+                      edge_curve_style,
+                      edge_line_color,
+                      edge_line_style,
+                      edge_loop_direction,
+                      edge_loop_sweep):
     def update_style(stylesheet, selector, addition):
         for style in stylesheet:
             if style['selector'] == selector:
@@ -699,40 +889,49 @@ def update_stylesheet(node_content,
     background_position_x = validate_px_percentage(background_position_x)
     background_position_y = validate_px_percentage(background_position_y)
     pie_size = validate_px_percentage(pie_size, default='100%')
+    edge_line_color = validate_color(edge_line_color)
 
-    if not background_image_url:
-        background_image_url = 'none'
-
-    stylesheet = [
-        {
-            'selector': 'node',
-            'style': {
-                'content': node_content,
-                'width': node_width,
-                'height': node_height,
-                'background-color': node_color,
-                'background-blacken': node_blacken,
-                'background-opacity': node_opacity,
-                'shape': node_shape,
-                'border-width': node_border_width,
-                'border-style': node_border_style,
-                'border-color': node_border_color,
-                'border-opacity': node_border_opacity,
-                'padding': node_padding,
-                'padding-relative-to': node_padding_relative_to,
-                'compound-sizing-wrt-labels': node_compound_sizing,
-                'min-width': node_compound_min_width,
-                'min-width-bias-left': node_compound_min_width_bias_left,
-                'min-width-bias-right': node_compound_min_width_bias_right,
-                'min-height': node_compound_min_height,
-                'min-height-bias-top': node_compound_min_height_bias_top,
-                'min-height-bias-bottom': node_compound_min_height_bias_bottom,
-            }
+    stylesheet = [{
+        'selector': 'node',
+        'style': {
+            'content': node_content,
+            'width': node_width,
+            'height': node_height,
+            'background-color': node_color,
+            'background-blacken': node_blacken,
+            'background-opacity': node_opacity,
+            'shape': node_shape,
+            'border-width': node_border_width,
+            'border-style': node_border_style,
+            'border-color': node_border_color,
+            'border-opacity': node_border_opacity,
+            'padding': node_padding,
+            'padding-relative-to': node_padding_relative_to,
+            'compound-sizing-wrt-labels': node_compound_sizing,
+            'min-width': node_compound_min_width,
+            'min-width-bias-left': node_compound_min_width_bias_left,
+            'min-width-bias-right': node_compound_min_width_bias_right,
+            'min-height': node_compound_min_height,
+            'min-height-bias-top': node_compound_min_height_bias_top,
+            'min-height-bias-bottom': node_compound_min_height_bias_bottom,
         }
-    ]
+    }, {
+        'selector': 'edge',
+        'style': {
+            'width': edge_line_width,
+            'curve-style': edge_curve_style,
+            'line-color': edge_line_color,
+            'line-style': edge_line_style,
+            'loop-direction': f'{edge_loop_direction}deg',
+            'loop-sweep': f'{edge_loop_sweep}deg'
+        }
+    }]
 
     # Adds specified parameters if use background image is set to yes
     if use_background_image == 'yes':
+        if not background_image_url:
+            background_image_url = 'none'
+
         update_style(
             stylesheet=stylesheet,
             selector='node',
@@ -770,10 +969,6 @@ def update_stylesheet(node_content,
         pie_background_color = json.loads(string_pie_background_color)
         pie_background_size = json.loads(string_pie_background_size)
         pie_background_opacity = json.loads(string_pie_background_opacity)
-
-        pprint.pprint(pie_background_color)
-        pprint.pprint(pie_background_size)
-        pprint.pprint(pie_background_opacity)
 
         update_style(
             stylesheet=stylesheet,
