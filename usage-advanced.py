@@ -104,7 +104,9 @@ def validate_color(color, default='#999999'):
 
 
 def validate_px_percentage(value, default='0px'):
-    if 'px' in value and is_float(value.replace('px', '')):
+    if not value:
+        return default
+    elif 'px' in value and is_float(value.replace('px', '')):
         return value
     elif '%' in value and is_float(value.replace('%', '')):
         return value
