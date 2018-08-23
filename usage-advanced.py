@@ -16,6 +16,9 @@ server = app.server
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
+ARROW_POSITIONS = ('source', 'mid-source', 'target', 'mid-target')
+LABEL_ELEMENT_TYPES = ('node', 'edge')
+
 elements = [
     {
         'data': {'id': 'one', 'label': 'Node 1'},
@@ -91,6 +94,15 @@ def is_float(value):
         return True
     except ValueError:
         return False
+
+
+def get_ids(elements):
+    ids = []
+    for n in range(len(elements)):
+        curr_id = elements[n].get('data').get('id')
+        if curr_id:
+            ids.append(curr_id)
+    return ids
 
 
 def validate_positive(value):
@@ -617,6 +629,19 @@ app.layout = html.Div([
                     )
                 ]),
                 drc.NamedCard(title='Edge Arrow', size=4, children=[
+                    html.Div(
+                        id='div-storage-arrow-color',
+                        style={'display': 'none'}
+                    ),
+                    html.Div(
+                        id='div-storage-arrow-shape',
+                        style={'display': 'none'}
+                    ),
+                    html.Div(
+                        id='div-storage-arrow-fill',
+                        style={'display': 'none'}
+                    ),
+
                     drc.NamedRadioItems(
                         name='Use Edge Arrow',
                         id='radio-use-edge-arrow',
@@ -652,7 +677,7 @@ app.layout = html.Div([
                             ),
                             drc.NamedDropdown(
                                 name=f'Arrow Shape for {pos}',
-                                id=f'dropdown-{pos}-arrow-color',
+                                id=f'dropdown-{pos}-arrow-shape',
                                 options=drc.DropdownOptionsList(
                                     'triangle',
                                     'triangle-tee',
@@ -666,11 +691,11 @@ app.layout = html.Div([
                                     'none'
                                 ),
                                 clearable=False,
-                                value='triangle'
+                                value='none'
                             ),
                             drc.NamedRadioItems(
                                 name=f'Arrow Fill for {pos}',
-                                id=f'radio-{pos}-arrow-color',
+                                id=f'radio-{pos}-arrow-fill',
                                 options=drc.DropdownOptionsList(
                                     'filled',
                                     'hollow'
@@ -690,12 +715,179 @@ app.layout = html.Div([
                         min=0,
                         placeholder='Input numerical value...'
                     ),
+                ]),
+                drc.NamedCard(title='Edge Endpoints', size=4, children=[
+                    drc.NamedRadioItems(
+                        name='Use Edge Endpoints',
+                        id='radio-use-edge-endpoints',
+                        options=drc.DropdownOptionsList('yes', 'no'),
+                        value='no'
+                    ),
+
+                    *[html.Div(id=f'div-endpoint-{side}', children=[
+                        drc.NamedDropdown(
+                            name=f'{side.capitalize()} Endpoint Type',
+                            id=f'dropdown-{side}-endpoint-type',
+                            options=[
+                                {'label': 'Outside to Node',
+                                 'value': 'outside-to-node'},
+                                {'label': 'Inside to Node',
+                                 'value': 'inside-to-node'},
+                                {
+                                    'label': 'Specify Percentage (Relative) or Pixel (Absolute)',
+                                    'value': 'other'},
+                            ],
+                            value='outside-to-node',
+                            clearable=False
+                        ),
+                        drc.NamedInput(
+                            name=f'{side.capitalize()} Endpoint Width (Relative % or Absolute px)',
+                            id=f'input-{side}-endpoint-width',
+                            type='text',
+                            placeholder='Input value in % or px...',
+                            value='0px'
+                        ),
+                        drc.NamedInput(
+                            name=f'{side.capitalize()} Endpoint Height (Relative % or Absolute px)',
+                            id=f'input-{side}-endpoint-height',
+                            type='text',
+                            placeholder='Input value in % or px...',
+                            value='0px'
+                        )
+                    ]) for side in ['source', 'target']],
+
+                    drc.NamedInput(
+                        name='Source Distance from node',
+                        id='input-source-distance-from-node',
+                        type='number',
+                        placeholder='Input value in px...',
+                        value=0
+                    ),
+
+                    drc.NamedInput(
+                        name='Target Distance from node',
+                        id='input-target-distance-from-node',
+                        type='number',
+                        placeholder='Input value in px...',
+                        value=0
+                    )
+
+                ]),
+
+                drc.SectionTitle(
+                    title='Labels',
+                    size=3,
+                    color='white'
+                ),
+                drc.Card([
+                    # Storage for each styling of label
+                    # *[html.Div(
+                    #     id=f'div-storage-label-{styling}',
+                    #     style={'display': 'none'}
+                    # ) for styling in [
+                    #     'color',
+                    #     'text-opacity',
+                    #     'font-family',
+                    #     'font-size',
+                    #     'font-style',
+                    #     'font-weight',
+                    #     'text-transform'
+                    # ]],
+
+                    drc.NamedRadioItems(
+                        name='Use Labels',
+                        id='radio-use-labels',
+                        options=drc.DropdownOptionsList('yes', 'no'),
+                        value='no'
+                    ),
+                    drc.NamedDropdown(
+                        name='Select Element',
+                        id=f'dropdown-label-select-element',
+                        options=[{
+                            'label': element.capitalize(),
+                            'value': f'div-label-{element}'
+                        } for element in LABEL_ELEMENT_TYPES],
+                        clearable=False,
+                        value='div-label-node'
+                    ),
+
+                    *[html.Div(id=f'div-label-{element}', children=[
+                        drc.NamedInput(
+                            name=f'{element.capitalize()} Label Color',
+                            id=f'input-{element}-label-color',
+                            type='text',
+                            placeholder='Enter Color in Hex...'
+                        ),
+
+                        drc.NamedSlider(
+                            name=f'{element.capitalize()} Label Opacity',
+                            id=f'slider-{element}-label-text-opacity',
+                            min=0,
+                            max=1,
+                            marks={0: '0', 1: '1'},
+                            step=0.05,
+                            value=1
+                        ),
+
+                        drc.NamedInput(
+                            name=f'{element.capitalize()} Label Font Family',
+                            id=f'input-{element}-label-font-family',
+                            type='text',
+                            placeholder='Enter Name of Font...'
+                        ),
+
+                        drc.NamedInput(
+                            name=f'{element.capitalize()} Label Font Size',
+                            id=f'input-{element}-label-font-size',
+                            type='number',
+                            placeholder='Enter pixel size of font...'
+                        ),
+
+                        drc.NamedDropdown(
+                            name=f'{element.capitalize()} Label Font Style (CSS-like)',
+                            id=f'dropdown-{element}-label-font-style',
+                            options=drc.DropdownOptionsList(
+                                'normal',
+                                'italic',
+                                'oblique'
+                            ),
+                            clearable=False,
+                            searchable=False,
+                            value='normal'
+                        ),
+                        drc.NamedDropdown(
+                            name=f'{element.capitalize()} Label Font Weight (CSS-like)',
+                            id=f'dropdown-{element}-label-font-weight',
+                            options=drc.DropdownOptionsList(
+                                'normal',
+                                'bold',
+                                'lighter',
+                                'bolder'
+                            ),
+                            clearable=False,
+                            searchable=False,
+                            value='normal'
+                        ),
+                        drc.NamedDropdown(
+                            name=f'{element.capitalize()} Label Text Transform',
+                            id=f'dropdown-{element}-label-text-transform',
+                            options=drc.DropdownOptionsList(
+                                'none',
+                                'uppercase',
+                                'lowercase'
+                            ),
+                            clearable=False,
+                            searchable=False,
+                            value='none'
+                        )
+                    ]) for element in LABEL_ELEMENT_TYPES]
                 ])
             ]
         )
     ])
 ])
 
+# ############################## HIDING #######################################
 for n in range(1, 17):
     @app.callback(Output(f'div-pie-slice-{n}', 'style'),
                   [Input('dropdown-pie-slice-selected', 'value')],
@@ -706,10 +898,7 @@ for n in range(1, 17):
         else:
             return {'display': 'block'}
 
-for pos in ['source',
-            'mid-source',
-            'target',
-            'mid-target']:
+for pos in ARROW_POSITIONS:
     @app.callback(Output(f'div-arrow-position-{pos}', 'style'),
                   [Input('dropdown-arrow-position', 'value')],
                   [State(f'div-arrow-position-{pos}', 'id')])
@@ -719,11 +908,22 @@ for pos in ['source',
         else:
             return {'display': 'block'}
 
+for element in LABEL_ELEMENT_TYPES:
+    @app.callback(Output(f'div-label-{element}', 'style'),
+                  [Input('dropdown-label-select-element', 'value')],
+                  [State(f'div-label-{element}', 'id')])
+    def hide_div_label_element(current_element_selected, div_id):
+        if current_element_selected != div_id:
+            return {'display': 'none'}
+        else:
+            return {'display': 'block'}
 
+
+# ############################## STORING ######################################
 @app.callback(Output('div-storage-pie-background-color', 'children'),
               [Input(f'input-pie-{n}-background-color', 'value')
                for n in range(1, 17)])
-def update_color_storage(*args):
+def update_pie_color_storage(*args):
     args = [validate_color(color) for color in args]
     return json.dumps(
         dict(
@@ -738,7 +938,7 @@ def update_color_storage(*args):
 @app.callback(Output('div-storage-pie-background-size', 'children'),
               [Input(f'input-pie-{n}-background-size', 'value')
                for n in range(1, 17)])
-def update_size_storage(*args):
+def update_pie_size_storage(*args):
     return json.dumps(
         dict(
             zip(
@@ -752,7 +952,7 @@ def update_size_storage(*args):
 @app.callback(Output('div-storage-pie-background-opacity', 'children'),
               [Input(f'slider-pie-{n}-background-opacity', 'value')
                for n in range(1, 17)])
-def update_opacity_storage(*args):
+def update_pie_opacity_storage(*args):
     return json.dumps(
         dict(
             zip(
@@ -763,6 +963,62 @@ def update_opacity_storage(*args):
     )
 
 
+@app.callback(Output('div-storage-arrow-color', 'children'),
+              [Input(f'input-{pos}-arrow-color', 'value')
+               for pos in ARROW_POSITIONS])
+def update_arrow_color_storage(*args):
+    args = [validate_color(color) for color in args]
+    return json.dumps(
+        dict(
+            zip(
+                [f'{pos}-arrow-color' for pos in ARROW_POSITIONS],
+                args
+            )
+        )
+    )
+
+
+@app.callback(Output('div-storage-arrow-shape', 'children'),
+              [Input(f'dropdown-{pos}-arrow-shape', 'value')
+               for pos in ARROW_POSITIONS])
+def update_arrow_shape_storage(*args):
+    return json.dumps(
+        dict(
+            zip(
+                [f'{pos}-arrow-shape' for pos in ARROW_POSITIONS],
+                args
+            )
+        )
+    )
+
+
+@app.callback(Output('div-storage-arrow-fill', 'children'),
+              [Input(f'radio-{pos}-arrow-fill', 'value')
+               for pos in ARROW_POSITIONS])
+def update_arrow_fill_storage(*args):
+    return json.dumps(
+        dict(
+            zip(
+                [f'{pos}-arrow-fill' for pos in ARROW_POSITIONS],
+                args
+            )
+        )
+    )
+
+for element in LABEL_ELEMENT_TYPES:
+    @app.callback(Output(f'div-storage-label-{element}'),
+                  [Input(component, 'value') for component in [
+                      f'input-{element}-label-color',
+                      f'slider-{element}-label-text-opacity',
+                      f'input-{element}-label-font-family',
+                      f'input-{element}-label-font-size',
+                      f'dropdown-{element}-label-font-style',
+                      f'dropdown-{element}-label-font-weight',
+                      f'dropdown-{element}-label-text-transform',
+                  ]])
+
+
+# ############################## DISABLING ####################################
 @app.callback(Output('input-background-image-height', 'disabled'),
               [Input('radio-background-image-fit', 'value')])
 def disable_background_image_height(value):
@@ -775,6 +1031,20 @@ def disable_background_image_width(value):
     return value != 'none'
 
 
+for side in ['source', 'target']:
+    @app.callback(Output(f'input-{side}-endpoint-width', 'disabled'),
+                  [Input(f'dropdown-{side}-endpoint-type', 'value')])
+    def disable_side_endpoint_width(value):
+        return value != 'other'
+
+
+    @app.callback(Output(f'input-{side}-endpoint-height', 'disabled'),
+                  [Input(f'dropdown-{side}-endpoint-type', 'value')])
+    def disable_side_endpoint_height(value):
+        return value != 'other'
+
+
+# ############################## FIGURE #######################################
 @app.callback(Output('cytoscape', 'layout'),
               [Input('dropdown-layout', 'value')])
 def update_layout(name):
@@ -832,7 +1102,41 @@ def update_layout(name):
         'input-edge-line-color',
         'radio-edge-line-style',
         'input-edge-loop-direction',
-        'input-edge-loop-sweep'
+        'input-edge-loop-sweep',
+        'radio-use-edge-arrow'
+    ]] +
+    [Input(div, 'children') for div in [
+        'div-storage-arrow-color',
+        'div-storage-arrow-shape',
+        'div-storage-arrow-fill'
+    ]] +
+    [Input(component, 'value') for component in [
+        'input-arrow-scale',
+        'radio-use-edge-endpoints',
+        'dropdown-source-endpoint-type',
+        'input-source-endpoint-width',
+        'input-source-endpoint-height',
+        'dropdown-target-endpoint-type',
+        'input-target-endpoint-width',
+        'input-target-endpoint-height',
+        'input-source-distance-from-node',
+        'input-target-distance-from-node',
+
+        # Components for Labels
+        'input-node-label-color',
+        'slider-node-label-text-opacity',
+        'input-node-label-font-family',
+        'input-node-label-font-size',
+        'dropdown-node-label-font-style',
+        'dropdown-node-label-font-weight',
+        'dropdown-node-label-text-transform',
+        'input-edge-label-color',
+        'slider-edge-label-text-opacity',
+        'input-edge-label-font-family',
+        'input-edge-label-font-size',
+        'dropdown-edge-label-font-style',
+        'dropdown-edge-label-font-weight',
+        'dropdown-edge-label-text-transform'
     ]]
 )
 def update_stylesheet(node_content,
@@ -868,15 +1172,44 @@ def update_stylesheet(node_content,
                       background_height_relative_to,
                       use_pie_chart,
                       pie_size,
-                      string_pie_background_color,
-                      string_pie_background_size,
-                      string_pie_background_opacity,
+                      storage_pie_background_color,
+                      storage_pie_background_size,
+                      storage_pie_background_opacity,
                       edge_line_width,
                       edge_curve_style,
                       edge_line_color,
                       edge_line_style,
                       edge_loop_direction,
-                      edge_loop_sweep):
+                      edge_loop_sweep,
+                      use_edge_arrow,
+                      storage_arrow_color,
+                      storage_arrow_shape,
+                      storage_arrow_fill,
+                      arrow_scale,
+                      use_edge_endpoints,
+                      source_endpoint_type,
+                      source_endpoint_width,
+                      source_endpoint_height,
+                      target_endpoint_type,
+                      target_endpoint_width,
+                      target_endpoint_height,
+                      source_distance_from_node,
+                      target_distance_from_node,
+                      node_label_code,
+                      node_label_text_opacity,
+                      node_label_font_family,
+                      node_label_font_size,
+                      node_label_font_style,
+                      node_label_font_weight,
+                      node_label_text_transform,
+                      edge_label_code,
+                      edge_label_text_opacity,
+                      edge_label_font_family,
+                      edge_label_font_size,
+                      edge_label_font_style,
+                      edge_label_font_weight,
+                      edge_label_text_transform
+                      ):
     def update_style(stylesheet, selector, addition):
         for style in stylesheet:
             if style['selector'] == selector:
@@ -923,7 +1256,7 @@ def update_stylesheet(node_content,
             'line-color': edge_line_color,
             'line-style': edge_line_style,
             'loop-direction': f'{edge_loop_direction}deg',
-            'loop-sweep': f'{edge_loop_sweep}deg'
+            'loop-sweep': f'{edge_loop_sweep}deg',
         }
     }]
 
@@ -966,9 +1299,9 @@ def update_stylesheet(node_content,
 
     if use_pie_chart == 'yes':
         # Load json data from string format
-        pie_background_color = json.loads(string_pie_background_color)
-        pie_background_size = json.loads(string_pie_background_size)
-        pie_background_opacity = json.loads(string_pie_background_opacity)
+        pie_background_color = json.loads(storage_pie_background_color)
+        pie_background_size = json.loads(storage_pie_background_size)
+        pie_background_opacity = json.loads(storage_pie_background_opacity)
 
         update_style(
             stylesheet=stylesheet,
@@ -978,6 +1311,56 @@ def update_stylesheet(node_content,
                 **pie_background_color,
                 **pie_background_size,
                 **pie_background_opacity
+            }
+        )
+
+    if use_edge_arrow == 'yes':
+        arrow_color = json.loads(storage_arrow_color)
+        arrow_shape = json.loads(storage_arrow_shape)
+        arrow_fill = json.loads(storage_arrow_fill)
+
+        update_style(
+            stylesheet=stylesheet,
+            selector='edge',
+            addition={
+                'arrow-scale': arrow_scale,
+                **arrow_color,
+                **arrow_shape,
+                **arrow_fill
+            }
+        )
+
+    if use_edge_endpoints == 'yes':
+        if source_endpoint_type == 'other':
+            source_endpoint_width = validate_px_percentage(
+                source_endpoint_width
+            )
+            source_endpoint_height = validate_px_percentage(
+                source_endpoint_height
+            )
+            source_endpoint = f'{source_endpoint_width} {source_endpoint_height}'
+        else:
+            source_endpoint = source_endpoint_type
+
+        if target_endpoint_type == 'other':
+            target_endpoint_width = validate_px_percentage(
+                target_endpoint_width
+            )
+            target_endpoint_height = validate_px_percentage(
+                target_endpoint_height
+            )
+            target_endpoint = f'{target_endpoint_width} {target_endpoint_height}'
+        else:
+            target_endpoint = target_endpoint_type
+
+        update_style(
+            stylesheet=stylesheet,
+            selector='edge',
+            addition={
+                'source-endpoint': source_endpoint,
+                'target-endpoint': target_endpoint,
+                'source-distance-from-node': source_distance_from_node,
+                'target-distance-from-node': target_distance_from_node
             }
         )
 

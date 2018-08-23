@@ -28,3 +28,10 @@ let’s first start to explore the API and make sure that editing these things w
 and by exploring the API, I mean doing so through a sample app
 i.e. spend 3-5 days on that
 and then once that is de-risked, we’ll start looking into the event system
+
+
+
+## List of Styles not implemented
+* Visibility
+* Labels/Wrapping text
+* Events
