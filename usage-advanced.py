@@ -780,108 +780,145 @@ app.layout = html.Div([
                     color='white'
                 ),
                 drc.Card([
-                    # Storage for each styling of label
-                    # *[html.Div(
-                    #     id=f'div-storage-label-{styling}',
-                    #     style={'display': 'none'}
-                    # ) for styling in [
-                    #     'color',
-                    #     'text-opacity',
-                    #     'font-family',
-                    #     'font-size',
-                    #     'font-style',
-                    #     'font-weight',
-                    #     'text-transform'
-                    # ]],
-
                     drc.NamedRadioItems(
                         name='Use Labels',
                         id='radio-use-labels',
                         options=drc.DropdownOptionsList('yes', 'no'),
                         value='no'
                     ),
-                    drc.NamedDropdown(
-                        name='Select Element',
-                        id=f'dropdown-label-select-element',
-                        options=[{
-                            'label': element.capitalize(),
-                            'value': f'div-label-{element}'
-                        } for element in LABEL_ELEMENT_TYPES],
-                        clearable=False,
-                        value='div-label-node'
+
+                    drc.NamedInput(
+                        name='Node Label',
+                        id='input-node-label',
+                        type='text',
+                        placeholder='Enter your label...',
+                        value='data(label)'
                     ),
 
-                    *[html.Div(id=f'div-label-{element}', children=[
-                        drc.NamedInput(
-                            name=f'{element.capitalize()} Label Color',
-                            id=f'input-{element}-label-color',
-                            type='text',
-                            placeholder='Enter Color in Hex...'
-                        ),
+                    drc.NamedInput(
+                        name='Edge Label',
+                        id='input-edge-label',
+                        type='text',
+                        placeholder='Enter your label...',
+                        value='data(label)'
+                    ),
 
-                        drc.NamedSlider(
-                            name=f'{element.capitalize()} Label Opacity',
-                            id=f'slider-{element}-label-text-opacity',
-                            min=0,
-                            max=1,
-                            marks={0: '0', 1: '1'},
-                            step=0.05,
-                            value=1
-                        ),
+                    drc.NamedInput(
+                        name='Edge Source Label',
+                        id='input-edge-source-label',
+                        type='text',
+                        placeholder='Enter your label...',
+                        value='data(label)'
+                    ),
 
-                        drc.NamedInput(
-                            name=f'{element.capitalize()} Label Font Family',
-                            id=f'input-{element}-label-font-family',
-                            type='text',
-                            placeholder='Enter Name of Font...'
-                        ),
+                    drc.NamedInput(
+                        name='Edge Target Label',
+                        id='input-edge-target-label',
+                        type='text',
+                        placeholder='Enter your label...',
+                        value='data(label)'
+                    ),
 
-                        drc.NamedInput(
-                            name=f'{element.capitalize()} Label Font Size',
-                            id=f'input-{element}-label-font-size',
-                            type='number',
-                            placeholder='Enter pixel size of font...'
-                        ),
-
+                ]),
+                drc.NamedCard(
+                    title='Font Styling',
+                    size=4,
+                    children=[
+                        # Storage for each styling of label
+                        # *[html.Div(
+                        #     id=f'div-storage-label-{styling}',
+                        #     style={'display': 'none'}
+                        # ) for styling in [
+                        #     'color',
+                        #     'text-opacity',
+                        #     'font-family',
+                        #     'font-size',
+                        #     'font-style',
+                        #     'font-weight',
+                        #     'text-transform'
+                        # ]],
                         drc.NamedDropdown(
-                            name=f'{element.capitalize()} Label Font Style (CSS-like)',
-                            id=f'dropdown-{element}-label-font-style',
-                            options=drc.DropdownOptionsList(
-                                'normal',
-                                'italic',
-                                'oblique'
-                            ),
+                            name='Select Element to modify Style',
+                            id='dropdown-label-select-element',
+                            options=[{
+                                'label': element.capitalize(),
+                                'value': f'div-label-{element}'
+                            } for element in LABEL_ELEMENT_TYPES],
                             clearable=False,
-                            searchable=False,
-                            value='normal'
+                            value='div-label-node'
                         ),
-                        drc.NamedDropdown(
-                            name=f'{element.capitalize()} Label Font Weight (CSS-like)',
-                            id=f'dropdown-{element}-label-font-weight',
-                            options=drc.DropdownOptionsList(
-                                'normal',
-                                'bold',
-                                'lighter',
-                                'bolder'
+
+                        *[html.Div(id=f'div-label-{element}', children=[
+                            drc.NamedInput(
+                                name=f'{element.capitalize()} Label Color',
+                                id=f'input-{element}-label-color',
+                                type='text',
+                                placeholder='Enter Color in Hex...'
                             ),
-                            clearable=False,
-                            searchable=False,
-                            value='normal'
-                        ),
-                        drc.NamedDropdown(
-                            name=f'{element.capitalize()} Label Text Transform',
-                            id=f'dropdown-{element}-label-text-transform',
-                            options=drc.DropdownOptionsList(
-                                'none',
-                                'uppercase',
-                                'lowercase'
+
+                            drc.NamedSlider(
+                                name=f'{element.capitalize()} Label Opacity',
+                                id=f'slider-{element}-label-text-opacity',
+                                min=0,
+                                max=1,
+                                marks={0: '0', 1: '1'},
+                                step=0.05,
+                                value=1
                             ),
-                            clearable=False,
-                            searchable=False,
-                            value='none'
-                        )
-                    ]) for element in LABEL_ELEMENT_TYPES]
-                ])
+
+                            drc.NamedInput(
+                                name=f'{element.capitalize()} Label Font Family',
+                                id=f'input-{element}-label-font-family',
+                                type='text',
+                                placeholder='Enter Name of Font...'
+                            ),
+
+                            drc.NamedInput(
+                                name=f'{element.capitalize()} Label Font Size',
+                                id=f'input-{element}-label-font-size',
+                                type='number',
+                                placeholder='Enter pixel size of font...'
+                            ),
+
+                            drc.NamedDropdown(
+                                name=f'{element.capitalize()} Label Font Style (CSS-like)',
+                                id=f'dropdown-{element}-label-font-style',
+                                options=drc.DropdownOptionsList(
+                                    'normal',
+                                    'italic',
+                                    'oblique'
+                                ),
+                                clearable=False,
+                                searchable=False,
+                                value='normal'
+                            ),
+                            drc.NamedDropdown(
+                                name=f'{element.capitalize()} Label Font Weight (CSS-like)',
+                                id=f'dropdown-{element}-label-font-weight',
+                                options=drc.DropdownOptionsList(
+                                    'normal',
+                                    'bold',
+                                    'lighter',
+                                    'bolder'
+                                ),
+                                clearable=False,
+                                searchable=False,
+                                value='normal'
+                            ),
+                            drc.NamedDropdown(
+                                name=f'{element.capitalize()} Label Text Transform',
+                                id=f'dropdown-{element}-label-text-transform',
+                                options=drc.DropdownOptionsList(
+                                    'none',
+                                    'uppercase',
+                                    'lowercase'
+                                ),
+                                clearable=False,
+                                searchable=False,
+                                value='none'
+                            )
+                        ]) for element in LABEL_ELEMENT_TYPES],
+                    ])
             ]
         )
     ])
@@ -1005,18 +1042,6 @@ def update_arrow_fill_storage(*args):
         )
     )
 
-for element in LABEL_ELEMENT_TYPES:
-    @app.callback(Output(f'div-storage-label-{element}'),
-                  [Input(component, 'value') for component in [
-                      f'input-{element}-label-color',
-                      f'slider-{element}-label-text-opacity',
-                      f'input-{element}-label-font-family',
-                      f'input-{element}-label-font-size',
-                      f'dropdown-{element}-label-font-style',
-                      f'dropdown-{element}-label-font-weight',
-                      f'dropdown-{element}-label-text-transform',
-                  ]])
-
 
 # ############################## DISABLING ####################################
 @app.callback(Output('input-background-image-height', 'disabled'),
@@ -1123,6 +1148,11 @@ def update_layout(name):
         'input-target-distance-from-node',
 
         # Components for Labels
+        'radio-use-labels',
+        'input-node-label',
+        'input-edge-label',
+        'input-edge-source-label',
+        'input-edge-target-label',
         'input-node-label-color',
         'slider-node-label-text-opacity',
         'input-node-label-font-family',
@@ -1195,21 +1225,25 @@ def update_stylesheet(node_content,
                       target_endpoint_height,
                       source_distance_from_node,
                       target_distance_from_node,
-                      node_label_code,
+                      use_labels,
+                      node_label,
+                      edge_label,
+                      edge_source_label,
+                      edge_target_label,
+                      node_label_color,
                       node_label_text_opacity,
                       node_label_font_family,
                       node_label_font_size,
                       node_label_font_style,
                       node_label_font_weight,
                       node_label_text_transform,
-                      edge_label_code,
+                      edge_label_color,
                       edge_label_text_opacity,
                       edge_label_font_family,
                       edge_label_font_size,
                       edge_label_font_style,
                       edge_label_font_weight,
-                      edge_label_text_transform
-                      ):
+                      edge_label_text_transform):
     def update_style(stylesheet, selector, addition):
         for style in stylesheet:
             if style['selector'] == selector:
@@ -1361,6 +1395,42 @@ def update_stylesheet(node_content,
                 'target-endpoint': target_endpoint,
                 'source-distance-from-node': source_distance_from_node,
                 'target-distance-from-node': target_distance_from_node
+            }
+        )
+
+    if use_labels == 'yes':
+        node_label_color = validate_color(node_label_color, default='black')
+        edge_label_color = validate_color(edge_label_color, default='black')
+
+        update_style(
+            stylesheet=stylesheet,
+            selector='node',
+            addition={
+                'label': node_label,
+                'color': node_label_color,
+                'text-opacity': node_label_text_opacity,
+                'font-family': node_label_font_family,
+                'font-size': node_label_font_size,
+                'font-style': node_label_font_style,
+                'font-weight': node_label_font_weight,
+                'text-transform': node_label_text_transform,
+            }
+        )
+
+        update_style(
+            stylesheet=stylesheet,
+            selector='edge',
+            addition={
+                'label': edge_label,
+                'source-label': edge_source_label,
+                'target-label': edge_target_label,
+                'color': edge_label_color,
+                'text-opacity': edge_label_text_opacity,
+                'font-family': edge_label_font_family,
+                'font-size': edge_label_font_size,
+                'font-style': edge_label_font_style,
+                'font-weight': edge_label_font_weight,
+                'text-transform': edge_label_text_transform,
             }
         )
 
