@@ -18,6 +18,7 @@ app.css.config.serve_locally = True
 
 ARROW_POSITIONS = ('source', 'mid-source', 'target', 'mid-target')
 LABEL_ELEMENT_TYPES = ('node', 'edge')
+LABEL_ELEMENT_TYPES_ALL = ('node', 'edge', 'source', 'target')
 
 elements = [
     {
@@ -974,6 +975,35 @@ app.layout = html.Div([
                         type='number',
                         placeholder='Enter value in px...'
                     )
+                ]),
+
+                drc.NamedCard(title='Margins', size=4, children=[
+                    drc.NamedDropdown(
+                        name='Select an element to modify its margins',
+                        id='dropdown-select-element-text-margins',
+                        options=[{
+                            'label': element.capitalize(),
+                            'value': f'div-text-margins-{element}'
+                        } for element in LABEL_ELEMENT_TYPES_ALL],
+                        clearable=False,
+                        value='div-text-margins-node'
+                    ),
+
+                    *[html.Div(id=f'div-text-margins-{element}', children=[
+                        drc.NamedInput(
+                            name=f"{element.capitalize()} Margin X (px)",
+                            id=f'input-{element}-text-margin-x',
+                            type='number',
+                            placeholder='Enter a value in px...'
+                        ),
+
+                        drc.NamedInput(
+                            name=f"{element.capitalize()} Margin Y(px)",
+                            id=f'input-{element}-text-margin-y',
+                            type='number',
+                            placeholder='Enter a value in px...'
+                        )
+                    ]) for element in LABEL_ELEMENT_TYPES_ALL],
                 ])
             ]
         )
@@ -1016,6 +1046,16 @@ for element in LABEL_ELEMENT_TYPES:
                   [Input('dropdown-select-element-text-wrapping', 'value')],
                   [State(f'div-text-wrapping-{element}', 'id')])
     def hide_div_text_wrapping(current_element_selected, div_id):
+        if current_element_selected != div_id:
+            return {'display': 'none'}
+        else:
+            return {'display': 'block'}
+
+for element in LABEL_ELEMENT_TYPES_ALL:
+    @app.callback(Output(f'div-text-margins-{element}', 'style'),
+                  [Input('dropdown-select-element-text-margins', 'value')],
+                  [State(f'div-text-margins-{element}', 'id')])
+    def hide_div_text_margins(current_element_selected, div_id):
         if current_element_selected != div_id:
             return {'display': 'none'}
         else:
@@ -1107,6 +1147,20 @@ def update_arrow_fill_storage(*args):
             )
         )
     )
+
+
+# @app.callback(Output('div-storage-text-margin-x', 'children'),
+#               [Input(f'input-{element}-text-margin-x', 'value')
+#                for element in LABEL_ELEMENT_TYPES_ALL])
+# def update_text_margin_x(*args):
+#     return json.dumps(
+#         dict(
+#             zip(
+#                 [f'{element}-margin-x' for element in LABEL_ELEMENT_TYPES_ALL],
+#                 args
+#             )
+#         )
+#     )
 
 
 # ############################## DISABLING ####################################
@@ -1247,6 +1301,16 @@ def update_layout(name):
         'radio-label-text-valign',
         'input-label-source-text-offset',
         'input-label-target-text-offset',
+
+        # Text Margins
+        'input-node-text-margin-x',
+        'input-node-text-margin-y',
+        'input-edge-text-margin-x',
+        'input-edge-text-margin-y',
+        'input-source-text-margin-x',
+        'input-source-text-margin-y',
+        'input-target-text-margin-x',
+        'input-target-text-margin-y',
     ]]
 )
 def update_stylesheet(node_content,
@@ -1331,7 +1395,15 @@ def update_stylesheet(node_content,
                       label_text_halign,
                       label_text_valign,
                       label_source_text_offset,
-                      label_target_text_offset):
+                      label_target_text_offset,
+                      node_text_margin_x,
+                      node_text_margin_y,
+                      edge_text_margin_x,
+                      edge_text_margin_y,
+                      source_text_margin_x,
+                      source_text_margin_y,
+                      target_text_margin_x,
+                      target_text_margin_y):
     def update_style(stylesheet, selector, addition):
         for style in stylesheet:
             if style['selector'] == selector:
@@ -1512,6 +1584,10 @@ def update_stylesheet(node_content,
                 # Label Alignment
                 'text-halign': label_text_halign,
                 'text-valign': label_text_valign,
+
+                # Text Margin
+                'text-margin-x': node_text_margin_x,
+                'text-margin-y': node_text_margin_y,
             }
         )
 
@@ -1539,6 +1615,14 @@ def update_stylesheet(node_content,
                 # Label Alignment
                 'source-text-offset': label_source_text_offset,
                 'target-text-offset': label_target_text_offset,
+
+                # Text Margin
+                'text-margin-x': edge_text_margin_x,
+                'text-margin-y': edge_text_margin_y,
+                'source-text-margin-x': source_text_margin_x,
+                'source-text-margin-y': source_text_margin_y,
+                'target-text-margin-x': target_text_margin_x,
+                'target-text-margin-y': target_text_margin_y,
             }
         )
 
