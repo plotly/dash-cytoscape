@@ -820,105 +820,161 @@ app.layout = html.Div([
                     ),
 
                 ]),
-                drc.NamedCard(
-                    title='Font Styling',
-                    size=4,
-                    children=[
-                        # Storage for each styling of label
-                        # *[html.Div(
-                        #     id=f'div-storage-label-{styling}',
-                        #     style={'display': 'none'}
-                        # ) for styling in [
-                        #     'color',
-                        #     'text-opacity',
-                        #     'font-family',
-                        #     'font-size',
-                        #     'font-style',
-                        #     'font-weight',
-                        #     'text-transform'
-                        # ]],
-                        drc.NamedDropdown(
-                            name='Select Element to modify Style',
-                            id='dropdown-label-select-element',
-                            options=[{
-                                'label': element.capitalize(),
-                                'value': f'div-label-{element}'
-                            } for element in LABEL_ELEMENT_TYPES],
-                            clearable=False,
-                            value='div-label-node'
+
+                drc.NamedCard(title='Font Styling', size=4, children=[
+                    drc.NamedDropdown(
+                        name='Select an element to modify its style',
+                        id='dropdown-select-element-label-styling',
+                        options=[{
+                            'label': element.capitalize(),
+                            'value': f'div-label-{element}'
+                        } for element in LABEL_ELEMENT_TYPES],
+                        clearable=False,
+                        value='div-label-node'
+                    ),
+
+                    *[html.Div(id=f'div-label-{element}', children=[
+                        drc.NamedInput(
+                            name=f'{element.capitalize()} Label Color',
+                            id=f'input-{element}-label-color',
+                            type='text',
+                            placeholder='Enter Color in Hex...'
                         ),
 
-                        *[html.Div(id=f'div-label-{element}', children=[
-                            drc.NamedInput(
-                                name=f'{element.capitalize()} Label Color',
-                                id=f'input-{element}-label-color',
-                                type='text',
-                                placeholder='Enter Color in Hex...'
-                            ),
+                        drc.NamedSlider(
+                            name=f'{element.capitalize()} Label Opacity',
+                            id=f'slider-{element}-label-text-opacity',
+                            min=0,
+                            max=1,
+                            marks={0: '0', 1: '1'},
+                            step=0.05,
+                            value=1
+                        ),
 
-                            drc.NamedSlider(
-                                name=f'{element.capitalize()} Label Opacity',
-                                id=f'slider-{element}-label-text-opacity',
-                                min=0,
-                                max=1,
-                                marks={0: '0', 1: '1'},
-                                step=0.05,
-                                value=1
-                            ),
+                        drc.NamedInput(
+                            name=f'{element.capitalize()} Label Font Family',
+                            id=f'input-{element}-label-font-family',
+                            type='text',
+                            placeholder='Enter Name of Font...'
+                        ),
 
-                            drc.NamedInput(
-                                name=f'{element.capitalize()} Label Font Family',
-                                id=f'input-{element}-label-font-family',
-                                type='text',
-                                placeholder='Enter Name of Font...'
-                            ),
+                        drc.NamedInput(
+                            name=f'{element.capitalize()} Label Font Size',
+                            id=f'input-{element}-label-font-size',
+                            type='number',
+                            placeholder='Enter pixel size of font...'
+                        ),
 
-                            drc.NamedInput(
-                                name=f'{element.capitalize()} Label Font Size',
-                                id=f'input-{element}-label-font-size',
-                                type='number',
-                                placeholder='Enter pixel size of font...'
+                        drc.NamedDropdown(
+                            name=f'{element.capitalize()} Label Font Style (CSS-like)',
+                            id=f'dropdown-{element}-label-font-style',
+                            options=drc.DropdownOptionsList(
+                                'normal',
+                                'italic',
+                                'oblique'
                             ),
+                            clearable=False,
+                            searchable=False,
+                            value='normal'
+                        ),
+                        drc.NamedDropdown(
+                            name=f'{element.capitalize()} Label Font Weight (CSS-like)',
+                            id=f'dropdown-{element}-label-font-weight',
+                            options=drc.DropdownOptionsList(
+                                'normal',
+                                'bold',
+                                'lighter',
+                                'bolder'
+                            ),
+                            clearable=False,
+                            searchable=False,
+                            value='normal'
+                        ),
+                        drc.NamedDropdown(
+                            name=f'{element.capitalize()} Label Text Transform',
+                            id=f'dropdown-{element}-label-text-transform',
+                            options=drc.DropdownOptionsList(
+                                'none',
+                                'uppercase',
+                                'lowercase'
+                            ),
+                            clearable=False,
+                            searchable=False,
+                            value='none'
+                        )
+                    ]) for element in LABEL_ELEMENT_TYPES],
+                ]),
 
-                            drc.NamedDropdown(
-                                name=f'{element.capitalize()} Label Font Style (CSS-like)',
-                                id=f'dropdown-{element}-label-font-style',
-                                options=drc.DropdownOptionsList(
-                                    'normal',
-                                    'italic',
-                                    'oblique'
-                                ),
-                                clearable=False,
-                                searchable=False,
-                                value='normal'
+                drc.NamedCard(title='Text Wrapping', size=4, children=[
+                    drc.NamedDropdown(
+                        name='Select an element to modify its text wrap',
+                        id='dropdown-select-element-text-wrapping',
+                        options=[{
+                            'label': element.capitalize(),
+                            'value': f'div-text-wrapping-{element}'
+                        } for element in LABEL_ELEMENT_TYPES],
+                        clearable=False,
+                        value='div-text-wrapping-node'
+                    ),
+
+                    *[html.Div(id=f'div-text-wrapping-{element}', children=[
+                        drc.NamedRadioItems(
+                            name=f'{element.capitalize()} Text Wrap',
+                            id=f'radio-{element}-label-text-wrap',
+                            options=drc.DropdownOptionsList(
+                                'none',
+                                'wrap',
+                                'ellipsis'
                             ),
-                            drc.NamedDropdown(
-                                name=f'{element.capitalize()} Label Font Weight (CSS-like)',
-                                id=f'dropdown-{element}-label-font-weight',
-                                options=drc.DropdownOptionsList(
-                                    'normal',
-                                    'bold',
-                                    'lighter',
-                                    'bolder'
-                                ),
-                                clearable=False,
-                                searchable=False,
-                                value='normal'
-                            ),
-                            drc.NamedDropdown(
-                                name=f'{element.capitalize()} Label Text Transform',
-                                id=f'dropdown-{element}-label-text-transform',
-                                options=drc.DropdownOptionsList(
-                                    'none',
-                                    'uppercase',
-                                    'lowercase'
-                                ),
-                                clearable=False,
-                                searchable=False,
-                                value='none'
-                            )
-                        ]) for element in LABEL_ELEMENT_TYPES],
-                    ])
+                            value='none'
+                        ),
+
+                        drc.NamedInput(
+                            name=f'{element.capitalize()} Max Width (px)',
+                            id=f'input-{element}-label-text-max-width',
+                            type='number',
+                            placeholder='Enter the maximum width in px...'
+                        )
+                    ]) for element in LABEL_ELEMENT_TYPES],
+                ]),
+
+                drc.NamedCard(title='Label Alignment', size=4, children=[
+                    drc.NamedRadioItems(
+                        name='Horizontal Node Label Alignment',
+                        id='radio-label-text-halign',
+                        options=drc.DropdownOptionsList(
+                            'left',
+                            'right',
+                            'center'
+                        ),
+                        value='center'
+                    ),
+
+                    drc.NamedRadioItems(
+                        name='Vertical Node Label Alignment',
+                        id='radio-label-text-valign',
+                        options=drc.DropdownOptionsList(
+                            'top',
+                            'center',
+                            'bottom'
+                        ),
+                        value='center'
+                    ),
+
+                    drc.NamedInput(
+                        name='Edge Source Label distance from node (px)',
+                        id='input-label-source-text-offset',
+                        type='number',
+                        placeholder='Enter value in px...'
+                    ),
+
+                    drc.NamedInput(
+                        name='Edge Target Label distance from node (px)',
+                        id='input-label-target-text-offset',
+                        type='number',
+                        placeholder='Enter value in px...'
+                    )
+                ])
             ]
         )
     ])
@@ -947,9 +1003,19 @@ for pos in ARROW_POSITIONS:
 
 for element in LABEL_ELEMENT_TYPES:
     @app.callback(Output(f'div-label-{element}', 'style'),
-                  [Input('dropdown-label-select-element', 'value')],
+                  [Input('dropdown-select-element-label-styling', 'value')],
                   [State(f'div-label-{element}', 'id')])
     def hide_div_label_element(current_element_selected, div_id):
+        if current_element_selected != div_id:
+            return {'display': 'none'}
+        else:
+            return {'display': 'block'}
+
+
+    @app.callback(Output(f'div-text-wrapping-{element}', 'style'),
+                  [Input('dropdown-select-element-text-wrapping', 'value')],
+                  [State(f'div-text-wrapping-{element}', 'id')])
+    def hide_div_text_wrapping(current_element_selected, div_id):
         if current_element_selected != div_id:
             return {'display': 'none'}
         else:
@@ -1153,6 +1219,8 @@ def update_layout(name):
         'input-edge-label',
         'input-edge-source-label',
         'input-edge-target-label',
+
+        # Label Font Styling
         'input-node-label-color',
         'slider-node-label-text-opacity',
         'input-node-label-font-family',
@@ -1166,7 +1234,19 @@ def update_layout(name):
         'input-edge-label-font-size',
         'dropdown-edge-label-font-style',
         'dropdown-edge-label-font-weight',
-        'dropdown-edge-label-text-transform'
+        'dropdown-edge-label-text-transform',
+
+        # Label Text Wrapping
+        'radio-node-label-text-wrap',
+        'input-node-label-text-max-width',
+        'radio-edge-label-text-wrap',
+        'input-edge-label-text-max-width',
+
+        # Label Alignment
+        'radio-label-text-halign',
+        'radio-label-text-valign',
+        'input-label-source-text-offset',
+        'input-label-target-text-offset',
     ]]
 )
 def update_stylesheet(node_content,
@@ -1243,7 +1323,15 @@ def update_stylesheet(node_content,
                       edge_label_font_size,
                       edge_label_font_style,
                       edge_label_font_weight,
-                      edge_label_text_transform):
+                      edge_label_text_transform,
+                      node_label_text_wrap,
+                      node_label_text_max_width,
+                      edge_label_text_wrap,
+                      edge_label_text_max_width,
+                      label_text_halign,
+                      label_text_valign,
+                      label_source_text_offset,
+                      label_target_text_offset):
     def update_style(stylesheet, selector, addition):
         for style in stylesheet:
             if style['selector'] == selector:
@@ -1407,6 +1495,8 @@ def update_stylesheet(node_content,
             selector='node',
             addition={
                 'label': node_label,
+
+                # Font Styling
                 'color': node_label_color,
                 'text-opacity': node_label_text_opacity,
                 'font-family': node_label_font_family,
@@ -1414,6 +1504,14 @@ def update_stylesheet(node_content,
                 'font-style': node_label_font_style,
                 'font-weight': node_label_font_weight,
                 'text-transform': node_label_text_transform,
+
+                # Text Wrapping
+                'text-wrap': node_label_text_wrap,
+                'text-max-width': node_label_text_max_width,
+
+                # Label Alignment
+                'text-halign': label_text_halign,
+                'text-valign': label_text_valign,
             }
         )
 
@@ -1424,6 +1522,8 @@ def update_stylesheet(node_content,
                 'label': edge_label,
                 'source-label': edge_source_label,
                 'target-label': edge_target_label,
+
+                # Font Styling
                 'color': edge_label_color,
                 'text-opacity': edge_label_text_opacity,
                 'font-family': edge_label_font_family,
@@ -1431,6 +1531,14 @@ def update_stylesheet(node_content,
                 'font-style': edge_label_font_style,
                 'font-weight': edge_label_font_weight,
                 'text-transform': edge_label_text_transform,
+
+                # Text Wrapping
+                'text-wrap': edge_label_text_wrap,
+                'text-max-width': edge_label_text_max_width,
+
+                # Label Alignment
+                'source-text-offset': label_source_text_offset,
+                'target-text-offset': label_target_text_offset,
             }
         )
 
