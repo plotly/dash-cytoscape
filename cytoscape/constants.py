@@ -1,8 +1,21 @@
-ARROW_POSITIONS = ('source', 'mid-source', 'target', 'mid-target')
-LABEL_ELEMENT_TYPES = ('node', 'edge')
-LABEL_ELEMENT_TYPES_ALL = ('node', 'edge', 'source', 'target')
+import os
+import json
 
-elements = [
+
+def load_elements(path_name):
+    dirname = os.path.dirname(__file__)
+    path = os.path.join(dirname, path_name)
+
+    with open(path, 'r') as f:
+        elements = json.loads(f.read())
+
+    return elements
+
+
+gene_elements = load_elements('gene.json')
+compound_elements = load_elements('compound.json')
+wine_and_cheese_elements = load_elements('wine-and-cheese.json')
+basic_elements = [
     {
         'data': {'id': 'one', 'label': 'Node 1'},
         'position': {'x': 50, 'y': 50}
@@ -70,3 +83,14 @@ elements = [
     }},
 ]
 
+
+ELEMENTS = {
+    'Basic': basic_elements,
+    'Compound': compound_elements,
+    'Gene': gene_elements,
+    'WineandCheese': wine_and_cheese_elements,
+}
+
+ARROW_POSITIONS = ('source', 'mid-source', 'target', 'mid-target')
+LABEL_ELEMENT_TYPES = ('node', 'edge')
+LABEL_ELEMENT_TYPES_ALL = ('node', 'edge', 'source', 'target')

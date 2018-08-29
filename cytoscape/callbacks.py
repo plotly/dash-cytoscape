@@ -1,9 +1,10 @@
 import json
+from colour import Color
 
 from dash.dependencies import Input, Output, State
 
 from .constants import ARROW_POSITIONS, LABEL_ELEMENT_TYPES_ALL, \
-    LABEL_ELEMENT_TYPES
+    LABEL_ELEMENT_TYPES, ELEMENTS
 
 
 def is_float(value):
@@ -58,8 +59,8 @@ def validate_px_percentage(value, default='0px'):
         return default
 
 
-def serve_callbacks(app):
-    # ############################## HIDING #######################################
+def assign_callbacks(app):
+    # ############################## HIDING ###################################
     for n in range(1, 17):
         @app.callback(Output(f'div-pie-slice-{n}', 'style'),
                       [Input('dropdown-pie-slice-selected', 'value')],
@@ -111,7 +112,7 @@ def serve_callbacks(app):
             else:
                 return {'display': 'block'}
 
-    # ############################## STORING ######################################
+    # ############################## STORING ##################################
     @app.callback(Output('div-storage-pie-background-color', 'children'),
                   [Input(f'input-pie-{n}-background-color', 'value')
                    for n in range(1, 17)])
@@ -193,7 +194,7 @@ def serve_callbacks(app):
         )
 
 
-    # ############################## DISABLING ####################################
+    # ############################## DISABLING ################################
     @app.callback(Output('input-background-image-height', 'disabled'),
                   [Input('radio-background-image-fit', 'value')])
     def disable_background_image_height(value):
@@ -216,7 +217,12 @@ def serve_callbacks(app):
             return value != 'other'
 
 
-    # ############################## FIGURE #######################################
+    # ############################## CYTOSCAPE ################################
+    @app.callback(Output('cytoscape', 'elements'),
+                  [Input('dropdown-select-element-list', 'value')])
+    def update_elements(dataset):
+        return ELEMENTS[dataset]
+
     @app.callback(Output('cytoscape', 'layout'),
                   [Input('dropdown-layout', 'value')])
     def update_layout(name):

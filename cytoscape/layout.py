@@ -1,11 +1,12 @@
 import dash_html_components as html
+import dash_core_components as dcc
 import my_dash_component
 
 from . import dash_reusable_components as drc
 from .constants import ARROW_POSITIONS, \
     LABEL_ELEMENT_TYPES, \
     LABEL_ELEMENT_TYPES_ALL, \
-    elements
+    ELEMENTS
 
 layout = html.Div([
     html.Div(className='row', children=[
@@ -13,7 +14,7 @@ layout = html.Div([
             id='cytoscape',
             className='eight columns',
             layout={'name': 'preset'},
-            elements=elements,
+            elements=ELEMENTS['Basic'],
             style={
                 'height': 'calc(100vh - 16px)'
             }
@@ -29,6 +30,21 @@ layout = html.Div([
                 'background-color': '#222222'
             },
             children=[
+                drc.SectionTitle(
+                    title='Elements',
+                    size=3,
+                    color='white'
+                ),
+                drc.Card([
+                    drc.NamedDropdown(
+                        name='Select an element list',
+                        id='dropdown-select-element-list',
+                        options=drc.DropdownOptionsList(*ELEMENTS.keys()),
+                        value='Basic',
+                        clearable=False
+                    )
+                ]),
+
                 drc.SectionTitle(
                     title='Layout',
                     size=3,
@@ -872,6 +888,14 @@ layout = html.Div([
                     ]) for element in LABEL_ELEMENT_TYPES_ALL],
                 ])
             ]
+        ),
+
+        html.Div(
+            id='div-style-json-output',
+            className='four columns',
+            style={
+                'display': 'none'
+            }
         )
     ])
 ])
