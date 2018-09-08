@@ -83,14 +83,12 @@ basic_elements = [
     }},
 ]
 
-
 ELEMENTS = {
     'Basic': basic_elements,
     'Compound': compound_elements,
     'Gene': gene_elements,
     'WineandCheese': wine_and_cheese_elements,
 }
-
 ARROW_POSITIONS = ('source', 'mid-source', 'target', 'mid-target')
 LABEL_ELEMENT_TYPES = ('node', 'edge')
 LABEL_ELEMENT_TYPES_ALL = ('node', 'edge', 'source', 'target')

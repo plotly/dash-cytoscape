@@ -112,6 +112,16 @@ def assign_callbacks(app):
             else:
                 return {'display': 'block'}
 
+    @app.callback(Output('div-display-stylesheet-json', 'children'),
+                  [Input('cytoscape', 'stylesheet')])
+    def update_json_stylesheet_output(stylesheet):
+        return json.dumps(stylesheet, indent=2)
+
+    @app.callback(Output('div-display-elements-json', 'children'),
+                  [Input('cytoscape', 'elements')])
+    def update_json_elements_output(stylesheet):
+        return json.dumps(stylesheet, indent=2)
+
     # ############################## STORING ##################################
     @app.callback(Output('div-storage-pie-background-color', 'children'),
                   [Input(f'input-pie-{n}-background-color', 'value')
@@ -192,7 +202,6 @@ def assign_callbacks(app):
                 )
             )
         )
-
 
     # ############################## DISABLING ################################
     @app.callback(Output('input-background-image-height', 'disabled'),
