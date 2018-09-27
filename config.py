@@ -58,7 +58,3 @@ PLOTLY_DASH_DOMAIN='https://your-dash-manager-plotly-domain.com'
 # then you can set this to False. Note that self-signed certificates are not
 # safe for production.
 os.environ['PLOTLY_SSL_VERIFICATION'] = 'True'
-
-
-# Other
-os.environ['WEB_CONCURRENCY'] = 2
