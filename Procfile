@@ -1,1 +1,1 @@
-web: gunicorn WEB_CONCURRENCY usage-advanced:server
+web: gunicorn usage-advanced:server
