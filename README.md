@@ -19,6 +19,10 @@ npm install
 npm run build:all-dev
 ```
 
+## Package manager
+
+Our preferred package manager for this project is Yarn. Therefore we use `yarn.lock` rather than `package-lock.json`. If you decide to start using npm for package management (which will create package-lock.json) and you commit this project to Dokku, make sure to delete `yarn.lock`.
+
 ## Dash Component Skeleton
 
 This repository contains the minimal set of code required to create your own custom Dash component.
