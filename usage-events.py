@@ -159,20 +159,20 @@ app.layout = html.Div([
                     )
                 ])
             ]),
-            dcc.Tab(label='Box Data', children=[
-                html.Div(style=styles['tab'], children=[
-                    html.P('Node Data JSON:'),
-                    html.Pre(
-                        id='box-node-data-json-output',
-                        style=styles['json-output']
-                    ),
-                    # html.P('Edge Data JSON:'),
-                    # html.Pre(
-                    #     id='box-edge-data-json-output',
-                    #     style=styles['json-output']
-                    # )
-                ])
-            ])
+            # dcc.Tab(label='Box Data', children=[
+            #     html.Div(style=styles['tab'], children=[
+            #         html.P('Node Data JSON:'),
+            #         html.Pre(
+            #             id='box-node-data-json-output',
+            #             style=styles['json-output']
+            #         ),
+            #         html.P('Edge Data JSON:'),
+            #         html.Pre(
+            #             id='box-edge-data-json-output',
+            #             style=styles['json-output']
+            #         )
+            #     ])
+            # ])
         ]),
 
     ])
@@ -215,11 +215,11 @@ def displayTapEdge(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(Output('box-node-data-json-output', 'children'),
-              [Input('cytoscape', 'boxNodeData')])
-def displayTapEdge(data):
-    print(data)
-    return json.dumps(data, indent=2)
+# @app.callback(Output('box-node-data-json-output', 'children'),
+#               [Input('cytoscape', 'boxNodeData')])
+# def displayTapEdge(data):
+#     print(data)
+#     return json.dumps(data, indent=2)
 
 
 if __name__ == '__main__':

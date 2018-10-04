@@ -70,9 +70,9 @@ export default class Cytoscape extends Component {
         cy.removeListener('tap', 'edge');
         cy.removeListener('mouseover', 'node');
         cy.removeListener('mouseover', 'edge');
-        cy.removeListener('box', 'node');
-        cy.removeListener('boxstart');
-        cy.removeListener('boxend');
+        // cy.removeListener('box', 'node');
+        // cy.removeListener('boxstart');
+        // cy.removeListener('boxend');
 
         cy.on('tap', 'node', event => {
             const trimmedNode = this.trimNode(event);
@@ -380,10 +380,10 @@ Cytoscape.propTypes = {
      */
     mouseoverEdgeData: PropTypes.object,
 
-    /**
-     * The array of node data selected by the box
-     */
-    boxNodeData: PropTypes.object
+    // /**
+    //  * The array of node data selected by the box
+    //  */
+    // boxNodeData: PropTypes.object
 };
 
 Cytoscape.defaultProps = {
