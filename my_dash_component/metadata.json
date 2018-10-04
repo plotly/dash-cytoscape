@@ -2,7 +2,32 @@
   "src/lib/components/Cytoscape.react.js": {
     "description": "",
     "displayName": "Cytoscape",
-    "methods": [],
+    "methods": [
+      {
+        "name": "trimNode",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "event",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleCy",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "cy",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "id": {
         "type": {
@@ -166,6 +191,55 @@
         },
         "required": false,
         "description": "Whether nodes should be unselectified (immutable selection state) by default (if true, overrides individual element state)."
+      },
+      "tapNode": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The trimmed node object returned when you tap a node"
+      },
+      "tapNodeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data property of the node object returned when you tap a node"
+      },
+      "tapEdge": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The trimmed edge object returned when you tap a node"
+      },
+      "tapEdgeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data property of the edge object returned when you tap a node"
+      },
+      "mouseoverNodeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data property of the edge object returned when you hover over a node"
+      },
+      "mouseoverEdgeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data property of the edge object returned when you hover over an edge"
+      },
+      "boxNodeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The array of node data selected by the box"
       }
     }
   },

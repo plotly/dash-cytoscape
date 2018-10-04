@@ -1,6 +1,6 @@
 /**
  * JavaScript Requirements: cytoscape
- * React.js requirements: cytoscape-reactjs
+ * React.js requirements: react-cytoscapejs
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
@@ -10,6 +10,158 @@ import CytoscapeComponent from '../../react-cytoscapejs/src/component.js';
 export default class Cytoscape extends Component {
     constructor(props) {
         super(props);
+
+        this.handleCy = this.handleCy.bind(this);
+    }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return JSON.stringify(this.state) !== JSON.stringify(nextState);
+    // }
+
+    trimNode(event) {
+        const {
+            timeStamp,
+            renderedPosition
+        } = event;
+        const {
+            data,
+            position,
+            style
+        } = event.target._private;
+
+        let {
+            children,
+            edges,
+            parent
+        } = event.target._private;
+
+        // Trim down the element objects of children, edges, parents to their data
+        const childrenData = children.map(element => {
+            return element._private.data
+        });
+        const edgesData = edges.map(element => {
+            return element._private.data
+        });
+
+        let parentData;
+        if (parent) {
+            parentData = parent._private.data;
+        } else {
+            parentData = null;
+        }
+
+        const trimmedNode = {
+            childrenData,
+            data,
+            edgesData,
+            parentData,
+            position,
+            style,
+            timeStamp,
+            renderedPosition
+        };
+        return trimmedNode;
+    }
+
+    handleCy(cy) {
+        const {setProps} = this.props;
+
+        cy.removeListener('tap', 'node');
+        cy.removeListener('tap', 'edge');
+        cy.removeListener('mouseover', 'node');
+        cy.removeListener('mouseover', 'edge');
+        cy.removeListener('box', 'node');
+        cy.removeListener('boxstart');
+        cy.removeListener('boxend');
+
+        cy.on('tap', 'node', event => {
+            const trimmedNode = this.trimNode(event);
+
+            if (setProps !== null) {
+                setProps({
+                    tapNode: trimmedNode,
+                    tapNodeData: trimmedNode.data
+                });
+            }
+        });
+
+        cy.on('tap', 'edge', event => {
+            const {
+                timeStamp,
+                renderedPosition
+            } = event;
+            const {
+                data,
+                position,
+                style,
+                source,
+                target
+            } = event.target._private;
+
+            const sourceData = source._private.data;
+            const targetData = target._private.data;
+
+            const trimmedEdge = {
+                data,
+                position,
+                style,
+                sourceData,
+                targetData,
+                timeStamp,
+                renderedPosition
+            };
+
+            if (setProps !== null) {
+                setProps({
+                    tapEdge: trimmedEdge,
+                    tapEdgeData: trimmedEdge.data
+                });
+            }
+        });
+
+        cy.on('mouseover', 'node', event => {
+            if (setProps !== null) {
+                setProps({
+                    mouseoverNodeData: event.target._private.data
+                })
+            }
+        });
+
+        cy.on('mouseover', 'edge', event => {
+            if (setProps !== null) {
+                setProps({
+                    mouseoverEdgeData: event.target._private.data
+                })
+            }
+        });
+
+        // const boxNodeDataArray = [];
+        //
+        // cy.on('boxstart', event => {
+        //     console.log('boxstart');
+        //     // this.setState({
+        //     //     boxNodeData: []
+        //     // })
+        //     //
+        // });
+        // cy.on('boxselect', 'node', event => {
+        //     // this.setState((state) => {
+        //     //     boxNodeData: state.boxNodeData.push(event.target._private.data)
+        //     // });
+        //     console.log('pushed');
+        //     boxNodeDataArray.push(event.target._private.data);
+        // });
+        // cy.on('boxend', event => {
+        //     console.log(boxNodeDataArray);
+        //     // console.log(this.state.boxNodeData);
+        //     if (setProps !== null){
+        //
+        //         console.log('boxend');
+        //         setProps({
+        //             boxNodeData: boxNodeDataArray
+        //         })
+        //     }
+        // });
     }
 
     render() {
@@ -37,6 +189,7 @@ export default class Cytoscape extends Component {
         return (
             <CytoscapeComponent
                 id={id}
+                cy={this.handleCy}
                 className={className}
                 style={style}
                 elements={elements}
@@ -82,7 +235,6 @@ Cytoscape.propTypes = {
      */
     setProps: PropTypes.func,
 
-    // Basic Props
     /**
      * The flat list of Cytoscape elements to be included in the graph, each
      * represented as non-stringified JSON.
@@ -196,7 +348,42 @@ Cytoscape.propTypes = {
     /**
      * Whether nodes should be unselectified (immutable selection state) by default (if true, overrides individual element state).
      */
-    autounselectify: PropTypes.bool
+    autounselectify: PropTypes.bool,
+
+    /**
+     * The trimmed node object returned when you tap a node
+     */
+    tapNode: PropTypes.object,
+
+    /**
+     * The data property of the node object returned when you tap a node
+     */
+    tapNodeData: PropTypes.object,
+
+    /**
+     * The trimmed edge object returned when you tap a node
+     */
+    tapEdge: PropTypes.object,
+
+    /**
+     * The data property of the edge object returned when you tap a node
+     */
+    tapEdgeData: PropTypes.object,
+
+    /**
+     * The data property of the edge object returned when you hover over a node
+     */
+    mouseoverNodeData: PropTypes.object,
+
+    /**
+     * The data property of the edge object returned when you hover over an edge
+     */
+    mouseoverEdgeData: PropTypes.object,
+
+    /**
+     * The array of node data selected by the box
+     */
+    boxNodeData: PropTypes.object
 };
 
 Cytoscape.defaultProps = {
