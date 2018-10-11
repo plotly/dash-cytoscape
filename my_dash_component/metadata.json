@@ -233,6 +233,13 @@
         },
         "required": false,
         "description": "The data property of the edge object returned when you hover over an edge"
+      },
+      "boxNodeData": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "The array of node data selected by the box"
       }
     }
   },

@@ -70,9 +70,9 @@ export default class Cytoscape extends Component {
         cy.removeListener('tap', 'edge');
         cy.removeListener('mouseover', 'node');
         cy.removeListener('mouseover', 'edge');
-        // cy.removeListener('box', 'node');
-        // cy.removeListener('boxstart');
-        // cy.removeListener('boxend');
+        // cy.removeListener('boxselect', 'node');
+        cy.removeListener('boxstart');
+        cy.removeListener('boxend');
 
         cy.on('tap', 'node', event => {
             const trimmedNode = this.trimNode(event);
@@ -135,33 +135,32 @@ export default class Cytoscape extends Component {
             }
         });
 
-        // const boxNodeDataArray = [];
-        //
-        // cy.on('boxstart', event => {
-        //     console.log('boxstart');
-        //     // this.setState({
-        //     //     boxNodeData: []
-        //     // })
-        //     //
-        // });
-        // cy.on('boxselect', 'node', event => {
-        //     // this.setState((state) => {
-        //     //     boxNodeData: state.boxNodeData.push(event.target._private.data)
-        //     // });
-        //     console.log('pushed');
-        //     boxNodeDataArray.push(event.target._private.data);
-        // });
-        // cy.on('boxend', event => {
-        //     console.log(boxNodeDataArray);
-        //     // console.log(this.state.boxNodeData);
-        //     if (setProps !== null){
-        //
-        //         console.log('boxend');
-        //         setProps({
-        //             boxNodeData: boxNodeDataArray
-        //         })
-        //     }
-        // });
+        const boxNodeDataArray = [];
+
+        cy.on('boxstart', event => {
+            console.log('boxstart');
+            // this.setState({
+            //     boxNodeData: []
+            // })
+            //
+        });
+        cy.on('boxselect', 'node', event => {
+            // this.setState((state) => {
+            //     boxNodeData: state.boxNodeData.push(event.target._private.data)
+            // });
+            console.log('pushed');
+            boxNodeDataArray.push(event.target._private.data);
+        });
+        cy.on('boxend', event => {
+            // console.log(this.state.boxNodeData);
+            if (setProps !== null){
+                setProps({
+                    boxNodeData: boxNodeDataArray
+                });
+                console.log(this.props.boxNodeData);
+                console.log('boxend');
+            }
+        });
     }
 
     render() {
@@ -380,10 +379,10 @@ Cytoscape.propTypes = {
      */
     mouseoverEdgeData: PropTypes.object,
 
-    // /**
-    //  * The array of node data selected by the box
-    //  */
-    // boxNodeData: PropTypes.object
+    /**
+     * The array of node data selected by the box
+     */
+    boxNodeData: PropTypes.array
 };
 
 Cytoscape.defaultProps = {
