@@ -95,7 +95,7 @@ styles = {
         'height': 'calc(50% - 25px)',
         'border': 'thin lightgrey solid'
     },
-    'tab': {'height': 'calc(98vh - 105px)'}
+    'tab': {'height': 'calc(98vh - 115px)'}
 }
 
 app.layout = html.Div([

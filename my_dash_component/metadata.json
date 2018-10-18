@@ -4,7 +4,19 @@
     "displayName": "Cytoscape",
     "methods": [
       {
-        "name": "trimNode",
+        "name": "generateNode",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "event",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "generateEdge",
         "docblock": null,
         "modifiers": [],
         "params": [

@@ -16,53 +16,131 @@ export default class Cytoscape extends Component {
         this._handleCyCalled = false;
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return JSON.stringify(this.state) !== JSON.stringify(nextState);
-    // }
+    generateNode(event) {
+        const ele = event.target;
 
-    trimNode(event) {
+        const isParent = ele.isParent();
+        const isChildless = ele.isChildless();
+        const isChild = ele.isChild();
+        const isOrphan = ele.isOrphan();
+        const renderedPosition = ele.renderedPosition();
+        const relativePosition = ele.relativePosition();
+        const parent = ele.parent();
+        const style = ele.style();
+        // Trim down the element objects to only the data contained
+        const edgesData = ele.connectedEdges().map(ele => {
+            return ele.data()
+        });
+        const childrenData = ele.children().map(ele => {
+            return ele.data()
+        });
+        const ancestorsData = ele.ancestors().map(ele => {
+            return ele.data()
+        });
+        const descendantsData = ele.descendants().map(ele => {
+            return ele.data()
+        });
+        const siblingsData = ele.siblings().map(ele => {
+            return ele.data()
+        });
+
+        const {timeStamp} = event;
         const {
-            timeStamp,
-            renderedPosition
-        } = event;
-        const {
+            classes,
             data,
+            grabbable,
+            group,
+            locked,
             position,
-            style
-        } = event.target._private;
-
-        let {
-            children,
-            edges,
-            parent
-        } = event.target._private;
-
-        // Trim down the element objects of children, edges, parents to their data
-        const childrenData = children.map(element => {
-            return element._private.data
-        });
-        const edgesData = edges.map(element => {
-            return element._private.data
-        });
+            selected,
+            selectable
+        } = ele.json();
 
         let parentData;
         if (parent) {
-            parentData = parent._private.data;
+            parentData = parent.data();
         } else {
             parentData = null;
         }
 
-        const trimmedNode = {
-            childrenData,
-            data,
+        const nodeObject = {
+            // Nodes attributes
             edgesData,
-            parentData,
-            position,
-            style,
+            renderedPosition,
             timeStamp,
-            renderedPosition
+            // From ele.json()
+            classes,
+            data,
+            grabbable,
+            group,
+            locked,
+            position,
+            selectable,
+            selected,
+            // Compound Nodes additional attributes
+            ancestorsData,
+            childrenData,
+            descendantsData,
+            parentData,
+            siblingsData,
+            isParent,
+            isChildless,
+            isChild,
+            isOrphan,
+            relativePosition,
+            // Styling
+            style
         };
-        return trimmedNode;
+        return nodeObject;
+    }
+
+
+    generateEdge(event) {
+        const ele = event.target;
+
+        const midpoint = ele.midpoint();
+        const isLoop = ele.isLoop();
+        const isSimple = ele.isSimple();
+        const sourceData = ele.source().data();
+        const sourceEndpoint = ele.sourceEndpoint();
+        const style = ele.style();
+        const targetData = ele.target().data();
+        const targetEndpoint = ele.targetEndpoint();
+
+        const {timeStamp} = event;
+        const {
+            classes,
+            data,
+            grabbable,
+            group,
+            locked,
+            selectable,
+            selected,
+        } = ele.json();
+
+        const edgeObject = {
+            // Edges attributes
+            isLoop,
+            isSimple,
+            midpoint,
+            sourceData,
+            sourceEndpoint,
+            targetData,
+            targetEndpoint,
+            timeStamp,
+            // From ele.json()
+            classes,
+            data,
+            grabbable,
+            group,
+            locked,
+            selectable,
+            selected,
+            // Styling
+            style
+        };
+
+        return edgeObject;
     }
 
     handleCy(cy) {
@@ -78,46 +156,23 @@ export default class Cytoscape extends Component {
         const {setProps} = this.props;
 
         cy.on('tap', 'node', event => {
-            const trimmedNode = this.trimNode(event);
+            const nodeObject = this.generateNode(event);
 
             if (setProps !== null) {
                 setProps({
-                    tapNode: trimmedNode,
-                    tapNodeData: trimmedNode.data
+                    tapNode: nodeObject,
+                    tapNodeData: nodeObject.data
                 });
             }
         });
 
         cy.on('tap', 'edge', event => {
-            const {
-                timeStamp,
-                renderedPosition
-            } = event;
-            const {
-                data,
-                position,
-                style,
-                source,
-                target
-            } = event.target._private;
-
-            const sourceData = source._private.data;
-            const targetData = target._private.data;
-
-            const trimmedEdge = {
-                data,
-                position,
-                style,
-                sourceData,
-                targetData,
-                timeStamp,
-                renderedPosition
-            };
+            const edgeObject = this.generateEdge(event);
 
             if (setProps !== null) {
                 setProps({
-                    tapEdge: trimmedEdge,
-                    tapEdgeData: trimmedEdge.data
+                    tapEdge: edgeObject,
+                    tapEdgeData: edgeObject.data
                 });
             }
         });
@@ -125,7 +180,7 @@ export default class Cytoscape extends Component {
         cy.on('mouseover', 'node', event => {
             if (setProps !== null) {
                 setProps({
-                    mouseoverNodeData: event.target._private.data
+                    mouseoverNodeData: event.target.data()
                 })
             }
         });
@@ -133,7 +188,7 @@ export default class Cytoscape extends Component {
         cy.on('mouseover', 'edge', event => {
             if (setProps !== null) {
                 setProps({
-                    mouseoverEdgeData: event.target._private.data
+                    mouseoverEdgeData: event.target.data()
                 })
             }
         });
@@ -145,9 +200,9 @@ export default class Cytoscape extends Component {
 
         // send the array of data json objs somewhere; just log for now...
         const sendData = eles => {
-          const elsData = eles.map(el => el.data());
+            const elsData = eles.map(el => el.data());
 
-          console.log(elsData);
+            console.log(elsData);
         };
 
         // PROCESS SELECTED NODES
@@ -156,68 +211,68 @@ export default class Cytoscape extends Component {
         // Function sendData is called on selected nodes only if
         // sendSelectedNodesData wasn't called in the previous 100 ms (threshold)
         const sendSelectedNodesData = _.debounce(() => {
-          sendData(selectedNodes);
-          const nodeData = selectedNodes.map(el => el.data());
+            sendData(selectedNodes);
+            const nodeData = selectedNodes.map(el => el.data());
 
-          if (setProps !== null) {
-            setProps({
-                selectedNodeData: nodeData
-            })
-          }
+            if (setProps !== null) {
+                setProps({
+                    selectedNodeData: nodeData
+                })
+            }
         }, SELECTED_THRESHOLD);
 
         const addToSelectedNodes = el => {
-          selectedNodes.merge(el);
-          sendSelectedNodesData();
+            selectedNodes.merge(el);
+            sendSelectedNodesData();
         };
 
         const removeFromSelectedNodes = el => {
-          selectedNodes.unmerge(el);
-          sendSelectedNodesData();
+            selectedNodes.unmerge(el);
+            sendSelectedNodesData();
         };
 
         cy.on('select', 'node', e => {
-          const el = e.target;
-          addToSelectedNodes(el);
+            const el = e.target;
+            addToSelectedNodes(el);
         });
 
         cy.on('unselect', 'node', e => {
-          const el = e.target;
-          removeFromSelectedNodes(el);
+            const el = e.target;
+            removeFromSelectedNodes(el);
         });
 
         // PROCESS SELECTED EDGES
         const selectedEdges = cy.collection();
 
         const sendSelectedEdgesData = _.debounce(() => {
-          sendData(selectedEdges);
-          const edgeData = selectedEdges.map(el => el.data());
+            sendData(selectedEdges);
+            const edgeData = selectedEdges.map(el => el.data());
 
-          if (setProps !== null) {
-            setProps({
-                selectedEdgeData: edgeData
-            })
-          }
+            if (setProps !== null) {
+                setProps({
+                    selectedEdgeData: edgeData
+                })
+            }
         }, SELECTED_THRESHOLD);
 
         const addToSelectedEdges = el => {
-          selectedEdges.merge(el);
-          sendSelectedEdgesData();
+            selectedEdges.merge(el);
+            sendSelectedEdgesData();
         };
 
         const removeFromSelectedEdges = el => {
-          selectedEdges.unmerge(el);
-          sendSelectedEdgesData();
+            selectedEdges.unmerge(el);
+            sendSelectedEdgesData();
         };
 
         cy.on('select', 'edge', e => {
-          const el = e.target;
-          addToSelectedEdges(el);
+            const el = e.target;
+            addToSelectedEdges(el);
         });
 
         cy.on('unselect', 'edge', e => {
-          const el = e.target;
-          removeFromSelectedEdges(el);
+            const el = e.target;
+            removeFromSelectedEdges(el);
         });
     }
 
