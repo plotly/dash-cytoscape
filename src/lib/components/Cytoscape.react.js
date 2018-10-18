@@ -5,6 +5,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import CytoscapeComponent from '../../react-cytoscapejs/src/component.js';
+import _ from 'lodash';
 
 
 export default class Cytoscape extends Component {
@@ -12,6 +13,7 @@ export default class Cytoscape extends Component {
         super(props);
 
         this.handleCy = this.handleCy.bind(this);
+        this._handleCyCalled = false;
     }
 
     // shouldComponentUpdate(nextProps, nextState) {
@@ -64,15 +66,23 @@ export default class Cytoscape extends Component {
     }
 
     handleCy(cy) {
+        if (cy === this._cy && this._handleCyCalled) {
+            return;
+        }
+        this._cy = cy;
+
+        window.cy = cy;
+        this._handleCyCalled = true;
+
         const {setProps} = this.props;
 
-        cy.removeListener('tap', 'node');
-        cy.removeListener('tap', 'edge');
-        cy.removeListener('mouseover', 'node');
-        cy.removeListener('mouseover', 'edge');
-        // cy.removeListener('boxselect', 'node');
-        cy.removeListener('boxstart');
-        cy.removeListener('boxend');
+        // cy.removeListener('tap', 'node');
+        // cy.removeListener('tap', 'edge');
+        // cy.removeListener('mouseover', 'node');
+        // cy.removeListener('mouseover', 'edge');
+        // // cy.removeListener('boxselect', 'node');
+        // cy.removeListener('boxstart');
+        // cy.removeListener('boxend');
 
         cy.on('tap', 'node', event => {
             const trimmedNode = this.trimNode(event);
@@ -135,31 +145,62 @@ export default class Cytoscape extends Component {
             }
         });
 
-        const boxNodeDataArray = [];
+        // let boxNodeDataArray;
+        //
+        // cy.on('boxstart', event => {
+        //     boxNodeDataArray = [];
+        //     console.log('boxstart');
+        // });
+        // cy.on('boxselect', 'node', event => {
+        //     console.log('pushed');
+        //     boxNodeDataArray.push(event.target._private.data);
+        // });
+        // cy.on('boxend', event => {
+        //     if (setProps !== null){
+        //         setProps({
+        //             boxNodeData: boxNodeDataArray
+        //         });
+        //         console.log(boxNodeDataArray);
+        //         console.log('boxend:', event);
+        //     }
+        // });
 
-        cy.on('boxstart', event => {
-            console.log('boxstart');
-            // this.setState({
-            //     boxNodeData: []
-            // })
-            //
-        });
-        cy.on('boxselect', 'node', event => {
-            // this.setState((state) => {
-            //     boxNodeData: state.boxNodeData.push(event.target._private.data)
-            // });
-            console.log('pushed');
-            boxNodeDataArray.push(event.target._private.data);
-        });
-        cy.on('boxend', event => {
-            // console.log(this.state.boxNodeData);
-            if (setProps !== null){
-                setProps({
-                    boxNodeData: boxNodeDataArray
-                });
-                console.log(this.props.boxNodeData);
-                console.log('boxend');
-            }
+        // Testing Box Data
+        // time delta that separates one box gesture from another
+        const GROUP_THRESHOLD = 100;
+
+        let boxed = cy.collection();
+
+        const sendData = eles => {
+          let elsData = eles.map(el => el.data());
+
+          // send the array of data json objs somewhere; just log for now...
+          console.log(elsData);
+          if (setProps !== null) {
+            setProps({
+                boxNodeData: elsData
+            })
+          }
+        };
+
+        // Events must be at least this duration apart to make a separate group
+        const checkGroup = _.debounce(() => {
+          sendData(boxed);
+
+          boxed = cy.collection();
+        }, GROUP_THRESHOLD);
+
+        const addToBoxed = el => {
+          boxed.merge(el);
+
+          checkGroup();
+        };
+
+        // or 'boxselect'
+        cy.on('box', e => {
+          const el = e.target;
+
+          addToBoxed(el);
         });
     }
 

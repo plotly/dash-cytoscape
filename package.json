@@ -15,6 +15,7 @@
   "license": "my-license",
   "dependencies": {
     "cytoscape": "^3.2.15",
+    "lodash": "^4.17.11",
     "ramda": "^0.25.0",
     "react": "15.4.2",
     "react-dom": "15.4.2"

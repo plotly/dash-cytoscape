@@ -12,11 +12,12 @@ app = dash.Dash('')
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
+# ###################### DATA PREPROCESSING ######################
 # Load data
 with open('100518419853963396365.edges', 'r') as f:
     data = f.read().split('\n')
 
-edges = data[:500]
+edges = data[:10000]
 nodes = set()
 
 cy_edges = []
@@ -27,10 +28,10 @@ for edge in edges:
 
     if source not in nodes:
         nodes.add(source)
-        cy_nodes.append({"data": {"id": source}})
+        cy_nodes.append({"data": {"id": source, "label": "User #" + source[-5:]}})
     if target not in nodes:
         nodes.add(target)
-        cy_nodes.append({"data": {"id": target}})
+        cy_nodes.append({"data": {"id": target, "label": "User #" + target[-5:]}})
 
     cy_edges.append({
         'data': {
@@ -155,7 +156,13 @@ def generate_stylesheet(node):
             "border-width": 2,
             "border-color": "purple",
             "border-opacity": 1,
-            "opacity": 1
+            "opacity": 1,
+
+            "label": "data(label)",
+            "color": "#B10DC9",
+            "text-opacity": 1,
+            "font-size": 12,
+            'z-index': 9999
         }
     }]
 
@@ -174,7 +181,8 @@ def generate_stylesheet(node):
                     "mid-target-arrow-color": "red",
                     "mid-target-arrow-shape": "vee",
                     "line-color": "#FF4136",
-                    'opacity': 0.9
+                    'opacity': 0.9,
+                    'z-index': 5000
                 }
             })
 
@@ -183,7 +191,8 @@ def generate_stylesheet(node):
                 "selector": 'node[id = "{}"]'.format(edge['source']),
                 "style": {
                     'background-color': '#0074D9',
-                    'opacity': 0.9
+                    'opacity': 0.9,
+                    'z-index': 9999
                 }
             })
             stylesheet.append({
@@ -192,7 +201,8 @@ def generate_stylesheet(node):
                     "mid-target-arrow-color": "blue",
                     "mid-target-arrow-shape": "vee",
                     "line-color": "#0074D9",
-                    'opacity': 1
+                    'opacity': 1,
+                    'z-index': 5000
                 }
             })
 
