@@ -66,23 +66,16 @@ export default class Cytoscape extends Component {
     }
 
     handleCy(cy) {
+        // If the cy pointer has not been modified, and handleCy has already
+        // been called before, than we don't run this function.
         if (cy === this._cy && this._handleCyCalled) {
             return;
         }
         this._cy = cy;
-
         window.cy = cy;
         this._handleCyCalled = true;
 
         const {setProps} = this.props;
-
-        // cy.removeListener('tap', 'node');
-        // cy.removeListener('tap', 'edge');
-        // cy.removeListener('mouseover', 'node');
-        // cy.removeListener('mouseover', 'edge');
-        // // cy.removeListener('boxselect', 'node');
-        // cy.removeListener('boxstart');
-        // cy.removeListener('boxend');
 
         cy.on('tap', 'node', event => {
             const trimmedNode = this.trimNode(event);
@@ -145,62 +138,86 @@ export default class Cytoscape extends Component {
             }
         });
 
-        // let boxNodeDataArray;
-        //
-        // cy.on('boxstart', event => {
-        //     boxNodeDataArray = [];
-        //     console.log('boxstart');
-        // });
-        // cy.on('boxselect', 'node', event => {
-        //     console.log('pushed');
-        //     boxNodeDataArray.push(event.target._private.data);
-        // });
-        // cy.on('boxend', event => {
-        //     if (setProps !== null){
-        //         setProps({
-        //             boxNodeData: boxNodeDataArray
-        //         });
-        //         console.log(boxNodeDataArray);
-        //         console.log('boxend:', event);
-        //     }
-        // });
 
-        // Testing Box Data
-        // time delta that separates one box gesture from another
-        const GROUP_THRESHOLD = 100;
+        // SELECTED DATA
+        // time delta that separates one select gesture from another
+        const SELECTED_THRESHOLD = 100;
 
-        let boxed = cy.collection();
-
+        // send the array of data json objs somewhere; just log for now...
         const sendData = eles => {
-          let elsData = eles.map(el => el.data());
+          const elsData = eles.map(el => el.data());
 
-          // send the array of data json objs somewhere; just log for now...
           console.log(elsData);
+        };
+
+        // PROCESS SELECTED NODES
+        const selectedNodes = cy.collection();
+
+        // Function sendData is called on selected nodes only if
+        // sendSelectedNodesData wasn't called in the previous 100 ms (threshold)
+        const sendSelectedNodesData = _.debounce(() => {
+          sendData(selectedNodes);
+          const nodeData = selectedNodes.map(el => el.data());
+
           if (setProps !== null) {
             setProps({
-                boxNodeData: elsData
+                selectedNodeData: nodeData
             })
           }
+        }, SELECTED_THRESHOLD);
+
+        const addToSelectedNodes = el => {
+          selectedNodes.merge(el);
+          sendSelectedNodesData();
         };
 
-        // Events must be at least this duration apart to make a separate group
-        const checkGroup = _.debounce(() => {
-          sendData(boxed);
-
-          boxed = cy.collection();
-        }, GROUP_THRESHOLD);
-
-        const addToBoxed = el => {
-          boxed.merge(el);
-
-          checkGroup();
+        const removeFromSelectedNodes = el => {
+          selectedNodes.unmerge(el);
+          sendSelectedNodesData();
         };
 
-        // or 'boxselect'
-        cy.on('box', e => {
+        cy.on('select', 'node', e => {
           const el = e.target;
+          addToSelectedNodes(el);
+        });
 
-          addToBoxed(el);
+        cy.on('unselect', 'node', e => {
+          const el = e.target;
+          removeFromSelectedNodes(el);
+        });
+
+        // PROCESS SELECTED EDGES
+        const selectedEdges = cy.collection();
+
+        const sendSelectedEdgesData = _.debounce(() => {
+          sendData(selectedEdges);
+          const edgeData = selectedEdges.map(el => el.data());
+
+          if (setProps !== null) {
+            setProps({
+                selectedEdgeData: edgeData
+            })
+          }
+        }, SELECTED_THRESHOLD);
+
+        const addToSelectedEdges = el => {
+          selectedEdges.merge(el);
+          sendSelectedEdgesData();
+        };
+
+        const removeFromSelectedEdges = el => {
+          selectedEdges.unmerge(el);
+          sendSelectedEdgesData();
+        };
+
+        cy.on('select', 'edge', e => {
+          const el = e.target;
+          addToSelectedEdges(el);
+        });
+
+        cy.on('unselect', 'edge', e => {
+          const el = e.target;
+          removeFromSelectedEdges(el);
         });
     }
 
@@ -421,9 +438,14 @@ Cytoscape.propTypes = {
     mouseoverEdgeData: PropTypes.object,
 
     /**
-     * The array of node data selected by the box
+     * The array of node data currently selected by taps and boxes
      */
-    boxNodeData: PropTypes.array
+    selectedNodeData: PropTypes.array,
+
+    /**
+     * The array of edge data currently selected by taps and boxes
+     */
+    selectedEdgeData: PropTypes.array
 };
 
 Cytoscape.defaultProps = {

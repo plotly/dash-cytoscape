@@ -95,7 +95,7 @@ styles = {
         'height': 'calc(50% - 25px)',
         'border': 'thin lightgrey solid'
     },
-    'tab': {'height': 'calc(98vh - 80px)'}
+    'tab': {'height': 'calc(98vh - 105px)'}
 }
 
 app.layout = html.Div([
@@ -159,16 +159,16 @@ app.layout = html.Div([
                     )
                 ])
             ]),
-            dcc.Tab(label='Box Data', children=[
+            dcc.Tab(label='Selected Data', children=[
                 html.Div(style=styles['tab'], children=[
                     html.P('Node Data JSON:'),
                     html.Pre(
-                        id='box-node-data-json-output',
+                        id='selected-node-data-json-output',
                         style=styles['json-output']
                     ),
                     html.P('Edge Data JSON:'),
                     html.Pre(
-                        id='box-edge-data-json-output',
+                        id='selected-edge-data-json-output',
                         style=styles['json-output']
                     )
                 ])
@@ -215,10 +215,15 @@ def displayTapEdge(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(Output('box-node-data-json-output', 'children'),
-              [Input('cytoscape', 'boxNodeData')])
-def displayBoxNodeData(data):
-    print("boxNodeData callback fired:", data)
+@app.callback(Output('selected-node-data-json-output', 'children'),
+              [Input('cytoscape', 'selectedNodeData')])
+def displaySelectedNodeData(data):
+    return json.dumps(data, indent=2)
+
+
+@app.callback(Output('selected-edge-data-json-output', 'children'),
+              [Input('cytoscape', 'selectedEdgeData')])
+def displaySelectedEdgeData(data):
     return json.dumps(data, indent=2)
 
 

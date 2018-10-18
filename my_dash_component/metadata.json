@@ -234,12 +234,19 @@
         "required": false,
         "description": "The data property of the edge object returned when you hover over an edge"
       },
-      "boxNodeData": {
+      "selectedNodeData": {
         "type": {
           "name": "array"
         },
         "required": false,
-        "description": "The array of node data selected by the box"
+        "description": "The array of node data currently selected by taps and boxes"
+      },
+      "selectedEdgeData": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "The array of edge data currently selected by taps and boxes"
       }
     }
   },
