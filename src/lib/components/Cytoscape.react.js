@@ -193,25 +193,21 @@ export default class Cytoscape extends Component {
             }
         });
 
-
         // SELECTED DATA
-        // time delta that separates one select gesture from another
-        const SELECTED_THRESHOLD = 100;
+        const SELECT_THRESHOLD = 100;
 
-        // send the array of data json objs somewhere; just log for now...
-        const sendData = eles => {
-            const elsData = eles.map(el => el.data());
-
-            console.log(elsData);
-        };
-
-        // PROCESS SELECTED NODES
         const selectedNodes = cy.collection();
+        const selectedEdges = cy.collection();
 
-        // Function sendData is called on selected nodes only if
-        // sendSelectedNodesData wasn't called in the previous 100 ms (threshold)
         const sendSelectedNodesData = _.debounce(() => {
-            sendData(selectedNodes);
+            /*
+            This function is repetitively called every time a node is selected
+            or unselected, but keeps being debounced if it is called again
+            within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
+            runs when all the nodes have been correctly selected/unselected and
+            added/removed from the selectedNodes collection, and then updates
+            the selectedNodeData prop.
+             */
             const nodeData = selectedNodes.map(el => el.data());
 
             if (setProps !== null) {
@@ -219,33 +215,9 @@ export default class Cytoscape extends Component {
                     selectedNodeData: nodeData
                 })
             }
-        }, SELECTED_THRESHOLD);
-
-        const addToSelectedNodes = el => {
-            selectedNodes.merge(el);
-            sendSelectedNodesData();
-        };
-
-        const removeFromSelectedNodes = el => {
-            selectedNodes.unmerge(el);
-            sendSelectedNodesData();
-        };
-
-        cy.on('select', 'node', e => {
-            const el = e.target;
-            addToSelectedNodes(el);
-        });
-
-        cy.on('unselect', 'node', e => {
-            const el = e.target;
-            removeFromSelectedNodes(el);
-        });
-
-        // PROCESS SELECTED EDGES
-        const selectedEdges = cy.collection();
+        }, SELECT_THRESHOLD);
 
         const sendSelectedEdgesData = _.debounce(() => {
-            sendData(selectedEdges);
             const edgeData = selectedEdges.map(el => el.data());
 
             if (setProps !== null) {
@@ -253,26 +225,34 @@ export default class Cytoscape extends Component {
                     selectedEdgeData: edgeData
                 })
             }
-        }, SELECTED_THRESHOLD);
+        }, SELECT_THRESHOLD);
 
-        const addToSelectedEdges = el => {
-            selectedEdges.merge(el);
-            sendSelectedEdgesData();
-        };
+        cy.on('select', 'node', event => {
+            const ele = event.target;
 
-        const removeFromSelectedEdges = el => {
-            selectedEdges.unmerge(el);
-            sendSelectedEdgesData();
-        };
-
-        cy.on('select', 'edge', e => {
-            const el = e.target;
-            addToSelectedEdges(el);
+            selectedNodes.merge(ele);
+            sendSelectedNodesData();
         });
 
-        cy.on('unselect', 'edge', e => {
-            const el = e.target;
-            removeFromSelectedEdges(el);
+        cy.on('unselect', 'node', event => {
+            const ele = event.target;
+
+            selectedNodes.unmerge(ele);
+            sendSelectedNodesData();
+        });
+
+        cy.on('select', 'edge', event => {
+            const ele = event.target;
+
+            selectedEdges.merge(ele);
+            sendSelectedEdgesData();
+        });
+
+        cy.on('unselect', 'edge', event => {
+            const ele = event.target;
+
+            selectedEdges.unmerge(ele);
+            sendSelectedEdgesData();
         });
     }
 
