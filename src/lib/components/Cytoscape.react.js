@@ -153,7 +153,9 @@ export default class Cytoscape extends Component {
         window.cy = cy;
         this._handleCyCalled = true;
 
-        const {setProps} = this.props;
+        const {
+            setProps
+        } = this.props;
 
         cy.on('tap', 'node', event => {
             const nodeObject = this.generateNode(event);
@@ -254,6 +256,23 @@ export default class Cytoscape extends Component {
             selectedEdges.unmerge(ele);
             sendSelectedEdgesData();
         });
+
+
+        // Refresh Layout if needed
+        const refreshLayout = _.debounce(() => {
+            const {
+                autoRefreshLayout,
+                layout
+            } = this.props;
+
+            if (autoRefreshLayout){
+                cy.layout(layout).run()
+            }
+        }, SELECT_THRESHOLD);
+
+        cy.on('add remove', () => {
+            refreshLayout();
+        });
     }
 
     render() {
@@ -331,20 +350,14 @@ Cytoscape.propTypes = {
      * The flat list of Cytoscape elements to be included in the graph, each
      * represented as non-stringified JSON.
      */
-    elements: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.arrayOf(PropTypes.object),
-    ]),
+    elements: PropTypes.arrayOf(PropTypes.object),
 
     /**
      * The Cytoscape stylesheet as non-stringified JSON. N.b. the prop key is
      * stylesheet rather than style, the key used by Cytoscape itself, so as
      * to not conflict with the HTML style attribute.
      */
-    stylesheet: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.arrayOf(PropTypes.object),
-    ]),
+    stylesheet: PropTypes.arrayOf(PropTypes.object),
 
     /**
      * The function of a layout is to set the positions on the nodes in the
@@ -443,6 +456,11 @@ Cytoscape.propTypes = {
     autounselectify: PropTypes.bool,
 
     /**
+     * Whether the layout should be refreshed when elements are added or removed
+     */
+    autoRefreshLayout: PropTypes.bool,
+
+    /**
      * The trimmed node object returned when you tap a node
      */
     tapNode: PropTypes.object,
@@ -485,5 +503,6 @@ Cytoscape.propTypes = {
 
 Cytoscape.defaultProps = {
     style: {width: '600px', height: '600px'},
-    layout: {name: 'random'}
+    layout: {name: 'random'},
+    autoRefreshLayout: true
 };

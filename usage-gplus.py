@@ -17,7 +17,7 @@ app.css.config.serve_locally = True
 with open('100518419853963396365.edges', 'r') as f:
     data = f.read().split('\n')
 
-edges = data[:10000]
+edges = data[:750]
 nodes = set()
 
 cy_edges = []
@@ -53,7 +53,7 @@ default_stylesheet = [
             "curve-style": "bezier",
             "opacity": 0.65
         }
-    },
+    }
 ]
 
 styles = {

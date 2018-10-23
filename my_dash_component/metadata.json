@@ -75,36 +75,20 @@
       },
       "elements": {
         "type": {
-          "name": "union",
-          "value": [
-            {
-              "name": "object"
-            },
-            {
-              "name": "arrayOf",
-              "value": {
-                "name": "object"
-              }
-            }
-          ]
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
         },
         "required": false,
         "description": "The flat list of Cytoscape elements to be included in the graph, each\r\nrepresented as non-stringified JSON."
       },
       "stylesheet": {
         "type": {
-          "name": "union",
-          "value": [
-            {
-              "name": "object"
-            },
-            {
-              "name": "arrayOf",
-              "value": {
-                "name": "object"
-              }
-            }
-          ]
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
         },
         "required": false,
         "description": "The Cytoscape stylesheet as non-stringified JSON. N.b. the prop key is\r\nstylesheet rather than style, the key used by Cytoscape itself, so as\r\nto not conflict with the HTML style attribute."
@@ -203,6 +187,17 @@
         },
         "required": false,
         "description": "Whether nodes should be unselectified (immutable selection state) by default (if true, overrides individual element state)."
+      },
+      "autoRefreshLayout": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether the layout should be refreshed when elements are added or removed",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
       },
       "tapNode": {
         "type": {
