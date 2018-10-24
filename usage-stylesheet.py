@@ -44,7 +44,7 @@ default_stylesheet = [
     {
         "selector": 'node',
         'style': {
-            "opacity": 0.65
+            "opacity": 0.65,
         }
     },
     {
@@ -62,7 +62,9 @@ styles = {
         'height': 'calc(50% - 25px)',
         'border': 'thin lightgrey solid'
     },
-    'tab': {'height': 'calc(98vh - 80px)'}
+    'tab': {
+        'height': 'calc(98vh - 105px)'
+    }
 }
 
 app.layout = html.Div([
@@ -94,6 +96,40 @@ app.layout = html.Div([
                     value='random',
                     clearable=False
                 ),
+
+                drc.NamedDropdown(
+                    name='Node Shape',
+                    id='dropdown-node-shape',
+                    value='ellipse',
+                    clearable=False,
+                    options=drc.DropdownOptionsList(
+                        'ellipse',
+                        'triangle',
+                        'rectangle',
+                        'barrel',
+                        'diamond',
+                        'pentagon',
+                        'hexagon',
+                        'heptagon',
+                        'octagon',
+                        'star',
+                        'polygon',
+                    )
+                ),
+
+                drc.NamedInput(
+                    name='Followers Color',
+                    id='input-follower-color',
+                    type='text',
+                    value='#0074D9',
+                ),
+
+                drc.NamedInput(
+                    name='Following Color',
+                    id='input-following-color',
+                    type='text',
+                    value='#FF4136',
+                ),
             ]),
 
             dcc.Tab(label='JSON', children=[
@@ -111,7 +147,6 @@ app.layout = html.Div([
                 ])
             ])
         ]),
-
     ])
 ])
 
@@ -135,14 +170,20 @@ def update_cytoscape_layout(layout):
 
 
 @app.callback(Output('cytoscape', 'stylesheet'),
-              [Input('cytoscape', 'tapNode')])
-def generate_stylesheet(node):
+              [Input('cytoscape', 'tapNode'),
+               Input('input-follower-color', 'value'),
+               Input('input-following-color', 'value'),
+               Input('dropdown-node-shape', 'value')])
+def generate_stylesheet(node, follower_color, following_color, node_shape):
     if not node:
         return default_stylesheet
 
     stylesheet = [{
         "selector": 'node',
-        'style': {'opacity': 0.3}
+        'style': {
+            'opacity': 0.3,
+            'shape': node_shape
+        }
     }, {
         'selector': 'edge',
         'style': {
@@ -153,8 +194,8 @@ def generate_stylesheet(node):
         "selector": 'node[id = "{}"]'.format(node['data']['id']),
         "style": {
             'background-color': '#B10DC9',
-            "border-width": 2,
             "border-color": "purple",
+            "border-width": 2,
             "border-opacity": 1,
             "opacity": 1,
 
@@ -171,16 +212,16 @@ def generate_stylesheet(node):
             stylesheet.append({
                 "selector": 'node[id = "{}"]'.format(edge['target']),
                 "style": {
-                    'background-color': '#FF4136',
+                    'background-color': following_color,
                     'opacity': 0.9
                 }
             })
             stylesheet.append({
                 "selector": 'edge[id= "{}"]'.format(edge['id']),
                 "style": {
-                    "mid-target-arrow-color": "red",
+                    "mid-target-arrow-color": following_color,
                     "mid-target-arrow-shape": "vee",
-                    "line-color": "#FF4136",
+                    "line-color": following_color,
                     'opacity': 0.9,
                     'z-index': 5000
                 }
@@ -190,7 +231,7 @@ def generate_stylesheet(node):
             stylesheet.append({
                 "selector": 'node[id = "{}"]'.format(edge['source']),
                 "style": {
-                    'background-color': '#0074D9',
+                    'background-color': follower_color,
                     'opacity': 0.9,
                     'z-index': 9999
                 }
@@ -198,9 +239,9 @@ def generate_stylesheet(node):
             stylesheet.append({
                 "selector": 'edge[id= "{}"]'.format(edge['id']),
                 "style": {
-                    "mid-target-arrow-color": "blue",
+                    "mid-target-arrow-color": follower_color,
                     "mid-target-arrow-shape": "vee",
-                    "line-color": "#0074D9",
+                    "line-color": follower_color,
                     'opacity': 1,
                     'z-index': 5000
                 }

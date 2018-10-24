@@ -7,7 +7,7 @@ import json
 
 from cytoscape import dash_reusable_components as drc
 
-app = dash.Dash('')
+app = dash.Dash(__name__)
 
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
@@ -20,7 +20,7 @@ with open('100518419853963396365.edges', 'r') as f:
 edges = data[:750]
 nodes = set()
 
-following_node_di = {}  # user id -> list of users they are following (cy_node format)
+following_node_di = {}  # user id -> list of users they are following
 following_edges_di = {}  # user id -> list of cy edges starting from user id
 
 followers_node_di = {}  # user id -> list of followers (cy_node format)
