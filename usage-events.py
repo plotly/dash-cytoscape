@@ -193,25 +193,25 @@ def displayTapEdge(data):
 
 @app.callback(Output('tap-node-data-json-output', 'children'),
               [Input('cytoscape', 'tapNodeData')])
-def displayTapNode(data):
+def displayTapNodeData(data):
     return json.dumps(data, indent=2)
 
 
 @app.callback(Output('tap-edge-data-json-output', 'children'),
               [Input('cytoscape', 'tapEdgeData')])
-def displayTapEdge(data):
+def displayTapEdgeData(data):
     return json.dumps(data, indent=2)
 
 
 @app.callback(Output('mouseover-node-data-json-output', 'children'),
               [Input('cytoscape', 'mouseoverNodeData')])
-def displayTapNode(data):
+def displayMouseoverNodeData(data):
     return json.dumps(data, indent=2)
 
 
 @app.callback(Output('mouseover-edge-data-json-output', 'children'),
               [Input('cytoscape', 'mouseoverEdgeData')])
-def displayTapEdge(data):
+def displayMouseoverEdgeData(data):
     return json.dumps(data, indent=2)
 
 
