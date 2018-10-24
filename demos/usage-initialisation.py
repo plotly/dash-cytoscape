@@ -20,7 +20,7 @@ cy.on('tap', function(e){
 });
 ```
 """
-import my_dash_component
+import dash_cytoscape
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -51,7 +51,7 @@ elements = [
 
 # App
 app.layout = html.Div([
-    my_dash_component.Cytoscape(
+    dash_cytoscape.Cytoscape(
         id='cytoscape',
         boxSelectionEnabled=False,
         autounselectify=True,

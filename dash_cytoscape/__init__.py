@@ -33,7 +33,7 @@ _js_dist = [
     {
         'relative_package_path': 'bundle.js',
         'external_url': (
-            'https://unpkg.com/my_dash_component'
+            'https://unpkg.com/dash_cytoscape'
             '/' + package_name + '/bundle.js'
         ).format(__version__),
         'namespace': package_name

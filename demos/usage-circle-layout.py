@@ -2,7 +2,7 @@
 Original Demo: http://js.cytoscape.org/demos/circle-layout/
 Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/circle-layout
 """
-import my_dash_component
+import dash_cytoscape
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -21,7 +21,7 @@ with open(f'circle-layout/data.json', 'r') as f:
 
 # App
 app.layout = html.Div([
-    my_dash_component.Cytoscape(
+    dash_cytoscape.Cytoscape(
         id='cytoscape',
         elements=elements,
         layout={'name': 'circle'},

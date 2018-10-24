@@ -1,4 +1,4 @@
-import my_dash_component
+import dash_cytoscape
 import dash
 from dash.dependencies import Input, Output, State
 import dash_html_components as html
@@ -155,7 +155,7 @@ styles = {
 
 app.layout = html.Div([
     html.Div(className='eight columns', children=[
-        my_dash_component.Cytoscape(
+        dash_cytoscape.Cytoscape(
             id='cytoscape',
             elements=default_elements,
             stylesheet=default_stylesheet,

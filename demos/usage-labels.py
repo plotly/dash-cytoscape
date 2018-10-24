@@ -19,7 +19,7 @@ Note: This example is broken because layout takes a function as input:
   },
 ```
 """
-import my_dash_component
+import dash_cytoscape
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -60,7 +60,7 @@ with open(f'labels/cy-style.json', 'r') as f:
 
 # App
 app.layout = html.Div([
-    my_dash_component.Cytoscape(
+    dash_cytoscape.Cytoscape(
         id='cytoscape',
         boxSelectionEnabled=False,
         autounselectify=True,

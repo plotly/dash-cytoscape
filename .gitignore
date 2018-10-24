@@ -29,7 +29,7 @@ venv
 *.pyc
 
 # builds
-my_dash_component.egg-info
+dash_cytoscape.egg-info
 dist
 *__pycache__*
 __pycache__/

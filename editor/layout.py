@@ -1,6 +1,6 @@
 import dash_html_components as html
 import dash_core_components as dcc
-import my_dash_component
+import dash_cytoscape
 
 from . import dash_reusable_components as drc
 from .constants import ARROW_POSITIONS, \
@@ -872,7 +872,7 @@ user_interface = html.Div(
 
 layout = html.Div([
     html.Div(className='row', style={'overflow': 'visible'}, children=[
-        my_dash_component.Cytoscape(
+        dash_cytoscape.Cytoscape(
             id='cytoscape',
             className='eight columns',
             layout={'name': 'preset'},

@@ -5,7 +5,7 @@ Original Code: https://github.com/cytoscape/cytoscape.js/blob/master/documentati
 Note: Href Links do not work
 
 """
-import my_dash_component
+import dash_cytoscape
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -28,7 +28,7 @@ elements = [
 
 # App
 app.layout = html.Div([
-    my_dash_component.Cytoscape(
+    dash_cytoscape.Cytoscape(
         id='cytoscape',
         elements=elements,
         boxSelectionEnabled=False,

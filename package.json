@@ -1,18 +1,18 @@
 {
-  "name": "my-dash-component",
+  "name": "dash-cytoscape",
   "version": "0.0.1",
-  "description": "my-dash-component",
+  "description": "dash-cytoscape",
   "main": "build/index.js",
   "scripts": {
     "start": "webpack-serve ./webpack.serve.config.js --open",
     "build:js-dev": "webpack --mode development",
     "build:js": "webpack --mode production",
-    "build:py": "node ./extract-meta src/lib/components > my_dash_component/metadata.json && copyfiles package.json my_dash_component",
+    "build:py": "node ./extract-meta src/lib/components > dash_cytoscape/metadata.json && copyfiles package.json dash_cytoscape",
     "build:all": "npm run build:js & npm run build:py",
     "build:all-dev": "npm run build:js-dev & npm run build:py"
   },
-  "author": "my-name my-email",
-  "license": "my-license",
+  "author": "Xing Han Lu xinghan@plot.ly",
+  "license": "MIT",
   "dependencies": {
     "cytoscape": "^3.2.15",
     "lodash": "^4.17.11",
