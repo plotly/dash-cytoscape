@@ -35,11 +35,9 @@ for edge in edges:
 
     source, target = edge.split(" ")
 
-    cy_edge = {'data': {'source': source, 'target': target}, "classes": ""}
-    cy_target = {"data": {"id": target, "label": "User #" + str(target[-5:])},
-                 "classes": ""}
-    cy_source = {"data": {"id": source, "label": "User #" + str(source[-5:])},
-                 "classes": ""}
+    cy_edge = {'data': {'id': source+target, 'source': source, 'target': target}}
+    cy_target = {"data": {"id": target, "label": "User #" + str(target[-5:])}}
+    cy_source = {"data": {"id": source, "label": "User #" + str(source[-5:])}}
 
     if source not in nodes:
         nodes.add(source)
@@ -87,6 +85,34 @@ default_stylesheet = [
         }
     },
     {
+        'selector': '.followerNode',
+        'style': {
+            'background-color': '#0074D9'
+        }
+    },
+    {
+        'selector': '.followerEdge',
+        "style": {
+            "mid-target-arrow-color": "blue",
+            "mid-target-arrow-shape": "vee",
+            "line-color": "#0074D9"
+        }
+    },
+    {
+        'selector': '.followingNode',
+        'style': {
+            'background-color': '#FF4136'
+        }
+    },
+    {
+        'selector': '.followingEdge',
+        "style": {
+            "mid-target-arrow-color": "red",
+            "mid-target-arrow-shape": "vee",
+            "line-color": "#FF4136",
+        }
+    },
+    {
         "selector": '.genesis',
         "style": {
             'background-color': '#B10DC9',
@@ -103,17 +129,16 @@ default_stylesheet = [
         }
     },
     {
-        'selector': '.followerNode',
-        'style': {
-            'background-color': '#0074D9'
-        }
-    },
-    {
-        'selector': '.followerEdge',
+        'selector': ':selected',
         "style": {
-            "mid-target-arrow-color": "blue",
-            "mid-target-arrow-shape": "vee",
-            "line-color": "#0074D9"
+            "border-width": 2,
+            "border-color": "black",
+            "border-opacity": 1,
+            "opacity": 1,
+            "label": "data(label)",
+            "color": "black",
+            "font-size": 12,
+            'z-index': 9999
         }
     }
 ]
@@ -226,18 +251,36 @@ def generate_elements(nodeData, elements, expansion_mode):
             element['data']['expanded'] = True
             break
 
-    followers_nodes = followers_node_di.get(nodeData['id'])
-    followers_edges = followers_edges_di.get(nodeData['id'])
+    if expansion_mode == 'followers':
 
-    if followers_nodes:
-        for node in followers_nodes:
-            node['classes'] += ' followerNode'
-        elements.extend(followers_nodes)
+        followers_nodes = followers_node_di.get(nodeData['id'])
+        followers_edges = followers_edges_di.get(nodeData['id'])
 
-    if followers_edges:
-        for edge in followers_edges:
-            edge['classes'] += ' followerEdge'
-        elements.extend(followers_edges)
+        if followers_nodes:
+            for node in followers_nodes:
+                node['classes'] = 'followerNode'
+            elements.extend(followers_nodes)
+
+        if followers_edges:
+            for edge in followers_edges:
+                edge['classes'] = 'followerEdge'
+            elements.extend(followers_edges)
+
+    elif expansion_mode == 'following':
+
+        following_nodes = following_node_di.get(nodeData['id'])
+        following_edges = following_edges_di.get(nodeData['id'])
+
+        if following_nodes:
+            for node in following_nodes:
+                if node['data']['id'] != genesis_node['data']['id']:
+                    node['classes'] = 'followingNode'
+                    elements.append(node)
+
+        if following_edges:
+            for edge in following_edges:
+                edge['classes'] = 'followingEdge'
+            elements.extend(following_edges)
 
     return elements
 

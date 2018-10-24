@@ -53,7 +53,7 @@ default_stylesheet = [
             "curve-style": "bezier",
             "opacity": 0.65
         }
-    }
+    },
 ]
 
 styles = {
