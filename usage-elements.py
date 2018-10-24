@@ -5,7 +5,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 import json
 
-from cytoscape import dash_reusable_components as drc
+from editor import dash_reusable_components as drc
 
 app = dash.Dash(__name__)
 
@@ -14,7 +14,7 @@ app.css.config.serve_locally = True
 
 # ###################### DATA PREPROCESSING ######################
 # Load data
-with open('100518419853963396365.edges', 'r') as f:
+with open('sample_network.txt', 'r') as f:
     data = f.read().split('\n')
 
 edges = data[:750]
