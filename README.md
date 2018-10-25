@@ -1,94 +1,110 @@
-## Usage
+# Dash Cytoscape
 
-Make sure you have access to this repo from git.
-To try the dev version, run this:
-```
-git clone https://github.com/plotly/dash-cytoscape.git
-cd dash-cytoscape
-git checkout dev
-python usage.py
-python usage-colajs-graph.py
-```
+A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/)
 
-To rebuild the version, run (inside dash-cytoscape):
+## Getting Started
+
+### Prerequisites
+
+Make sure that the following python packages are installed:
+
 ```
-cd src
-git clone https://github.com/plotly/react-cytoscapejs.git
-cd ..
-npm install
-npm run build:all-dev
+dash==0.28.5
+dash-renderer==0.14.3
+dash-html-components==0.13.2
+dash-core-components==0.34.0
 ```
 
-## Package manager
+Older versions are not necessarily incompatible, but have not been extensively tested.
 
+### Usage
+
+Install the library using pip:
+
+```
+pip install dash-cytoscape
+```
+
+Create the following example inside an `app.py` file:
+
+```python
+import dash
+import dash_cytoscape
+import dash_html_components as html
+
+app = dash.Dash(__name__)
+app.layout = html.Div([
+    dash_cytoscape.Cytoscape(
+        id='cytoscape',
+        elements=[
+            {'data': {'id': 'one', 'label': 'Node 1'}, 'position': {'x': 50, 'y': 50}},
+            {'data': {'id': 'two', 'label': 'Node 2'}, 'position': {'x': 200, 'y': 200}},
+            {'data': {'source': 'one', 'target': 'two','label': 'Node 1 to 2'}}
+        ],
+        layout={'name': 'preset'}
+    )
+])
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
+```
+
+## Development
+
+Please follow the following steps for local testing:
+
+1. Clone the repo
+```commandline
+$ git clone https://github.com/plotly/dash-cytoscape.git
+```
+2. Install the dependencies and build the code:
+```commandline
+$ npm i
+$ npm run build:all
+```
+
+3. Install the library
+```commandline
+$ python setup.py install
+```
+
+It is recommended to install the library and running the examples in a fresh virtualenv in a separate folder:
+
+```commandline
+$ mkdir dash_cytoscape_dev
+$ cd dash_cytoscape_dev
+$ virtualenv venv  # Create a virtual env
+$ source venv/bin/activate  # Activate the venv
+```
+To activate in windows:
+```commandline
+> venv\Scripts\activate
+```
+(and then repeat step 3).
+
+
+## Documentation
+
+For using Dash and for a Python-specific overview of Dash Cytoscape, view the [Dash User Guide](https://dash.plot.ly/). It's chock-full of examples, pro tips, and guiding principles.
+
+For supplementary information about the underlying javascript  API, view the [Cytoscape.js documentation](http://js.cytoscape.org/).
+
+
+
+## Notes
+
+#### Package manager
 Our preferred package manager for this project is Yarn. Therefore we use `yarn.lock` rather than `package-lock.json`. If you decide to start using npm for package management (which will create package-lock.json) and you commit this project to Dokku, make sure to delete `yarn.lock`.
 
-## Dash Component Skeleton
 
-This repository contains the minimal set of code required to create your own custom Dash component.
+## License
 
-To create your own Dash component:
-1. Fork this repo
-2. Find-and-replace:
-    1. `dash_cytoscape` with your component library name.
-    2. `dash-cytoscape` with your component library name.
-    3. `The Plotly Team` with your name and `my-email` with your email address
-    4. `MIT` with your license (e.g. `MIT`)
-    5. Rename the folder `dash_cytoscape/` with your component library name
-3. Install the dependencies:
-```
-npm install
-```
-4. Open up the JavaScript demo environment:
-```
-npm run start
-```
-5. Write your component code in `src/lib/components`. There is a sample component called `ExampleComponent.react.js` that you can use for inspiration. The demo app is in `src/demo` and you will import your example component code into your demo app.
-6. Test your code in a Python environment:
-    1. Build your code
-    ```
-    npm run build:js-dev
-    npm run build:py
-    ```
-    2. Run and modify the `usage.py` sample dash app:
-    ```
-    python usage.py
-    ```
-7. Create a production build and publish:
-    1. Build your code:
-    ```
-    npm run build:js
-    npm run build:py
-    ```
-    2. Create a Python tarball
-    ```
-    python setup.py sdist
-    ```
-    This distribution tarball will get generated in the `dist/` folder
-    3. Test your tarball by copying it into a new environment and installing it locally:
-    ```
-    pip install dash_cytoscape-0.0.1.tar.gz
-    ```
-    4. If it works, then you can publish the component to NPM and PyPI:
-    ```
-    npm run publish
-    ```
-    ```
-    twine upload dist/dash_component-0.0.1.tar.gz
-    ```
-8. Share your component with the community! https://community.plot.ly/c/dash
+Dash, Cytoscape.js and Dash Cytoscape are licensed under MIT. Please view [LICENSE](LICENSE) for more details.
 
-## More details
-- Include CSS files in your distribution folder (`dash_cytoscape`) and reference them in `MANIFEST.in`
-- The `tests` folder contains a sample integration test. This will run a sample Dash app in a browser. Run this with:
-    ```
-    python -m tests.test_render
-    ```
-    The Dash team uses these types of integration tests extensively. Browse the Dash component code on GitHub for more examples of testing (e.g. https://github.com/plotly/dash-core-components)
-- Publishing your component to NPM will make the JavaScript bundles available on the unpkg CDN. By default, Dash servers the component library's CSS and JS from the remote unpkg CDN, so if you haven't published the component package to NPM you'll need to set the `serve_locally` flags to `True`. We will eventually make `serve_locally=True` the default, [follow our progress in this issue](https://github.com/plotly/dash/issues/284).
-- Watch the [component boilerplate repository](https://github.com/plotly/dash-component-boilerplate) to stay informed of changes to our components.
+## Contact and Support
 
+See https://plot.ly/dash/support for ways to get in touch.
 
-## More Resources
-- Learn more about Dash: https://dash.plot.ly
-- View the original component boilerplate: https://github.com/plotly/dash-component-boilerplate
+## Acknowledgments
+
+Huge thanks to the Cytoscape Consortium and the Cytoscape.js team for their contribution in making such a complete API for creating interactive networks. This library would not have been possible without their massive work!
