@@ -7,7 +7,7 @@
     "start": "webpack-serve ./webpack.serve.config.js --open",
     "build:js-dev": "webpack --mode development",
     "build:js": "webpack --mode production",
-    "build:py": "node ./extract-meta src/lib/components > dash_cytoscape/metadata.json && copyfiles package.json dash_cytoscape",
+    "build:py": "node ./extract-meta src/lib/components > dash_cytoscape/metadata.json && copyfiles package.json dash_cytoscape && python -c \"import dash; dash.development.component_loader.generate_classes('dash_cytoscape', 'dash_cytoscape/metadata.json')\"",
     "build:all": "npm run build:js & npm run build:py",
     "build:all-dev": "npm run build:js-dev & npm run build:py"
   },
