@@ -1,11 +1,12 @@
-import dash_cytoscape
-import dash
-from dash.dependencies import Input, Output, State
-import dash_html_components as html
-import dash_core_components as dcc
 import json
 
-from editor import dash_reusable_components as drc
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import Input, Output, State
+
+import dash_cytoscape
+from demos import dash_reusable_components as drc
 
 app = dash.Dash(__name__)
 
@@ -14,7 +15,7 @@ app.css.config.serve_locally = True
 
 # ###################### DATA PREPROCESSING ######################
 # Load data
-with open('sample_network.txt', 'r') as f:
+with open('demos/data/sample_network.txt', 'r') as f:
     data = f.read().split('\n')
 
 edges = data[:750]

@@ -2,6 +2,8 @@
 
 A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/)
 
+![usage-stylesheet-demo](demos/images/usage-stylesheet-demo.gif)
+
 ## Getting Started
 
 ### Prerequisites

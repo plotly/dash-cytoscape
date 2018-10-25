@@ -30,7 +30,7 @@ app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
 # Load Data
-with open(f'concentric-layout/data.json', 'r') as f:
+with open('data/concentric-layout/data.json', 'r') as f:
     elements = json.loads(f.read())
 
 # App

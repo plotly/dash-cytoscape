@@ -1,7 +1,7 @@
 import dash
+from demos.editor.layout import layout as cytoscape_layout
 
-from editor.callbacks import assign_callbacks
-from editor.layout import layout as cytoscape_layout
+from demos.editor.callbacks import assign_callbacks
 
 app = dash.Dash(__name__)
 server = app.server

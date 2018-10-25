@@ -1,8 +1,15 @@
 # Demos reproduced from Cytoscape.js
 
-The demos in this folder were all originally written in JavaScript, using the Cytoscape.js library. They were rewritten in Python using Dash for testing and learning purpose.
+The demos in this folder were all originally written in JavaScript, using the Cytoscape.js library. They were rewritten in Python as extensive example of the Dash Cytoscape API.
+
+To run those demos, please make sure you are in this current directory, and run
+```commandline
+$ python usage-<example>.py
+```
 
 You can find them here: http://js.cytoscape.org/#demos
+
+Please refer to CONTRIBUTING.md for detailed steps about contributing to those examples.
 
 The following are examples working correctly:
 * Multiple Instances
@@ -11,14 +18,11 @@ The following are examples working correctly:
 * Grid Layout
 * Circle Layout
 
-The following are examples with minor problems, or that have not been completed yet:
+The following examples are not fully functional yet and are Work in Progress:
 * Cose Layout
 * Animated BFS
 * Breadthfirst Layout
 * Compound Nodes
-
-
-The following are broken examples that can only work if the React/Dash implementations are fixed:
 * Linkout Example
 * Labels
 * Initialisation
@@ -27,7 +31,7 @@ The following are broken examples that can only work if the React/Dash implement
 * Concentric Layout
 
 
-The following are examples that have not been implemented yet:
+The following are examples have not been implemented yet:
 * Cola.js gene-gene graph (redundant)
 * Tokyo railways
 * Wine & cheese

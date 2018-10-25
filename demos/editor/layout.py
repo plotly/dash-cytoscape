@@ -1,10 +1,9 @@
-import dash_html_components as html
 import dash_core_components as dcc
-import dash_cytoscape
+import dash_html_components as html
 
-from . import dash_reusable_components as drc
-from .constants import ARROW_POSITIONS, \
-    LABEL_ELEMENT_TYPES, \
+import dash_cytoscape
+from demos import dash_reusable_components as drc
+from .constants import LABEL_ELEMENT_TYPES, \
     LABEL_ELEMENT_TYPES_ALL, \
     ELEMENTS
 

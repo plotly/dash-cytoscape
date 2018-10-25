@@ -16,7 +16,7 @@ app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
 # Load Data
-with open(f'circle-layout/data.json', 'r') as f:
+with open('data/circle-layout/data.json', 'r') as f:
     elements = json.loads(f.read())
 
 # App

@@ -12,9 +12,9 @@ def load_elements(path_name):
     return elements
 
 
-gene_elements = load_elements('gene.json')
-compound_elements = load_elements('compound.json')
-wine_and_cheese_elements = load_elements('wine-and-cheese.json')
+gene_elements = load_elements('../data/gene.json')
+compound_elements = load_elements('../data/compound.json')
+wine_and_cheese_elements = load_elements('../data/wine-and-cheese.json')
 basic_elements = [
     {
         'data': {'id': 'one', 'label': 'Node 1'},

@@ -19,10 +19,10 @@ app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
 # Load Data
-with open(f'cose-layout/data.json', 'r') as f:
+with open('data/cose-layout/data.json', 'r') as f:
     elements = json.loads(f.read())
 
-with open(f'cose-layout/cy-style.json', 'r') as f:
+with open('data/cose-layout/cy-style.json', 'r') as f:
     stylesheet = json.loads(f.read())
 
 # App
