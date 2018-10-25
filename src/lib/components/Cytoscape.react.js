@@ -361,29 +361,7 @@ Cytoscape.propTypes = {
 
     /**
      * The function of a layout is to set the positions on the nodes in the
-     * graph. Layouts are extensions of Cytoscape.js such that it is possible
-     * for anyone to write a layout without modifying the library itself.
-     *
-     * To use a layout, input a dictionary with "name" as the key, e.g.
-     * ```
-     * {"name": layout_name}
-     *
-     * Several layouts are included with Cytoscape by default, and their
-     * options are described with the default values specified in the official
-     * documentation
-     *
-     * null: The null layout puts all nodes at (0, 0). It’s useful for debugging purposes.
-     * random:  The random layout puts nodes in random positions within the viewport.
-     * preset: The preset layout puts nodes in the positions you specify manually.
-     * grid: The grid layout puts nodes in a well-spaced grid.
-     * circle: The circle layout puts nodes in a circle.
-     * concentric: The concentric layout positions nodes in concentric circles, based on a metric that you specify to segregate the nodes into levels.
-     * breadthfirst: The breadthfirst layout puts nodes in a hierarchy, based on a breadthfirst traversal of the graph.
-     * cose: The cose (Compound Spring Embedder) layout uses a physics simulation to lay out graphs. It works well with noncompound graphs and it has additional logic to support compound graphs well.
-     *
-     * The official Cytoscape.js documentation gives an extensive explanation
-     * of the layout property, as well as use cases:
-     * http://js.cytoscape.org/#layouts
+     * graph.
      */
     layout: PropTypes.object,
 

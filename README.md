@@ -32,7 +32,7 @@ To create your own Dash component:
 2. Find-and-replace:
     1. `dash_cytoscape` with your component library name.
     2. `dash-cytoscape` with your component library name.
-    3. `Xing Han Lu` with your name and `my-email` with your email address
+    3. `The Plotly Team` with your name and `my-email` with your email address
     4. `MIT` with your license (e.g. `MIT`)
     5. Rename the folder `dash_cytoscape/` with your component library name
 3. Install the dependencies:

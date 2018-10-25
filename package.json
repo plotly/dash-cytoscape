@@ -11,7 +11,7 @@
     "build:all": "npm run build:js & npm run build:py",
     "build:all-dev": "npm run build:js-dev & npm run build:py"
   },
-  "author": "Xing Han Lu xinghan@plot.ly",
+  "author": "The Plotly Team",
   "license": "MIT",
   "dependencies": {
     "cytoscape": "^3.2.15",
