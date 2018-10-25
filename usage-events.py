@@ -1,7 +1,6 @@
 import dash_cytoscape
 import dash
 from dash.dependencies import Input, Output
-import CytoscapeObjects as cso
 import dash_html_components as html
 import dash_core_components as dcc
 import json
