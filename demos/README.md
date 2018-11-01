@@ -1,4 +1,18 @@
-# Demos reproduced from Cytoscape.js
+# Additional Demos
+
+The following demos were created in addition to the existing usage files:
+* Phylogeny
+
+## Requirements
+
+The examples here use the official dash-cytoscape distribution rather than the repository version. If you wish to use the local version, please move the demo into the parent folder, and run from there.
+
+To run `usage-phylogeny.py`, you need to install biopython:
+```commandline
+$ pip install biopython 
+```
+
+## Demos reproduced from Cytoscape.js
 
 The demos in this folder were all originally written in JavaScript, using the Cytoscape.js library. They were rewritten in Python as extensive example of the Dash Cytoscape API.
 

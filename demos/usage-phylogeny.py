@@ -8,6 +8,7 @@ try:
     from Bio import Phylo
 except ModuleNotFoundError as e:
     print(e, "Please make sure you have biopython installed correctly before running this example.")
+    exit(1)
 
 
 def generate_elements(tree):
