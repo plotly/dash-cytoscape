@@ -19,30 +19,31 @@ export default class Cytoscape extends Component {
     generateNode(event) {
         const ele = event.target;
 
-        const isParent = ele.isParent();
-        const isChildless = ele.isChildless();
-        const isChild = ele.isChild();
-        const isOrphan = ele.isOrphan();
-        const renderedPosition = ele.renderedPosition();
-        const relativePosition = ele.relativePosition();
-        const parent = ele.parent();
-        const style = ele.style();
+        const isParent = ele.isParent(),
+            isChildless = ele.isChildless(),
+            isChild = ele.isChild(),
+            isOrphan = ele.isOrphan(),
+            renderedPosition = ele.renderedPosition(),
+            relativePosition = ele.relativePosition(),
+            parent = ele.parent(),
+            style = ele.style();
+
         // Trim down the element objects to only the data contained
         const edgesData = ele.connectedEdges().map(ele => {
-            return ele.data()
-        });
-        const childrenData = ele.children().map(ele => {
-            return ele.data()
-        });
-        const ancestorsData = ele.ancestors().map(ele => {
-            return ele.data()
-        });
-        const descendantsData = ele.descendants().map(ele => {
-            return ele.data()
-        });
-        const siblingsData = ele.siblings().map(ele => {
-            return ele.data()
-        });
+                return ele.data()
+            }),
+            childrenData = ele.children().map(ele => {
+                return ele.data()
+            }),
+            ancestorsData = ele.ancestors().map(ele => {
+                return ele.data()
+            }),
+            descendantsData = ele.descendants().map(ele => {
+                return ele.data()
+            }),
+            siblingsData = ele.siblings().map(ele => {
+                return ele.data()
+            });
 
         const {timeStamp} = event;
         const {
@@ -98,14 +99,14 @@ export default class Cytoscape extends Component {
     generateEdge(event) {
         const ele = event.target;
 
-        const midpoint = ele.midpoint();
-        const isLoop = ele.isLoop();
-        const isSimple = ele.isSimple();
-        const sourceData = ele.source().data();
-        const sourceEndpoint = ele.sourceEndpoint();
-        const style = ele.style();
-        const targetData = ele.target().data();
-        const targetEndpoint = ele.targetEndpoint();
+        const midpoint = ele.midpoint(),
+            isLoop = ele.isLoop(),
+            isSimple = ele.isSimple(),
+            sourceData = ele.source().data(),
+            sourceEndpoint = ele.sourceEndpoint(),
+            style = ele.style(),
+            targetData = ele.target().data(),
+            targetEndpoint = ele.targetEndpoint();
 
         const {timeStamp} = event;
         const {
@@ -265,7 +266,7 @@ export default class Cytoscape extends Component {
                 layout
             } = this.props;
 
-            if (autoRefreshLayout){
+            if (autoRefreshLayout) {
                 cy.layout(layout).run()
             }
         }, SELECT_THRESHOLD);
