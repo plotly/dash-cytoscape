@@ -4,7 +4,7 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import CytoscapeComponent from '../../react-cytoscapejs/src/component.js';
+import CytoscapeComponent from 'react-cytoscapejs/src';
 import _ from 'lodash';
 
 
