@@ -18,6 +18,7 @@ app.css.config.serve_locally = True
 with open('demos/data/sample_network.txt', 'r') as f:
     data = f.read().split('\n')
 
+# We select the first 750 edges and associated nodes for an easier visualization
 edges = data[:750]
 nodes = set()
 
