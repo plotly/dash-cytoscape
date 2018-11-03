@@ -20,18 +20,42 @@ _To be added_
 ## Making a contribution
 _For larger features, your contribution will have a higher likelihood of getting merged if you create an issue to discuss the changes that you'd like to make before you create a pull request._
 
-1. Create a pull request and tag the Plotly team (`@plotly/dash_bio`) and tag / request review from [@xhlulu](https://github.com/xhlulu).
-2. After a review has been done and your changes have been approved, create a prerelease and comment in the PR. Version numbers should follow [semantic versioning][]. To create a prerelease:
-    * Add `rc1` to `version.py` (`./dash/version.py`) e.g. `0.1.0rc1`
-        - If needed, ask @chriddyp to get PyPi package publishing access.
-    * Run `python setup.py sdist` to build a distribution zip.
-    * Check the `dist` folder for a `tar.gz` file ending with your selected version number. Double check that this version number ends with `rc#`, as to not mistakenly publish the package.
-    * Run `twine upload dist/<package_name>`.
-3. Comment in the PR with the prerelease version
-4. Update the top-level comment to include info about how to install, a summary of the changes, and a simple example.
-    * This makes it easier for a community member to come in and try it out. As more folks review, it's harder to find the installation instructions deep in the PR
-    * Keep this top-level comment updated with installation instructions (e.g. the `pip install` command)
-5. Make a post in the [Dash Community Forum][]
+Create a pull request and tag the Plotly team (`@plotly/dash_bio`) and tag / request review from [@xhlulu](https://github.com/xhlulu).
+
+After a review has been done and your changes have been approved, create a prerelease and comment in the PR. Version numbers should follow [semantic versioning][].
+
+To publish or create a prerelease:
+1. Check `MANIFEST.in` has all of the extra files (like CSS)
+2. Bump version numbers in `package.json`, update the `CHANGELOG.md`, and make a pull request
+3. Once the pull request is merged into master:
+4. Build
+```npm run build:all```
+5. Create distribution tarball
+```python setup.py sdist```
+6. Copy the tarball into a separate folder and try to install it and run the examples:
+```cp dist/dash-cytoscape-0.0.1.tar.gz ../temp
+cp usage.py ../temp
+cd ../temp
+source venv/bin/activate
+pip install dash-cytoscape-0.0.1.tar.gz
+python usage.py
+```
+7. If the examples work, then publish:
+```npm publish
+twine upload dist/dash-cytoscape-0.0.1.tar.gz
+```
+8. Tag your release with git:
+```git tag -a 'v0.0.1' -m 'v0.0.1'
+git push origin master --follow-tags
+```
+9. Verify that the publish worked by installing it:
+```cd ../temp
+pip install dash-cytoscape==0.0.1
+python usage.py
+```
+
+
+Make a post in the [Dash Community Forum][]
     * Title it `":mega: Announcement! New <Your Feature> - Feedback Welcome"`
     * In the description, link to the PR and any relevant issue(s)
     * Pin the topic so that it appears at the top of the forum for two weeks
