@@ -1,0 +1,260 @@
+{
+  "src/lib/components/Cytoscape.react.js": {
+    "description": "",
+    "displayName": "Cytoscape",
+    "methods": [
+      {
+        "name": "generateNode",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "event",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "generateEdge",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "event",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleCy",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "cy",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks"
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Html Class of the component"
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Add inline styles to the root element",
+        "defaultValue": {
+          "value": "{width: '600px', height: '600px'}",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called whenever any of the\r\nproperties change"
+      },
+      "elements": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": "The flat list of Cytoscape elements to be included in the graph, each\r\nrepresented as non-stringified JSON."
+      },
+      "stylesheet": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": "The Cytoscape stylesheet as non-stringified JSON. N.b. the prop key is\r\nstylesheet rather than style, the key used by Cytoscape itself, so as\r\nto not conflict with the HTML style attribute."
+      },
+      "layout": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The function of a layout is to set the positions on the nodes in the\r\ngraph.",
+        "defaultValue": {
+          "value": "{name: 'random'}",
+          "computed": false
+        }
+      },
+      "pan": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The initial panning position of the graph. Make sure to disable viewport\r\nmanipulation options, such as fit, in your layout so that it is not\r\noverridden when the layout is applied."
+      },
+      "zoom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The initial zoom level of the graph. Make sure to disable viewport\r\nmanipulation options, such as fit, in your layout so that it is not\r\noverridden when the layout is applied. You can set options.minZoom and\r\noptions.maxZoom to set restrictions on the zoom level."
+      },
+      "panningEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether panning the graph is enabled, both by user events and programmatically."
+      },
+      "userPanningEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether user events (e.g. dragging the graph background) are allowed to pan the graph. Programmatic changes to pan are unaffected by this option."
+      },
+      "minZoom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "A minimum bound on the zoom level of the graph. The viewport can not be scaled smaller than this zoom level."
+      },
+      "maxZoom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "A maximum bound on the zoom level of the graph. The viewport can not be\r\nscaled larger than this zoom level."
+      },
+      "zoomingEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether zooming the graph is enabled, both by user events and programmatically."
+      },
+      "userZoomingEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether user events (e.g. dragging the graph background) are allowed to pan the graph. Programmatic changes to pan are unaffected by this option."
+      },
+      "boxSelectionEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether box selection (i.e. drag a box overlay around, and release it to select) is enabled. If enabled, the user must taphold to pan the graph."
+      },
+      "autoungrabify": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether nodes should be ungrabified (not grabbable by user) by default (if true, overrides individual node state)."
+      },
+      "autolock": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether nodes should be locked (not draggable at all) by default (if true, overrides individual node state)."
+      },
+      "autounselectify": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether nodes should be unselectified (immutable selection state) by default (if true, overrides individual element state)."
+      },
+      "autoRefreshLayout": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether the layout should be refreshed when elements are added or removed",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "tapNode": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The trimmed node object returned when you tap a node"
+      },
+      "tapNodeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data property of the node object returned when you tap a node"
+      },
+      "tapEdge": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The trimmed edge object returned when you tap a node"
+      },
+      "tapEdgeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data property of the edge object returned when you tap a node"
+      },
+      "mouseoverNodeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data property of the edge object returned when you hover over a node"
+      },
+      "mouseoverEdgeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data property of the edge object returned when you hover over an edge"
+      },
+      "selectedNodeData": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "The array of node data currently selected by taps and boxes"
+      },
+      "selectedEdgeData": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "The array of edge data currently selected by taps and boxes"
+      }
+    }
+  }
+}

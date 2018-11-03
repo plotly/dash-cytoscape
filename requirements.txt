@@ -1,0 +1,9 @@
+# Core
+gunicorn>=19.8.1
+plotly==3.3.0
+dash==0.28.5
+dash-renderer==0.14.3
+dash-html-components==0.13.2
+dash-core-components==0.34.0
+
+colour==0.1.5
