@@ -25,6 +25,7 @@ Create a pull request and tag the Plotly team (`@plotly/dash_bio`) and tag / req
 After a review has been done and your changes have been approved, create a prerelease and comment in the PR. Version numbers should follow [semantic versioning][].
 
 To publish or create a prerelease:
+
 1. Check `MANIFEST.in` has all of the extra files (like CSS)
 2. Bump version numbers in `package.json`, update the `CHANGELOG.md`, and make a pull request
 3. Once the pull request is merged into master:
