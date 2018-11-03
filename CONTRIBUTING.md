@@ -1,4 +1,4 @@
-# Contributing to dash-cytoscape
+# Contributing to Dash Cytoscape
 
 ## Getting Started
 
