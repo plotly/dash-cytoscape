@@ -65,8 +65,8 @@ $ git clone https://github.com/plotly/dash-cytoscape.git
 ```
 2. Install the dependencies and build the code:
 ```commandline
-$ npm i
-$ npm run build:all
+$ yarn
+$ yarn run build:all
 ```
 
 3. Install the library
