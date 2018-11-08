@@ -18,6 +18,8 @@ setup(
     license=package['license'],
     description=package['description'] if 'description' in package else package_name,
     install_requires=[
-        'colour==0.1.5'
+        'dash',
+        'dash_html_components',
+        'dash_renderer',
     ]
 )
