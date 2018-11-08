@@ -1,7 +1,7 @@
 {
   "name": "dash-cytoscape",
   "version": "0.0.1",
-  "description": "dash-cytoscape",
+  "description": "A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around Cytoscape.js",
   "main": "build/index.js",
   "scripts": {
     "start": "webpack-serve ./webpack.serve.config.js --open",
@@ -12,6 +12,7 @@
     "build:all-dev": "npm run build:js-dev & npm run build:py"
   },
   "author": "The Plotly Team",
+  "author-email": "xinghan@plot.ly",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.11",
