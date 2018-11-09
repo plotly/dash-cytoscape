@@ -19,7 +19,7 @@ setup(
     description=package['description'] if 'description' in package else package_name,
     install_requires=[
         'dash',
-        'dash_html_components',
+        'dash-html-components',
         'dash_renderer',
     ]
 )
