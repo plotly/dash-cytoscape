@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Author email and improve description
 * Data section of demos readme
-* Dash, html and renderer to install requirements
+* Added the components "dash", "dash-html-components", and "dash-renderer" as explicit package requirements.
 
 ### Changed
 * Move grid layout data file
