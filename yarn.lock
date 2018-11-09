@@ -2255,8 +2255,8 @@ cyclist@~0.2.2:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-0.2.2.tgz#1b33792e11e914a2fd6d6ed6447464444e5fa640"
 
 cytoscape@^3.2.19:
-  version "3.2.19"
-  resolved "https://registry.yarnpkg.com/cytoscape/-/cytoscape-3.2.19.tgz#7810624e118b7592acc4f4e62ca2ace70477d899"
+  version "3.2.20"
+  resolved "https://registry.yarnpkg.com/cytoscape/-/cytoscape-3.2.20.tgz#d1519f2f6d6b48446f3ac736d8a64c3e56e9c366"
   dependencies:
     heap "^0.2.6"
     lodash.debounce "^4.0.8"
@@ -6324,9 +6324,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-cytoscapejs@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-cytoscapejs/-/react-cytoscapejs-1.0.0.tgz#1160eaa0881adc7d3c15e1d5663c4ccc8d18a45e"
+react-cytoscapejs@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-cytoscapejs/-/react-cytoscapejs-1.0.1.tgz#8a77c34e730ba0b66f6d4d647f9f5cea271066d5"
   dependencies:
     cytoscape "^3.2.19"
     prop-types "^15.6.2"

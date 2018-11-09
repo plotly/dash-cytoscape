@@ -30,11 +30,16 @@ To publish or create a prerelease:
 2. Bump version numbers in `package.json`, update the `CHANGELOG.md`, and make a pull request
 3. Once the pull request is merged into master:
 4. Build
-```npm run build:all```
+```
+npm run build:all
+```
 5. Create distribution tarball
-```python setup.py sdist```
+```
+python setup.py sdist
+```
 6. Copy the tarball into a separate folder and try to install it and run the examples:
-```cp dist/dash-cytoscape-0.0.1.tar.gz ../temp
+```
+cp dist/dash-cytoscape-0.0.1.tar.gz ../temp
 cp usage.py ../temp
 cd ../temp
 source venv/bin/activate
@@ -42,15 +47,18 @@ pip install dash-cytoscape-0.0.1.tar.gz
 python usage.py
 ```
 7. If the examples work, then publish:
-```npm publish
+```
+npm publish
 twine upload dist/dash-cytoscape-0.0.1.tar.gz
 ```
 8. Tag your release with git:
-```git tag -a 'v0.0.1' -m 'v0.0.1'
+```
+git tag -a 'v0.0.1' -m 'v0.0.1'
 git push origin master --follow-tags
 ```
 9. Verify that the publish worked by installing it:
-```cd ../temp
+```
+cd ../temp
 pip install dash-cytoscape==0.0.1
 python usage.py
 ```

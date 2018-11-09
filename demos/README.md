@@ -5,12 +5,20 @@ The following demos were created in addition to the existing usage files:
 
 ## Requirements
 
-The examples here use the official dash-cytoscape distribution rather than the repository version. If you wish to use the local version, please move the demo into the parent folder, and run from there.
+The examples here use the PyPi release of dash-cytoscape currently installed, rather than the latest development version. If you wish to use the latter, please move your demo (and its associated data files) into the parent folder, and run from there.
 
 To run `usage-phylogeny.py`, you need to install biopython:
 ```commandline
 $ pip install biopython 
 ```
+
+## Data
+
+The phylogeny data was taken from the [Biopython Github Repo](https://github.com/biopython/biopython/blob/master/Tests/PhyloXML/apaf.xml). 
+
+The sample network for social science was taken from the [Google Plus Ego dataset](http://snap.stanford.edu/data/) collected by the SNAP Group at Stanford.
+
+All the other datasets were taken from the [Cytoscape.js Official Documentation Demos](https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos).
 
 ## Demos reproduced from Cytoscape.js
 

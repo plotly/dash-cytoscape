@@ -12,11 +12,14 @@ setup(
     name=package_name,
     version=package["version"],
     author=package['author'],
+    author_email=package['author-email'],
     packages=[package_name],
     include_package_data=True,
     license=package['license'],
     description=package['description'] if 'description' in package else package_name,
     install_requires=[
-        'colour==0.1.5'
+        'dash',
+        'dash-html-components',
+        'dash_renderer',
     ]
 )
