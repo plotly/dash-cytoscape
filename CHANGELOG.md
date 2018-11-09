@@ -6,6 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2018-11-08
+### Added
+* Author email and improve description
+* Data section of demos readme
+* Dash, html and renderer to install requirements
+
+### Changed
+* Move grid layout data file
+* Change App.js react demo data to be local
+* Installation steps in readme to use yarn
+
+
+### Updated
+* Cytoscape.js version, correct component import
+
+### Fixed
+* Correct unpkg link error
+* Markdown formatting for CONTRIBUTING.md
+
+
 ## [0.0.1] - 2018-11-03
 ### Added
 - First pre-release version of dash-cytoscape. Still WIP, so prepare to see it break 🔧
