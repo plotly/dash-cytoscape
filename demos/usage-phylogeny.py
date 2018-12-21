@@ -1,3 +1,5 @@
+import math
+
 import dash_cytoscape
 import dash
 from dash.dependencies import Input, Output
@@ -7,7 +9,8 @@ import dash_core_components as dcc
 try:
     from Bio import Phylo
 except ModuleNotFoundError as e:
-    print(e, "Please make sure you have biopython installed correctly before running this example.")
+    print(e,
+          "Please make sure biopython is installed correctly before running this example.")
     exit(1)
 
 
@@ -121,10 +124,7 @@ tree = Phylo.read('data/apaf.xml', 'phyloxml')
 nodes, edges = generate_elements(tree)
 elements = nodes + edges
 
-layout = {
-    'name': 'breadthfirst',
-    'directed': True
-}
+layout = {'name': 'preset'}
 
 stylesheet = [
     {
@@ -137,34 +137,34 @@ stylesheet = [
         }
     },
     {
+        'selector': '.support',
+        'style': {'background-opacity': 0}
+    },
+    {
         'selector': 'edge',
         'style': {
-            "source-endpoint": "outside-to-node",
+            "source-endpoint": "inside-to-node",
+            "target-endpoint": "inside-to-node",
         }
     },
     {
         'selector': '.terminal',
         'style': {
             'label': 'data(name)',
-            "shape": "roundrectangle",
-            "width": 115,
-            "height": 25,
+            'width': 10,
+            'height': 10,
             "text-valign": "center",
-            'background-color': 'white',
-            "border-width": 1.5,
-            "border-style": "solid",
-            "border-opacity": 1,
+            "text-halign": "right",
+            'background-color': '#222222'
         }
     }
 ]
-
 
 # Start the app
 app = dash.Dash(__name__)
 
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
-
 
 app.layout = html.Div([
     dash_cytoscape.Cytoscape(
@@ -178,6 +178,27 @@ app.layout = html.Div([
         }
     )
 ])
+
+
+@app.callback(Output('cytoscape', 'stylesheet'),
+              [Input('cytoscape', 'mouseoverEdgeData')])
+def color_children(edgeData):
+    if not edgeData:
+        return stylesheet
+
+    if 's' in edgeData['source']:
+        val = edgeData['source'].split('s')[0]
+    else:
+        val = edgeData['source']
+
+    children_style = [{
+        'selector': f'edge[source *= "{val}"]',
+        'style': {
+            'line-color': 'blue'
+        }
+    }]
+
+    return stylesheet + children_style
 
 
 if __name__ == '__main__':
