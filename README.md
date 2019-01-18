@@ -63,30 +63,31 @@ Please follow the following steps for local testing:
 ```commandline
 $ git clone https://github.com/plotly/dash-cytoscape.git
 ```
-2. Install the dependencies and build the code:
-```commandline
-$ yarn
-$ yarn run build:all
-```
-
-3. Install the library
-```commandline
-$ python setup.py install
-```
-
-It is recommended to install the library and running the examples in a fresh virtualenv in a separate folder:
-
+2. In order to run the Python builds (`npm run build:py`) you need to create a 
+venv for this project. Make sure you have `virtualenv` correctly instaleld and run this:
 ```commandline
 $ mkdir dash_cytoscape_dev
 $ cd dash_cytoscape_dev
 $ virtualenv venv  # Create a virtual env
 $ source venv/bin/activate  # Activate the venv
 ```
+
 To activate in windows:
 ```commandline
 > venv\Scripts\activate
 ```
 (and then repeat step 3).
+
+3. Install the JavaScript dependencies and build the code:
+```commandline
+$ yarn
+$ yarn run build:all
+```
+
+4. Install the library
+```commandline
+$ python setup.py install
+```
 
 
 ## Documentation
