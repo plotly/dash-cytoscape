@@ -8,6 +8,10 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
 
+/*
+A Component Library for Dash aimed at facilitating network visualization in
+Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
+ */
 export default class Cytoscape extends Component {
     constructor(props) {
         super(props);

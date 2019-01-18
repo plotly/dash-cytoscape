@@ -42,7 +42,7 @@ class attribute).
     as `cy.elements(...)` and `cy.filter(...)` are not available, the selector
     string syntax stays the same.
 - layout (dict; optional): A dictionary specifying how to set the position of the elements in your
-graph. * The `'name'` key is required, and indicates which layout (algorithm) to
+graph. The `'name'` key is required, and indicates which layout (algorithm) to
 use.
     1. The layouts available by default are:
         - `random`: Randomly assigns positions
@@ -112,16 +112,16 @@ default (if true, overrides individual element state).
         - `style` (dictionary)
 
     3. Items for compound nodes:
-            - `ancestorsData` (dictionary)
-            - `childrenData` (dictionary)
-            - `descendantsData` (dictionary)
-            - `parentData` (dictionary)
-            - `siblingsData` (dictionary)
-            - `isParent` (boolean)
-            - `isChildless` (boolean)
-            - `isChild` (boolean)
-            - `isOrphan` (boolean)
-            - `relativePosition` (dictionary)
+        - `ancestorsData` (dictionary)
+        - `childrenData` (dictionary)
+        - `descendantsData` (dictionary)
+        - `parentData` (dictionary)
+        - `siblingsData` (dictionary)
+        - `isParent` (boolean)
+        - `isChildless` (boolean)
+        - `isChild` (boolean)
+        - `isOrphan` (boolean)
+        - `relativePosition` (dictionary)
 - tapNodeData (dict; optional): The data dictionary of a node returned when you tap or click it.
 - tapEdge (dict; optional): The complete edge dictionary returned when you tap or click it.
 
