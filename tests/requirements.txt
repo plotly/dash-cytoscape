@@ -1,8 +1,9 @@
+# Packages needed to run the tests.
 # Switch into a virtual environment
 # pip install -r requirements.txt
 
 chromedriver-binary
-dash
+dash>=0.31.0
 dash-core-components
 dash-html-components
 dash-renderer
@@ -11,3 +12,4 @@ percy
 selenium
 flake8
 pylint
+pytest-dash>=1.0.1
