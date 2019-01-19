@@ -64,7 +64,7 @@ Please follow the following steps for local testing:
 $ git clone https://github.com/plotly/dash-cytoscape.git
 ```
 2. In order to run the Python builds (`npm run build:py`) you need to create a 
-venv for this project. Make sure you have `virtualenv` correctly instaleld and run this:
+venv for this project. Make sure you have `virtualenv` correctly installed and run this:
 ```commandline
 $ mkdir dash_cytoscape_dev
 $ cd dash_cytoscape_dev
