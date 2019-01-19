@@ -8,7 +8,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
 
-/*
+/**
 A Component Library for Dash aimed at facilitating network visualization in
 Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
  */
@@ -158,15 +158,11 @@ export default class Cytoscape extends Component {
         window.cy = cy;
         this._handleCyCalled = true;
 
-        const {
-            setProps
-        } = this.props;
-
         cy.on('tap', 'node', event => {
             const nodeObject = this.generateNode(event);
 
-            if (setProps !== null) {
-                setProps({
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
                     tapNode: nodeObject,
                     tapNodeData: nodeObject.data
                 });
@@ -176,8 +172,8 @@ export default class Cytoscape extends Component {
         cy.on('tap', 'edge', event => {
             const edgeObject = this.generateEdge(event);
 
-            if (setProps !== null) {
-                setProps({
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
                     tapEdge: edgeObject,
                     tapEdgeData: edgeObject.data
                 });
@@ -185,16 +181,16 @@ export default class Cytoscape extends Component {
         });
 
         cy.on('mouseover', 'node', event => {
-            if (setProps !== null) {
-                setProps({
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
                     mouseoverNodeData: event.target.data()
                 })
             }
         });
 
         cy.on('mouseover', 'edge', event => {
-            if (setProps !== null) {
-                setProps({
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
                     mouseoverEdgeData: event.target.data()
                 })
             }
@@ -217,8 +213,8 @@ export default class Cytoscape extends Component {
              */
             const nodeData = selectedNodes.map(el => el.data());
 
-            if (setProps !== null) {
-                setProps({
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
                     selectedNodeData: nodeData
                 })
             }
@@ -227,8 +223,8 @@ export default class Cytoscape extends Component {
         const sendSelectedEdgesData = _.debounce(() => {
             const edgeData = selectedEdges.map(el => el.data());
 
-            if (setProps !== null) {
-                setProps({
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
                     selectedEdgeData: edgeData
                 })
             }
