@@ -6,13 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] - 2018-01-19
+### Changed
+* Cytoscape component docstring for thorough and well-formatted references (#26)
+* Refactored code base to match the up-to-date version of `dash-component-boilerplate` (#27)
+
+### Fixed
+* Console error where `setProps` gets called even when it is undefined (# 28)
+* Incorrect setProps assignment that causes `setProps` to not be properly defined when nested in bigger apps (e.g. `dash-docs`) (#28)
+
 ## [0.0.3] - 2018-12-29
 ### Added
 * Detailed usage example for rendering Biopython's Phylo object (phylogeny trees)
 into a Cytoscape graph, with interactive features such as highlighting.
 
 ### Updated
-* Cytoscape.js version, from 1.0.1 to 1.1.0 
+* React-Cytoscapejs version, from 1.0.1 to 1.1.0 
 
 ## [0.0.2] - 2018-11-08
 ### Added
