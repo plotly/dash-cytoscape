@@ -15,10 +15,10 @@ Interacting with the elements:
 Make sure that the following python packages are installed:
 
 ```
-dash==0.28.5
+dash==0.35.1
 dash-renderer==0.14.3
-dash-html-components==0.13.2
-dash-core-components==0.34.0
+dash-html-components==0.13.4
+dash-core-components==0.42.1
 ```
 
 Older versions are not necessarily incompatible, but have not been extensively tested.
