@@ -3,3 +3,4 @@ include dash_cytoscape/dash_cytoscape.dev.js
 include dash_cytoscape/metadata.json
 include dash_cytoscape/package.json
 include README.md
+include LICENSE
