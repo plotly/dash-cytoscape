@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.0.4] - 2018-01-19
+
+### Added
+* Homepage URL for PyPi
+* Long Description for PyPi
+
 ### Changed
 * Cytoscape component docstring for thorough and well-formatted references (#26)
 * Refactored code base to match the up-to-date version of `dash-component-boilerplate` (#27)
