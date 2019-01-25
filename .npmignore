@@ -20,6 +20,7 @@ public
 src
 scripts
 config
+venv
 .travis.yml
 CHANGELOG.md
 README.md
