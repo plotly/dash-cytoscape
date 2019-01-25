@@ -4,7 +4,6 @@ import dash_cytoscape
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
-import dash_core_components as dcc
 
 try:
     from Bio import Phylo
@@ -183,7 +182,7 @@ app.layout = html.Div([
 @app.callback(Output('cytoscape', 'stylesheet'),
               [Input('cytoscape', 'mouseoverEdgeData')])
 def color_children(edgeData):
-    if not edgeData:
+    if edgeData is None:
         return stylesheet
 
     if 's' in edgeData['source']:
