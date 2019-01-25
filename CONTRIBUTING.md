@@ -8,17 +8,31 @@ Refer to the [readme](README.md) for installation and development instructions.
 
 Please lint any additions to Python code with `pylint` and `flake8`.
 
-## Pull Request Guidelines
+## Code quality & design
 
-Use the [GitHub flow][] when proposing contributions to this repository (i.e. create a feature branch and submit a PR against the master branch).
+-   Is your code clear? If you had to go back to it in a month, would you be happy to? If someone else had to contribute to it, would they be able to?
+
+    A few suggestions:
+
+    -   Make your variable names descriptive and use the same naming conventions throughout the code.
+
+    -   For more complex pieces of logic, consider putting a comment, and maybe an example.
+
+    -   In the comments, focus on describing _why_ the code does what it does, rather than describing _what_ it does. The reader can most likely read the code, but not necessarily understand why it was necessary.
+
+    -   Don't overdo it in the comments. The code should be clear enough to speak for itself. Stale comments that no longer reflect the intent of the code can hurt code comprehension.
+
+*   Don't repeat yourself. Any time you see that the same piece of logic can be applied in multiple places, factor it out into a function, or variable, and reuse that code.
+*   Scan your code for expensive operations (large computations, DOM queries, React re-renders). Have you done your possible to limit their impact? If not, it is going to slow your app down.
+*   Can you think of cases where your current code will break? How are you handling errors? Should the user see them as notifications? Should your app try to auto-correct them for them?
+
 
 ## Running the Tests
 
 _To be added_
 
 
-## Making a contribution
-_For larger features, your contribution will have a higher likelihood of getting merged if you create an issue to discuss the changes that you'd like to make before you create a pull request._
+## Publishing
 
 Create a pull request and tag the Plotly team (`@plotly/dash_bio`) and tag / request review from [@xhlulu](https://github.com/xhlulu).
 
@@ -64,16 +78,24 @@ python usage.py
 ```
 
 
-Make a post in the [Dash Community Forum][]
-    * Title it `":mega: Announcement! New <Your Feature> - Feedback Welcome"`
-    * In the description, link to the PR and any relevant issue(s)
-    * Pin the topic so that it appears at the top of the forum for two weeks
+Make a post in the [Dash Community Forum](https://community.plot.ly/c/dash)
+* Title it `":mega: Announcement! New <Your Feature> - Feedback Welcome"`
+* In the description, link to the PR and any relevant issue(s)
+* Pin the topic so that it appears at the top of the forum for two weeks
 
 ## [Checklists](http://rs.io/unreasonable-effectiveness-of-checklists/)
 **Beginner tip:** _Copy and paste this section as a comment in your PR, then check off the boxes as you go!_
 ### Pre-Merge checklist
-- [ ] If changes are significant, a release candidate has been created and posted to Slack, the Plotly forums, and at the very top of the pull request.
-- [ ] Two people have :dancer:'d the pull request. You can be one of these people if you are a Dash core contributor.
+- [ ] The project was correctly built with `npm run build:all`.
+- [ ] If there was any conflict, it was solved correctly
+- [ ] All changes were documented in CHANGELOG.md.
+- [ ] All tests on CircleCI have passed.
+- [ ] All Percy visual changes have been approved.
+- [ ] Two people have :dancer:'d the pull request. You can be one of these people if you are a Dash Cytoscape core contributor.
+
+### Merge step
+1. Make sure to *Squash and Merge* your contribution if you have created multiple commits to change a specific feature.
+2. Make sure to *Rebase and Merge* if you added many different features, and need to contribute multiple different commits.
 
 ### Post-Merge checklist
 - [ ] You have tagged the release using `git tag v<version_number>` _(for the contributor merging the PR)_.
@@ -81,24 +103,24 @@ Make a post in the [Dash Community Forum][]
 - [ ] You have deleted the branch.
 
 ### Pre-Release checklist
-- [ ] Everything in the Pre-Merge checklist is completed. (Except the last two if this is a release candidate).
+- [ ] Everything in the Pre-Merge checklist is completed.
 - [ ] `git remote show origin` shows you are in the correct repository.
 - [ ] `git branch` shows that you are on the expected branch.
 - [ ] `git status` shows that there are no unexpected changes.
-- [ ] `dash/version.py` is at the correct version.
+- [ ] Both `package.json` and `dash_cytoscape/package.json` versions have been correctly updated.
 
 ### Release Step
-- `python setup.py sdist` to build.
-- `twine upload dist/<the_version_you_just_built>` to upload to PyPi.
+Complete the "Publishing" section.
 
 ### Post-Release checklist
+- [ ] Step 1 and 2 of Post-merge checklist are completed.
 - [ ] You have closed all issues that this pull request solves, and commented the new version number users should install.
 - [ ] If significant enough, you have created an issue about documenting the new feature or change and you have added it to the [Documentation] project.
 - [ ] You have created a pull request in [Dash Docs] with the new release of your feature by editing that project's [`requirements.txt` file](https://github.com/plotly/dash-docs/blob/master/requirements.txt) and you have assigned `@chriddyp` to review.
 
 ## Financial Contributions
 
-Dash, and many of Plotly's open source products, have been funded through direct sponsorship by companies. [Get in touch] about funding feature additions, consulting, or custom app development.
+Dash, and many of Plotly's open source products, have been funded through direct sponsorship by companies. [Get in touch](https://plot.ly/products/on-premise/) about funding feature additions, consulting, or custom app development.
 
 [Dash Core Components]: https://dash.plot.ly/dash-core-components
 [Dash HTML Components]: https://github.com/plotly/dash-html-components
