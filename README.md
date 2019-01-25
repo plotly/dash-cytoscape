@@ -3,10 +3,10 @@
 A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/)
 
 Interacting with the stylesheet:
-![usage-stylesheet-demo](demos/images/usage-stylesheet-demo.gif)
+![usage-stylesheet-demo](https://raw.githubusercontent.com/plotly/dash-cytoscape/master/demos/images/usage-stylesheet-demo.gif)
 
 Interacting with the elements:
-![usage-elements-demo](demos/images/usage-elements-demo.gif)
+![usage-elements-demo](https://raw.githubusercontent.com/plotly/dash-cytoscape/master/demos/images/usage-elements-demo.gif)
 
 ## Getting Started
 

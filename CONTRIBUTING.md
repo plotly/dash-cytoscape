@@ -39,27 +39,27 @@ python setup.py sdist
 ```
 6. Copy the tarball into a separate folder and try to install it and run the examples:
 ```
-cp dist/dash-cytoscape-0.0.1.tar.gz ../temp
+cp dist/dash_cytoscape-x.x.x.tar.gz ../temp
 cp usage.py ../temp
 cd ../temp
 source venv/bin/activate
-pip install dash-cytoscape-0.0.1.tar.gz
+pip install dash_cytoscape-x.x.x.tar.gz
 python usage.py
 ```
 7. If the examples work, then publish:
 ```
 npm publish
-twine upload dist/dash-cytoscape-0.0.1.tar.gz
+twine upload dist/dash_cytoscape-x.x.x.tar.gz
 ```
 8. Tag your release with git:
 ```
-git tag -a 'v0.0.1' -m 'v0.0.1'
+git tag -a 'vx.x.x' -m 'vx.x.x'
 git push origin master --follow-tags
 ```
 9. Verify that the publish worked by installing it:
 ```
 cd ../temp
-pip install dash-cytoscape==0.0.1
+pip install dash-cytoscape==x.x.x
 python usage.py
 ```
 
