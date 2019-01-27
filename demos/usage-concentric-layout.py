@@ -16,12 +16,12 @@ Note: This example is broken because layout takes a function as input, i.e.
 ```
 
 """
-import dash_cytoscape as cyto
-import dash
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
 import json
+
+import dash
+import dash_html_components as html
+
+import dash_cytoscape as cyto
 
 app = dash.Dash(__name__)
 server = app.server

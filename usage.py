@@ -1,5 +1,5 @@
-import dash_cytoscape as cyto
 import dash
+import dash_cytoscape as cyto
 import dash_html_components as html
 
 app = dash.Dash(__name__)

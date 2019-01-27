@@ -2,12 +2,10 @@
 Original Demo: http://js.cytoscape.org/demos/multiple-instances/
 Original Code: https://github.com/cytoscape/cytoscape.js/blob/master/documentation/demos/multiple-instances
 """
-import dash_cytoscape as cyto
 import dash
-from dash.dependencies import Input, Output
 import dash_html_components as html
-import dash_core_components as dcc
-import json
+
+import dash_cytoscape as cyto
 
 app = dash.Dash(__name__)
 server = app.server

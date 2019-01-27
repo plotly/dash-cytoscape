@@ -5,12 +5,12 @@ Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentati
 Note: This implementation DOES NOT work yet, since cose-bilkent hasn't been implemented yet
 
 """
-import dash_cytoscape as cyto
-import dash
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
 import json
+
+import dash
+import dash_html_components as html
+
+import dash_cytoscape as cyto
 
 app = dash.Dash(__name__)
 server = app.server
