@@ -16,7 +16,7 @@ Note: This example is broken because layout takes a function as input, i.e.
 ```
 
 """
-import dash_cytoscape
+import dash_cytoscape as cyto
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -35,7 +35,7 @@ with open('data/concentric-layout/data.json', 'r') as f:
 
 # App
 app.layout = html.Div([
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape',
         elements=elements,
         layout={

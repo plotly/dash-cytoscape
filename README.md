@@ -35,12 +35,12 @@ Create the following example inside an `app.py` file:
 
 ```python
 import dash
-import dash_cytoscape
+import dash_cytoscape as cyto
 import dash_html_components as html
 
 app = dash.Dash(__name__)
 app.layout = html.Div([
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape',
         elements=[
             {'data': {'id': 'one', 'label': 'Node 1'}, 'position': {'x': 50, 'y': 50}},

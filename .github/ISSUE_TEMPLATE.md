@@ -22,7 +22,7 @@ it's usually helpful to mention the browser and version that you are using.
 Example:
 ```python
 import dash
-import dash_cytoscape
+import dash_cytoscape as cyto
 import dash_html_components as html
 
 app = dash.Dash(__name__)
@@ -30,7 +30,7 @@ app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
 app.layout = html.Div([
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape',
         elements=[
             {'data': {'id': 'one', 'label': 'Node 1'}, 'position': {'x': 50, 'y': 50}},

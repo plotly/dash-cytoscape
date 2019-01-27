@@ -5,7 +5,7 @@ Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentati
 Note: This implementation looks different from the original implementation,
 although the input paramters are exactly the same.
 """
-import dash_cytoscape
+import dash_cytoscape as cyto
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -27,7 +27,7 @@ with open('data/cose-layout/cy-style.json', 'r') as f:
 
 # App
 app.layout = html.Div([
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape',
         elements=elements,
         stylesheet=stylesheet,

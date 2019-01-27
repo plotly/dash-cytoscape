@@ -5,13 +5,11 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-import dash_cytoscape
+import dash_cytoscape as cyto
 from demos import dash_reusable_components as drc
 
-app = dash.Dash('')
-
-app.scripts.config.serve_locally = True
-app.css.config.serve_locally = True
+app = dash.Dash(__name__)
+server = app.server
 
 # ###################### DATA PREPROCESSING ######################
 # Load data
@@ -71,7 +69,7 @@ styles = {
 
 app.layout = html.Div([
     html.Div(className='eight columns', children=[
-        dash_cytoscape.Cytoscape(
+        cyto.Cytoscape(
             id='cytoscape',
             elements=cy_edges + cy_nodes,
             style={

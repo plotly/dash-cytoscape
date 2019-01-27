@@ -2,7 +2,7 @@
 Original Demo: http://js.cytoscape.org/demos/multiple-instances/
 Original Code: https://github.com/cytoscape/cytoscape.js/blob/master/documentation/demos/multiple-instances
 """
-import dash_cytoscape
+import dash_cytoscape as cyto
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -32,7 +32,7 @@ elements = [
 
 # App
 app.layout = html.Div([
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape-top',
         elements=elements,
         layout={
@@ -82,7 +82,7 @@ app.layout = html.Div([
         }
     ),
 
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape-bottom',
         elements=elements,
         layout={

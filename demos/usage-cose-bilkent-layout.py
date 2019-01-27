@@ -5,7 +5,7 @@ Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentati
 Note: This implementation DOES NOT work yet, since cose-bilkent hasn't been implemented yet
 
 """
-import dash_cytoscape
+import dash_cytoscape as cyto
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -28,7 +28,7 @@ with open('data/cose-bilkent-layout/data.json', 'r') as f:
 
 # App
 app.layout = html.Div([
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape',
         elements=elements,
         layout={

@@ -1,14 +1,12 @@
-import dash_cytoscape
+import dash_cytoscape as cyto
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
 import dash_core_components as dcc
 import json
 
-app = dash.Dash('')
-
-app.scripts.config.serve_locally = True
-app.css.config.serve_locally = True
+app = dash.Dash(__name__)
+server = app.server
 
 # Dictionary declaration
 elements_dict = [
@@ -121,7 +119,7 @@ styles = {
 
 app.layout = html.Div([
     html.Div(className='eight columns', children=[
-        dash_cytoscape.Cytoscape(
+        cyto.Cytoscape(
             id='cytoscape',
             elements=basic_elements,
             layout={

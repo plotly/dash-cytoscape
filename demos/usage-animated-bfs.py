@@ -4,7 +4,7 @@ Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentati
 
 Note: Animation Not Implemented yet, please refer to code.
 """
-import dash_cytoscape
+import dash_cytoscape as cyto
 import dash
 from dash.dependencies import Input, Output
 import dash_html_components as html
@@ -34,7 +34,7 @@ elements = [
 
 # App
 app.layout = html.Div([
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape',
         elements=elements,
         layout={
