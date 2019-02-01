@@ -162,9 +162,8 @@ stylesheet = [
 
 # Start the app
 app = dash.Dash(__name__)
+server = app.server
 
-app.scripts.config.serve_locally = True
-app.css.config.serve_locally = True
 
 app.layout = html.Div([
     cyto.Cytoscape(
