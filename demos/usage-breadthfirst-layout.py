@@ -5,12 +5,10 @@ Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentati
 Note: Click Animation is not implemented.
 """
 
-import dash_cytoscape
 import dash
-from dash.dependencies import Input, Output
 import dash_html_components as html
-import dash_core_components as dcc
-import json
+
+import dash_cytoscape as cyto
 
 app = dash.Dash(__name__)
 server = app.server
@@ -99,7 +97,7 @@ stylesheet = [{
 
 # App
 app.layout = html.Div([
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape',
         elements=elements,
         stylesheet=stylesheet,

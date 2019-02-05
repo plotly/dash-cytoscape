@@ -1,7 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 
-import dash_cytoscape
+import dash_cytoscape as cyto
 from demos import dash_reusable_components as drc
 from .constants import LABEL_ELEMENT_TYPES, \
     LABEL_ELEMENT_TYPES_ALL, \
@@ -871,7 +871,7 @@ user_interface = html.Div(
 
 layout = html.Div([
     html.Div(className='row', style={'overflow': 'visible'}, children=[
-        dash_cytoscape.Cytoscape(
+        cyto.Cytoscape(
             id='cytoscape',
             className='eight columns',
             layout={'name': 'preset'},

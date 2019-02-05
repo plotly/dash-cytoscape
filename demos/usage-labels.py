@@ -19,12 +19,12 @@ Note: This example is broken because layout takes a function as input:
   },
 ```
 """
-import dash_cytoscape
-import dash
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
 import json
+
+import dash
+import dash_html_components as html
+
+import dash_cytoscape as cyto
 
 app = dash.Dash(__name__)
 server = app.server
@@ -60,7 +60,7 @@ with open(f'labels/cy-style.json', 'r') as f:
 
 # App
 app.layout = html.Div([
-    dash_cytoscape.Cytoscape(
+    cyto.Cytoscape(
         id='cytoscape',
         boxSelectionEnabled=False,
         autounselectify=True,

@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Added
+* Two new demos: `usage-grid-social-network.py` and `usage-concentric-social-network.py`
+* Add Issue and PR templates for Github (located in `.github`)
+
+## Changed
+* `usage-*.py` - Modified all the import statements from `import dash_cytoscape` to `import dash_cytoscape as cyto`. Also optimized imports.
+* `usage-phylogeny.py` - Clear callback conditional statement
+* `CONTRIBUTING.md` - changed `dash-cytoscape-0.0.1` to `dash-cytoscape-x.x.x`. Added a **Code quality & design** section. Changed the **Making a contribution** section and updated title to **Publishing**. Updated **Pre-Release checklist**.
+* `npmignore` - Added `venv` to avoid venvs to be included in the npm distribution package, which makes us a large amount of space and many unnecessary files being distributed.
+
+## Removed
+* `extract-meta.js`, `extract-meta` - they were moved to the dash component CLI, thus are not needed anymore
+* `config.py`, `runtime.txt`, `Procfile`, `index.html` - only needed for hosting `usage-*.py` on DDS, they are now moved to `plotly/dash-cytoscape-demos`.
+* `review_checklist.md` -  redundant since all the information is already contained in CONTRIBUTING.md
+
 ## [0.0.4] - 2018-01-19
 
 ### Added
