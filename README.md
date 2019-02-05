@@ -1,6 +1,6 @@
-# Dash Cytoscape
+# Dash Cytoscape [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/plotly/dash-cytoscape/blob/master/LICENSE) [![PyPi Version](https://img.shields.io/pypi/v/dash-cytoscape.svg)](https://pypi.org/project/dash-cytoscape/)
 
-A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/)
+A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
 
 Interacting with the stylesheet:
 ![usage-stylesheet-demo](https://raw.githubusercontent.com/plotly/dash-cytoscape/master/demos/images/usage-stylesheet-demo.gif)
@@ -55,6 +55,15 @@ if __name__ == '__main__':
     app.run_server(debug=True)
 ```
 
+
+## Documentation
+
+View the [Dash Cytoscape User Guide](https://dash.plot.ly/cytoscape/) to get started now. You can also use the [component reference](https://dash.plot.ly/cytoscape/reference/) to find how to use a certain feature.
+
+To learn more about the core Dash components and how to use callbacks, view the [Dash documentation](https://dash.plot.ly/).
+
+For supplementary information about the underlying Javascript  API, view the [Cytoscape.js documentation](http://js.cytoscape.org/).
+
 ## Development
 
 Please follow the following steps for local testing:
@@ -88,13 +97,6 @@ $ yarn run build:all
 ```commandline
 $ python setup.py install
 ```
-
-
-## Documentation
-
-For using Dash and for a Python-specific overview of Dash Cytoscape, view the [Dash User Guide](https://dash.plot.ly/). It's chock-full of examples, pro tips, and guiding principles.
-
-For supplementary information about the underlying javascript  API, view the [Cytoscape.js documentation](http://js.cytoscape.org/).
 
 
 
