@@ -119,4 +119,4 @@ See https://plot.ly/dash/support for ways to get in touch.
 Huge thanks to the Cytoscape Consortium and the Cytoscape.js team for their contribution in making such a complete API for creating interactive networks. This library would not have been possible without their massive work!
 
 The Pull Request and Issue Templates were inspired from the
-[]scikit-learn project](https://github.com/scikit-learn/scikit-learn).
+[scikit-learn project](https://github.com/scikit-learn/scikit-learn).
