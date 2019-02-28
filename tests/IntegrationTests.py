@@ -22,8 +22,7 @@ class IntegrationTests(unittest.TestCase):
             snapshot_name = '{} - {}'.format(name, sys.version_info)
 
             self.percy_runner.snapshot(
-                name=snapshot_name,
-                enable_javascript=True
+                name=snapshot_name
             )
 
     @classmethod
@@ -39,7 +38,8 @@ class IntegrationTests(unittest.TestCase):
 
         if os.environ.get('PERCY_ENABLED', False):
             loader = percy.ResourceLoader(webdriver=cls.driver)
-            cls.percy_runner = percy.Runner(loader=loader)
+            percy_config = percy.Config(default_widths=[1280])
+            cls.percy_runner = percy.Runner(loader=loader, config=percy_config)
             cls.percy_runner.initialize_build()
 
     @classmethod
@@ -53,15 +53,16 @@ class IntegrationTests(unittest.TestCase):
     def setUp(self):
         pass
 
-    def tearDown(self):
+    def tearDown(self, port=8050):
         time.sleep(3)
         if platform.system() == 'Windows':
-            requests.get('http://localhost:8050/stop')
+            requests.get('http://localhost:{}/stop'.format(port))
+            sys.exit()
         else:
             self.server_process.terminate()
         time.sleep(3)
 
-    def startServer(self, app):
+    def startServer(self, app, port=8050):
         if 'DASH_TEST_PROCESSES' in os.environ:
             processes = int(os.environ['DASH_TEST_PROCESSES'])
         else:
@@ -71,7 +72,7 @@ class IntegrationTests(unittest.TestCase):
             app.scripts.config.serve_locally = True
             app.css.config.serve_locally = True
             app.run_server(
-                port=8050,
+                port=port,
                 debug=False,
                 processes=processes
             )
@@ -87,9 +88,9 @@ class IntegrationTests(unittest.TestCase):
                 return 'stop'
 
             app.run_server(
-                port=8050,
+                port=port,
                 debug=False,
-                threaded=True
+                threaded=False
             )
 
         # Run on a separate process so that it doesn't block
@@ -105,5 +106,5 @@ class IntegrationTests(unittest.TestCase):
         time.sleep(5)
 
         # Visit the dash page
-        self.driver.get('http://localhost:8050')
+        self.driver.get('http://localhost:{}'.format(port))
         time.sleep(0.5)
