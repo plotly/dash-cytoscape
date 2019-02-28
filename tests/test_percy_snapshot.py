@@ -47,7 +47,7 @@ class Tests(IntegrationTests):
 
         @app.callback(dash.dependencies.Output('page-content', 'children'),
                       [dash.dependencies.Input('url', 'pathname')])
-        def display_image(pathname):
+        def display_image(pathname):  # pylint: disable=W0612
             """
             Assign the url path to return the image it represent. For example,
             to return "usage.png", you can visit localhost/usage.png.
@@ -56,9 +56,9 @@ class Tests(IntegrationTests):
             """
             if not pathname or pathname == '/':
                 return
-            else:
-                name = pathname.replace('/', '')
-                return html.Img(id=name, src=encode(name))
+
+            name = pathname.replace('/', '')
+            return html.Img(id=name, src=encode(name))
 
         # Start the app
         self.startServer(app)
