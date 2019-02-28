@@ -20,8 +20,10 @@ class IntegrationTests(unittest.TestCase):
     def percy_snapshot(self, name=''):
         if os.environ.get('PERCY_ENABLED', False):
             snapshot_name = '{} - {}'.format(name, sys.version_info)
+
             self.percy_runner.snapshot(
-                name=snapshot_name
+                name=snapshot_name,
+                enable_javascript=True
             )
 
     @classmethod
@@ -32,12 +34,11 @@ class IntegrationTests(unittest.TestCase):
         if 'DASH_TEST_CHROMEPATH' in os.environ:
             options.binary_location = os.environ['DASH_TEST_CHROMEPATH']
 
-        cls.driver = webdriver.Chrome(chrome_options=options)
+        cls.driver = webdriver.Chrome(options=options)
+        cls.driver.set_window_size(1280, 1000)
 
         if os.environ.get('PERCY_ENABLED', False):
-            loader = percy.ResourceLoader(
-                webdriver=cls.driver
-            )
+            loader = percy.ResourceLoader(webdriver=cls.driver)
             cls.percy_runner = percy.Runner(loader=loader)
             cls.percy_runner.initialize_build()
 
@@ -64,7 +65,7 @@ class IntegrationTests(unittest.TestCase):
         if 'DASH_TEST_PROCESSES' in os.environ:
             processes = int(os.environ['DASH_TEST_PROCESSES'])
         else:
-            processes = 4
+            processes = 1
 
         def run():
             app.scripts.config.serve_locally = True
