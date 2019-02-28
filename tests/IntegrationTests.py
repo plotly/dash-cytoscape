@@ -53,10 +53,10 @@ class IntegrationTests(unittest.TestCase):
     def setUp(self):
         pass
 
-    def tearDown(self, port=8050):
+    def tearDown(self):
         time.sleep(3)
         if platform.system() == 'Windows':
-            requests.get('http://localhost:{}/stop'.format(port))
+            requests.get('http://localhost:8050/stop')
             sys.exit()
         else:
             self.server_process.terminate()

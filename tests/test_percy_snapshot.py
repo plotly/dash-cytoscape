@@ -22,6 +22,7 @@ class Tests(IntegrationTests):
     the apps being tested in test_usage.py, display them in a simple
     Dash app, and use Percy to take a snapshot for CVI.
     """
+
     def test_usage(self):
         def encode(name):
             path = os.path.join(
@@ -53,7 +54,9 @@ class Tests(IntegrationTests):
             :param pathname: name of the screenshot, prefixed with "/"
             :return: An html.Img object containing the base64 encoded image
             """
-            if pathname:
+            if not pathname or pathname == '/':
+                return
+            else:
                 name = pathname.replace('/', '')
                 return html.Img(id=name, src=encode(name))
 
