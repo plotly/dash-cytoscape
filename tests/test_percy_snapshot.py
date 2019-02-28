@@ -9,6 +9,16 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class Tests(IntegrationTests):
+    """
+    In order to render snapshots, Percy collects the DOM of the project and
+    uses a custom rendering method, different from Selenium. Therefore, it
+    is unable to render Canvas elements, so can't render Cytoscape charts
+    directly.
+
+    Instead, we use Selenium webdrivers to automatically screenshot each of
+    the apps being tested in test_usage.py, display them in a simple
+    Dash app, and use Percy to take a snapshot for CVI.
+    """
     def test_usage(self):
         def encode(name):
             path = os.path.join(
