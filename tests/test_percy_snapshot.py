@@ -55,7 +55,7 @@ class Tests(IntegrationTests):
             :return: An html.Img object containing the base64 encoded image
             """
             if not pathname or pathname == '/':
-                return
+                return None
 
             name = pathname.replace('/', '')
             return html.Img(id=name, src=encode(name))
