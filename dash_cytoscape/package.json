@@ -6,7 +6,6 @@
   "scripts": {
     "start": "webpack-serve ./webpack.serve.config.js --open",
     "validate-init": "python _validate_init.py",
-    "prepublish": "npm run validate-init",
     "build:js-dev": "webpack --mode development",
     "build:js": "webpack --mode production",
     "build:py": "dash-generate-components ./src/lib/components dash_cytoscape",
