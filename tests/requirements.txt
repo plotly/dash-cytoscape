@@ -13,5 +13,4 @@ selenium
 flake8
 pylint
 pytest-dash>=1.0.1
-dash-cytoscape
 colour==0.1.5
