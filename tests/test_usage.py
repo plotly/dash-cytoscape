@@ -1,31 +1,56 @@
-from pytest_dash.utils import (
-    import_app,
-    wait_for_text_to_equal,
-    wait_for_element_by_css_selector
-)
+import os
+import importlib
+from .IntegrationTests import IntegrationTests
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
-# Basic test for the component rendering.
-def test_render_component(dash_threaded, selenium):
-    # Start a dash app contained in `usage.py`
-    # dash_threaded is a fixture by pytest-dash
-    # It will load a py file containing a Dash instance named `app`
-    # and start it in a thread.
-    app = import_app('usage')
-    dash_threaded(app)
+class Tests(IntegrationTests):
+    def create_usage_test(self, filename):
+        app = importlib.import_module(filename).app
 
-    # Get the generated component input with selenium
-    # The html input will be a children of the #input dash component
-    my_component = wait_for_element_by_css_selector(selenium, '#input > input')
+        self.startServer(app)
 
-    assert 'my-value' == my_component.get_attribute('value')
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.ID, "cytoscape"))
+        )
 
-    # Clear the input
-    my_component.clear()
+        self.driver.save_screenshot(os.path.join(
+            os.path.dirname(__file__),
+            'screenshots',
+            filename + '.png'
+        ))
 
-    # Send keys to the custom input.
-    my_component.send_keys('Hello dash')
+    def test_usage_advanced(self):
+        self.create_usage_test('usage-advanced')
 
-    # Wait for the text to equal, if after the timeout (default 10 seconds)
-    # the text is not equal it will fail the test.
-    wait_for_text_to_equal(selenium, '#output', 'You have entered Hello dash')
+    def test_usage_animated_bfs(self):
+        self.create_usage_test('demos.usage-animated-bfs')
+
+    def test_usage_breadthfirst_layout(self):
+        self.create_usage_test('demos.usage-breadthfirst-layout')
+
+    def test_usage_compound_nodes(self):
+        self.create_usage_test('demos.usage-compound-nodes')
+
+    def test_usage_events(self):
+        self.create_usage_test('usage-events')
+
+    def test_usage_elements(self):
+        self.create_usage_test('usage-elements')
+
+    def test_usage_pie_style(self):
+        self.create_usage_test('demos.usage-pie-style')
+
+    def test_usage_simple(self):
+        self.create_usage_test('usage')
+
+    def test_usage_stylesheet(self):
+        self.create_usage_test('usage-stylesheet')
+
+    def test_usage_initialisation(self):
+        self.create_usage_test('demos.usage-initialisation')
+
+    def test_usage_linkout_example(self):
+        self.create_usage_test('demos.usage-linkout-example')

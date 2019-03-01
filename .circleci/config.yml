@@ -26,12 +26,12 @@ jobs:
                 when: always
 
 
-    "python-3.6":
+    "python-3.6": &test-template
         docker:
             - image: circleci/python:3.6-stretch-browsers
 
         environment:
-            PERCY_ENABLED: False
+            PERCY_ENABLED: True
 
         steps:
             - checkout
@@ -70,11 +70,25 @@ jobs:
                 when: always
 
             - run:
-                name: Integration Tests
+                name: Integration Tests - Usage
                 command: |
                     . venv/bin/activate
-                    python -m unittest tests.test_render
+                    python -m unittest tests.test_usage
                 when: always
+
+            - run:
+                name: Capture Percy Snapshots
+                command: |
+                    . venv/bin/activate
+                    python -m unittest tests.test_percy_snapshot
+                when: always
+
+    "python-3.7":
+        <<: *test-template
+        docker:
+            - image: circleci/python:3.7-stretch-browsers
+        environment:
+            PERCY_ENABLE: False
 
 
 workflows:
@@ -82,4 +96,5 @@ workflows:
     build:
         jobs:
             - "python-3.6"
+            - "python-3.7"
             - "node"

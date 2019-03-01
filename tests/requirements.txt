@@ -13,3 +13,4 @@ selenium
 flake8
 pylint
 pytest-dash>=1.0.1
+colour==0.1.5
