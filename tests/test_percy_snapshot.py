@@ -1,11 +1,13 @@
 import base64
 import os
+import sys
 import time
 
 from .IntegrationTests import IntegrationTests
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
+import percy
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -21,13 +23,23 @@ class Tests(IntegrationTests):
     Instead, we use Selenium webdrivers to automatically screenshot each of
     the apps being tested in test_usage.py, display them in a simple
     Dash app, and use Percy to take a snapshot for CVI.
+
+    Here, we extend the setUpClass method from IntegrationTests by adding
+    percy runner initialization. This is because other classes that inherits
+    from IntegrationTests do not necessarily need to initialize Percy (since
+    all they do is save snapshots), and doing so causes Percy to render an
+    empty build that ends up failing. Therefore, we decide to initialize and
+    finalize the Percy runner in this class rather than inside
+    IntegrationTests.
     """
 
-    def test_usage(self):
+    @staticmethod
+    def create_app(dir_name):
         def encode(name):
             path = os.path.join(
                 os.path.dirname(__file__),
                 'screenshots',
+                dir_name,
                 name
             )
 
@@ -60,8 +72,37 @@ class Tests(IntegrationTests):
             name = pathname.replace('/', '')
             return html.Img(id=name, src=encode(name))
 
-        # Start the app
-        self.startServer(app)
+        return app
+
+    def percy_snapshot(self, name=''):
+        if os.environ.get('PERCY_ENABLED', False):
+            snapshot_name = '{} (Python {}.{}.{})'.format(
+                name,
+                sys.version_info.major,
+                sys.version_info.minor,
+                sys.version_info.micro,
+            )
+
+            self.percy_runner.snapshot(
+                name=snapshot_name
+            )
+
+    @classmethod
+    def setUpClass(cls):
+        super(Tests, cls).setUpClass()
+
+        if os.environ.get('PERCY_ENABLED', False):
+            loader = percy.ResourceLoader(webdriver=cls.driver)
+            percy_config = percy.Config(default_widths=[1280])
+            cls.percy_runner = percy.Runner(loader=loader, config=percy_config)
+            cls.percy_runner.initialize_build()
+
+    @classmethod
+    def tearDownClass(cls):
+        super(Tests, cls).tearDownClass()
+
+        if os.environ.get('PERCY_ENABLED', False):
+            cls.percy_runner.finalize_build()
 
         # Find the names of all the screenshots
         asset_list = os.listdir(os.path.join(
