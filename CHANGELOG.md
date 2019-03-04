@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## Added
+* `tests.test_usage`: Tests for rendering usage files.
+* `tests.test_callbacks`: Tests for updating `Cytoscape` with callbacks.
+* `tests.test_interactions`: Tests for interacting with `Cytoscape`, and evaluating its event callbacks.
+* `tests.test_percy_snapshot`: Creates a Percy build using screenshots from other tests.
+
+## Changed
+* `config.yml`: Added steps to run the new tests. Added coverage for Python 3.7. Included `demos` and all usage examples in `pylint` and `flake8`. Increased line limit to 100.
+* `demos/usage-*`: Formatted all demo apps in order to respect pylint and flake8.
+* `usage-*`: Formatted all demo apps in order to respect pylint and flake8.
+* `package.json`: Removed `"prepublish": "npm run validate-init"` due to conflict with CircleCI build. This script will be deprecated in favor of the upcoming Dash Component CLI.
+* `tests/IntegrationTests.py`: Moved the `percy_snapshot` method to `test_percy_snapshot` in order to avoid duplicate (failing) builds on Percy. Decrease the number of processes to 1.
+
+## Removed
+* `tests.test_render`: Removed unused test
+
+## Added
 * Two new demos: `usage-grid-social-network.py` and `usage-concentric-social-network.py`
 * Add Issue and PR templates for Github (located in `.github`)
 
