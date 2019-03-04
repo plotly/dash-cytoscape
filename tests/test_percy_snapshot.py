@@ -104,20 +104,57 @@ class Tests(IntegrationTests):
         if os.environ.get('PERCY_ENABLED', False):
             cls.percy_runner.finalize_build()
 
+    def run_percy_on(self, dir_name):
         # Find the names of all the screenshots
         asset_list = os.listdir(os.path.join(
             os.path.dirname(__file__),
-            'screenshots'
+            'screenshots',
+            dir_name
         ))
 
         # Run Percy
         for image in asset_list:
             if image.endswith('png'):
+                output_name = image.replace('.png', '')
+
                 self.driver.get('http://localhost:8050/{}'.format(image))
 
                 WebDriverWait(self.driver, 20).until(
                     EC.presence_of_element_located((By.ID, image))
                 )
 
-                self.percy_snapshot(name=image)
+                self.percy_snapshot(
+                    name='{}: {}'.format(dir_name.upper(), output_name)
+                )
                 time.sleep(2)
+
+    def test_usage(self):
+        # Create and start the app
+        app = self.create_app(dir_name='usage')
+        self.startServer(app)
+
+        self.run_percy_on('usage')
+
+    def test_elements(self):
+        app = self.create_app(dir_name='elements')
+        self.startServer(app)
+
+        self.run_percy_on('elements')
+
+    def test_layouts(self):
+        app = self.create_app(dir_name='layouts')
+        self.startServer(app)
+
+        self.run_percy_on('layouts')
+
+    def test_style(self):
+        app = self.create_app(dir_name='style')
+        self.startServer(app)
+
+        self.run_percy_on('style')
+
+    def test_interactions(self):
+        app = self.create_app(dir_name='interactions')
+        self.startServer(app)
+
+        self.run_percy_on('interactions')
