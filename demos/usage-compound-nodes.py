@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/compound-nodes/
-Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/compound-nodes
 
 Note: The Dash version is also uncentered. Otherwise it works.
 """

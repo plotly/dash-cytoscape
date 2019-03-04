@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/grid-layout/
-Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/grid-layout
 """
 import json
 

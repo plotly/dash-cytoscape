@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/labels/
-Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/labels
 
 Note: This example is broken because layout takes a function as input:
 ```
@@ -51,7 +50,8 @@ elements = [
 
     {'data': {'id': 'ar-src'}},
     {'data': {'id': 'ar-tgt'}},
-    {'data': {'source': 'ar-src', 'target': 'ar-tgt', 'label': 'autorotate (move my nodes)'}, 'classes': 'autorotate'},
+    {'data': {'source': 'ar-src', 'target': 'ar-tgt', 'label': 'autorotate (move my nodes)'},
+     'classes': 'autorotate'},
     {'data': {'label': 'background'}, 'classes': 'background'}
 ]
 

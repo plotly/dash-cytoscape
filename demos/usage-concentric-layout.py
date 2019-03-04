@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/concentric-layout/
-Original Code: https://github.com/cytoscape/cytoscape.js/blob/master/documentation/demos/concentric-layout/code.js
 
 Note: This example is broken because layout takes a function as input, i.e.
 ```

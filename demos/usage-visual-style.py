@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/visual-style/
-Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/visual-style
 """
 import dash
 import dash_html_components as html

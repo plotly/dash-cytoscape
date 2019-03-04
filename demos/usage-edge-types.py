@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/edge-types/
-Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/edge-types
 
 Note: This example is broken because layout takes a function as input:
 ```

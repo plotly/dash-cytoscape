@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/initialisation/
-Original Code: https://github.com/cytoscape/cytoscape.js/blob/master/documentation/demos/initialisation/code.js
 
 Note: The click-and-drag functionality is broken in this Dash implementation
 because the example requires a function referring to the "cy" property, i.e.

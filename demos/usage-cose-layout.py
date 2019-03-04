@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/cose-layout/
-Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/cose-layout
 
 Note: This implementation looks different from the original implementation,
 although the input paramters are exactly the same.
