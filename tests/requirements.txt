@@ -3,15 +3,12 @@
 # pip install -r requirements.txt
 
 chromedriver-binary
-dash>=0.31.0
-dash-core-components
-dash-html-components
-dash-renderer
+dash>=0.38.0
 ipdb
 percy
 selenium
 flake8
 pylint
-pytest-dash>=1.0.1
+pytest-dash>=2.1.1
 colour==0.1.5
 biopython
