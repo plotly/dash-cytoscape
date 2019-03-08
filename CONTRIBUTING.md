@@ -1,12 +1,45 @@
 # Contributing to Dash Cytoscape
 
-## Getting Started
+Thank you for your interesting in contributing to this open-source project! Make sure that you have read and understood our [code of conduct](CODE_OF_CONDUCT.md).
 
-Refer to the [readme](README.md) for installation and development instructions.
+## Setting up the environment
+
+Please follow the following steps for local testing:
+
+1. Clone the repo
+```commandline
+git clone https://github.com/plotly/dash-cytoscape.git
+```
+2. In order to run the Python builds (`npm run build:py`) you need to create a 
+venv for this project. Make sure you have `virtualenv` correctly installed and run this:
+```commandline
+mkdir dash_cytoscape_dev
+cd dash_cytoscape_dev
+virtualenv venv  # Create a virtual env
+source venv/bin/activate  # Activate the venv
+pip install -r requirements.txt  # Install the requirements
+```
+
+To activate in windows, replace the 4th line with this:
+```commandline
+venv\Scripts\activate 
+```
+
+3. Install the JavaScript dependencies and build the code:
+```commandline
+yarn
+yarn run build:all
+```
 
 ## Coding Style
 
-Please lint any additions to Python code with `pylint` and `flake8`.
+Please lint any additions to Python code with `pylint` and `flake8`:
+```commandline
+flake8 --max-line-length=100 usage.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py
+flake8 --max-line-length=100 demos tests
+pylint usage.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py
+pylint demos tests
+```
 
 ## Code quality & design
 
@@ -27,10 +60,51 @@ Please lint any additions to Python code with `pylint` and `flake8`.
 *   Can you think of cases where your current code will break? How are you handling errors? Should the user see them as notifications? Should your app try to auto-correct them for them?
 
 
-## Running the Tests
+## Tests
 
-_To be added_
+### Running the tests
 
+Activate your virtualenv:
+```commandline
+source venv/bin/activate
+```
+
+If needed, install the requirements:
+```commandline
+pip install -r tests/requirements.txt
+```
+
+Run the following tests:
+```commandline
+python -m unittest tests.test_callbacks
+python -m unittest tests.test_interactions
+python -m unittest tests.test_usage
+```
+
+Look inside the `tests/screenshots` directory to find the images created by the tests. If you have
+Percy configured, run the following test:
+```commandline
+python -m unittest tests.test_percy_snapshot
+``` 
+
+### Percy
+
+Make sure to configure your Percy environment variables correctly:
+```commandline
+PERCY_BRANCH=local
+PERCY_ENABLED=1
+PERCY_TOKEN=***************
+```
+
+You can find the token in the [project settings of the Percy project](https://percy.io/plotly/dash-cytoscape/settings). Only members of the Plotly organizations have access to this token.
+
+### About the tests
+The tests are broken down in 3 categories:
+* Callbacks: Tests if the `elements`, `stylesheet` and `layout` properties can be updated correctly by other Dash components using callbacks.
+* Interactions: Tests user interactions such as dragging, clicking, and hovering over nodes, as well as the associated event callbacks.
+* Usage: Tests if all of the usage apps render correctly on start. This does not test callbacks.
+
+Those tests are rendered into images located inside `tests/screenshots`, which are then sent to a Percy build using `tests.test_percy_snapshot`, which creates a Dash app that only serves the content of `tests/screenshots` at different routes, which are then captured by the Percy runner.
 
 ## Publishing
 
@@ -41,7 +115,7 @@ After a review has been done and your changes have been approved, create a prere
 To publish or create a prerelease:
 
 1. Check `MANIFEST.in` has all of the extra files (like CSS)
-2. Bump version numbers in `package.json`, update the `CHANGELOG.md`, and make a pull request
+2. Bump version numbers in `package.json`, update the [CHANGELOG](CHANGELOG.md), and make a pull request
 3. Once the pull request is merged into master:
 4. Build
 ```
@@ -117,6 +191,12 @@ Complete the "Publishing" section.
 - [ ] You have closed all issues that this pull request solves, and commented the new version number users should install.
 - [ ] If significant enough, you have created an issue about documenting the new feature or change and you have added it to the [Documentation] project.
 - [ ] You have created a pull request in [Dash Docs] with the new release of your feature by editing that project's [`requirements.txt` file](https://github.com/plotly/dash-docs/blob/master/requirements.txt) and you have assigned `@chriddyp` to review.
+
+## Notes
+
+#### Package manager
+Our preferred package manager for this project is Yarn. Therefore we use `yarn.lock` rather than `package-lock.json`. If you decide to start using npm for package management (which will create package-lock.json) and you commit this project to Dokku, make sure to delete `yarn.lock`.
+
 
 ## Financial Contributions
 
