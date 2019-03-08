@@ -1,6 +1,6 @@
 """
 Original Demo: http://js.cytoscape.org/demos/animated-bfs/
-Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/animated-bfs
+Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/animated-bfs
 
 Note: Animation Not Implemented yet, please refer to code.
 """

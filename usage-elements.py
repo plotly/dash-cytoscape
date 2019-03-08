@@ -1,9 +1,9 @@
 import json
 
 import dash
+from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output, State
 
 import dash_cytoscape as cyto
 from demos import dash_reusable_components as drc
@@ -15,10 +15,10 @@ server = app.server
 # ###################### DATA PREPROCESSING ######################
 # Load data
 with open('demos/data/sample_network.txt', 'r') as f:
-    data = f.read().split('\n')
+    network_data = f.read().split('\n')
 
 # We select the first 750 edges and associated nodes for an easier visualization
-edges = data[:750]
+edges = network_data[:750]
 nodes = set()
 
 following_node_di = {}  # user id -> list of users they are following
@@ -263,8 +263,8 @@ def generate_elements(nodeData, elements, expansion_mode):
             elements.extend(followers_nodes)
 
         if followers_edges:
-            for edge in followers_edges:
-                edge['classes'] = 'followerEdge'
+            for follower_edge in followers_edges:
+                follower_edge['classes'] = 'followerEdge'
             elements.extend(followers_edges)
 
     elif expansion_mode == 'following':
@@ -279,8 +279,8 @@ def generate_elements(nodeData, elements, expansion_mode):
                     elements.append(node)
 
         if following_edges:
-            for edge in following_edges:
-                edge['classes'] = 'followingEdge'
+            for follower_edge in following_edges:
+                follower_edge['classes'] = 'followingEdge'
             elements.extend(following_edges)
 
     return elements

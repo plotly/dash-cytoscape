@@ -1,10 +1,10 @@
+# pylint: disable=W0621
 import math
 
 import dash
-import dash_html_components as html
 from dash.dependencies import Input, Output
-
 import dash_cytoscape as cyto
+import dash_html_components as html
 
 try:
     from Bio import Phylo
@@ -16,13 +16,13 @@ except ModuleNotFoundError as e:
 
 def generate_elements(tree, xlen=30, ylen=30, grabbable=False):
     def get_col_positions(tree, column_width=80):
+        """Create a mapping of each clade to its column position."""
         taxa = tree.get_terminals()
 
         # Some constants for the drawing calculations
         max_label_width = max(len(str(taxon)) for taxon in taxa)
         drawing_width = column_width - max_label_width - 1
 
-        """Create a mapping of each clade to its column position."""
         depths = tree.depths()
         # If there are no branch lengths, assume unit branch lengths
         if not max(depths.values()):
@@ -163,7 +163,6 @@ stylesheet = [
 # Start the app
 app = dash.Dash(__name__)
 server = app.server
-
 
 app.layout = html.Div([
     cyto.Cytoscape(

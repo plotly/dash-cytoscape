@@ -37,6 +37,7 @@
 .idea/**/gradle.xml
 .idea/**/libraries
 tests/screenshots/*.png
+tests/screenshots/**/*.png
 
 # misc
 .DS_Store

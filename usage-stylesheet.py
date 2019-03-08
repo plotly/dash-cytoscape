@@ -1,9 +1,9 @@
 import json
 
 import dash
+from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output
 
 import dash_cytoscape as cyto
 from demos import dash_reusable_components as drc
@@ -14,17 +14,17 @@ server = app.server
 # ###################### DATA PREPROCESSING ######################
 # Load data
 with open('demos/data/sample_network.txt', 'r') as f:
-    data = f.read().split('\n')
+    network_data = f.read().split('\n')
 
 # We select the first 750 edges and associated nodes for an easier visualization
-edges = data[:750]
+edges = network_data[:750]
 nodes = set()
 
 cy_edges = []
 cy_nodes = []
 
-for edge in edges:
-    source, target = edge.split(" ")
+for network_edge in edges:
+    source, target = network_edge.split(" ")
 
     if source not in nodes:
         nodes.add(source)
@@ -93,7 +93,7 @@ app.layout = html.Div([
                         'breadthfirst',
                         'cose'
                     ),
-                    value='random',
+                    value='grid',
                     clearable=False
                 ),
 

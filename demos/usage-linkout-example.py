@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/linkout-example/
-Original Code: https://github.com/cytoscape/cytoscape.js/blob/master/documentation/demos/linkout-example/
 
 Note: Href Links do not work
 

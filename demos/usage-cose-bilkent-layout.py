@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/cose-bilkent-layout-compound/
-Original Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/cose-bilkent-layout-compound
 
 Note: This implementation DOES NOT work yet, since cose-bilkent hasn't been implemented yet
 
@@ -16,7 +15,8 @@ app = dash.Dash(__name__)
 server = app.server
 
 app.scripts.append_script({
-    'external_url': 'https://cdn.rawgit.com/cytoscape/cytoscape.js-cose-bilkent/d810281d/cytoscape-cose-bilkent.js'
+    'external_url': ('https://cdn.rawgit.com/cytoscape/cytoscape.js-cose-bilkent/d810281d/'
+                     'cytoscape-cose-bilkent.js')
 })
 
 app.scripts.config.serve_locally = True

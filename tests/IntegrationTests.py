@@ -3,27 +3,21 @@ from __future__ import absolute_import
 import logging
 import os
 import multiprocessing
-import sys
 import time
 import unittest
-import percy
 import threading
 import platform
 import flask
-import requests
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 
 class IntegrationTests(unittest.TestCase):
-    def percy_snapshot(self, name=''):
-        if os.environ.get('PERCY_ENABLED', False):
-            snapshot_name = '{} - {}'.format(name, sys.version_info)
-
-            self.percy_runner.snapshot(
-                name=snapshot_name
-            )
+    """
+    Percy is not initialized here since some tests that inherits from
+    IntegrationTests do not need to run Percy tests
+    """
 
     @classmethod
     def setUpClass(cls):
@@ -36,19 +30,11 @@ class IntegrationTests(unittest.TestCase):
         cls.driver = webdriver.Chrome(options=options)
         cls.driver.set_window_size(1280, 1000)
 
-        if os.environ.get('PERCY_ENABLED', False):
-            loader = percy.ResourceLoader(webdriver=cls.driver)
-            percy_config = percy.Config(default_widths=[1280])
-            cls.percy_runner = percy.Runner(loader=loader, config=percy_config)
-            cls.percy_runner.initialize_build()
-
     @classmethod
     def tearDownClass(cls):
         super(IntegrationTests, cls).tearDownClass()
 
         cls.driver.quit()
-        if os.environ.get('PERCY_ENABLED', False):
-            cls.percy_runner.finalize_build()
 
     def setUp(self):
         pass
@@ -56,8 +42,7 @@ class IntegrationTests(unittest.TestCase):
     def tearDown(self):
         time.sleep(3)
         if platform.system() == 'Windows':
-            requests.get('http://localhost:8050/stop')
-            sys.exit()
+            self.driver.get('http://localhost:8050/stop')
         else:
             self.server_process.terminate()
         time.sleep(3)

@@ -1,3 +1,4 @@
+# pylint: disable=W0612,R1705
 import json
 from colour import Color
 
@@ -41,10 +42,19 @@ def validate_color(color, default='#999999'):
     try:
         # Converting 'deep sky blue' to 'deepskyblue'
         color = color.replace(" ", "")
+
+        if color.startswith('rgb'):
+            values = color.replace('rgb(', '').replace(')', '').split(',')
+
+            if len(values) == 3 and all(0 <= int(v) <= 255 for v in values):
+                return color
+
+            return default
+
         Color(color)
         # if everything goes fine then return True
         return color
-    except:  # The color code was not found
+    except:  # noqa
         return default
 
 
@@ -224,7 +234,6 @@ def assign_callbacks(app):
                       [Input(f'dropdown-{side}-endpoint-type', 'value')])
         def disable_side_endpoint_height(value):
             return value != 'other'
-
 
     # ############################## CYTOSCAPE ################################
     @app.callback(Output('cytoscape', 'elements'),

@@ -437,7 +437,6 @@ user_interface = html.Div(
                 id='dropdown-edge-curve-style',
                 value='haystack',
                 clearable=False,
-                searchable=False,
                 options=drc.DropdownOptionsList(
                     'haystack',
                     'bezier',
@@ -610,8 +609,7 @@ user_interface = html.Div(
                         placeholder='Input value in % or px...',
                         value='0px'
                     )
-                ]) for side in
-                ['source', 'target']],
+                ]) for side in ['source', 'target']],
 
             drc.NamedInput(
                 name='Source Distance from node',
@@ -637,8 +635,7 @@ user_interface = html.Div(
             drc.NamedRadioItems(
                 name='Use Labels',
                 id='radio-use-labels',
-                options=drc.DropdownOptionsList('yes',
-                                                'no'),
+                options=drc.DropdownOptionsList('yes', 'no'),
                 value='no'
             ),
 
@@ -682,8 +679,7 @@ user_interface = html.Div(
                 options=[{
                     'label': element.capitalize(),
                     'value': f'div-label-{element}'
-                } for element in
-                    LABEL_ELEMENT_TYPES],
+                } for element in LABEL_ELEMENT_TYPES],
                 clearable=False,
                 value='div-label-node'
             ),
@@ -760,8 +756,7 @@ user_interface = html.Div(
                         searchable=False,
                         value='none'
                     )
-                ]) for element in
-                LABEL_ELEMENT_TYPES],
+                ]) for element in LABEL_ELEMENT_TYPES],
         ]),
         drc.NamedCard(title='Text Wrapping', size=4, children=[
             drc.NamedDropdown(
@@ -770,8 +765,7 @@ user_interface = html.Div(
                 options=[{
                     'label': element.capitalize(),
                     'value': f'div-text-wrapping-{element}'
-                } for element in
-                    LABEL_ELEMENT_TYPES],
+                } for element in LABEL_ELEMENT_TYPES],
                 clearable=False,
                 value='div-text-wrapping-node'
             ),
@@ -796,8 +790,7 @@ user_interface = html.Div(
                         type='number',
                         placeholder='Enter the maximum width in px...'
                     )
-                ]) for element in
-                LABEL_ELEMENT_TYPES],
+                ]) for element in LABEL_ELEMENT_TYPES],
         ]),
         drc.NamedCard(title='Label Alignment', size=4, children=[
             drc.NamedRadioItems(
@@ -848,23 +841,24 @@ user_interface = html.Div(
                 value='div-text-margins-node'
             ),
 
-            *[html.Div(id=f'div-text-margins-{element}',
-                       children=[
-                           drc.NamedInput(
-                               name=f"{element.capitalize()} Margin X (px)",
-                               id=f'input-{element}-text-margin-x',
-                               type='number',
-                               placeholder='Enter a value in px...'
-                           ),
+            *[html.Div(
+                id=f'div-text-margins-{element}',
+                children=[
+                    drc.NamedInput(
+                        name=f"{element.capitalize()} Margin X (px)",
+                        id=f'input-{element}-text-margin-x',
+                        type='number',
+                        placeholder='Enter a value in px...'
+                    ),
 
-                           drc.NamedInput(
-                               name=f"{element.capitalize()} Margin Y(px)",
-                               id=f'input-{element}-text-margin-y',
-                               type='number',
-                               placeholder='Enter a value in px...'
-                           )
-                       ]) for element in
-              LABEL_ELEMENT_TYPES_ALL],
+                    drc.NamedInput(
+                        name=f"{element.capitalize()} Margin Y(px)",
+                        id=f'input-{element}-text-margin-y',
+                        type='number',
+                        placeholder='Enter a value in px...'
+                    )
+                ]
+            ) for element in LABEL_ELEMENT_TYPES_ALL],
         ])
     ]
 )

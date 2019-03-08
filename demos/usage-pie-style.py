@@ -1,6 +1,5 @@
 """
 Original Demo: http://js.cytoscape.org/demos/pie-style/
-Original Code: https://github.com/cytoscape/cytoscape.js/blob/master/documentation/demos/pie-style
 """
 import dash
 import dash_html_components as html

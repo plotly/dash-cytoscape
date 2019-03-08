@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class Tests(IntegrationTests):
-    def create_usage_test(self, filename):
+    def create_usage_test(self, filename, dir_name='usage'):
         app = importlib.import_module(filename).app
 
         self.startServer(app)
@@ -16,9 +16,20 @@ class Tests(IntegrationTests):
             EC.presence_of_element_located((By.ID, "cytoscape"))
         )
 
+        directory_path = os.path.join(
+            os.path.dirname(__file__),
+            'screenshots',
+            dir_name
+        )
+
+        # Create directory if it doesn't already exist
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
         self.driver.save_screenshot(os.path.join(
             os.path.dirname(__file__),
             'screenshots',
+            dir_name,
             filename + '.png'
         ))
 
