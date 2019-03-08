@@ -21,7 +21,6 @@ setup(
     long_description=io.open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     url='https://dash.plot.ly/cytoscape',
-    download_url='https://github.com/plotly/dash-cytoscape/releases',
     install_requires=[
         'dash',
         'dash-html-components',
