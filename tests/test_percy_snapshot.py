@@ -76,11 +76,10 @@ class Tests(IntegrationTests):
 
     def percy_snapshot(self, name=''):
         if os.environ.get('PERCY_ENABLED', False):
-            snapshot_name = '{} (Python {}.{}.{})'.format(
+            snapshot_name = '{} (Python {}.{})'.format(
                 name,
                 sys.version_info.major,
-                sys.version_info.minor,
-                sys.version_info.micro,
+                sys.version_info.minor
             )
 
             self.percy_runner.snapshot(

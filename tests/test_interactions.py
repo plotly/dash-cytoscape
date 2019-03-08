@@ -1,3 +1,24 @@
+"""Notes for the hardcoded values in the `init_pos` dictionary:
+
+It's impossible to programatically get the initial rendered positions of the nodes, since we would
+need to obtain the node object (in dictionary format), which can be done either by (a) using the
+tapNode callback, which paradoxally requires you to click the node, or (b) by making a complex
+calculation relative to the size of the screen w.r.t largest coordinate in the list of elements.
+But (b) is unreliable, since we do not know how much padding around the graph is required, so it
+will likely be off.
+
+If there is a need to modify the values in `init_pos`, e.g. if the size of the webdriver screen
+is changed, you can do the following:
+    - Run usage-events.py
+    - Resize window size to 1280x1000, or preferred size (can be manually done or with selenium)
+    - Tap on a node
+    - Inside the "Node Object JSON" section, find "renderedPosition" and use the values there
+    - Repeat this for all the nodes
+
+Notice also that there's an offset to Node 3's position. This is because it overlaps with
+Node 6, so clicking on Node 3 will erroneously show that you clicked Node 6. Therefore, adding an
+offset to the y-axis will ensure that the correct node is clicked.
+"""
 import os
 import importlib
 import time
@@ -12,12 +33,30 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 class Tests(IntegrationTests):
     def test_interactions(self):
+        # VARIABLES
+        drag_error = "Unable to drag Cytoscape nodes properly"
+        click_error = "Unable to click Cytoscape nodes properly"
+        mouseover_error = "Unable to mouseover Cytoscape nodes properly"
+
+        # View module docstring for more information about initial positions
+        init_pos = {
+            'Node 1': (80.94611044209678, 333.54879281525285),
+            'Node 2': (375.64032747402433, 628.2430098471805),
+            'Node 3': (277.40892179671516, 514.2945792615018 - 20),
+            'Node 4': (768.5659501832611, 333.54879281525285),
+            'Node 5': (473.8717331513335, 431.780198492562),
+            'Node 6': (277.40892179671516, 530.0116041698712)
+        }
+        init_x, init_y = init_pos['Node 1']
+
+        # Initialize the apps
         app = importlib.import_module('usage-events').app
         self.startServer(app)
         WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, "cytoscape")))
 
         actions = ActionChains(self.driver)
 
+        # FUNCTIONS
         def save_screenshot(dir_name, name):
             directory_path = os.path.join(
                 os.path.dirname(__file__),
@@ -106,23 +145,10 @@ class Tests(IntegrationTests):
 
             return mouseover_label
 
-        drag_error = "Unable to drag Cytoscape nodes properly"
-        click_error = "Unable to click Cytoscape nodes properly"
-        mouseover_error = "Unable to mouseover Cytoscape nodes properly"
-
-        init_pos = {
-            'Node 1': (80.94611044209678, 333.54879281525285),
-            'Node 2': (375.64032747402433, 628.2430098471805),
-            'Node 3': (277.40892179671516, 514.2945792615018 - 20),
-            'Node 4': (768.5659501832611, 333.54879281525285),
-            'Node 5': (473.8717331513335, 431.780198492562),
-            'Node 6': (277.40892179671516, 530.0116041698712)
-        }
-        init_x, init_y = init_pos['Node 1']
         # Select the JSON output element
         elem_tap = self.driver.find_element_by_css_selector('pre#tap-node-json-output')
 
-        # # Test dragging the nodes around
+        # Test dragging the nodes around
         offset_x, offset_y = perform_dragging(init_x, init_y, 0, 0, elem_tap)
         init_x += offset_x
         init_y += offset_y

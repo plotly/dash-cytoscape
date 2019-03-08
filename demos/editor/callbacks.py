@@ -29,7 +29,7 @@ def validate_positive(value):
     return min(0, value)
 
 
-def validate_color(color: str, default='#999999'):
+def validate_color(color, default='#999999'):
     '''
     Check if a color is valid, if so returns the color, else return a default color
     :param color: The color to validate
