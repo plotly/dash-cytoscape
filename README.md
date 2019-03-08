@@ -12,16 +12,13 @@ Interacting with the elements:
 
 ### Prerequisites
 
-Make sure that the following python packages are installed:
-
-```
-dash==0.35.1
-dash-renderer==0.14.3
-dash-html-components==0.13.4
-dash-core-components==0.42.1
+Make sure that dash and its dependent libraries are correctly installed:
+```commandline
+pip install dash dash-html-components
 ```
 
-Older versions are not necessarily incompatible, but have not been extensively tested.
+If you want to install the latest versions, check out the [Dash docs on installation](https://dash.plot.ly/installation).
+
 
 ### Usage
 
