@@ -6,38 +6,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## Added
+## [0.0.5] - 2019-03-08
+
+### Added
+* Two new demos: `usage-grid-social-network.py` and `usage-concentric-social-network.py`
+* Add Issue and PR templates for Github (located in `.github`)
 * `tests.test_usage`: Tests for rendering usage files.
 * `tests.test_callbacks`: Tests for updating `Cytoscape` with callbacks.
 * `tests.test_interactions`: Tests for interacting with `Cytoscape`, and evaluating its event callbacks.
 * `tests.test_percy_snapshot`: Creates a Percy build using screenshots from other tests.
 
-## Changed
-* `config.yml`: Added steps to run the new tests. Added coverage for Python 3.7. Included `demos` and all usage examples in `pylint` and `flake8`. Increased line limit to 100.
+### Changed
+* `usage-*.py`: Modified all the import statements from `import dash_cytoscape` to `import dash_cytoscape as cyto`. Optimized imports. They are now linted with pylint/flake8.
 * `demos/usage-*`: Formatted all demo apps in order to respect pylint and flake8.
-* `usage-*`: Formatted all demo apps in order to respect pylint and flake8.
+* `usage-phylogeny.py`: Clear callback conditional statement
+* `CONTRIBUTING.md`: changed `dash-cytoscape-0.0.1` to `dash-cytoscape-x.x.x`. Added a **Code quality & design** section. Changed the **Making a contribution** section and updated title to **Publishing**. Updated **Pre-Release checklist**. Added the **Development** section from `README.md` (renamed **Setting up the environment**). Added a **Tests** section.
+* `npmignore`: Added `venv` to avoid venvs to be included in the npm distribution package, which makes us a large amount of space and many unnecessary files being distributed.
+* `config.yml`: Added steps to run the new tests. Added coverage for Python 3.7. Included `demos` and all usage examples in `pylint` and `flake8`. Increased line limit to 100.
+* `README.md`: Moved the **Development** section to `CONTRIBUTING.md`. Modified the dash version in **Prerequisites**.
+* `requirements.txt`: Updated the dash version to latest.
+* `tests/requiremens.txt`: Updated the dash version to latest.
 * `package.json`: Removed `"prepublish": "npm run validate-init"` due to conflict with CircleCI build. This script will be deprecated in favor of the upcoming Dash Component CLI.
 * `tests/IntegrationTests.py`: Moved the `percy_snapshot` method to `test_percy_snapshot` in order to avoid duplicate (failing) builds on Percy. Decrease the number of processes to 1.
+* `setup.py`: Added classifiers and download_url.
 
-## Removed
-* `tests.test_render`: Removed unused test
-
-## Added
-* Two new demos: `usage-grid-social-network.py` and `usage-concentric-social-network.py`
-* Add Issue and PR templates for Github (located in `.github`)
-
-## Changed
-* `usage-*.py` - Modified all the import statements from `import dash_cytoscape` to `import dash_cytoscape as cyto`. Also optimized imports.
-* `usage-phylogeny.py` - Clear callback conditional statement
-* `CONTRIBUTING.md` - changed `dash-cytoscape-0.0.1` to `dash-cytoscape-x.x.x`. Added a **Code quality & design** section. Changed the **Making a contribution** section and updated title to **Publishing**. Updated **Pre-Release checklist**.
-* `npmignore` - Added `venv` to avoid venvs to be included in the npm distribution package, which makes us a large amount of space and many unnecessary files being distributed.
-
-## Removed
+### Removed
 * `extract-meta.js`, `extract-meta` - they were moved to the dash component CLI, thus are not needed anymore
 * `config.py`, `runtime.txt`, `Procfile`, `index.html` - only needed for hosting `usage-*.py` on DDS, they are now moved to `plotly/dash-cytoscape-demos`.
 * `review_checklist.md` -  redundant since all the information is already contained in CONTRIBUTING.md
+* `tests.test_render`: Removed unused test
 
-## [0.0.4] - 2018-01-19
+
+## [0.0.4] - 2019-01-19
 
 ### Added
 * Homepage URL for PyPi

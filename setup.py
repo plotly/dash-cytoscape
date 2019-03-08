@@ -20,10 +20,29 @@ setup(
     description=package['description'] if 'description' in package else package_name,
     long_description=io.open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
+    url='https://dash.plot.ly/cytoscape',
     install_requires=[
         'dash',
         'dash-html-components',
         'dash_renderer',
     ],
-    url='https://dash.plot.ly/cytoscape'
+    classifiers=[
+        'Environment :: Web Environment',
+        'Framework :: Flask',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Education',
+        'Intended Audience :: Financial and Insurance Industry',
+        'Intended Audience :: Healthcare Industry',
+        'Intended Audience :: Manufacturing',
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Topic :: Database :: Front-Ends',
+        'Topic :: Scientific/Engineering :: Visualization',
+        'Topic :: Software Development :: Libraries :: Application Frameworks',
+    ]
 )

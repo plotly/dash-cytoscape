@@ -12,16 +12,13 @@ Interacting with the elements:
 
 ### Prerequisites
 
-Make sure that the following python packages are installed:
-
-```
-dash==0.35.1
-dash-renderer==0.14.3
-dash-html-components==0.13.4
-dash-core-components==0.42.1
+Make sure that dash and its dependent libraries are correctly installed:
+```commandline
+pip install dash dash-html-components
 ```
 
-Older versions are not necessarily incompatible, but have not been extensively tested.
+If you want to install the latest versions, check out the [Dash docs on installation](https://dash.plot.ly/installation).
+
 
 ### Usage
 
@@ -64,47 +61,9 @@ To learn more about the core Dash components and how to use callbacks, view the 
 
 For supplementary information about the underlying Javascript  API, view the [Cytoscape.js documentation](http://js.cytoscape.org/).
 
-## Development
+### Development and Contributions
 
-Please follow the following steps for local testing:
-
-1. Clone the repo
-```commandline
-$ git clone https://github.com/plotly/dash-cytoscape.git
-```
-2. In order to run the Python builds (`npm run build:py`) you need to create a 
-venv for this project. Make sure you have `virtualenv` correctly installed and run this:
-```commandline
-$ mkdir dash_cytoscape_dev
-$ cd dash_cytoscape_dev
-$ virtualenv venv  # Create a virtual env
-$ source venv/bin/activate  # Activate the venv
-```
-
-To activate in windows:
-```commandline
-> venv\Scripts\activate
-```
-(and then repeat step 3).
-
-3. Install the JavaScript dependencies and build the code:
-```commandline
-$ yarn
-$ yarn run build:all
-```
-
-4. Install the library
-```commandline
-$ python setup.py install
-```
-
-
-
-## Notes
-
-#### Package manager
-Our preferred package manager for this project is Yarn. Therefore we use `yarn.lock` rather than `package-lock.json`. If you decide to start using npm for package management (which will create package-lock.json) and you commit this project to Dokku, make sure to delete `yarn.lock`.
-
+Make sure that you have read and understood our [code of conduct](CODE_OF_CONDUCT.md), then head over to [CONTRIBUTING](CONTRIBUTING.md) to get started. 
 
 ## License
 
