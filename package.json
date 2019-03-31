@@ -8,9 +8,12 @@
     "validate-init": "python _validate_init.py",
     "build:js-dev": "webpack --mode development",
     "build:js": "webpack --mode production",
+    "build:js-dev-extra": "webpack --config webpack.dev.extra.config.js",
+    "build:js-extra": "webpack --config webpack.prod.extra.config.js",
+    "build:js-all": "npm run build:js && npm run build:js-dev && npm run build:js-dev-extra && npm run build:js-extra",
     "build:py": "dash-generate-components ./src/lib/components dash_cytoscape",
     "build:py-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py)",
-    "build:all": "npm run build:js && npm run build:js-dev && npm run build:py",
+    "build:all": "npm run build:js-all && npm run build:py",
     "build:all-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:all)"
   },
   "author": "The Plotly Team",
