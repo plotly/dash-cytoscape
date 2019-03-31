@@ -49,14 +49,43 @@ for _component in __all__:
 
 
 def load_extra_layouts():
+    """
+    Load 3rd party layouts that are not included by default with Cytoscape. You can find the
+    documentation about those layouts here:
+        - `cose-bilkent`: https://github.com/cytoscape/cytoscape.js-cose-bilkent
+        - `cola`: https://github.com/cytoscape/cytoscape.js-cola
+        - `euler`: https://github.com/cytoscape/cytoscape.js-dagre
+        - `spread`: https://github.com/cytoscape/cytoscape.js-spread
+        - `dagre`: https://github.com/cytoscape/cytoscape.js-dagre
+        - `klay`: https://github.com/cytoscape/cytoscape.js-klay
+
+    Example:
+
+    ```
+    import dash
+    import dash_html_components as html
+    import dash_cytoscape as cyto
+
+    cyto.load_extra_layouts()
+
+    app = dash.Dash(__name__)
+
+    app.layout = html.Div([
+        cyto.Cytoscape(...),
+    ])
+    ```
+
+    Be careful about using the extra layouts when not necessary, since they require supplementary
+    bandwidth for loading, which impacts the startup time of the app.
+    """
     global _js_dist
 
     _js_dist = [
         {
             'relative_package_path': 'dash_cytoscape_extra.min.js',
             'dev_package_path': 'dash_cytoscape_extra.dev.js',
-            'external_url': 'https://unpkg.com/dash-cytoscape@{2}/{1}/{1}.min.js'.format(
-                'dash_cytoscape_extra', __name__, __version__
+            'external_url': 'https://unpkg.com/dash-cytoscape@{}/{}/{}.min.js'.format(
+                __version__, __name__, 'dash_cytoscape_extra'
             ),
             'namespace': package_name
         }
