@@ -54,7 +54,15 @@ use.
         - `breadthfirst`: Tree structure built using BFS, with optional `roots`
         - `cose`: Force-directed physics simulation
 
-    2. The keys accepted by `layout` vary depending on the algorithm, but some
+    2. The following external layouts are also included:
+        - `cose-bilkent`: https://github.com/cytoscape/cytoscape.js-cose-bilkent
+        - `cola`: https://github.com/cytoscape/cytoscape.js-cola
+        - `euler`: https://github.com/cytoscape/cytoscape.js-dagre
+        - `spread`: https://github.com/cytoscape/cytoscape.js-spread
+        - `dagre`: https://github.com/cytoscape/cytoscape.js-dagre
+        - `klay`: https://github.com/cytoscape/cytoscape.js-klay
+
+    3. The keys accepted by `layout` vary depending on the algorithm, but some
     keys are accepted by all layouts:
         - `fit` (boolean): Whether to render the nodes in order to fit the canvas.
         - `padding` (number): Padding around the sides of the canvas, if fit is enabled.
@@ -62,8 +70,10 @@ use.
         - `animationDuration` (number): Duration of animation in milliseconds, if enabled.
         - `boundingBox` (dictionary): How to constrain the layout in a specific area. Keys accepted are either `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.
 
-    3. The complete list of layouts and their accepted options are available
-    on the [Cytoscape.js docs](http://js.cytoscape.org/#layouts).
+    4. The complete list of layouts and their accepted options are available
+    on the [Cytoscape.js docs](http://js.cytoscape.org/#layouts). For the
+    external layouts, the options are listed in the "API" section of the
+    README.
     Note that certain keys are not supported in Dash since the value is a
     JavaScript function or a callback. Please visit [this issue](https://github.com/plotly/dash-cytoscape/issues/25)
     for more information.
@@ -151,16 +161,13 @@ default (if true, overrides individual element state).
 - selectedNodeData (list; optional): The list of data dictionaries of all selected nodes (e.g. using
 Shift+Click to select multiple nodes, or Shift+Drag to use box selection).
 - selectedEdgeData (list; optional): The list of data dictionaries of all selected edges (e.g. using
-Shift+Click to select multiple nodes, or Shift+Drag to use box selection).
-
-Available events: """
+Shift+Click to select multiple nodes, or Shift+Drag to use box selection)."""
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, elements=Component.UNDEFINED, stylesheet=Component.UNDEFINED, layout=Component.UNDEFINED, pan=Component.UNDEFINED, zoom=Component.UNDEFINED, panningEnabled=Component.UNDEFINED, userPanningEnabled=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, zoomingEnabled=Component.UNDEFINED, userZoomingEnabled=Component.UNDEFINED, boxSelectionEnabled=Component.UNDEFINED, autoungrabify=Component.UNDEFINED, autolock=Component.UNDEFINED, autounselectify=Component.UNDEFINED, autoRefreshLayout=Component.UNDEFINED, tapNode=Component.UNDEFINED, tapNodeData=Component.UNDEFINED, tapEdge=Component.UNDEFINED, tapEdgeData=Component.UNDEFINED, mouseoverNodeData=Component.UNDEFINED, mouseoverEdgeData=Component.UNDEFINED, selectedNodeData=Component.UNDEFINED, selectedEdgeData=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'className', 'style', 'elements', 'stylesheet', 'layout', 'pan', 'zoom', 'panningEnabled', 'userPanningEnabled', 'minZoom', 'maxZoom', 'zoomingEnabled', 'userZoomingEnabled', 'boxSelectionEnabled', 'autoungrabify', 'autolock', 'autounselectify', 'autoRefreshLayout', 'tapNode', 'tapNodeData', 'tapEdge', 'tapEdgeData', 'mouseoverNodeData', 'mouseoverEdgeData', 'selectedNodeData', 'selectedEdgeData']
         self._type = 'Cytoscape'
         self._namespace = 'dash_cytoscape'
         self._valid_wildcard_attributes =            []
-        self.available_events = []
         self.available_properties = ['id', 'className', 'style', 'elements', 'stylesheet', 'layout', 'pan', 'zoom', 'panningEnabled', 'userPanningEnabled', 'minZoom', 'maxZoom', 'zoomingEnabled', 'userZoomingEnabled', 'boxSelectionEnabled', 'autoungrabify', 'autolock', 'autounselectify', 'autoRefreshLayout', 'tapNode', 'tapNodeData', 'tapEdge', 'tapEdgeData', 'mouseoverNodeData', 'mouseoverEdgeData', 'selectedNodeData', 'selectedEdgeData']
         self.available_wildcard_properties =            []
 
@@ -174,26 +181,3 @@ Available events: """
                 raise TypeError(
                     'Required argument `' + k + '` was not specified.')
         super(Cytoscape, self).__init__(**args)
-
-    def __repr__(self):
-        if(any(getattr(self, c, None) is not None
-               for c in self._prop_names
-               if c is not self._prop_names[0])
-           or any(getattr(self, c, None) is not None
-                  for c in self.__dict__.keys()
-                  if any(c.startswith(wc_attr)
-                  for wc_attr in self._valid_wildcard_attributes))):
-            props_string = ', '.join([c+'='+repr(getattr(self, c, None))
-                                      for c in self._prop_names
-                                      if getattr(self, c, None) is not None])
-            wilds_string = ', '.join([c+'='+repr(getattr(self, c, None))
-                                      for c in self.__dict__.keys()
-                                      if any([c.startswith(wc_attr)
-                                      for wc_attr in
-                                      self._valid_wildcard_attributes])])
-            return ('Cytoscape(' + props_string +
-                   (', ' + wilds_string if wilds_string != '' else '') + ')')
-        else:
-            return (
-                'Cytoscape(' +
-                repr(getattr(self, self._prop_names[0], None)) + ')')

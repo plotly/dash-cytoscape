@@ -1,1 +1,260 @@
-{"src/lib/components/Cytoscape.react.js": {"description": "A Component Library for Dash aimed at facilitating network visualization in\r\nPython, wrapped around [Cytoscape.js](http://js.cytoscape.org/).", "displayName": "Cytoscape", "methods": [{"name": "generateNode", "docblock": null, "modifiers": [], "params": [{"name": "event", "type": null}], "returns": null}, {"name": "generateEdge", "docblock": null, "modifiers": [], "params": [{"name": "event", "type": null}], "returns": null}, {"name": "handleCy", "docblock": null, "modifiers": [], "params": [{"name": "cy", "type": null}], "returns": null}], "props": {"id": {"type": {"name": "string"}, "required": false, "description": "The ID used to identify this component in Dash callbacks."}, "className": {"type": {"name": "string"}, "required": false, "description": "Sets the class name of the element (the value of an element's html\r\nclass attribute)."}, "style": {"type": {"name": "object"}, "required": false, "description": "Add inline styles to the root element.", "defaultValue": {"value": "{width: '600px', height: '600px'}", "computed": false}}, "setProps": {"type": {"name": "func"}, "required": false, "description": "Dash-assigned callback that should be called whenever any of the\r\nproperties change."}, "elements": {"type": {"name": "arrayOf", "value": {"name": "object"}}, "required": false, "description": "A list of dictionaries representing the elements of the networks.\r\n    1. Each dictionary describes an element, and specifies its purpose.\r\n        - `group` (string): Either 'nodes' or 'edges'. If not given, it's automatically inferred.\r\n        - `data` (dictionary): Element specific data.\r\n             - `id` (string): Reference to the element, useful for selectors and edges. Randomly assigned if not given.\r\n             - `label` (string): Optional name for the element, useful when `data(label)` is given to a style's `content` or `label`. It is only a convention.\r\n             - `parent` (string): Only for nodes. Optional reference to another node. Needed to create compound nodes.\r\n             - `source` (string): Only for edges. The id of the source node, which is where the edge starts.\r\n             - `target` (string): Only for edges. The id of the target node, where the edge ends.\r\n        - `position` (dictionary): Only for nodes. The position of the node.\r\n             - `x` (number): The x-coordinate of the node.\r\n             - `y` (number): The y-coordinate of the node.\r\n        - `selected` (boolean): If the element is selected upon initialisation.\r\n        - `selectable` (boolean): If the element can be selected.\r\n        - `locked` (boolean): Only for nodes. If the position is immutable.\r\n        - `grabbable` (boolean): Only for nodes. If the node can be grabbed and moved by the user.\r\n        - `classes` (string): Space separated string of class names of the element. Those classes can be selected by a style selector.\r\n\n    2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration."}, "stylesheet": {"type": {"name": "arrayOf", "value": {"name": "object"}}, "required": false, "description": "A list of dictionaries representing the styles of the elements.\r\n    1. Each dictionary requires the following keys:\r\n        - `selector` (string): Which elements you are styling. Generally, you select a group of elements (node, edges, both), a class (that you declare in the element dictionary), or an element by ID.\r\n        - `style` (dictionary): What aspects of the elements you want to modify. This could be the size or color of a node, the shape of an edge arrow, or many more.\r\n\n    2. Both [the selector string](http://js.cytoscape.org/#selectors) and\r\n    [the style dictionary](http://js.cytoscape.org/#style/node-body) are\r\n    exhaustively documented in the Cytoscape.js docs. Although methods such\r\n    as `cy.elements(...)` and `cy.filter(...)` are not available, the selector\r\n    string syntax stays the same."}, "layout": {"type": {"name": "object"}, "required": false, "description": "A dictionary specifying how to set the position of the elements in your\r\ngraph. The `'name'` key is required, and indicates which layout (algorithm) to\r\nuse.\r\n    1. The layouts available by default are:\r\n        - `random`: Randomly assigns positions\r\n        - `preset`: Assigns position based on the `position` key in element dictionaries\r\n        - `circle`: Single-level circle, with optional radius\r\n        - `concentric`: Multi-level circle, with optional radius\r\n        - `grid`: Square grid, optionally with numbers of `rows` and `cols`\r\n        - `breadthfirst`: Tree structure built using BFS, with optional `roots`\r\n        - `cose`: Force-directed physics simulation\r\n\n    2. The keys accepted by `layout` vary depending on the algorithm, but some\r\n    keys are accepted by all layouts:\r\n        - `fit` (boolean): Whether to render the nodes in order to fit the canvas.\r\n        - `padding` (number): Padding around the sides of the canvas, if fit is enabled.\r\n        - `animate` (boolean): Whether to animate change in position when the layout changes.\r\n        - `animationDuration` (number): Duration of animation in milliseconds, if enabled.\r\n        - `boundingBox` (dictionary): How to constrain the layout in a specific area. Keys accepted are either `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.\r\n\n    3. The complete list of layouts and their accepted options are available\r\n    on the [Cytoscape.js docs](http://js.cytoscape.org/#layouts).\r\n    Note that certain keys are not supported in Dash since the value is a\r\n    JavaScript function or a callback. Please visit [this issue](https://github.com/plotly/dash-cytoscape/issues/25)\r\n    for more information.", "defaultValue": {"value": "{name: 'random'}", "computed": false}}, "pan": {"type": {"name": "object"}, "required": false, "description": "Dictionary indicating the initial panning position of the graph. The\r\nfollowing keys are accepted:\r\n    - `x` (number): The x-coordinate of the position.\r\n    - `y` (number): The y-coordinate of the position."}, "zoom": {"type": {"name": "number"}, "required": false, "description": "The initial zoom level of the graph. You can set `minZoom` and\r\n`maxZoom` to set restrictions on the zoom level."}, "panningEnabled": {"type": {"name": "bool"}, "required": false, "description": "Whether panning the graph is enabled (i.e., the position of the graph is\r\nmutable overall)."}, "userPanningEnabled": {"type": {"name": "bool"}, "required": false, "description": "Whether user events (e.g. dragging the graph background) are allowed to\r\npan the graph."}, "minZoom": {"type": {"name": "number"}, "required": false, "description": "A minimum bound on the zoom level of the graph. The viewport can not be\r\nscaled smaller than this zoom level."}, "maxZoom": {"type": {"name": "number"}, "required": false, "description": "A maximum bound on the zoom level of the graph. The viewport can not be\r\nscaled larger than this zoom level."}, "zoomingEnabled": {"type": {"name": "bool"}, "required": false, "description": "Whether zooming the graph is enabled (i.e., the zoom level of the graph\r\nis mutable overall)."}, "userZoomingEnabled": {"type": {"name": "bool"}, "required": false, "description": "Whether user events (e.g. dragging the graph background) are allowed\r\nto pan the graph."}, "boxSelectionEnabled": {"type": {"name": "bool"}, "required": false, "description": "Whether box selection (i.e. drag a box overlay around, and release it\r\nto select) is enabled. If enabled, the user must taphold to pan the graph."}, "autoungrabify": {"type": {"name": "bool"}, "required": false, "description": "Whether nodes should be ungrabified (not grabbable by user) by\r\ndefault (if true, overrides individual node state)."}, "autolock": {"type": {"name": "bool"}, "required": false, "description": "Whether nodes should be locked (not draggable at all) by default\r\n(if true, overrides individual node state)."}, "autounselectify": {"type": {"name": "bool"}, "required": false, "description": "Whether nodes should be unselectified (immutable selection state) by\r\ndefault (if true, overrides individual element state)."}, "autoRefreshLayout": {"type": {"name": "bool"}, "required": false, "description": "Whether the layout should be refreshed when elements are added or removed.", "defaultValue": {"value": "true", "computed": false}}, "tapNode": {"type": {"name": "object"}, "required": false, "description": "The complete node dictionary returned when you tap or click it.\r\n\n    1. Node-specific items:\r\n        - `edgesData` (dictionary)\r\n        - `renderedPosition` (dictionary)\r\n        - `timeStamp` (number)\r\n\n    2. General items (for all elements):\r\n        - `classes` (string)\r\n        - `data` (dictionary)\r\n        - `grabbable` (boolean)\r\n        - `group` (string)\r\n        - `locked` (boolean)\r\n        - `position` (dictionary)\r\n        - `selectable` (boolean)\r\n        - `selected` (boolean)\r\n        - `style` (dictionary)\r\n\n    3. Items for compound nodes:\r\n        - `ancestorsData` (dictionary)\r\n        - `childrenData` (dictionary)\r\n        - `descendantsData` (dictionary)\r\n        - `parentData` (dictionary)\r\n        - `siblingsData` (dictionary)\r\n        - `isParent` (boolean)\r\n        - `isChildless` (boolean)\r\n        - `isChild` (boolean)\r\n        - `isOrphan` (boolean)\r\n        - `relativePosition` (dictionary)"}, "tapNodeData": {"type": {"name": "object"}, "required": false, "description": "The data dictionary of a node returned when you tap or click it."}, "tapEdge": {"type": {"name": "object"}, "required": false, "description": "The complete edge dictionary returned when you tap or click it.\r\n\n    1. Edge-specific items:\r\n        - `isLoop` (boolean)\r\n        - `isSimple` (boolean)\r\n        - `midpoint` (dictionary)\r\n        - `sourceData` (dictionary)\r\n        - `sourceEndpoint` (dictionary)\r\n        - `targetData` (dictionary)\r\n        - `targetEndpoint` (dictionary)\r\n        - `timeStamp` (number)\r\n\n    2. General items (for all elements):\r\n        - `classes` (string)\r\n        - `data` (dictionary)\r\n        - `grabbable` (boolean)\r\n        - `group` (string)\r\n        - `locked` (boolean)\r\n        - `selectable` (boolean)\r\n        - `selected` (boolean)\r\n        - `style` (dictionary)"}, "tapEdgeData": {"type": {"name": "object"}, "required": false, "description": "The data dictionary of an edge returned when you tap or click it."}, "mouseoverNodeData": {"type": {"name": "object"}, "required": false, "description": "The data dictionary of a node returned when you hover over it."}, "mouseoverEdgeData": {"type": {"name": "object"}, "required": false, "description": "The data dictionary of an edge returned when you hover over it."}, "selectedNodeData": {"type": {"name": "array"}, "required": false, "description": "The list of data dictionaries of all selected nodes (e.g. using\r\nShift+Click to select multiple nodes, or Shift+Drag to use box selection)."}, "selectedEdgeData": {"type": {"name": "array"}, "required": false, "description": "The list of data dictionaries of all selected edges (e.g. using\r\nShift+Click to select multiple nodes, or Shift+Drag to use box selection)."}}}}
+{
+  "src/lib/components/Cytoscape.react.js": {
+    "description": "A Component Library for Dash aimed at facilitating network visualization in\r\nPython, wrapped around [Cytoscape.js](http://js.cytoscape.org/).",
+    "displayName": "Cytoscape",
+    "methods": [
+      {
+        "name": "generateNode",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "event",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "generateEdge",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "event",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleCy",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "cy",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "Sets the class name of the element (the value of an element's html\r\nclass attribute)."
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Add inline styles to the root element.",
+        "defaultValue": {
+          "value": "{width: '600px', height: '600px'}",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called whenever any of the\r\nproperties change."
+      },
+      "elements": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": "A list of dictionaries representing the elements of the networks.\r\n    1. Each dictionary describes an element, and specifies its purpose.\r\n        - `group` (string): Either 'nodes' or 'edges'. If not given, it's automatically inferred.\r\n        - `data` (dictionary): Element specific data.\r\n             - `id` (string): Reference to the element, useful for selectors and edges. Randomly assigned if not given.\r\n             - `label` (string): Optional name for the element, useful when `data(label)` is given to a style's `content` or `label`. It is only a convention.\r\n             - `parent` (string): Only for nodes. Optional reference to another node. Needed to create compound nodes.\r\n             - `source` (string): Only for edges. The id of the source node, which is where the edge starts.\r\n             - `target` (string): Only for edges. The id of the target node, where the edge ends.\r\n        - `position` (dictionary): Only for nodes. The position of the node.\r\n             - `x` (number): The x-coordinate of the node.\r\n             - `y` (number): The y-coordinate of the node.\r\n        - `selected` (boolean): If the element is selected upon initialisation.\r\n        - `selectable` (boolean): If the element can be selected.\r\n        - `locked` (boolean): Only for nodes. If the position is immutable.\r\n        - `grabbable` (boolean): Only for nodes. If the node can be grabbed and moved by the user.\r\n        - `classes` (string): Space separated string of class names of the element. Those classes can be selected by a style selector.\r\n\n    2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration."
+      },
+      "stylesheet": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": "A list of dictionaries representing the styles of the elements.\r\n    1. Each dictionary requires the following keys:\r\n        - `selector` (string): Which elements you are styling. Generally, you select a group of elements (node, edges, both), a class (that you declare in the element dictionary), or an element by ID.\r\n        - `style` (dictionary): What aspects of the elements you want to modify. This could be the size or color of a node, the shape of an edge arrow, or many more.\r\n\n    2. Both [the selector string](http://js.cytoscape.org/#selectors) and\r\n    [the style dictionary](http://js.cytoscape.org/#style/node-body) are\r\n    exhaustively documented in the Cytoscape.js docs. Although methods such\r\n    as `cy.elements(...)` and `cy.filter(...)` are not available, the selector\r\n    string syntax stays the same."
+      },
+      "layout": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "A dictionary specifying how to set the position of the elements in your\r\ngraph. The `'name'` key is required, and indicates which layout (algorithm) to\r\nuse.\r\n    1. The layouts available by default are:\r\n        - `random`: Randomly assigns positions\r\n        - `preset`: Assigns position based on the `position` key in element dictionaries\r\n        - `circle`: Single-level circle, with optional radius\r\n        - `concentric`: Multi-level circle, with optional radius\r\n        - `grid`: Square grid, optionally with numbers of `rows` and `cols`\r\n        - `breadthfirst`: Tree structure built using BFS, with optional `roots`\r\n        - `cose`: Force-directed physics simulation\r\n\n    2. The following external layouts are also included:\r\n        - `cose-bilkent`: https://github.com/cytoscape/cytoscape.js-cose-bilkent\r\n        - `cola`: https://github.com/cytoscape/cytoscape.js-cola\r\n        - `euler`: https://github.com/cytoscape/cytoscape.js-dagre\r\n        - `spread`: https://github.com/cytoscape/cytoscape.js-spread\r\n        - `dagre`: https://github.com/cytoscape/cytoscape.js-dagre\r\n        - `klay`: https://github.com/cytoscape/cytoscape.js-klay\r\n\n    3. The keys accepted by `layout` vary depending on the algorithm, but some\r\n    keys are accepted by all layouts:\r\n        - `fit` (boolean): Whether to render the nodes in order to fit the canvas.\r\n        - `padding` (number): Padding around the sides of the canvas, if fit is enabled.\r\n        - `animate` (boolean): Whether to animate change in position when the layout changes.\r\n        - `animationDuration` (number): Duration of animation in milliseconds, if enabled.\r\n        - `boundingBox` (dictionary): How to constrain the layout in a specific area. Keys accepted are either `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.\r\n\n    4. The complete list of layouts and their accepted options are available\r\n    on the [Cytoscape.js docs](http://js.cytoscape.org/#layouts). For the\r\n    external layouts, the options are listed in the \"API\" section of the\r\n    README.\r\n    Note that certain keys are not supported in Dash since the value is a\r\n    JavaScript function or a callback. Please visit [this issue](https://github.com/plotly/dash-cytoscape/issues/25)\r\n    for more information.",
+        "defaultValue": {
+          "value": "{name: 'random'}",
+          "computed": false
+        }
+      },
+      "pan": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Dictionary indicating the initial panning position of the graph. The\r\nfollowing keys are accepted:\r\n    - `x` (number): The x-coordinate of the position.\r\n    - `y` (number): The y-coordinate of the position."
+      },
+      "zoom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The initial zoom level of the graph. You can set `minZoom` and\r\n`maxZoom` to set restrictions on the zoom level."
+      },
+      "panningEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether panning the graph is enabled (i.e., the position of the graph is\r\nmutable overall)."
+      },
+      "userPanningEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether user events (e.g. dragging the graph background) are allowed to\r\npan the graph."
+      },
+      "minZoom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "A minimum bound on the zoom level of the graph. The viewport can not be\r\nscaled smaller than this zoom level."
+      },
+      "maxZoom": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "A maximum bound on the zoom level of the graph. The viewport can not be\r\nscaled larger than this zoom level."
+      },
+      "zoomingEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether zooming the graph is enabled (i.e., the zoom level of the graph\r\nis mutable overall)."
+      },
+      "userZoomingEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether user events (e.g. dragging the graph background) are allowed\r\nto pan the graph."
+      },
+      "boxSelectionEnabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether box selection (i.e. drag a box overlay around, and release it\r\nto select) is enabled. If enabled, the user must taphold to pan the graph."
+      },
+      "autoungrabify": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether nodes should be ungrabified (not grabbable by user) by\r\ndefault (if true, overrides individual node state)."
+      },
+      "autolock": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether nodes should be locked (not draggable at all) by default\r\n(if true, overrides individual node state)."
+      },
+      "autounselectify": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether nodes should be unselectified (immutable selection state) by\r\ndefault (if true, overrides individual element state)."
+      },
+      "autoRefreshLayout": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Whether the layout should be refreshed when elements are added or removed.",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "tapNode": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The complete node dictionary returned when you tap or click it.\r\n\n    1. Node-specific items:\r\n        - `edgesData` (dictionary)\r\n        - `renderedPosition` (dictionary)\r\n        - `timeStamp` (number)\r\n\n    2. General items (for all elements):\r\n        - `classes` (string)\r\n        - `data` (dictionary)\r\n        - `grabbable` (boolean)\r\n        - `group` (string)\r\n        - `locked` (boolean)\r\n        - `position` (dictionary)\r\n        - `selectable` (boolean)\r\n        - `selected` (boolean)\r\n        - `style` (dictionary)\r\n\n    3. Items for compound nodes:\r\n        - `ancestorsData` (dictionary)\r\n        - `childrenData` (dictionary)\r\n        - `descendantsData` (dictionary)\r\n        - `parentData` (dictionary)\r\n        - `siblingsData` (dictionary)\r\n        - `isParent` (boolean)\r\n        - `isChildless` (boolean)\r\n        - `isChild` (boolean)\r\n        - `isOrphan` (boolean)\r\n        - `relativePosition` (dictionary)"
+      },
+      "tapNodeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data dictionary of a node returned when you tap or click it."
+      },
+      "tapEdge": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The complete edge dictionary returned when you tap or click it.\r\n\n    1. Edge-specific items:\r\n        - `isLoop` (boolean)\r\n        - `isSimple` (boolean)\r\n        - `midpoint` (dictionary)\r\n        - `sourceData` (dictionary)\r\n        - `sourceEndpoint` (dictionary)\r\n        - `targetData` (dictionary)\r\n        - `targetEndpoint` (dictionary)\r\n        - `timeStamp` (number)\r\n\n    2. General items (for all elements):\r\n        - `classes` (string)\r\n        - `data` (dictionary)\r\n        - `grabbable` (boolean)\r\n        - `group` (string)\r\n        - `locked` (boolean)\r\n        - `selectable` (boolean)\r\n        - `selected` (boolean)\r\n        - `style` (dictionary)"
+      },
+      "tapEdgeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data dictionary of an edge returned when you tap or click it."
+      },
+      "mouseoverNodeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data dictionary of a node returned when you hover over it."
+      },
+      "mouseoverEdgeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data dictionary of an edge returned when you hover over it."
+      },
+      "selectedNodeData": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "The list of data dictionaries of all selected nodes (e.g. using\r\nShift+Click to select multiple nodes, or Shift+Drag to use box selection)."
+      },
+      "selectedEdgeData": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "The list of data dictionaries of all selected edges (e.g. using\r\nShift+Click to select multiple nodes, or Shift+Drag to use box selection)."
+      }
+    }
+  }
+}

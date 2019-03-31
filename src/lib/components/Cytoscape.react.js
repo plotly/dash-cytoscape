@@ -12,7 +12,7 @@ import _ from 'lodash';
 A Component Library for Dash aimed at facilitating network visualization in
 Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
  */
-export default class Cytoscape extends Component {
+class Cytoscape extends Component {
     constructor(props) {
         super(props);
 
@@ -408,7 +408,18 @@ Cytoscape.propTypes = {
      *         - `breadthfirst`: Tree structure built using BFS, with optional `roots`
      *         - `cose`: Force-directed physics simulation
      *
-     *     2. The keys accepted by `layout` vary depending on the algorithm, but some
+     *     2. Some external layouts are also included. To use them, run
+     *     `dash_cytoscape.load_extra_layouts()` before creating your Dash app. Be careful about
+     *     using the extra layouts when not necessary, since they require supplementary bandwidth
+     *     for loading, which impacts the startup time of the app.
+     *         - `cose-bilkent`: https://github.com/cytoscape/cytoscape.js-cose-bilkent
+     *         - `cola`: https://github.com/cytoscape/cytoscape.js-cola
+     *         - `euler`: https://github.com/cytoscape/cytoscape.js-dagre
+     *         - `spread`: https://github.com/cytoscape/cytoscape.js-spread
+     *         - `dagre`: https://github.com/cytoscape/cytoscape.js-dagre
+     *         - `klay`: https://github.com/cytoscape/cytoscape.js-klay
+     *
+     *     3. The keys accepted by `layout` vary depending on the algorithm, but some
      *     keys are accepted by all layouts:
      *         - `fit` (boolean): Whether to render the nodes in order to fit the canvas.
      *         - `padding` (number): Padding around the sides of the canvas, if fit is enabled.
@@ -416,8 +427,10 @@ Cytoscape.propTypes = {
      *         - `animationDuration` (number): Duration of animation in milliseconds, if enabled.
      *         - `boundingBox` (dictionary): How to constrain the layout in a specific area. Keys accepted are either `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.
      *
-     *     3. The complete list of layouts and their accepted options are available
-     *     on the [Cytoscape.js docs](http://js.cytoscape.org/#layouts).
+     *     4. The complete list of layouts and their accepted options are available
+     *     on the [Cytoscape.js docs](http://js.cytoscape.org/#layouts). For the
+     *     external layouts, the options are listed in the "API" section of the
+     *     README.
      *     Note that certain keys are not supported in Dash since the value is a
      *     JavaScript function or a callback. Please visit [this issue](https://github.com/plotly/dash-cytoscape/issues/25)
      *     for more information.
@@ -604,3 +617,5 @@ Cytoscape.defaultProps = {
     layout: {name: 'random'},
     autoRefreshLayout: true
 };
+
+export default Cytoscape;
