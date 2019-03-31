@@ -10,23 +10,6 @@ import dash_cytoscape as cyto
 app = dash.Dash(__name__)
 server = app.server
 
-# Dictionary declaration
-elements_dict = [
-    {
-        'data': {'id': 'one', 'label': 'Node 1'},
-        'position': {'x': 50, 'y': 50}
-    },
-    {
-        'data': {'id': 'two', 'label': 'Node 2'},
-        'position': {'x': 200, 'y': 200}},
-    {
-        'data': {
-            'source': 'one', 'target': 'two',
-            'label': 'Edge from Node1 to Node2'
-        }
-    }
-]
-
 # Object declaration
 basic_elements = [
     {
@@ -55,6 +38,7 @@ basic_elements = [
     },
     {
         'data': {
+            'id': 'one-two',
             'source': 'one',
             'target': 'two',
             'label': 'Edge from Node1 to Node2'
@@ -62,6 +46,7 @@ basic_elements = [
     },
     {
         'data': {
+            'id': 'one-five',
             'source': 'one',
             'target': 'five',
             'label': 'Edge from Node 1 to Node 5'
@@ -69,6 +54,7 @@ basic_elements = [
     },
     {
         'data': {
+            'id': 'two-four',
             'source': 'two',
             'target': 'four',
             'label': 'Edge from Node 2 to Node 4'
@@ -76,6 +62,7 @@ basic_elements = [
     },
     {
         'data': {
+            'id': 'three-five',
             'source': 'three',
             'target': 'five',
             'label': 'Edge from Node 3 to Node 5'
@@ -83,19 +70,23 @@ basic_elements = [
     },
     {
         'data': {
+            'id': 'three-two',
             'source': 'three',
             'target': 'two',
             'label': 'Edge from Node 3 to Node 2'
         }
     },
-    {'data': {
-        'source': 'four',
-        'target': 'four',
-        'label': 'Edge from Node 4 to Node 4'
-    }
+    {
+        'data': {
+            'id': 'four-four',
+            'source': 'four',
+            'target': 'four',
+            'label': 'Edge from Node 4 to Node 4'
+        }
     },
     {
         'data': {
+            'id': 'four-six',
             'source': 'four',
             'target': 'six',
             'label': 'Edge from Node 4 to Node 6'
@@ -103,6 +94,7 @@ basic_elements = [
     },
     {
         'data': {
+            'id': 'five-one',
             'source': 'five',
             'target': 'one',
             'label': 'Edge from Node 5 to Node 1'
