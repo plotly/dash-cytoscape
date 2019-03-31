@@ -10,6 +10,7 @@ import dash as _dash
 from ._imports_ import *
 from ._imports_ import __all__
 
+
 if not hasattr(_dash, 'development'):
     print('Dash was not successfully imported. '
           'Make sure you don\'t have a file '
@@ -45,3 +46,18 @@ _css_dist = []
 for _component in __all__:
     setattr(locals()[_component], '_js_dist', _js_dist)
     setattr(locals()[_component], '_css_dist', _css_dist)
+
+
+def load_extra_layouts():
+    global _js_dist
+
+    _js_dist = [
+        {
+            'relative_package_path': 'dash_cytoscape_extra.min.js',
+            'dev_package_path': 'dash_cytoscape_extra.dev.js',
+            'external_url': 'https://unpkg.com/dash-cytoscape@{2}/{1}/{1}.min.js'.format(
+                'dash_cytoscape_extra', __name__, __version__
+            ),
+            'namespace': package_name
+        }
+    ]
