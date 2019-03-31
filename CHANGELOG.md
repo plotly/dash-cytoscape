@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+* `demos/usage-dag-edges.py`: Show different types of edges in a DAG
+* `demos/usage-elements-extra.py`: Shows how to load external layouts, otherwise same app as `usage-elements.py`.
+* `dash_cytoscape.load_extra_layouts()`: A new function that can be called before initializing the Dash app (`app = dash.Dash(__name__)`) to load the JS bundle containing the external layouts. 
+* `webpack.[dev|prod].extra.config.js`: Two new webpack configs for external layouts.
+* `src/lib/extra_index.js`: Loads external layouts before exporting the `Cytoscape` class. Needed to generate the new bundles.
+* Images of new external layouts.
+* `dash_cytoscape/dash_cytoscape_extra.[min|dev].js`: New bundles containing the extra layouts. Those bundles are double in size compared to the default bundles. Therefore, they are only loaded when the user uses `load_extra_layouts()` to limit bandwidth usage and maximize loading speed. Please view [fast3g-cytoscape](demos/images/fast3g-cytoscape.PNG) for an example of the impact on loading time.
+
+### Changed
+* `src/lib/components/Cytoscape.react.js`: Updated description to include information about new external layouts.
+* `package.json`: Added new builds for the extra layouts, modified `npm build:all` to include new builds. Added external layouts as dependencies.
+
 ## [0.0.5] - 2019-03-08
 
 ### Added
