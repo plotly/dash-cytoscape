@@ -1,5 +1,3 @@
-import json
-
 import dash
 from dash.dependencies import Input, Output
 import dash_core_components as dcc
@@ -35,11 +33,10 @@ edges = flatten([
         {'data': {'source': src, 'target': tar}}
         for tar in adj_dict[src]
     ]
-    for src in adj_dict.keys()
+    for src in adj_dict
 ])
 
 elements = nodes + edges
-
 
 # Start the app
 app.layout = html.Div([
