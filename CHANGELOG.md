@@ -10,13 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `demos/usage-dag-edges.py`: Show different types of edges in a DAG
 * `demos/usage-elements-extra.py`: Shows how to load external layouts, otherwise same app as `usage-elements.py`.
 * `demos/usage-preset-animation.py`: Example of animating nodes using the preset layout.
-* `demos/usage-reset-button.py`: Example of resetting the graph position using a button
+* `demos/usage-reset-button.py`: Example of resetting the graph position using a button.
 * `dash_cytoscape.load_extra_layouts()`: A new function that can be called before initializing the Dash app (`app = dash.Dash(__name__)`) to load the JS bundle containing the external layouts. 
 * `webpack.[dev|prod].extra.config.js`: Two new webpack configs for external layouts.
 * `src/lib/extra_index.js`: Loads external layouts before exporting the `Cytoscape` class. Needed to generate the new bundles.
 * Images of new external layouts.
 * `dash_cytoscape/dash_cytoscape_extra.[min|dev].js`: New bundles containing the extra layouts. Those bundles are double in size compared to the default bundles. Therefore, they are only loaded when the user uses `load_extra_layouts()` to limit bandwidth usage and maximize loading speed. Please view [fast3g-cytoscape](demos/images/fast3g-cytoscape.PNG) for an example of the impact on loading time.
-* `dash_cytoscape._display_default_values()`: util function to display the default prop values by reading `metadata.json`. Useful for documentation.
+* `dash_cytoscape._display_default_values()`: A util function to display the default prop values by reading `metadata.json`. Useful for documentation.
 
 ### Changed
 * `usage-events.py`: Added IDs for the edges in order to pass Percy tests.

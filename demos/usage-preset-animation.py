@@ -46,7 +46,7 @@ default_stylesheet = [
 ]
 
 app.layout = html.Div([
-    html.Div(html.Button('Change elements', id='button'), ),
+    html.Div(html.Button('Change elements', id='button')),
 
     cyto.Cytoscape(
         id='cytoscape-elements-callbacks',
