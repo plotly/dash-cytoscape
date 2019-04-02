@@ -11,9 +11,9 @@ app = dash.Dash(__name__)
 nodes = [
     {
         'data': {'id': short, 'label': label},
-        'position': {'x': 20 * lat, 'y': -20 * long}
+        'position': {'x': 20 * lat, 'y': -20 * longitude}
     }
-    for short, label, long, lat in (
+    for short, label, longitude, lat in (
         ('la', 'Los Angeles', 34.03, -118.25),
         ('nyc', 'New York', 40.71, -74)
 
