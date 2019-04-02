@@ -74,8 +74,8 @@ def update_elements(n_clicks):
         'animate': True,
         'animationDuration': 1000,
         'positions': {
-            node_id: {'x': 20 * lat, 'y': -20 * long}
-            for node_id, long, lat in (
+            node_id: {'x': 20 * lat, 'y': -20 * longitude}
+            for node_id, longitude, lat in (
                 ("la", 34.03, -118.25 + 10 * n_clicks),
                 ("nyc", 40.71, -74)
             )

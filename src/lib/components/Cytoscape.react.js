@@ -522,8 +522,7 @@ Cytoscape.propTypes = {
     // User Events Props
 
     /**
-     * The complete node dictionary returned when you tap or click it. Cannot be modified by a
-     * Dash callback.
+     * The complete node dictionary returned when you tap or click it. Read-only.
      *
      *     1. Node-specific items:
      *         - `edgesData` (dictionary)
@@ -556,14 +555,12 @@ Cytoscape.propTypes = {
     tapNode: PropTypes.object,
 
     /**
-     * The data dictionary of a node returned when you tap or click it. Cannot be modified by a
-     * Dash callback.
+     * The data dictionary of a node returned when you tap or click it. Read-only.
      */
     tapNodeData: PropTypes.object,
 
     /**
-     * The complete edge dictionary returned when you tap or click it. Cannot be modified by a
-     * Dash callback.
+     * The complete edge dictionary returned when you tap or click it. Read-only.
      *
      *     1. Edge-specific items:
      *         - `isLoop` (boolean)
@@ -588,34 +585,29 @@ Cytoscape.propTypes = {
     tapEdge: PropTypes.object,
 
     /**
-     * The data dictionary of an edge returned when you tap or click it. Cannot be modified by a
-     * Dash callback.
+     * The data dictionary of an edge returned when you tap or click it. Read-only.
      */
     tapEdgeData: PropTypes.object,
 
     /**
-     * The data dictionary of a node returned when you hover over it. Cannot be modified by a
-     * Dash callback.
+     * The data dictionary of a node returned when you hover over it. Read-only.
      */
     mouseoverNodeData: PropTypes.object,
 
     /**
-     * The data dictionary of an edge returned when you hover over it. Cannot be modified by a
-     * Dash callback.
+     * The data dictionary of an edge returned when you hover over it. Read-only.
      */
     mouseoverEdgeData: PropTypes.object,
 
     /**
      * The list of data dictionaries of all selected nodes (e.g. using
-     * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Cannot be
-     * modified by a Dash callback.
+     * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
     selectedNodeData: PropTypes.array,
 
     /**
      * The list of data dictionaries of all selected edges (e.g. using
-     * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Cannot be
-     * modified by a Dash callback.
+     * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
     selectedEdgeData: PropTypes.array
 };
