@@ -9,7 +9,7 @@ import dash as _dash
 # noinspection PyUnresolvedReferences
 from ._imports_ import *
 from ._imports_ import __all__
-from .Tree import Tree
+from . import utils
 
 
 if not hasattr(_dash, 'development'):
