@@ -308,7 +308,7 @@ class Cytoscape extends Component {
                 cy={this.handleCy}
                 className={className}
                 style={style}
-                elements={elements}
+                elements={CytoscapeComponent.normalizeElements(elements)}
                 stylesheet={stylesheet}
                 layout={layout}
                 pan={pan}
@@ -522,7 +522,7 @@ Cytoscape.propTypes = {
     // User Events Props
 
     /**
-     * The complete node dictionary returned when you tap or click it.
+     * The complete node dictionary returned when you tap or click it. Read-only.
      *
      *     1. Node-specific items:
      *         - `edgesData` (dictionary)
@@ -555,12 +555,12 @@ Cytoscape.propTypes = {
     tapNode: PropTypes.object,
 
     /**
-     * The data dictionary of a node returned when you tap or click it.
+     * The data dictionary of a node returned when you tap or click it. Read-only.
      */
     tapNodeData: PropTypes.object,
 
     /**
-     * The complete edge dictionary returned when you tap or click it.
+     * The complete edge dictionary returned when you tap or click it. Read-only.
      *
      *     1. Edge-specific items:
      *         - `isLoop` (boolean)
@@ -585,36 +585,48 @@ Cytoscape.propTypes = {
     tapEdge: PropTypes.object,
 
     /**
-     * The data dictionary of an edge returned when you tap or click it.
+     * The data dictionary of an edge returned when you tap or click it. Read-only.
      */
     tapEdgeData: PropTypes.object,
 
     /**
-     * The data dictionary of a node returned when you hover over it.
+     * The data dictionary of a node returned when you hover over it. Read-only.
      */
     mouseoverNodeData: PropTypes.object,
 
     /**
-     * The data dictionary of an edge returned when you hover over it.
+     * The data dictionary of an edge returned when you hover over it. Read-only.
      */
     mouseoverEdgeData: PropTypes.object,
 
     /**
      * The list of data dictionaries of all selected nodes (e.g. using
-     * Shift+Click to select multiple nodes, or Shift+Drag to use box selection).
+     * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
     selectedNodeData: PropTypes.array,
 
     /**
      * The list of data dictionaries of all selected edges (e.g. using
-     * Shift+Click to select multiple nodes, or Shift+Drag to use box selection).
+     * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
     selectedEdgeData: PropTypes.array
 };
 
 Cytoscape.defaultProps = {
     style: {width: '600px', height: '600px'},
-    layout: {name: 'random'},
+    layout: {name: 'grid'},
+    pan: {x: 0, y: 0},
+    zoom: 1,
+    minZoom: 1e-50,
+    maxZoom: 1e50,
+    zoomingEnabled: true,
+    userZoomingEnabled: true,
+    panningEnabled: true,
+    userPanningEnabled: true,
+    boxSelectionEnabled: false,
+    autolock: false,
+    autoungrabify: false,
+    autounselectify: false,
     autoRefreshLayout: true
 };
 

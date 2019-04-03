@@ -54,7 +54,10 @@ use.
         - `breadthfirst`: Tree structure built using BFS, with optional `roots`
         - `cose`: Force-directed physics simulation
 
-    2. The following external layouts are also included:
+    2. Some external layouts are also included. To use them, run
+    `dash_cytoscape.load_extra_layouts()` before creating your Dash app. Be careful about
+    using the extra layouts when not necessary, since they require supplementary bandwidth
+    for loading, which impacts the startup time of the app.
         - `cose-bilkent`: https://github.com/cytoscape/cytoscape.js-cose-bilkent
         - `cola`: https://github.com/cytoscape/cytoscape.js-cola
         - `euler`: https://github.com/cytoscape/cytoscape.js-dagre
@@ -104,7 +107,7 @@ default (if true, overrides individual node state).
 - autounselectify (boolean; optional): Whether nodes should be unselectified (immutable selection state) by
 default (if true, overrides individual element state).
 - autoRefreshLayout (boolean; optional): Whether the layout should be refreshed when elements are added or removed.
-- tapNode (dict; optional): The complete node dictionary returned when you tap or click it.
+- tapNode (dict; optional): The complete node dictionary returned when you tap or click it. Read-only.
 
     1. Node-specific items:
         - `edgesData` (dictionary)
@@ -133,8 +136,8 @@ default (if true, overrides individual element state).
         - `isChild` (boolean)
         - `isOrphan` (boolean)
         - `relativePosition` (dictionary)
-- tapNodeData (dict; optional): The data dictionary of a node returned when you tap or click it.
-- tapEdge (dict; optional): The complete edge dictionary returned when you tap or click it.
+- tapNodeData (dict; optional): The data dictionary of a node returned when you tap or click it. Read-only.
+- tapEdge (dict; optional): The complete edge dictionary returned when you tap or click it. Read-only.
 
     1. Edge-specific items:
         - `isLoop` (boolean)
@@ -155,13 +158,13 @@ default (if true, overrides individual element state).
         - `selectable` (boolean)
         - `selected` (boolean)
         - `style` (dictionary)
-- tapEdgeData (dict; optional): The data dictionary of an edge returned when you tap or click it.
-- mouseoverNodeData (dict; optional): The data dictionary of a node returned when you hover over it.
-- mouseoverEdgeData (dict; optional): The data dictionary of an edge returned when you hover over it.
+- tapEdgeData (dict; optional): The data dictionary of an edge returned when you tap or click it. Read-only.
+- mouseoverNodeData (dict; optional): The data dictionary of a node returned when you hover over it. Read-only.
+- mouseoverEdgeData (dict; optional): The data dictionary of an edge returned when you hover over it. Read-only.
 - selectedNodeData (list; optional): The list of data dictionaries of all selected nodes (e.g. using
-Shift+Click to select multiple nodes, or Shift+Drag to use box selection).
+Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
 - selectedEdgeData (list; optional): The list of data dictionaries of all selected edges (e.g. using
-Shift+Click to select multiple nodes, or Shift+Drag to use box selection)."""
+Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only."""
     @_explicitize_args
     def __init__(self, id=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, elements=Component.UNDEFINED, stylesheet=Component.UNDEFINED, layout=Component.UNDEFINED, pan=Component.UNDEFINED, zoom=Component.UNDEFINED, panningEnabled=Component.UNDEFINED, userPanningEnabled=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, zoomingEnabled=Component.UNDEFINED, userZoomingEnabled=Component.UNDEFINED, boxSelectionEnabled=Component.UNDEFINED, autoungrabify=Component.UNDEFINED, autolock=Component.UNDEFINED, autounselectify=Component.UNDEFINED, autoRefreshLayout=Component.UNDEFINED, tapNode=Component.UNDEFINED, tapNodeData=Component.UNDEFINED, tapEdge=Component.UNDEFINED, tapEdgeData=Component.UNDEFINED, mouseoverNodeData=Component.UNDEFINED, mouseoverEdgeData=Component.UNDEFINED, selectedNodeData=Component.UNDEFINED, selectedEdgeData=Component.UNDEFINED, **kwargs):
         self._prop_names = ['id', 'className', 'style', 'elements', 'stylesheet', 'layout', 'pan', 'zoom', 'panningEnabled', 'userPanningEnabled', 'minZoom', 'maxZoom', 'zoomingEnabled', 'userZoomingEnabled', 'boxSelectionEnabled', 'autoungrabify', 'autolock', 'autounselectify', 'autoRefreshLayout', 'tapNode', 'tapNodeData', 'tapEdge', 'tapEdgeData', 'mouseoverNodeData', 'mouseoverEdgeData', 'selectedNodeData', 'selectedEdgeData']
