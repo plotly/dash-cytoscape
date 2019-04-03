@@ -158,6 +158,56 @@ class Cytoscape extends Component {
         window.cy = cy;
         this._handleCyCalled = true;
 
+        // ///////////////////////////////////// CONSTANTS /////////////////////////////////////////
+        const SELECT_THRESHOLD = 100;
+
+        const selectedNodes = cy.collection();
+        const selectedEdges = cy.collection();
+
+        // ///////////////////////////////////// FUNCTIONS /////////////////////////////////////////
+        const refreshLayout = _.debounce(() => {
+            /**
+             * Refresh Layout if needed
+             */
+            const {
+                autoRefreshLayout,
+                layout
+            } = this.props;
+
+            if (autoRefreshLayout) {
+                cy.layout(layout).run()
+            }
+        }, SELECT_THRESHOLD);
+
+        const sendSelectedNodesData = _.debounce(() => {
+            /**
+             This function is repetitively called every time a node is selected
+             or unselected, but keeps being debounced if it is called again
+             within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
+             runs when all the nodes have been correctly selected/unselected and
+             added/removed from the selectedNodes collection, and then updates
+             the selectedNodeData prop.
+             */
+            const nodeData = selectedNodes.map(el => el.data());
+
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
+                    selectedNodeData: nodeData
+                })
+            }
+        }, SELECT_THRESHOLD);
+
+        const sendSelectedEdgesData = _.debounce(() => {
+            const edgeData = selectedEdges.map(el => el.data());
+
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
+                    selectedEdgeData: edgeData
+                })
+            }
+        }, SELECT_THRESHOLD);
+
+        // /////////////////////////////////////// EVENTS //////////////////////////////////////////
         cy.on('tap', 'node', event => {
             const nodeObject = this.generateNode(event);
 
@@ -196,40 +246,6 @@ class Cytoscape extends Component {
             }
         });
 
-        // SELECTED DATA
-        const SELECT_THRESHOLD = 100;
-
-        const selectedNodes = cy.collection();
-        const selectedEdges = cy.collection();
-
-        const sendSelectedNodesData = _.debounce(() => {
-            /*
-            This function is repetitively called every time a node is selected
-            or unselected, but keeps being debounced if it is called again
-            within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
-            runs when all the nodes have been correctly selected/unselected and
-            added/removed from the selectedNodes collection, and then updates
-            the selectedNodeData prop.
-             */
-            const nodeData = selectedNodes.map(el => el.data());
-
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    selectedNodeData: nodeData
-                })
-            }
-        }, SELECT_THRESHOLD);
-
-        const sendSelectedEdgesData = _.debounce(() => {
-            const edgeData = selectedEdges.map(el => el.data());
-
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    selectedEdgeData: edgeData
-                })
-            }
-        }, SELECT_THRESHOLD);
-
         cy.on('select', 'node', event => {
             const ele = event.target;
 
@@ -237,7 +253,7 @@ class Cytoscape extends Component {
             sendSelectedNodesData();
         });
 
-        cy.on('unselect', 'node', event => {
+        cy.on('unselect remove', 'node', event => {
             const ele = event.target;
 
             selectedNodes.unmerge(ele);
@@ -251,25 +267,12 @@ class Cytoscape extends Component {
             sendSelectedEdgesData();
         });
 
-        cy.on('unselect', 'edge', event => {
+        cy.on('unselect remove', 'edge', event => {
             const ele = event.target;
 
             selectedEdges.unmerge(ele);
             sendSelectedEdgesData();
         });
-
-
-        // Refresh Layout if needed
-        const refreshLayout = _.debounce(() => {
-            const {
-                autoRefreshLayout,
-                layout
-            } = this.props;
-
-            if (autoRefreshLayout) {
-                cy.layout(layout).run()
-            }
-        }, SELECT_THRESHOLD);
 
         cy.on('add remove', () => {
             refreshLayout();
