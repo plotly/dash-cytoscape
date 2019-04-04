@@ -29,7 +29,7 @@ edges = [
     for _ in range(30)
 ]
 
-elements = nodes + edges
+default_elements = nodes + edges
 
 styles = {
     'json-output': {
@@ -44,7 +44,7 @@ app.layout = html.Div([
     html.Div(className='eight columns', children=[
         cyto.Cytoscape(
             id='cytoscape',
-            elements=elements,
+            elements=default_elements,
             layout={
                 'name': 'grid'
             },
@@ -99,9 +99,9 @@ app.layout = html.Div([
               [Input('remove-button', 'n_clicks')],
               [State('cytoscape', 'elements'),
                State('cytoscape', 'selectedNodeData')])
-def remove_selected_nodes(n_clicks, elements, data):
+def remove_selected_nodes(_, elements, data):
     if elements and data:
-        ids_to_remove = set([ele_data['id'] for ele_data in data])
+        ids_to_remove = {ele_data['id'] for ele_data in data}
         print("Before:", elements)
         new_elements = [ele for ele in elements if ele['data']['id'] not in ids_to_remove]
         print("After:", new_elements)
