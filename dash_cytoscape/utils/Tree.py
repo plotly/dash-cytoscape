@@ -4,7 +4,7 @@ from collections import deque
 class Tree(object):
     def __init__(self, node_id, children=None, data=None, edge_data=None):
         """
-        An class to facilitate tree manipulation in Cytoscape
+        A class to facilitate tree manipulation in Cytoscape
         :param node_id: The ID of this tree, passed to the node data dict
         :param children: The children of this tree, also Tree objects
         :param data: Dictionary passed to this tree's node data dict
@@ -127,13 +127,11 @@ class Tree(object):
         :param method: Which traversal method to use. Either "bfs" or "dfs"
         :return: Tree object if found, None otherwise
         """
-        for c in ' -_':
-            method = method.replace(c, '')
         method = method.lower()
 
-        if method in ['bfs', 'breadthfirst', 'breadthfirstsearch']:
+        if method == 'bfs':
             return self._bfs(search_id)
-        elif method in ['dfs', 'depthfirst', 'depthfirstsearch']:
+        elif method == 'dfs':
             return self._dfs(search_id)
         else:
             raise ValueError('Unknown traversal method')
