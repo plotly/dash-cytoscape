@@ -6,23 +6,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2019-04-05
+
 ### Added
-* `demos/usage-dag-edges.py`: Show different types of edges in a DAG
-* `demos/usage-elements-extra.py`: Shows how to load external layouts, otherwise same app as `usage-elements.py`.
-* `demos/usage-preset-animation.py`: Example of animating nodes using the preset layout.
-* `demos/usage-reset-button.py`: Example of resetting the graph position using a button.
-* `dash_cytoscape.load_extra_layouts()`: A new function that can be called before initializing the Dash app (`app = dash.Dash(__name__)`) to load the JS bundle containing the external layouts. 
-* `webpack.[dev|prod].extra.config.js`: Two new webpack configs for external layouts.
-* `src/lib/extra_index.js`: Loads external layouts before exporting the `Cytoscape` class. Needed to generate the new bundles.
-* Images of new external layouts.
+* Four new demos:
+    * `demos/usage-dag-edges.py`: Show different types of edges in a DAG. It uses the new `dash_cytoscape.utils.Tree` class.
+    * `demos/usage-elements-extra.py`: Shows how to load external layouts, otherwise same app as `usage-elements.py`.
+    * `demos/usage-preset-animation.py`: Example of animating nodes using the preset layout.
+    * `demos/usage-reset-button.py`: Example of resetting the graph position using a button.
+    * `demos/usage-remove-selected-elements.py`: Example to show how to remove selected elements with button.
 * `dash_cytoscape/dash_cytoscape_extra.[min|dev].js`: New bundles containing the extra layouts. Those bundles are double in size compared to the default bundles. Therefore, they are only loaded when the user uses `load_extra_layouts()` to limit bandwidth usage and maximize loading speed. Please view [fast3g-cytoscape](demos/images/fast3g-cytoscape.PNG) for an example of the impact on loading time.
 * `dash_cytoscape._display_default_values()`: A util function to display the default prop values by reading `metadata.json`. Useful for documentation.
+* `dash_cytoscape.load_extra_layouts()`: A new function that can be called before initializing the Dash app (`app = dash.Dash(__name__)`) to load the JS bundle containing the external layouts.
+* `src/lib/extra_index.js`: Loads external layouts before exporting the `Cytoscape` class. Needed to generate the new bundles.
+* `webpack.[dev|prod].extra.config.js`: Two new webpack configs for external layouts.
+* Images of new external layouts.
+* You can now feed a dictionary with keys `nodes` and `edges` to the `elements` prop of `Cytoscape`, instead of a list. The respective values will be lists of nodes and edges.
+
 
 ### Changed
 * `usage-events.py`: Added IDs for the edges in order to pass Percy tests.
 * `src/lib/components/Cytoscape.react.js`: Updated docstring to include information about new external layouts and warning about nodes that can't be modified by a callback. Added more default props for a better expected behavior.
 * `package.json`: Added new builds for the extra layouts, modified `npm build:all` to include new builds. Added external layouts as dependencies.
+* `MANIFEST.in`: Include new `dash_cytoscape.[min|dev].js` files.
 * `README.md`: Moved images, added more images at the end, added useful links.
+
+
+### Fixed
+* Removing selected elements will now be automatically removed. Fixed by [PR #49](https://github.com/plotly/dash-cytoscape/pull/49), fixes [issue #45](https://github.com/plotly/dash-cytoscape/issues/45).
 
 
 ## [0.0.5] - 2019-03-08
