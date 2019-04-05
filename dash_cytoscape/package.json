@@ -1,6 +1,6 @@
 {
   "name": "dash-cytoscape",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around Cytoscape.js",
   "main": "build/index.js",
   "scripts": {
