@@ -3,6 +3,7 @@ from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
 
+from dash_cytoscape.utils import Tree
 import dash_cytoscape as cyto
 
 import demos.dash_reusable_components as drc
@@ -16,27 +17,21 @@ app = dash.Dash(__name__)
 server = app.server
 
 # Define a tree in the adjacency list format
-adj_dict = {
-    'root': ['l', 'r'],
-    'l': ['ll', 'lr'],
-    'r': ['rl', 'rr'],
-    'll': ['lll', 'llr'],
-    'rr': ['rrl', 'rrr']
-}
-
-# Flatten values, then only keep the unique entries
-node_ids = list(set(flatten(adj_dict.values()))) + ['root']
-
-nodes = [{'data': {'id': node_id}} for node_id in node_ids]
-edges = flatten([
-    [
-        {'data': {'source': src, 'target': tar}}
-        for tar in adj_dict[src]
-    ]
-    for src in adj_dict
+tree = Tree('a', [
+    Tree('b', [
+        Tree('c'),
+        Tree('d')
+    ]),
+    Tree('e', [
+        Tree('g')
+    ]),
+    Tree('f'),
+    Tree('h', [
+        Tree('i', [
+            Tree('j')
+        ])
+    ])
 ])
-
-elements = nodes + edges
 
 # Start the app
 app.layout = html.Div([
@@ -56,10 +51,10 @@ app.layout = html.Div([
     ),
     cyto.Cytoscape(
         id='cytoscape',
-        elements=elements,
+        elements=tree.get_elements(),
         layout={
             'name': 'breadthfirst',
-            'roots': ['root']
+            'roots': ['a']
         },
         style={
             'height': '95vh',
