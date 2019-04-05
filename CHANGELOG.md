@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Four new demos:
-    * `demos/usage-dag-edges.py`: Show different types of edges in a DAG. It uses the new `dash_cytoscape.utils.Tree` class.
+    * `demos/usage-dag-edges.py`: Shows different types of edges in a directed acyclic graph (DAG). It uses the new `dash_cytoscape.utils.Tree` class.
     * `demos/usage-elements-extra.py`: Shows how to load external layouts, otherwise same app as `usage-elements.py`.
     * `demos/usage-preset-animation.py`: Example of animating nodes using the preset layout.
     * `demos/usage-reset-button.py`: Example of resetting the graph position using a button.
