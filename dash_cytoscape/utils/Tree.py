@@ -4,26 +4,25 @@ from collections import deque
 class Tree(object):
     def __init__(self, node_id, children=None, data=None, edge_data=None):
         """
-        A class to facilitate tree manipulation in Cytoscape
+        A class to facilitate tree manipulation in Cytoscape.
         :param node_id: The ID of this tree, passed to the node data dict
         :param children: The children of this tree, also Tree objects
         :param data: Dictionary passed to this tree's node data dict
         :param edge_data: Dictionary passed to the data dict of the edge connecting this tree to its
         parent
         """
-        self.node_id = node_id
-        self.edge_data = edge_data
-        self.data = data
-        self.children = children
-
-        self.index = {}
-
         if not children:
-            self.children = []
+            children = []
         if not data:
-            self.data = {}
+            data = {}
         if not edge_data:
-            self.edge_data = {}
+            edge_data = {}
+
+        self.node_id = node_id
+        self.children = children
+        self.data = data
+        self.edge_data = edge_data
+        self.index = {}
 
     def _dfs(self, search_id):
         if self.node_id == search_id:
@@ -61,21 +60,21 @@ class Tree(object):
 
     def add_child(self, child):
         """
-        Add a single child to the children of a Tree
+        Add a single child to the children of a Tree.
         :param child: Tree object
         """
         self.children.append(child)
 
     def add_children(self, children):
         """
-        Add a list of children to the current children of a Tree
+        Add a list of children to the current children of a Tree.
         :param children: List of Tree objects
         """
         self.children.extend(children)
 
     def get_edges(self):
         """
-        Get all the edges of the tree in Cytoscape JSON format
+        Get all the edges of the tree in Cytoscape JSON format.
         :return: List of dictionaries, each specifying an edge
         """
         edges = [
@@ -96,7 +95,7 @@ class Tree(object):
 
     def get_nodes(self):
         """
-        Get all the nodes of the tree in Cytoscape JSON format
+        Get all the nodes of the tree in Cytoscape JSON format.
         :return: List of dictionaries, each specifying a node
         """
         nodes = [
@@ -115,14 +114,14 @@ class Tree(object):
 
     def get_elements(self):
         """
-        Get all the elements of the tree in Cytoscape JSON format
+        Get all the elements of the tree in Cytoscape JSON format.
         :return: List of dictionaries, each specifying an element
         """
         return self.get_nodes() + self.get_edges()
 
     def find_by_id(self, search_id, method='bfs'):
         """
-        Finds a Tree object by its ID
+        Find a Tree object by its ID.
         :param search_id: the queried ID
         :param method: Which traversal method to use. Either "bfs" or "dfs"
         :return: Tree object if found, None otherwise
@@ -138,7 +137,7 @@ class Tree(object):
 
     def create_index(self):
         """
-        Generate the index of a Tree, and sets it in place. If there was a previous index, it is
+        Generate the index of a Tree, and set it in place. If there was a previous index, it is
         erased. This uses a BFS traversal. Please note that when a child is added to the tree,
         the index is not regenerated. Furthermore, an index assigned to a parent cannot be
         accessed by its children, and vice-versa.
