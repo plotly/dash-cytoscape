@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2019-04-05
+
+### Fixed
+* Error where `dash_cytoscape.utils` cannot be imported.
+
 ## [0.1.0] - 2019-04-05
 
 ### Added
