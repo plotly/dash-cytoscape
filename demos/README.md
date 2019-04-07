@@ -12,6 +12,47 @@ To run `usage-phylogeny.py`, you need to install biopython:
 $ pip install biopython 
 ```
 
+## Gallery
+
+#### usage-circle-layout
+![usage-circle-layout](images/usage-circle-layout.PNG)
+
+#### usage-concentric-social-network
+![usage-concentric-social-network](images/usage-concentric-social-network.PNG)
+
+#### usage-dag-edges
+![usage-dag-edges](images/usage-dag-edges.gif)
+
+#### usage-elements-extra
+![usage-elements-extra](images/usage-elements-extra.gif)
+
+#### usage-grid-layout
+![usage-grid-layout](images/usage-grid-layout.PNG)
+
+#### usage-grid-social-network
+![usage-grid-social-network](images/usage-grid-social-network.PNG)
+
+#### usage-phylogeny
+![usage-phylogeny](images/usage-phylogeny.gif)
+
+#### usage-pie-style
+![usage-pie-style](images/usage-pie-style.PNG)
+
+#### usage-preset-animation
+![usage-preset-animation](images/usage-preset-animation.gif)
+
+#### usage-remove-selected-nodes
+![usage-remove-selected-nodes](images/usage-remove-selected-nodes.gif)
+
+#### usage-reset-selected-nodes
+![usage-reset-selected-nodes](images/usage-reset-selected-nodes.gif)
+
+#### usage-reset-button
+![usage-reset-button](images/usage-reset-button.gif)
+
+#### usage-visual-style
+![usage-visual-style](images/usage-visual-style.PNG)
+
 ## Data
 
 The phylogeny data was taken from the [Biopython Github Repo](https://github.com/biopython/biopython/blob/master/Tests/PhyloXML/apaf.xml). 
