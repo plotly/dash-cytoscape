@@ -103,8 +103,26 @@ The Pull Request and Issue Templates were inspired from the
 
 ## Gallery
 
-Interacting with the [elements](usage-elements.py):
-![usage-elements-demo](demos/images/usage-elements-demo.gif)
+### Dynamically expanding elements
+[Code](usage-elements.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-elements)
+![View usage-elements on Github](demos/images/usage-elements-demo.gif)
 
-Using [external layouts](demos/usage-elements-extra.py):
-![usage-elements-extra](demos/images/usage-elements-extra.gif)
+### Interactively update stylesheet
+[Code](usage-elements.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-stylesheet)
+![View usage-stylesheet on Github](demos/images/usage-stylesheet.gif)
+
+### Automatically generate interactive phylogeny trees
+[Code](demos/usage-phylogeny.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-phylogeny/)
+![View usage-phylogeny on Github](demos/images/usage-phylogeny.gif)
+
+### Create your own stylesheet
+[Code](usage-advanced.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-advanced)
+![View usage-advanced on Github](demos/images/usage-advanced.gif)
+
+### Using event callbacks
+[Code](usage-events.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-events)
+![View usage-events on Github](demos/images/usage-events.gif)
+
+### Using external layouts
+[Code](demos/usage-elements-extra.py)
+![View usage-elements-extra on Github](demos/images/usage-elements-extra.gif)
