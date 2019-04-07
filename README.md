@@ -103,7 +103,7 @@ The Pull Request and Issue Templates were inspired from the
 
 ## Gallery
 
-### Dynamically expanding elements
+### Dynamically expand elements
 [Code](usage-elements.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-elements)
 ![View usage-elements on Github](demos/images/usage-elements-demo.gif)
 
