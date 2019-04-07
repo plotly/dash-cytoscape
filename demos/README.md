@@ -44,9 +44,6 @@ $ pip install biopython
 #### usage-remove-selected-nodes
 ![usage-remove-selected-nodes](images/usage-remove-selected-nodes.gif)
 
-#### usage-reset-selected-nodes
-![usage-reset-selected-nodes](images/usage-reset-selected-nodes.gif)
-
 #### usage-reset-button
 ![usage-reset-button](images/usage-reset-button.gif)
 
