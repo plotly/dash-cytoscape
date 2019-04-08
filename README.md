@@ -119,10 +119,10 @@ The Pull Request and Issue Templates were inspired from the
 [Code](usage-advanced.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-advanced)
 ![View usage-advanced on Github](demos/images/usage-advanced.gif)
 
-### Using event callbacks
+### Use event callbacks
 [Code](usage-events.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-events)
 ![View usage-events on Github](demos/images/usage-events.gif)
 
-### Using external layouts
+### Use external layouts
 [Code](demos/usage-elements-extra.py)
 ![View usage-elements-extra on Github](demos/images/usage-elements-extra.gif)
