@@ -126,3 +126,5 @@ The Pull Request and Issue Templates were inspired from the
 ### Use external layouts
 [Code](demos/usage-elements-extra.py)
 ![View usage-elements-extra on Github](demos/images/usage-elements-extra.gif)
+
+For an extended gallery, visit the [demos' readme](demos/README.md).
