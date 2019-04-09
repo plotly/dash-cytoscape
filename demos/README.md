@@ -15,10 +15,10 @@ $ pip install biopython
 ## Gallery
 
 #### usage-circle-layout
-![usage-circle-layout](images/usage-circle-layout.PNG)
+![usage-circle-layout](images/usage-circle-layout.png)
 
 #### usage-concentric-social-network
-![usage-concentric-social-network](images/usage-concentric-social-network.PNG)
+![usage-concentric-social-network](images/usage-concentric-social-network.png)
 
 #### usage-dag-edges
 ![usage-dag-edges](images/usage-dag-edges.gif)
@@ -27,16 +27,16 @@ $ pip install biopython
 ![usage-elements-extra](images/usage-elements-extra.gif)
 
 #### usage-grid-layout
-![usage-grid-layout](images/usage-grid-layout.PNG)
+![usage-grid-layout](images/usage-grid-layout.png)
 
 #### usage-grid-social-network
-![usage-grid-social-network](images/usage-grid-social-network.PNG)
+![usage-grid-social-network](images/usage-grid-social-network.png)
 
 #### usage-phylogeny
 ![usage-phylogeny](images/usage-phylogeny.gif)
 
 #### usage-pie-style
-![usage-pie-style](images/usage-pie-style.PNG)
+![usage-pie-style](images/usage-pie-style.png)
 
 #### usage-preset-animation
 ![usage-preset-animation](images/usage-preset-animation.gif)
@@ -48,7 +48,7 @@ $ pip install biopython
 ![usage-reset-button](images/usage-reset-button.gif)
 
 #### usage-visual-style
-![usage-visual-style](images/usage-visual-style.PNG)
+![usage-visual-style](images/usage-visual-style.png)
 
 ## Data
 
