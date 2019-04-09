@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-* `utils.Tree`: v0.1.1 broke compatibility with Python 2. Therefore, modified code to be compatible with Python 2. Added `props` and `edge_prosp` properties to accept arguments passed directly to the node's (or edge's) dictionary. E.g. 'classes', 'positions', etc.
+* `utils.Tree`: v0.1.1 broke compatibility with Python 2. Therefore, modified code to be compatible with Python 2. Added `props` and `edge_props` properties to accept arguments passed directly to the node's (or edge's) dictionary. E.g. 'classes', 'positions', etc.
 
 ## [0.1.1] - 2019-04-05
 
