@@ -75,8 +75,8 @@ class Tree(object):
 
     def add_children(self, children):
         """
-        Add a list of children to the current children of a Tree.
-        :param children: List of Tree objects
+        Add one or more children to the current children of a Tree.
+        :param children: List of Tree objects (one object or more)
         """
         self.children.extend(children)
 
