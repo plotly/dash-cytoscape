@@ -20,15 +20,15 @@ class Tree(object):
         :param edge_props: Dictionary passed to the dict of the edge connecting this tree to its
         parent
         """
-        if not children:
+        if children is None:
             children = []
-        if not data:
+        if data is None:
             data = {}
-        if not props:
+        if props is None:
             props = {}
-        if not edge_data:
+        if edge_data is None:
             edge_data = {}
-        if not edge_props:
+        if edge_props is None:
             edge_props = {}
 
         self.node_id = node_id
