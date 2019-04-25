@@ -73,13 +73,6 @@ class Tree(object):
         """
         return not self.children
 
-    def add_child(self, child):
-        """
-        Add a single child to the children of a Tree.
-        :param child: Tree object
-        """
-        self.children.append(child)
-
     def add_children(self, children):
         """
         Add a list of children to the current children of a Tree.
