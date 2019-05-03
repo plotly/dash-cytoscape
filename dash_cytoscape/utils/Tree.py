@@ -2,26 +2,41 @@ from collections import deque
 
 
 class Tree(object):
-    def __init__(self, node_id, children=None, data=None, edge_data=None):
+    def __init__(self,
+                 node_id,
+                 children=None,
+                 data=None,
+                 props=None,
+                 edge_data=None,
+                 edge_props=None):
         """
         A class to facilitate tree manipulation in Cytoscape.
         :param node_id: The ID of this tree, passed to the node data dict
         :param children: The children of this tree, also Tree objects
         :param data: Dictionary passed to this tree's node data dict
+        :param props: Dictionary passed to this tree's node dict, containing the node's props
         :param edge_data: Dictionary passed to the data dict of the edge connecting this tree to its
         parent
+        :param edge_props: Dictionary passed to the dict of the edge connecting this tree to its
+        parent
         """
-        if not children:
+        if children is None:
             children = []
-        if not data:
+        if data is None:
             data = {}
-        if not edge_data:
+        if props is None:
+            props = {}
+        if edge_data is None:
             edge_data = {}
+        if edge_props is None:
+            edge_props = {}
 
         self.node_id = node_id
         self.children = children
         self.data = data
+        self.props = props
         self.edge_data = edge_data
+        self.edge_props = edge_props
         self.index = {}
 
     def _dfs(self, search_id):
@@ -58,17 +73,10 @@ class Tree(object):
         """
         return not self.children
 
-    def add_child(self, child):
-        """
-        Add a single child to the children of a Tree.
-        :param child: Tree object
-        """
-        self.children.append(child)
-
     def add_children(self, children):
         """
-        Add a list of children to the current children of a Tree.
-        :param children: List of Tree objects
+        Add one or more children to the current children of a Tree.
+        :param children: List of Tree objects (one object or more)
         """
         self.children.extend(children)
 
@@ -77,16 +85,18 @@ class Tree(object):
         Get all the edges of the tree in Cytoscape JSON format.
         :return: List of dictionaries, each specifying an edge
         """
-        edges = [
-            {
+        edges = []
+
+        for child in self.children:
+            di = {
                 'data': {
                     'source': self.node_id,
-                    'target': child.node_id,
-                    **self.edge_data
+                    'target': child.node_id
                 }
             }
-            for child in self.children
-        ]
+            di['data'].update(child.edge_data)
+            di.update(child.edge_props)
+            edges.append(di)
 
         for child in self.children:
             edges.extend(child.get_edges())
@@ -98,14 +108,15 @@ class Tree(object):
         Get all the nodes of the tree in Cytoscape JSON format.
         :return: List of dictionaries, each specifying a node
         """
-        nodes = [
-            {
-                'data': {
-                    'id': self.node_id,
-                    **self.data
-                }
+        di = {
+            'data': {
+                'id': self.node_id
             }
-        ]
+        }
+
+        di['data'].update(self.data)
+        di.update(self.props)
+        nodes = [di]
 
         for child in self.children:
             nodes.extend(child.get_nodes())
@@ -155,3 +166,17 @@ class Tree(object):
                     stack.append(child)
 
         return self.index
+
+
+if __name__ == '__main__':
+    import pprint
+
+    t1 = Tree('a', data={'hello': 'goodbye'}, children=[
+        Tree('b', edge_data={'foo': 'bar'}, edge_props={'classes': 'directed'}),
+        Tree('c', props={'selected': True})
+    ])
+
+    print("Nodes:")
+    pprint.pprint(t1.get_nodes())
+    print('\nEdges:')
+    pprint.pprint(t1.get_edges())
