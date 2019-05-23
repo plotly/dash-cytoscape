@@ -10,18 +10,21 @@ A Component Library for Dash aimed at facilitating network visualization in Pyth
 }
 
 \usage{
-cytoCytoscape(id=NULL, className=NULL, style=NULL, elements=NULL, stylesheet=NULL, layout=NULL, pan=NULL, zoom=NULL, panningEnabled=NULL, userPanningEnabled=NULL, minZoom=NULL, maxZoom=NULL, zoomingEnabled=NULL, userZoomingEnabled=NULL, boxSelectionEnabled=NULL, autoungrabify=NULL, autolock=NULL, autounselectify=NULL, autoRefreshLayout=NULL, tapNode=NULL, tapNodeData=NULL, tapEdge=NULL, tapEdgeData=NULL, mouseoverNodeData=NULL, mouseoverEdgeData=NULL, selectedNodeData=NULL, selectedEdgeData=NULL)
+cytoCytoscape(id=NULL, className=NULL, style=NULL, setProps=NULL, elements=NULL, stylesheet=NULL, layout=NULL, pan=NULL, zoom=NULL, panningEnabled=NULL, userPanningEnabled=NULL, minZoom=NULL, maxZoom=NULL, zoomingEnabled=NULL, userZoomingEnabled=NULL, boxSelectionEnabled=NULL, autoungrabify=NULL, autolock=NULL, autounselectify=NULL, autoRefreshLayout=NULL, tapNode=NULL, tapNodeData=NULL, tapEdge=NULL, tapEdgeData=NULL, mouseoverNodeData=NULL, mouseoverEdgeData=NULL, selectedNodeData=NULL, selectedEdgeData=NULL)
 }
 
 \arguments{
-\item{id}{The ID used to identify this component in Dash callbacks.}
+\item{id}{Character. The ID used to identify this component in Dash callbacks.}
 
-\item{className}{Sets the class name of the element (the value of an element's html
+\item{className}{Character. Sets the class name of the element (the value of an element's html
 class attribute).}
 
-\item{style}{Add inline styles to the root element.}
+\item{style}{Named list. Add inline styles to the root element.}
 
-\item{elements}{A list of dictionaries representing the elements of the networks.
+\item{setProps}{Dash-assigned callback that should be called whenever any of the
+properties change.}
+
+\item{elements}{List. A list of dictionaries representing the elements of the networks.
     1. Each dictionary describes an element, and specifies its purpose.
         - `group` (string): Either 'nodes' or 'edges'. If not given, it's automatically inferred.
         - `data` (dictionary): Element specific data.
@@ -41,7 +44,7 @@ class attribute).}
 
     2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration.}
 
-\item{stylesheet}{A list of dictionaries representing the styles of the elements.
+\item{stylesheet}{List. A list of dictionaries representing the styles of the elements.
     1. Each dictionary requires the following keys:
         - `selector` (string): Which elements you are styling. Generally, you select a group of elements (node, edges, both), a class (that you declare in the element dictionary), or an element by ID.
         - `style` (dictionary): What aspects of the elements you want to modify. This could be the size or color of a node, the shape of an edge arrow, or many more.
@@ -52,7 +55,7 @@ class attribute).}
     as `cy.elements(...)` and `cy.filter(...)` are not available, the selector
     string syntax stays the same.}
 
-\item{layout}{A dictionary specifying how to set the position of the elements in your
+\item{layout}{Named list. A dictionary specifying how to set the position of the elements in your
 graph. The `'name'` key is required, and indicates which layout (algorithm) to
 use.
     1. The layouts available by default are:
@@ -91,47 +94,47 @@ use.
     JavaScript function or a callback. Please visit [this issue](https://github.com/plotly/dash-cytoscape/issues/25)
     for more information.}
 
-\item{pan}{Dictionary indicating the initial panning position of the graph. The
+\item{pan}{Named list. Dictionary indicating the initial panning position of the graph. The
 following keys are accepted:
     - `x` (number): The x-coordinate of the position.
     - `y` (number): The y-coordinate of the position.}
 
-\item{zoom}{The initial zoom level of the graph. You can set `minZoom` and
+\item{zoom}{Numeric. The initial zoom level of the graph. You can set `minZoom` and
 `maxZoom` to set restrictions on the zoom level.}
 
-\item{panningEnabled}{Whether panning the graph is enabled (i.e., the position of the graph is
+\item{panningEnabled}{Logical. Whether panning the graph is enabled (i.e., the position of the graph is
 mutable overall).}
 
-\item{userPanningEnabled}{Whether user events (e.g. dragging the graph background) are allowed to
+\item{userPanningEnabled}{Logical. Whether user events (e.g. dragging the graph background) are allowed to
 pan the graph.}
 
-\item{minZoom}{A minimum bound on the zoom level of the graph. The viewport can not be
+\item{minZoom}{Numeric. A minimum bound on the zoom level of the graph. The viewport can not be
 scaled smaller than this zoom level.}
 
-\item{maxZoom}{A maximum bound on the zoom level of the graph. The viewport can not be
+\item{maxZoom}{Numeric. A maximum bound on the zoom level of the graph. The viewport can not be
 scaled larger than this zoom level.}
 
-\item{zoomingEnabled}{Whether zooming the graph is enabled (i.e., the zoom level of the graph
+\item{zoomingEnabled}{Logical. Whether zooming the graph is enabled (i.e., the zoom level of the graph
 is mutable overall).}
 
-\item{userZoomingEnabled}{Whether user events (e.g. dragging the graph background) are allowed
+\item{userZoomingEnabled}{Logical. Whether user events (e.g. dragging the graph background) are allowed
 to pan the graph.}
 
-\item{boxSelectionEnabled}{Whether box selection (i.e. drag a box overlay around, and release it
+\item{boxSelectionEnabled}{Logical. Whether box selection (i.e. drag a box overlay around, and release it
 to select) is enabled. If enabled, the user must taphold to pan the graph.}
 
-\item{autoungrabify}{Whether nodes should be ungrabified (not grabbable by user) by
+\item{autoungrabify}{Logical. Whether nodes should be ungrabified (not grabbable by user) by
 default (if true, overrides individual node state).}
 
-\item{autolock}{Whether nodes should be locked (not draggable at all) by default
+\item{autolock}{Logical. Whether nodes should be locked (not draggable at all) by default
 (if true, overrides individual node state).}
 
-\item{autounselectify}{Whether nodes should be unselectified (immutable selection state) by
+\item{autounselectify}{Logical. Whether nodes should be unselectified (immutable selection state) by
 default (if true, overrides individual element state).}
 
-\item{autoRefreshLayout}{Whether the layout should be refreshed when elements are added or removed.}
+\item{autoRefreshLayout}{Logical. Whether the layout should be refreshed when elements are added or removed.}
 
-\item{tapNode}{The complete node dictionary returned when you tap or click it. Read-only.
+\item{tapNode}{Named list. The complete node dictionary returned when you tap or click it. Read-only.
 
     1. Node-specific items:
         - `edgesData` (dictionary)
@@ -161,9 +164,9 @@ default (if true, overrides individual element state).}
         - `isOrphan` (boolean)
         - `relativePosition` (dictionary)}
 
-\item{tapNodeData}{The data dictionary of a node returned when you tap or click it. Read-only.}
+\item{tapNodeData}{Named list. The data dictionary of a node returned when you tap or click it. Read-only.}
 
-\item{tapEdge}{The complete edge dictionary returned when you tap or click it. Read-only.
+\item{tapEdge}{Named list. The complete edge dictionary returned when you tap or click it. Read-only.
 
     1. Edge-specific items:
         - `isLoop` (boolean)
@@ -185,15 +188,15 @@ default (if true, overrides individual element state).}
         - `selected` (boolean)
         - `style` (dictionary)}
 
-\item{tapEdgeData}{The data dictionary of an edge returned when you tap or click it. Read-only.}
+\item{tapEdgeData}{Named list. The data dictionary of an edge returned when you tap or click it. Read-only.}
 
-\item{mouseoverNodeData}{The data dictionary of a node returned when you hover over it. Read-only.}
+\item{mouseoverNodeData}{Named list. The data dictionary of a node returned when you hover over it. Read-only.}
 
-\item{mouseoverEdgeData}{The data dictionary of an edge returned when you hover over it. Read-only.}
+\item{mouseoverEdgeData}{Named list. The data dictionary of an edge returned when you hover over it. Read-only.}
 
-\item{selectedNodeData}{The list of data dictionaries of all selected nodes (e.g. using
+\item{selectedNodeData}{Unnamed list. The list of data dictionaries of all selected nodes (e.g. using
 Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.}
 
-\item{selectedEdgeData}{The list of data dictionaries of all selected edges (e.g. using
+\item{selectedEdgeData}{Unnamed list. The list of data dictionaries of all selected edges (e.g. using
 Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.}
 }
