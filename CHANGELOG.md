@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+* Contributed initial build of R package.
+
 ### Changed
 * `utils.Tree`: v0.1.1 broke compatibility with Python 2. Therefore, modified code to be compatible
   with Python 2. Added `props` and `edge_props` properties to accept arguments passed directly to
