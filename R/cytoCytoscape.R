@@ -14,3 +14,4 @@ cytoCytoscape <- function(id=NULL, className=NULL, style=NULL, elements=NULL, st
 
     structure(component, class = c('dash_component', 'list'))
 }
+
