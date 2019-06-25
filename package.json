@@ -26,6 +26,7 @@
   },
   "author": "The Plotly Team <cytoscape@plot.ly>",
   "author-email": "cytoscape@plot.ly",
+  "maintainer": "Ryan Patrick Kyle <ryan@plot.ly>",
   "license": "MIT",
   "dependencies": {
     "cytoscape-cola": "^2.3.0",
