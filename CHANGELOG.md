@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Contributed initial build of R package.
+* Updated R package build for compatibility with versions of Dash for R ≥ 0.1.0.
 
 ### Changed
 * `utils.Tree`: v0.1.1 broke compatibility with Python 2. Therefore, modified code to be compatible
