@@ -2,13 +2,13 @@
 # Switch into a virtual environment
 # pip install -r requirements.txt
 
-chromedriver-binary
+chromedriver-binary==75.0.3770.8
 dash>=0.38.0
 ipdb
 percy
 selenium==3.12.0
 flake8
 pylint
-pytest-dash>=2.1.1
+pytest-dash==2.1.1
 colour==0.1.5
 biopython
