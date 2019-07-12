@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
-
+import Resize from './Resize.js';
 /**
 A Component Library for Dash aimed at facilitating network visualization in
 Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
@@ -18,6 +18,8 @@ class Cytoscape extends Component {
 
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
+
+        this.resizeClass;
     }
 
     generateNode(event) {
@@ -175,7 +177,7 @@ class Cytoscape extends Component {
             } = this.props;
 
             if (autoRefreshLayout) {
-                cy.layout(layout).run()
+                cy.layout(layout).run();
             }
         }, SELECT_THRESHOLD);
 
@@ -277,6 +279,9 @@ class Cytoscape extends Component {
         cy.on('add remove', () => {
             refreshLayout();
         });
+
+        this.resizeClass = new Resize(cy);
+        this.resizeClass.toggle(this.props.responsive);
     }
 
     render() {
@@ -302,8 +307,11 @@ class Cytoscape extends Component {
             boxSelectionEnabled,
             autoungrabify,
             autolock,
-            autounselectify
+            autounselectify,
+            responsive
         } = this.props;
+
+        this.resizeClass && this.resizeClass.toggle(responsive);
 
         return (
             <CytoscapeComponent
@@ -612,7 +620,12 @@ Cytoscape.propTypes = {
      * The list of data dictionaries of all selected edges (e.g. using
      * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
-    selectedEdgeData: PropTypes.array
+    selectedEdgeData: PropTypes.array,
+
+    /**
+     * Toggles intelligent responsive resize of Cytoscape graph with viewport size change
+     */
+    responsive: PropTypes.bool
 };
 
 Cytoscape.defaultProps = {
@@ -630,7 +643,8 @@ Cytoscape.defaultProps = {
     autolock: false,
     autoungrabify: false,
     autounselectify: false,
-    autoRefreshLayout: true
+    autoRefreshLayout: true,
+    responsive: false
 };
 
 export default Cytoscape;
