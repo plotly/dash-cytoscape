@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
-
+import Resize from './Resize.js';
 /**
 A Component Library for Dash aimed at facilitating network visualization in
 Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
@@ -18,11 +18,8 @@ class Cytoscape extends Component {
 
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
-        this._prevPosition = {};
-        this._prevZoom = 1;
-        this._prevRenderedBB = {};
-        this._prevHeight;
-        this._prevWidth;
+
+        this.resizeClass;
     }
 
     generateNode(event) {
@@ -283,113 +280,8 @@ class Cytoscape extends Component {
             refreshLayout();
         });
 
-        if(true) {
-            console.log('engaged');
-            // initialize _prevDimension
-            window.y = cy;
-
-            cy.on('ready', () => {
-                this._prevPosition = cy.pan();
-                this._prevZoom = cy.zoom();
-                this._prevRenderedBB = Object.assign({}, cy.elements().renderedBoundingBox());
-                this._prevHeight = cy.height();
-                this._prevWidth = cy.width();
-            });
-
-            cy.on('render', () => {
-                console.log('HIHIHIH');
-                this._prevPosition = cy.pan();
-                this._prevZoom = cy.zoom();
-                this._prevRenderedBB = Object.assign({}, cy.elements().renderedBoundingBox());
-                this._prevHeight = cy.height();
-                this._prevWidth = cy.width();
-            });
-
-            cy.on('layoutstop', () => {
-                this._prevPosition = cy.pan();
-                this._prevZoom = cy.zoom();
-                this._prevRenderedBB = Object.assign({}, cy.elements().renderedBoundingBox());
-                this._prevHeight = cy.height();
-                this._prevWidth = cy.width();
-            });
-
-            cy.on('resize', () => {
-                const position = cy.pan();
-                const zoom = cy.zoom();
-                const renderedBB = Object.assign({}, cy.elements().renderedBoundingBox());
-                const height = cy.height();
-                const width = cy.width();
-
-                // Is the figure fully contained in the viewport?
-                const fullyContained = (this._prevRenderedBB.x1 >= 0)
-                    && (this._prevRenderedBB.y1 >= 0)
-                    && (this._prevRenderedBB.x2 <= this._prevWidth)
-                    && (this._prevRenderedBB.y2 <= this._prevHeight);
-
-                // Calculate margin percentages based on prev vals
-                const marginLeftPer = this._prevRenderedBB.x1 / this._prevWidth;
-                const marginRightPer = ( this._prevWidth - this._prevRenderedBB.x2 ) / this._prevWidth;
-                const marginTopPer = this._prevRenderedBB.y1 / this._prevHeight;
-                const marginBottomPer = ( this._prevHeight - this._prevRenderedBB.y2 ) / this._prevHeight;
-
-                // Find constrained dimension
-                // Find which dimension has changed the most as a percentage of the current dimensnios
-                const xConstrained = Math.abs(1 - (width / this._prevWidth))
-                    > Math.abs(1 - (height / this._prevHeight));
-
-                const xConstrainedResize = level => {
-                // Look at constrained dimension
-                    // calculate the new position needed to maintain same left/right margin percentages
-                    // with new zoom
-                    const newRenderedBBX1 = marginLeftPer * width;
-
-                    position.x = newRenderedBBX1 + (this._prevPosition.x - this._prevRenderedBB.x1);
-
-                // Look at unconstrained dimension
-                    // get midpoint
-                    const midpoint = renderedBB.y1 + renderedBB.h / 2;
-                    // get new height of graph
-                    const newHeight = renderedBB.h / this._prevZoom * level;
-                    // get new top margin
-                    const newRenderedBBY1 = midpoint - (newHeight / 2);
-
-                    position.y = newRenderedBBY1 + (this._prevPosition.y - this._prevRenderedBB.y1);
-                }
-
-                const yConstrainedResize = level => {
-                    // same as xconstrained except x and y switched where applicable
-                    const newRenderedBBY1 = marginTopPer * height;
-                    position.y = newRenderedBBY1 + (this._prevPosition.y - this._prevRenderedBB.y1);
-
-                    const midpoint = renderedBB.x1 + renderedBB.w / 2;
-                    const newWidth = renderedBB.w / this._prevZoom * level;
-                    const newRenderedBBX1 = midpoint - (newWidth / 2);
-                    position.x = newRenderedBBX1 + (this._prevPosition.x - this._prevRenderedBB.x1);
-                }
-
-                // define output variables
-                let level;
-                if(xConstrained) {
-                    // calculate zoom so that the width remains same
-                    level = this._prevZoom / this._prevWidth * width;
-                    xConstrainedResize(level);
-                }
-                else {
-                // same as xconstrained except x and y switched where applicable
-                    level = this._prevZoom / this._prevHeight * height;
-                    yConstrainedResize(level);
-                }
-
-                cy.zoom({level: level});
-                cy.pan(position);
-
-                this._prevPosition = position;
-                this._prevZoom = zoom;
-                this._prevRenderedBB = renderedBB;
-                this._prevHeight = height;
-                this._prevWidth = width;
-            })
-        }
+        this.resizeClass = new Resize(cy);
+        this.resizeClass.toggle(this.props.responsive);
     }
 
     render() {
@@ -415,8 +307,11 @@ class Cytoscape extends Component {
             boxSelectionEnabled,
             autoungrabify,
             autolock,
-            autounselectify
+            autounselectify,
+            responsive
         } = this.props;
+
+        this.resizeClass && this.resizeClass.toggle(responsive);
 
         return (
             <CytoscapeComponent
@@ -725,7 +620,12 @@ Cytoscape.propTypes = {
      * The list of data dictionaries of all selected edges (e.g. using
      * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
-    selectedEdgeData: PropTypes.array
+    selectedEdgeData: PropTypes.array,
+
+    /**
+     * Toggles intelligent responsive resize of Cytoscape graph with viewport size change
+     */
+    responsive: PropTypes.bool
 };
 
 Cytoscape.defaultProps = {
@@ -743,7 +643,8 @@ Cytoscape.defaultProps = {
     autolock: false,
     autoungrabify: false,
     autounselectify: false,
-    autoRefreshLayout: true
+    autoRefreshLayout: true,
+    responsive: false
 };
 
 export default Cytoscape;
