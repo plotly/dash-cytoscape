@@ -281,7 +281,7 @@ class Cytoscape extends Component {
     }
     
     handleImageGeneration(imageType, options) {
-        var {imageOptions, downloadImage, sendCallbackData, fileName} = options
+        var {imageOptions, downloadImage, storeImage, fileName} = options
         var desiredOutput = imageOptions.output
         imageOptions.output = 'blob'
         
@@ -299,27 +299,28 @@ class Cytoscape extends Component {
             }
             
             /*
-             * Thank you to koldev https://jsfiddle.net/koldev/cW7W5/
+             * Download blob as file
+             * Thank you, koldev https://jsfiddle.net/koldev/cW7W5/
              */
-            var a = document.createElement("a");
-            a.style = "display: none";
-            document.body.appendChild(a);
+            var downloadLink = document.createElement("a")
+            downloadLink.style = "display: none"
+            document.body.appendChild(downloadLink)
             
-            var url = window.URL.createObjectURL(output);
-            a.href = url;
-            a.download = fileName + '.' + imageType;
-            a.click();
-            window.URL.revokeObjectURL(url);
+            const url = window.URL.createObjectURL(output)
+            downloadLink.href = url
+            downloadLink.download = fileName + '.' + imageType
+            downloadLink.click()
+            window.URL.revokeObjectURL(url)
             
-            document.body.removeChild(a)
+            document.body.removeChild(downloadLink)
         }
         
-        if (output && sendCallbackData) {
+        if (output && storeImage) {
             if (!desiredOutput) {
                 desiredOutput = 'base64uri'
             }
             
-            if (!(['base64', 'base64uri'].includes(desiredOutput))) {
+            if (!(desiredOutput === 'base64uri' || desiredOutput === 'base64')) {
                 return
             }
             
@@ -327,11 +328,11 @@ class Cytoscape extends Component {
              * Convert blob to base64uri or base64 string
              * Thank you, base64guru https://base64.guru/developers/javascript/examples/encode-blob
              */
-            var reader = new FileReader();
+            var reader = new FileReader()
             reader.onload = () => {
                 var callbackData = reader.result
                 if (desiredOutput === 'base64') {
-                    callbackData = callbackData.replace(/^data:.+;base64,/, '');
+                    callbackData = callbackData.replace(/^data:.+;base64,/, '')
                 }
                 this.props.setProps({'imageData': callbackData})
             }
@@ -363,7 +364,7 @@ class Cytoscape extends Component {
             autoungrabify,
             autolock,
             autounselectify,
-            // PNG handling
+            // Image handling
             generateImage
         } = this.props;
         
@@ -375,8 +376,8 @@ class Cytoscape extends Component {
                 this.handleImageGeneration(
                     generateImage.type,
                     {'imageOptions': generateImage.options,
-                     'downloadImage': (generateImage.download === true),
-                     'sendCallbackData': !(generateImage.callback === false),
+                     'downloadImage': (generateImage.download === true),    // Default is false
+                     'storeImage': !(generateImage.store === false),        // Default is true
                      'fileName': generateImage.filename}
                 )
             }
