@@ -280,10 +280,28 @@ class Cytoscape extends Component {
         });
     }
     
-    handleImageGeneration(imageType, options) {
-        var {imageOptions, downloadImage, storeImage, fileName} = options
+    handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
+        imageOptions = imageOptions || {}
         var desiredOutput = imageOptions.output
         imageOptions.output = 'blob'
+        
+        var downloadImage;
+        var storeImage;
+        switch (actionsToPerform) {
+            case undefined:
+            case 'store':
+                downloadImage = false
+                storeImage = true
+                break
+            case 'download':
+                downloadImage = true
+                storeImage = false
+                break
+            case 'both':
+                downloadImage = true
+                storeImage = true
+                break
+        }
         
         var output;
         if (imageType === 'png') {
@@ -293,31 +311,25 @@ class Cytoscape extends Component {
             output = this._cy.jpg(imageOptions)
         }
         
+        /*
+         * If output is empty because of bad options or a cytoscape error,
+         * skip any download or storage steps.
+         */
         if (output && downloadImage) {
+            /*
+             * Downloading is initiated client-side because the image is generated at
+             * the client. This avoids transferring a potentially large image
+             * to the server and back again through a callback.
+             */
             if (!fileName) {
                 fileName = 'cyto'
             }
-            
-            /*
-             * Download blob as file
-             * Thank you, koldev https://jsfiddle.net/koldev/cW7W5/
-             */
-            var downloadLink = document.createElement("a")
-            downloadLink.style = "display: none"
-            document.body.appendChild(downloadLink)
-            
-            const url = window.URL.createObjectURL(output)
-            downloadLink.href = url
-            downloadLink.download = fileName + '.' + imageType
-            downloadLink.click()
-            window.URL.revokeObjectURL(url)
-            
-            document.body.removeChild(downloadLink)
+            this.downloadBlob(output, fileName + '.' + imageType)
         }
         
         if (output && storeImage) {
             if (!desiredOutput) {
-                desiredOutput = 'base64uri'
+                desiredOutput = 'base64uri'     // Default output type if unspecified
             }
             
             if (!(desiredOutput === 'base64uri' || desiredOutput === 'base64')) {
@@ -325,11 +337,15 @@ class Cytoscape extends Component {
             }
             
             /*
-             * Convert blob to base64uri or base64 string
+             * Convert blob to base64uri or base64 string to store the image data.
              * Thank you, base64guru https://base64.guru/developers/javascript/examples/encode-blob
              */
             var reader = new FileReader()
             reader.onload = () => {
+                /* FileReader is asynchronous, so the read function is non-blocking.
+                 * If this code block is placed after the read command, it
+                 * may result in empty output because the blob has not been loaded yet.
+                 */
                 var callbackData = reader.result
                 if (desiredOutput === 'base64') {
                     callbackData = callbackData.replace(/^data:.+;base64,/, '')
@@ -338,6 +354,29 @@ class Cytoscape extends Component {
             }
             reader.readAsDataURL(output);
         }
+    }
+    
+    downloadBlob(blob, fileName) {
+        /*
+         * Download blob as file by dynamically creating link.
+         * Chrome does not open data URLs when JS opens a new tab directed
+         * at the data URL, so this is an alternate implementation
+         * that doesn't require extra packages. It may not behave in
+         * exactly the same way across browsers (might display image in new tab
+         * intead of downloading as a file).
+         * Thank you, koldev https://jsfiddle.net/koldev/cW7W5/
+         */
+        var downloadLink = document.createElement("a")
+        downloadLink.style = "display: none"
+        document.body.appendChild(downloadLink)
+        
+        const url = window.URL.createObjectURL(blob)
+        downloadLink.href = url
+        downloadLink.download = fileName
+        downloadLink.click()
+        window.URL.revokeObjectURL(url)
+        
+        document.body.removeChild(downloadLink)
     }
 
     render() {
@@ -375,10 +414,9 @@ class Cytoscape extends Component {
             if (this._cy) {
                 this.handleImageGeneration(
                     generateImage.type,
-                    {'imageOptions': generateImage.options,
-                     'downloadImage': (generateImage.download === true),    // Default is false
-                     'storeImage': !(generateImage.store === false),        // Default is true
-                     'fileName': generateImage.filename}
+                    generateImage.options,
+                    generateImage.action,
+                    generateImage.filename
                 )
             }
         }
@@ -694,22 +732,26 @@ Cytoscape.propTypes = {
     
     /**
      * Dictionary specifying options to generate an image of the current cytoscape graph.
-     * Value is cleared after data is received and image is generated. The `'type'` key is
-     * required. The following keys are supported:
+     * Value is cleared after data is received and image is generated. This property will
+     * be ignored on the initial creation of the cytoscape object and must be invoked through
+     * a callback after it has been rendered. The `'type'` key is required.
+     * The following keys are supported:
      *      - `type` (string): File type to ouput of 'png', 'jpg', or 'jpeg' (alias of 'jpg')
-     *      - `options` (dictionary): Dictionary of options to cy.png() or cy.jpg() for
-     *          image generation. For `'output'`, only 'base64' and 'base64uri' are supported.
-     *          Default: `{'output': 'base64uri'}`
-     *      - `download` (boolean): True downloads the image as a file with all data handling
-     *          done client-side. False skips the download protocol. Default: False.
-     *      - `callback` (boolean): True stores the image data in `imageData` and invokes
-     *          server-side Dash callbacks. False does not save the data and invokes no `imageData`
-     *          `imageData` callback. Default: True
-     *      - `filename` (string): Name for the file to be downloaded. Default: 'cyto'
+     *      - `options` (dictionary, optional): Dictionary of options to cy.png() or cy.jpg() for
+     *          image generation. See http://js.cytoscape.org/#core/export for details.
+     *          For `'output'`, only 'base64' and 'base64uri' are supported.
+     *          Default: `{'output': 'base64uri'}`.
+     *      - `action` (string, optional): Default: `'store'`. Must be one of the following:
+     *          - `'store'`: Stores the image data in `imageData` and invokes
+     *              server-side Dash callbacks.
+     *          - `'download'`: Downloads the image as a file with all data handling
+     *              done client-side. No `imageData` callbacks are fired.
+     *          - `'both'`: Stores image data and downloads image as file.
+     *      - `filename` (string, optional): Name for the file to be downloaded. Default: 'cyto'.
      *
      * If the app does not need the image data server side and/or it will only be used to download
-     * the image, it may be prudent to invoke the `'download'` option instead of the
-     * `'callback'` option because the images can be very large.
+     * the image, it may be prudent to invoke `'download'` for `action` instead of
+     * `'store'` to improve performance by preventing transfer of data to the server.
      */
     generateImage: PropTypes.object,
     
