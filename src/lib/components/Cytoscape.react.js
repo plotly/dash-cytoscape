@@ -18,6 +18,7 @@ class Cytoscape extends Component {
 
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
+        this.handleImageGeneration = this.handleImageGeneration.bind(this)
     }
 
     generateNode(event) {
@@ -278,6 +279,65 @@ class Cytoscape extends Component {
             refreshLayout();
         });
     }
+    
+    handleImageGeneration(imageType, options) {
+        var {imageOptions, downloadImage, sendCallbackData, fileName} = options
+        var desiredOutput = imageOptions.output
+        imageOptions.output = 'blob'
+        
+        var output;
+        if (imageType === 'png') {
+            output = this._cy.png(imageOptions)
+        }
+        else if (imageType === 'jpg' || imageType === 'jpeg') {
+            output = this._cy.jpg(imageOptions)
+        }
+        
+        if (output && downloadImage) {
+            if (!fileName) {
+                fileName = 'cyto'
+            }
+            
+            /*
+             * Thank you to koldev https://jsfiddle.net/koldev/cW7W5/
+             */
+            var a = document.createElement("a");
+            a.style = "display: none";
+            document.body.appendChild(a);
+            
+            var url = window.URL.createObjectURL(output);
+            a.href = url;
+            a.download = fileName + '.' + imageType;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            document.body.removeChild(a)
+        }
+        
+        if (output && sendCallbackData) {
+            if (!desiredOutput) {
+                desiredOutput = 'base64uri'
+            }
+            
+            if (!(['base64', 'base64uri'].includes(desiredOutput))) {
+                return
+            }
+            
+            /*
+             * Convert blob to base64uri or base64 string
+             * Thank you, base64guru https://base64.guru/developers/javascript/examples/encode-blob
+             */
+            var reader = new FileReader();
+            reader.onload = () => {
+                var callbackData = reader.result
+                if (desiredOutput === 'base64') {
+                    callbackData = callbackData.replace(/^data:.+;base64,/, '');
+                }
+                this.props.setProps({'imageData': callbackData})
+            }
+            reader.readAsDataURL(output);
+        }
+    }
 
     render() {
         const {
@@ -302,9 +362,26 @@ class Cytoscape extends Component {
             boxSelectionEnabled,
             autoungrabify,
             autolock,
-            autounselectify
+            autounselectify,
+            // PNG handling
+            generateImage
         } = this.props;
-
+        
+        if (Object.keys(generateImage).length > 0) {
+            // If no cytoscape object has been created yet, an image cannot be generated,
+            // so generateImage will be ignored and cleared.
+            this.props.setProps({'generateImage': {}})
+            if (this._cy) {
+                this.handleImageGeneration(
+                    generateImage.type,
+                    {'imageOptions': generateImage.options,
+                     'downloadImage': (generateImage.download === true),
+                     'sendCallbackData': !(generateImage.callback === false),
+                     'fileName': generateImage.filename}
+                )
+            }
+        }
+        
         return (
             <CytoscapeComponent
                 id={id}
@@ -612,7 +689,34 @@ Cytoscape.propTypes = {
      * The list of data dictionaries of all selected edges (e.g. using
      * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
-    selectedEdgeData: PropTypes.array
+    selectedEdgeData: PropTypes.array,
+    
+    /**
+     * Dictionary specifying options to generate an image of the current cytoscape graph.
+     * Value is cleared after data is received and image is generated. The `'type'` key is
+     * required. The following keys are supported:
+     *      - `type` (string): File type to ouput of 'png', 'jpg', or 'jpeg' (alias of 'jpg')
+     *      - `options` (dictionary): Dictionary of options to cy.png() or cy.jpg() for
+     *          image generation. For `'output'`, only 'base64' and 'base64uri' are supported.
+     *          Default: `{'output': 'base64uri'}`
+     *      - `download` (boolean): True downloads the image as a file with all data handling
+     *          done client-side. False skips the download protocol. Default: False.
+     *      - `callback` (boolean): True stores the image data in `imageData` and invokes
+     *          server-side Dash callbacks. False does not save the data and invokes no `imageData`
+     *          `imageData` callback. Default: True
+     *      - `filename` (string): Name for the file to be downloaded. Default: 'cyto'
+     *
+     * If the app does not need the image data server side and/or it will only be used to download
+     * the image, it may be prudent to invoke the `'download'` option instead of the
+     * `'callback'` option because the images can be very large.
+     */
+    generateImage: PropTypes.object,
+    
+    /**
+     * String representation of the image requested with generateImage. Null if no
+     * image was requested yet or the previous request failed. Read-only.
+     */
+    imageData: PropTypes.string,
 };
 
 Cytoscape.defaultProps = {
@@ -630,7 +734,9 @@ Cytoscape.defaultProps = {
     autolock: false,
     autoungrabify: false,
     autounselectify: false,
-    autoRefreshLayout: true
+    autoRefreshLayout: true,
+    generateImage: {},
+    imageData: null
 };
 
 export default Cytoscape;
