@@ -19,6 +19,7 @@ class Cytoscape extends Component {
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
         this.handleImageGeneration = this.handleImageGeneration.bind(this)
+        this.getJSON = this.getJSON.bind(this)
     }
 
     generateNode(event) {
@@ -356,6 +357,11 @@ class Cytoscape extends Component {
         }
     }
     
+    getJSON() {
+        const json = this._cy.json()
+        this.props.setProps({'jsonData': json})
+    }
+    
     downloadBlob(blob, fileName) {
         /*
          * Download blob as file by dynamically creating link.
@@ -404,7 +410,9 @@ class Cytoscape extends Component {
             autolock,
             autounselectify,
             // Image handling
-            generateImage
+            generateImage,
+            // JSON handling
+            generateJSON
         } = this.props;
         
         if (Object.keys(generateImage).length > 0) {
@@ -419,6 +427,11 @@ class Cytoscape extends Component {
                     generateImage.filename
                 )
             }
+        }
+        
+        if (this._cy && generateJSON) {
+            this.props.setProps({'generateJSON': false})
+            this.getJSON()
         }
         
         return (
@@ -760,6 +773,18 @@ Cytoscape.propTypes = {
      * image was requested yet or the previous request failed. Read-only.
      */
     imageData: PropTypes.string,
+    
+    /**
+     * Trigger to produce JSON of current graph configuration. Set to True to initiate
+     * generation of JSON. Stores the data in `'jsonData'`. Format of JSON is that output
+     * by cy.json() (see http://js.cytoscape.org/#cy.json for details).
+     */
+    generateJSON: PropTypes.boolean,
+    
+    /**
+     * Dictionary of JSON representation of the current graph, including rendered position.
+     */
+    jsonData: PropTypes.object,
 };
 
 Cytoscape.defaultProps = {
@@ -779,7 +804,9 @@ Cytoscape.defaultProps = {
     autounselectify: false,
     autoRefreshLayout: true,
     generateImage: {},
-    imageData: null
+    imageData: null,
+    generateJSON: false,
+    jsonData: null
 };
 
 export default Cytoscape;
