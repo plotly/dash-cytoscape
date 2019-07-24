@@ -5544,10 +5544,9 @@ react-cytoscapejs@1.1.0:
     cytoscape "^3.2.19"
     prop-types "^15.6.2"
 
-react-docgen@^2.21.0:
+react-docgen@^2.20.1:
   version "2.21.0"
   resolved "https://registry.yarnpkg.com/react-docgen/-/react-docgen-2.21.0.tgz#e8f9caf50e15510096616850771f243fadbb9d7d"
-  integrity sha512-8xNPTrmvHLGNfqlsCYPdXmSkagP1njI5unP3t8WrjTJ4/5hHuP5nb3XH69CnF67HPV5zTkPoafcRBDGSQO6S6A==
   dependencies:
     async "^2.1.4"
     babel-runtime "^6.9.2"
