@@ -9,47 +9,48 @@ import _ from 'lodash';
 
 
 /**
-A Component Library for Dash aimed at facilitating network visualization in
-Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
+ A Component Library for Dash aimed at facilitating network visualization in
+ Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
  */
 class Cytoscape extends Component {
     constructor(props) {
         super(props);
-
+        
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
         this.handleImageGeneration = this.handleImageGeneration.bind(this)
+        this.getJSON = this.getJSON.bind(this)
     }
-
+    
     generateNode(event) {
         const ele = event.target;
-
+        
         const isParent = ele.isParent(),
-            isChildless = ele.isChildless(),
-            isChild = ele.isChild(),
-            isOrphan = ele.isOrphan(),
-            renderedPosition = ele.renderedPosition(),
-            relativePosition = ele.relativePosition(),
-            parent = ele.parent(),
-            style = ele.style();
-
+        isChildless = ele.isChildless(),
+        isChild = ele.isChild(),
+        isOrphan = ele.isOrphan(),
+        renderedPosition = ele.renderedPosition(),
+        relativePosition = ele.relativePosition(),
+        parent = ele.parent(),
+        style = ele.style();
+        
         // Trim down the element objects to only the data contained
         const edgesData = ele.connectedEdges().map(ele => {
-                return ele.data()
-            }),
-            childrenData = ele.children().map(ele => {
-                return ele.data()
-            }),
-            ancestorsData = ele.ancestors().map(ele => {
-                return ele.data()
-            }),
-            descendantsData = ele.descendants().map(ele => {
-                return ele.data()
-            }),
-            siblingsData = ele.siblings().map(ele => {
-                return ele.data()
-            });
-
+                                                   return ele.data()
+                                                   }),
+        childrenData = ele.children().map(ele => {
+                                          return ele.data()
+                                          }),
+        ancestorsData = ele.ancestors().map(ele => {
+                                            return ele.data()
+                                            }),
+        descendantsData = ele.descendants().map(ele => {
+                                                return ele.data()
+                                                }),
+        siblingsData = ele.siblings().map(ele => {
+                                          return ele.data()
+                                          });
+        
         const {timeStamp} = event;
         const {
             classes,
@@ -61,14 +62,14 @@ class Cytoscape extends Component {
             selected,
             selectable
         } = ele.json();
-
+        
         let parentData;
         if (parent) {
             parentData = parent.data();
         } else {
             parentData = null;
         }
-
+        
         const nodeObject = {
             // Nodes attributes
             edgesData,
@@ -99,20 +100,20 @@ class Cytoscape extends Component {
         };
         return nodeObject;
     }
-
-
+    
+    
     generateEdge(event) {
         const ele = event.target;
-
+        
         const midpoint = ele.midpoint(),
-            isLoop = ele.isLoop(),
-            isSimple = ele.isSimple(),
-            sourceData = ele.source().data(),
-            sourceEndpoint = ele.sourceEndpoint(),
-            style = ele.style(),
-            targetData = ele.target().data(),
-            targetEndpoint = ele.targetEndpoint();
-
+        isLoop = ele.isLoop(),
+        isSimple = ele.isSimple(),
+        sourceData = ele.source().data(),
+        sourceEndpoint = ele.sourceEndpoint(),
+        style = ele.style(),
+        targetData = ele.target().data(),
+        targetEndpoint = ele.targetEndpoint();
+        
         const {timeStamp} = event;
         const {
             classes,
@@ -123,7 +124,7 @@ class Cytoscape extends Component {
             selectable,
             selected,
         } = ele.json();
-
+        
         const edgeObject = {
             // Edges attributes
             isLoop,
@@ -145,10 +146,10 @@ class Cytoscape extends Component {
             // Styling
             style
         };
-
+        
         return edgeObject;
     }
-
+    
     handleCy(cy) {
         // If the cy pointer has not been modified, and handleCy has already
         // been called before, than we don't run this function.
@@ -158,126 +159,126 @@ class Cytoscape extends Component {
         this._cy = cy;
         window.cy = cy;
         this._handleCyCalled = true;
-
+        
         // ///////////////////////////////////// CONSTANTS /////////////////////////////////////////
         const SELECT_THRESHOLD = 100;
-
+        
         const selectedNodes = cy.collection();
         const selectedEdges = cy.collection();
-
+        
         // ///////////////////////////////////// FUNCTIONS /////////////////////////////////////////
         const refreshLayout = _.debounce(() => {
-            /**
-             * Refresh Layout if needed
-             */
-            const {
-                autoRefreshLayout,
-                layout
-            } = this.props;
-
-            if (autoRefreshLayout) {
-                cy.layout(layout).run()
-            }
-        }, SELECT_THRESHOLD);
-
+                                         /**
+                                          * Refresh Layout if needed
+                                          */
+                                         const {
+                                         autoRefreshLayout,
+                                         layout
+                                         } = this.props;
+                                         
+                                         if (autoRefreshLayout) {
+                                         cy.layout(layout).run()
+                                         }
+                                         }, SELECT_THRESHOLD);
+        
         const sendSelectedNodesData = _.debounce(() => {
-            /**
-             This function is repetitively called every time a node is selected
-             or unselected, but keeps being debounced if it is called again
-             within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
-             runs when all the nodes have been correctly selected/unselected and
-             added/removed from the selectedNodes collection, and then updates
-             the selectedNodeData prop.
-             */
-            const nodeData = selectedNodes.map(el => el.data());
-
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    selectedNodeData: nodeData
-                })
-            }
-        }, SELECT_THRESHOLD);
-
+                                                 /**
+                                                  This function is repetitively called every time a node is selected
+                                                  or unselected, but keeps being debounced if it is called again
+                                                  within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
+                                                  runs when all the nodes have been correctly selected/unselected and
+                                                  added/removed from the selectedNodes collection, and then updates
+                                                  the selectedNodeData prop.
+                                                  */
+                                                 const nodeData = selectedNodes.map(el => el.data());
+                                                 
+                                                 if (typeof this.props.setProps === 'function') {
+                                                 this.props.setProps({
+                                                                     selectedNodeData: nodeData
+                                                                     })
+                                                 }
+                                                 }, SELECT_THRESHOLD);
+        
         const sendSelectedEdgesData = _.debounce(() => {
-            const edgeData = selectedEdges.map(el => el.data());
-
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    selectedEdgeData: edgeData
-                })
-            }
-        }, SELECT_THRESHOLD);
-
+                                                 const edgeData = selectedEdges.map(el => el.data());
+                                                 
+                                                 if (typeof this.props.setProps === 'function') {
+                                                 this.props.setProps({
+                                                                     selectedEdgeData: edgeData
+                                                                     })
+                                                 }
+                                                 }, SELECT_THRESHOLD);
+        
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
         cy.on('tap', 'node', event => {
-            const nodeObject = this.generateNode(event);
-
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    tapNode: nodeObject,
-                    tapNodeData: nodeObject.data
-                });
-            }
-        });
-
+              const nodeObject = this.generateNode(event);
+              
+              if (typeof this.props.setProps === 'function') {
+              this.props.setProps({
+                                  tapNode: nodeObject,
+                                  tapNodeData: nodeObject.data
+                                  });
+              }
+              });
+        
         cy.on('tap', 'edge', event => {
-            const edgeObject = this.generateEdge(event);
-
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    tapEdge: edgeObject,
-                    tapEdgeData: edgeObject.data
-                });
-            }
-        });
-
+              const edgeObject = this.generateEdge(event);
+              
+              if (typeof this.props.setProps === 'function') {
+              this.props.setProps({
+                                  tapEdge: edgeObject,
+                                  tapEdgeData: edgeObject.data
+                                  });
+              }
+              });
+        
         cy.on('mouseover', 'node', event => {
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    mouseoverNodeData: event.target.data()
-                })
-            }
-        });
-
+              if (typeof this.props.setProps === 'function') {
+              this.props.setProps({
+                                  mouseoverNodeData: event.target.data()
+                                  })
+              }
+              });
+        
         cy.on('mouseover', 'edge', event => {
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    mouseoverEdgeData: event.target.data()
-                })
-            }
-        });
-
+              if (typeof this.props.setProps === 'function') {
+              this.props.setProps({
+                                  mouseoverEdgeData: event.target.data()
+                                  })
+              }
+              });
+        
         cy.on('select', 'node', event => {
-            const ele = event.target;
-
-            selectedNodes.merge(ele);
-            sendSelectedNodesData();
-        });
-
+              const ele = event.target;
+              
+              selectedNodes.merge(ele);
+              sendSelectedNodesData();
+              });
+        
         cy.on('unselect remove', 'node', event => {
-            const ele = event.target;
-
-            selectedNodes.unmerge(ele);
-            sendSelectedNodesData();
-        });
-
+              const ele = event.target;
+              
+              selectedNodes.unmerge(ele);
+              sendSelectedNodesData();
+              });
+        
         cy.on('select', 'edge', event => {
-            const ele = event.target;
-
-            selectedEdges.merge(ele);
-            sendSelectedEdgesData();
-        });
-
+              const ele = event.target;
+              
+              selectedEdges.merge(ele);
+              sendSelectedEdgesData();
+              });
+        
         cy.on('unselect remove', 'edge', event => {
-            const ele = event.target;
-
-            selectedEdges.unmerge(ele);
-            sendSelectedEdgesData();
-        });
-
+              const ele = event.target;
+              
+              selectedEdges.unmerge(ele);
+              sendSelectedEdgesData();
+              });
+        
         cy.on('add remove', () => {
-            refreshLayout();
-        });
+              refreshLayout();
+              });
     }
     
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -378,7 +379,12 @@ class Cytoscape extends Component {
         
         document.body.removeChild(downloadLink)
     }
-
+    
+    getJSON() {
+        const json = this._cy.json()
+        this.props.setProps({'jsonData': json})
+    }
+    
     render() {
         const {
             // HTML attribute props
@@ -404,7 +410,10 @@ class Cytoscape extends Component {
             autolock,
             autounselectify,
             // Image handling
-            generateImage
+            generateImage,
+            // JSON handling
+            generateJSON
+            
         } = this.props;
         
         if (Object.keys(generateImage).length > 0) {
@@ -413,16 +422,21 @@ class Cytoscape extends Component {
             this.props.setProps({'generateImage': {}})
             if (this._cy) {
                 this.handleImageGeneration(
-                    generateImage.type,
-                    generateImage.options,
-                    generateImage.action,
-                    generateImage.filename
-                )
+                                           generateImage.type,
+                                           generateImage.options,
+                                           generateImage.action,
+                                           generateImage.filename
+                                           )
             }
         }
         
+        if (this._cy && generateJSON) {
+            this.props.setProps({'generateJSON': false})
+            this.getJSON()
+        }
+        
         return (
-            <CytoscapeComponent
+                <CytoscapeComponent
                 id={id}
                 cy={this.handleCy}
                 className={className}
@@ -442,41 +456,41 @@ class Cytoscape extends Component {
                 autoungrabify={autoungrabify}
                 autolock={autolock}
                 autounselectify={autounselectify}
-            />
-        )
+                />
+                )
     }
 }
 
 
 Cytoscape.propTypes = {
     // HTML attribute props
-
+    
     /**
      * The ID used to identify this component in Dash callbacks.
      */
-    id: PropTypes.string,
-
+id: PropTypes.string,
+    
     /**
      * Sets the class name of the element (the value of an element's html
      * class attribute).
      */
-    className: PropTypes.string,
-
+className: PropTypes.string,
+    
     /**
      * Add inline styles to the root element.
      */
-    style: PropTypes.object,
-
+style: PropTypes.object,
+    
     // Dash specific props
-
+    
     /**
      * Dash-assigned callback that should be called whenever any of the
      * properties change.
      */
-    setProps: PropTypes.func,
-
+setProps: PropTypes.func,
+    
     // Common props
-
+    
     /**
      * A list of dictionaries representing the elements of the networks.
      *     1. Each dictionary describes an element, and specifies its purpose.
@@ -498,8 +512,8 @@ Cytoscape.propTypes = {
      *
      *     2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration.
      */
-    elements: PropTypes.arrayOf(PropTypes.object),
-
+elements: PropTypes.arrayOf(PropTypes.object),
+    
     /**
      * A list of dictionaries representing the styles of the elements.
      *     1. Each dictionary requires the following keys:
@@ -512,8 +526,8 @@ Cytoscape.propTypes = {
      *     as `cy.elements(...)` and `cy.filter(...)` are not available, the selector
      *     string syntax stays the same.
      */
-    stylesheet: PropTypes.arrayOf(PropTypes.object),
-
+stylesheet: PropTypes.arrayOf(PropTypes.object),
+    
     /**
      * A dictionary specifying how to set the position of the elements in your
      * graph. The `'name'` key is required, and indicates which layout (algorithm) to
@@ -554,92 +568,92 @@ Cytoscape.propTypes = {
      *     JavaScript function or a callback. Please visit [this issue](https://github.com/plotly/dash-cytoscape/issues/25)
      *     for more information.
      */
-    layout: PropTypes.object,
-
+layout: PropTypes.object,
+    
     // Viewport Manipulation
-
+    
     /**
      * Dictionary indicating the initial panning position of the graph. The
      * following keys are accepted:
      *     - `x` (number): The x-coordinate of the position.
      *     - `y` (number): The y-coordinate of the position.
      */
-    pan: PropTypes.object,
-
+pan: PropTypes.object,
+    
     /**
      * The initial zoom level of the graph. You can set `minZoom` and
      * `maxZoom` to set restrictions on the zoom level.
      */
-    zoom: PropTypes.number,
-
+zoom: PropTypes.number,
+    
     // Viewport Mutability and gesture Toggling
     /**
      * Whether panning the graph is enabled (i.e., the position of the graph is
      * mutable overall).
      */
-    panningEnabled: PropTypes.bool,
-
+panningEnabled: PropTypes.bool,
+    
     /**
      * Whether user events (e.g. dragging the graph background) are allowed to
      * pan the graph.
      */
-    userPanningEnabled: PropTypes.bool,
-
+userPanningEnabled: PropTypes.bool,
+    
     /**
      * A minimum bound on the zoom level of the graph. The viewport can not be
      * scaled smaller than this zoom level.
      */
-    minZoom: PropTypes.number,
-
+minZoom: PropTypes.number,
+    
     /**
      * A maximum bound on the zoom level of the graph. The viewport can not be
      * scaled larger than this zoom level.
      */
-    maxZoom: PropTypes.number,
-
+maxZoom: PropTypes.number,
+    
     /**
      * Whether zooming the graph is enabled (i.e., the zoom level of the graph
      * is mutable overall).
      */
-    zoomingEnabled: PropTypes.bool,
-
+zoomingEnabled: PropTypes.bool,
+    
     /**
      * Whether user events (e.g. dragging the graph background) are allowed
      * to pan the graph.
      */
-    userZoomingEnabled: PropTypes.bool,
-
+userZoomingEnabled: PropTypes.bool,
+    
     /**
      * Whether box selection (i.e. drag a box overlay around, and release it
      * to select) is enabled. If enabled, the user must taphold to pan the graph.
      */
-    boxSelectionEnabled: PropTypes.bool,
-
+boxSelectionEnabled: PropTypes.bool,
+    
     /**
      * Whether nodes should be ungrabified (not grabbable by user) by
      * default (if true, overrides individual node state).
      */
-    autoungrabify: PropTypes.bool,
-
+autoungrabify: PropTypes.bool,
+    
     /**
      * Whether nodes should be locked (not draggable at all) by default
      * (if true, overrides individual node state).
      */
-    autolock: PropTypes.bool,
-
+autolock: PropTypes.bool,
+    
     /**
      * Whether nodes should be unselectified (immutable selection state) by
      * default (if true, overrides individual element state).
      */
-    autounselectify: PropTypes.bool,
-
+autounselectify: PropTypes.bool,
+    
     /**
      * Whether the layout should be refreshed when elements are added or removed.
      */
-    autoRefreshLayout: PropTypes.bool,
-
+autoRefreshLayout: PropTypes.bool,
+    
     // User Events Props
-
+    
     /**
      * The complete node dictionary returned when you tap or click it. Read-only.
      *
@@ -671,13 +685,13 @@ Cytoscape.propTypes = {
      *         - `isOrphan` (boolean)
      *         - `relativePosition` (dictionary)
      */
-    tapNode: PropTypes.object,
-
+tapNode: PropTypes.object,
+    
     /**
      * The data dictionary of a node returned when you tap or click it. Read-only.
      */
-    tapNodeData: PropTypes.object,
-
+tapNodeData: PropTypes.object,
+    
     /**
      * The complete edge dictionary returned when you tap or click it. Read-only.
      *
@@ -701,34 +715,34 @@ Cytoscape.propTypes = {
      *         - `selected` (boolean)
      *         - `style` (dictionary)
      */
-    tapEdge: PropTypes.object,
-
+tapEdge: PropTypes.object,
+    
     /**
      * The data dictionary of an edge returned when you tap or click it. Read-only.
      */
-    tapEdgeData: PropTypes.object,
-
+tapEdgeData: PropTypes.object,
+    
     /**
      * The data dictionary of a node returned when you hover over it. Read-only.
      */
-    mouseoverNodeData: PropTypes.object,
-
+mouseoverNodeData: PropTypes.object,
+    
     /**
      * The data dictionary of an edge returned when you hover over it. Read-only.
      */
-    mouseoverEdgeData: PropTypes.object,
-
+mouseoverEdgeData: PropTypes.object,
+    
     /**
      * The list of data dictionaries of all selected nodes (e.g. using
      * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
-    selectedNodeData: PropTypes.array,
-
+selectedNodeData: PropTypes.array,
+    
     /**
      * The list of data dictionaries of all selected edges (e.g. using
      * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
-    selectedEdgeData: PropTypes.array,
+selectedEdgeData: PropTypes.array,
     
     /**
      * Dictionary specifying options to generate an image of the current cytoscape graph.
@@ -753,33 +767,47 @@ Cytoscape.propTypes = {
      * the image, it may be prudent to invoke `'download'` for `action` instead of
      * `'store'` to improve performance by preventing transfer of data to the server.
      */
-    generateImage: PropTypes.object,
+generateImage: PropTypes.object,
     
     /**
      * String representation of the image requested with generateImage. Null if no
      * image was requested yet or the previous request failed. Read-only.
      */
-    imageData: PropTypes.string,
+imageData: PropTypes.string,
+    
+    /**
+     * Trigger to produce JSON of current graph configuration. Set to True to initiate
+     * generation of JSON. Stores the data in `'jsonData'`. Format of JSON is that output
+     * by cy.json() (see http://js.cytoscape.org/#cy.json for details).
+     */
+generateJSON: PropTypes.boolean,
+    
+    /**
+     * Dictionary of JSON representation of the current graph, including rendered position.
+     */
+jsonData: PropTypes.object,
 };
 
 Cytoscape.defaultProps = {
-    style: {width: '600px', height: '600px'},
-    layout: {name: 'grid'},
-    pan: {x: 0, y: 0},
-    zoom: 1,
-    minZoom: 1e-50,
-    maxZoom: 1e50,
-    zoomingEnabled: true,
-    userZoomingEnabled: true,
-    panningEnabled: true,
-    userPanningEnabled: true,
-    boxSelectionEnabled: false,
-    autolock: false,
-    autoungrabify: false,
-    autounselectify: false,
-    autoRefreshLayout: true,
-    generateImage: {},
-    imageData: null
+style: {width: '600px', height: '600px'},
+layout: {name: 'grid'},
+pan: {x: 0, y: 0},
+zoom: 1,
+minZoom: 1e-50,
+maxZoom: 1e50,
+zoomingEnabled: true,
+userZoomingEnabled: true,
+panningEnabled: true,
+userPanningEnabled: true,
+boxSelectionEnabled: false,
+autolock: false,
+autoungrabify: false,
+autounselectify: false,
+autoRefreshLayout: true,
+generateImage: {},
+imageData: null,
+generateJSON: false,
+jsonData: null
 };
 
 export default Cytoscape;
