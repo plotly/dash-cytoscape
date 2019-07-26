@@ -76,7 +76,9 @@ export default class Resize {
         // get new height of graph
         const newHeight = cur.renderedBB.h / prev.zoom * level;
         // get new top margin
-        const newRenderedBBY1 = midpoint - (newHeight / 2);
+        let newRenderedBBY1 = midpoint - (newHeight / 2);
+        // compensate for any change in height between prev and cur
+        newRenderedBBY1 = newRenderedBBY1 + (cur.height - prev.height) / 2;
 
         cur.position.y = newRenderedBBY1 + (prev.position.y - prev.renderedBB.y1);
     }
@@ -104,7 +106,9 @@ export default class Resize {
 
         const midpoint = cur.renderedBB.x1 + cur.renderedBB.w / 2;
         const newWidth = cur.renderedBB.w / prev.zoom * level;
-        const newRenderedBBX1 = midpoint - (newWidth / 2);
+        let newRenderedBBX1 = midpoint - (newWidth / 2);
+        newRenderedBBX1 = newRenderedBBX1 + (cur.width - prev.width) / 2;
+
         cur.position.x = newRenderedBBX1 + (prev.position.x - prev.renderedBB.x1);
     }
 
