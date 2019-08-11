@@ -1,0 +1,2881 @@
+$clade
+$clade$clade
+$clade$clade$branch_length
+[1] "0.18105"
+
+$clade$clade$confidence
+$clade$clade$confidence$text
+[1] "89.0"
+
+$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade
+$clade$clade$clade$branch_length
+[1] "0.07466"
+
+$clade$clade$clade$confidence
+$clade$clade$clade$confidence$text
+[1] "32.0"
+
+$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade
+$clade$clade$clade$clade$branch_length
+[1] "0.26168"
+
+$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.22058"
+
+$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$confidence$text
+[1] "89.0"
+
+$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.28901"
+
+$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.06584"
+
+$clade$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.02309"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "43.0"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.0746"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.02365"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "88.0"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "22_MOUSE"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.05998"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "MOUSE"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "6"       "90"  "7.0E-26" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "109"      "414" "7.2E-117" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "605"      "643"   "2.4E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "647"      "685"  "1.1E-12" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "689"      "729"   "2.4E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "733"      "771"  "4.7E-14" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "872"      "910"   "2.5E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "993"     "1031"   "4.6E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1075"     "1113"   "6.3E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1117"     "1155"   "1.4E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1168"     "1204"      "0.3" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1249" 
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "Apaf-1_HUMAN"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.01825"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "HUMAN"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "6"       "90"  "1.1E-25" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "109"      "414" "3.0E-134" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "605"      "643"   "8.5E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "647"      "685"  "2.5E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "689"      "729"   "2.4E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "733"      "771"  "3.6E-14" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "872"      "910"   "3.8E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1075"     "1113"   "4.0E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1117"     "1155"   "5.9E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1248" 
+
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "12_CANFA"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.04683"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "CANFA"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "6"       "90"  "4.5E-22" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "110"      "415" "4.0E-119" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "597"      "635"   "3.9E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "639"      "677"  "2.5E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "681"      "721"   "1.8E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "725"      "763"  "9.4E-13" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "889"      "927"   "1.1E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "971"     "1009"   "1.7E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1013"     "1051"   "1.9E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1153" 
+
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "11_CHICK"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.15226"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "CHICK"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "6"       "90"  "3.6E-21" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "109"      "414" "3.6E-109" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "603"      "641"   "1.6E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "645"      "683"  "8.2E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "687"      "727"  "6.2E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "731"      "769"  "1.8E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "828"      "866"      "1.8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "993"     "1030"   "2.9E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1034"     "1072"   "1.7E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1076"     "1114"   "7.5E-9" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1127"     "1163"    "0.044" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1207" 
+
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "16_XENLA"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.4409"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "XENLA"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "6"       "90"  "4.0E-20" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "109"      "410"  "3.1E-56" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NACHT"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "148"      "298"      "0.8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "729"      "767"   "7.0E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "771"      "809"  "2.3E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "813"      "853"   "1.1E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "857"      "895"  "1.1E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "992"     "1030"   "8.4E-9" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1116"     "1154"  "7.3E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1158"     "1196"   "1.6E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1200"     "1238"   "1.2E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1362" 
+
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.17031"
+
+$clade$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.10929"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "14_FUGRU"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.02255"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "FUGRU"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "8"       "92"  "4.6E-24" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "111"      "418"  "7.0E-74" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "609"      "647"   "2.8E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "651"      "689"  "2.3E-12" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "740"      "778"   "1.8E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "874"      "912"   "1.6E-9" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "998"     "1036"  "9.8E-13" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1040"     "1080"   "1.6E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1084"     "1122"   "1.5E-9" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1126"     "1164"   "6.2E-9" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1258" 
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "15_TETNG"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.09478"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "TETNG"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "8"       "92"  "2.5E-24" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "104"      "308"  "9.8E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "366"      "404"  "1.2E-12" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "455"      "493"  "1.0E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "537"      "575"  "4.1E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "621" 
+
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "17_BRARE"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.1811"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRARE"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "6"       "90"  "3.9E-23" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "137"      "444"  "1.7E-72" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "635"      "673"      "1.6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "694"      "732"  "5.3E-12" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "783"      "821"   "2.0E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1040"     "1078"   "2.4E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1081"     "1121"   "6.6E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1125"     "1163"   "5.1E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1167"     "1205"   "1.3E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1260" 
+
+
+
+
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.01594"
+
+$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "53.0"
+
+$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.10709"
+
+$clade$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "68.0"
+
+$clade$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "1_BRAFL"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.26131"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "6"       "89"  "5.7E-19" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "111"      "413"  "4.2E-48" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "600"      "638"   "3.2E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "642"      "680"  "1.5E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "730"      "768"  "9.6E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "857"      "895"  "3.7E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "984"     "1022"  "6.7E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1025"     "1064"   "3.1E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1069"     "1107"   "1.5E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1111"     "1149"   "7.9E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1238" 
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "18_NEMVE"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.38014"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "NEMVE"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "7"       "90"  "1.5E-13" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "117"      "200"  "5.4E-14" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "216"      "517"  "1.5E-50" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "711"      "749"   "1.0E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "753"      "791"  "8.5E-12" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "795"      "833"  "4.3E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "837"      "875"  "1.0E-12" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "920"      "957"   "2.0E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "961"      "999"   "3.0E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1085"     "1123"   "4.4E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1128"     "1166"   "3.0E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1170"     "1207"  "1.7E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1290" 
+
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$name
+[1] "23_STRPU"
+
+$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.48179"
+
+$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "STRPU"
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "110"      "402"  "1.0E-40" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "594"      "632"   "8.9E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "636"      "673"   "2.5E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "721"      "759"   "0.0043" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "765"      "802"   "0.0036" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "848"      "886"  "9.0E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "975"     "1013"   "1.9E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1015"     "1053"   "2.4E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1057"     "1095"   "2.7E-9" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1099"     "1137"   "4.9E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1141"     "1177"    "0.011" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1236" 
+
+
+
+
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.34475"
+
+$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$name
+[1] "26_STRPU"
+
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.36374"
+
+$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "STRPU"
+
+
+$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "Death"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+      "18"       "98"   "3.4E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "189"      "481"  "1.8E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "630"      "668"   "8.2E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1319" 
+
+
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$name
+[1] "25_STRPU"
+
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.33137"
+
+$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "STRPU"
+
+
+$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "Death"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "143"      "227"   "7.4E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "227"      "550"  "2.0E-13" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "697"      "736"   "7.9E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "745"      "785"      "1.5" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "Adeno_VII"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1741"     "1836"      "2.0" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1947" 
+
+
+
+
+
+
+$clade$clade$clade$clade
+$clade$clade$clade$clade$branch_length
+[1] "1.31498"
+
+$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$name
+[1] "CED4_CAEEL"
+
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.13241"
+
+$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$taxonomy$code
+[1] "CAEEL"
+
+
+$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "7"       "90"  "9.2E-14" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "116"      "442" "5.8E-151" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "714" 
+
+
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$name
+[1] "31_CAEBR"
+
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.04777"
+
+$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$taxonomy$code
+[1] "CAEBR"
+
+
+$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "1"       "75"   "0.0046" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "101"      "427" "2.1E-123" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "554" 
+
+
+
+
+
+
+$clade$clade$clade
+$clade$clade$clade$branch_length
+[1] "0.13172"
+
+$clade$clade$clade$confidence
+$clade$clade$clade$confidence$text
+[1] "45.0"
+
+$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade
+$clade$clade$clade$clade$branch_length
+[1] "0.24915"
+
+$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$confidence$text
+[1] "95.0"
+
+$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.76898"
+
+$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$name
+[1] "28_DROPS"
+
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.1732"
+
+$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "DROPS"
+
+
+$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "112"      "399"   "1.4E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "535" 
+
+
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$name
+[1] "Dark_DROME"
+
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.18863"
+
+$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "DROME"
+
+
+$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "108"      "397"   "2.1E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1421" 
+
+
+
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$name
+[1] "29_AEDAE"
+
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.86398"
+
+$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$taxonomy$code
+[1] "AEDAE"
+
+
+$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "109"      "421"   "9.3E-6" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "423" 
+
+
+
+
+
+$clade$clade$clade$clade
+$clade$clade$clade$clade$name
+[1] "30_TRICA"
+
+$clade$clade$clade$clade$branch_length
+[1] "0.97698"
+
+$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$taxonomy$code
+[1] "TRICA"
+
+
+$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "5"       "81"     "0.59" 
+
+
+$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+      "92"      "400"  "9.0E-11" 
+
+
+$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "630"      "668"   "1.1E-5" 
+
+
+$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1279" 
+
+
+
+
+
+
+$clade$clade
+$clade$clade$branch_length
+[1] "0.18105"
+
+$clade$clade$confidence
+$clade$clade$confidence$text
+[1] "89.0"
+
+$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade
+$clade$clade$clade$branch_length
+[1] "0.15891"
+
+$clade$clade$clade$confidence
+$clade$clade$clade$confidence$text
+[1] "64.0"
+
+$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade
+$clade$clade$clade$clade$branch_length
+[1] "0.54836"
+
+$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.09305"
+
+$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$confidence$text
+[1] "46.0"
+
+$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.21648"
+
+$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "61.0"
+
+$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.93134"
+
+$clade$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "34_BRAFL"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.093"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+      "49"      "356"   "9.0E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "752" 
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$clade$name
+[1] "35_BRAFL"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.08226"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "DED"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+      "25"      "105"     "0.16" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "113"      "409"   "1.1E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "753" 
+
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$name
+[1] "8_BRAFL"
+
+$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.58563"
+
+$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+      "58"      "369"   "8.4E-7" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "916" 
+
+
+
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.28437"
+
+$clade$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$clade$confidence$text
+[1] "84.0"
+
+$clade$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$name
+[1] "20_NEMVE"
+
+$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.71946"
+
+$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "NEMVE"
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "DED"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "8"       "91"  "1.7E-17" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "PAAD_DAPIN"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "8"       "85"     "0.37" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+      "90"      "388"   "6.8E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_1"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "575"      "608"     "0.27" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_2"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "657"      "690"     "0.22" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_2"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "698"      "731"   "4.2E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "786" 
+
+
+
+
+$clade$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$clade$name
+[1] "21_NEMVE"
+
+$clade$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.9571"
+
+$clade$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "NEMVE"
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "234"      "317"  "2.3E-14" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "Death"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "238"      "318"      "0.5" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "329"      "619"    "0.022" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_1"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "906"      "939"     "0.17" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "RVT_1"
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1326"     "1555"  "3.2E-26" 
+
+
+$clade$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1563" 
+
+
+
+
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$name
+[1] "9_BRAFL"
+
+$clade$clade$clade$clade$clade$branch_length
+[1] "1.09612"
+
+$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "5"      "321"   "5.0E-5" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "BTAD"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "497"      "616"      "1.6" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_1"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "500"      "533"   "5.6E-4" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_1"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "542"      "575"     "0.43" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_2"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "626"      "659"   "0.0084" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_2"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "708"      "741"   "1.9E-4" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_3"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "708"      "739"      "1.3" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "TPR_4"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "708"      "733"     "0.16" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "Death"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "833"      "916"  "5.6E-14" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "LTXXQ"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "846"      "868"     "0.36" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "Death"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "930"     "1011"  "8.3E-17" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1011" 
+
+
+
+
+
+$clade$clade$clade$clade
+$clade$clade$clade$clade$branch_length
+[1] "0.34914"
+
+$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$confidence$text
+[1] "98.0"
+
+$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.22189"
+
+$clade$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$clade$confidence$text
+[1] "95.0"
+
+$clade$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$name
+[1] "3_BRAFL"
+
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.48766"
+
+$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "116"      "423"  "1.4E-12" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "620"      "659"   "1.4E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "663"      "701"   "1.4E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "705"      "743"  "3.0E-11" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "747"      "785"   "1.1E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "788"      "826"   "1.6E-5" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "830"      "870"   "1.3E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "874"      "914"   "6.2E-9" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "919"      "957"   "0.0011" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "961"     "1000"   "1.8E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1013"     "1051"   "1.3E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1055"     "1092"    "0.096" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "Collagen"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1794"     "1853"   "3.6E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"2080" 
+
+
+
+
+$clade$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$clade$name
+[1] "2_BRAFL"
+
+$clade$clade$clade$clade$clade$clade$branch_length
+[1] "0.65293"
+
+$clade$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "162"      "457"  "4.4E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "640"      "680"   "0.0068" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "684"      "722"   "1.6E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "726"      "764"   "6.0E-9" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "827"      "865"  "6.9E-10" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "868"      "906"   "1.2E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "910"      "950"   "0.0080" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "954"      "994"   "0.0016" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "999"     "1037"   "4.9E-6" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1042"     "1080"   "6.3E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1100"     "1138"   "1.9E-8" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1142"     "1178"      "1.4" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1577"     "1615"   "4.3E-4" 
+
+
+$clade$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1691" 
+
+
+
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$name
+[1] "19_NEMVE"
+
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.57144"
+
+$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$taxonomy$code
+[1] "NEMVE"
+
+
+$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "DED"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+      "99"      "174"   "4.6E-7" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "181"      "503"  "8.0E-13" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "696"      "734"   "1.4E-8" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "738"      "776"   "2.9E-9" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "780"      "818"  "3.8E-10" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "822"      "860"   "6.4E-9" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "864"      "902"  "2.1E-10" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "906"      "944"   "1.3E-8" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "948"      "986"   "1.2E-8" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "990"     "1028"   "9.4E-8" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1032"     "1070"   "6.0E-8" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1074"     "1112"   "2.6E-4" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "SGL"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1364"     "1597"      "1.9" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1442"     "1480"   "9.7E-7" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1527"     "1565"      "1.2" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "WD40"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+    "1568"     "1606"   "1.1E-6" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1649" 
+
+
+
+
+
+
+$clade$clade$clade
+$clade$clade$clade$branch_length
+[1] "0.43438"
+
+$clade$clade$clade$confidence
+$clade$clade$clade$confidence$text
+[1] "92.0"
+
+$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade
+$clade$clade$clade$clade$branch_length
+[1] "0.92214"
+
+$clade$clade$clade$clade$confidence
+$clade$clade$clade$clade$confidence$text
+[1] "100.0"
+
+$clade$clade$clade$clade$confidence$.attrs
+     type 
+"unknown" 
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$name
+[1] "37_BRAFL"
+
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.21133"
+
+$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "6"       "89"  "9.6E-13" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "118"      "202"   "4.5E-9" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "206"      "491"   "0.0011" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NACHT"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "238"      "388"   "0.0043" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1793" 
+
+
+
+
+$clade$clade$clade$clade$clade
+$clade$clade$clade$clade$clade$name
+[1] "36_BRAFL"
+
+$clade$clade$clade$clade$clade$branch_length
+[1] "0.16225"
+
+$clade$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "CARD"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "9"       "93"   "1.6E-9" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+      "98"      "403"   "0.0019" 
+
+
+$clade$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+ "918" 
+
+
+
+
+
+$clade$clade$clade$clade
+$clade$clade$clade$clade$name
+[1] "33_BRAFL"
+
+$clade$clade$clade$clade$branch_length
+[1] "0.8363"
+
+$clade$clade$clade$clade$taxonomy
+$clade$clade$clade$clade$taxonomy$code
+[1] "BRAFL"
+
+
+$clade$clade$clade$clade$sequence
+$clade$clade$clade$clade$sequence$domain_architecture
+$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "Death"
+
+$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+       "5"       "87"  "4.7E-12" 
+
+
+$clade$clade$clade$clade$sequence$domain_architecture$domain
+$clade$clade$clade$clade$sequence$domain_architecture$domain$text
+[1] "NB-ARC"
+
+$clade$clade$clade$clade$sequence$domain_architecture$domain$.attrs
+      from         to confidence 
+     "154"      "465"   "2.0E-6" 
+
+
+$clade$clade$clade$clade$sequence$domain_architecture$.attrs
+length 
+"1212" 
+
+
+
+
+
+
+
+$.attrs
+rooted 
+"true" 
+

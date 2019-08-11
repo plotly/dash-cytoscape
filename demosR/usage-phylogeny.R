@@ -2,12 +2,13 @@ library(dash)
 library(dashHtmlComponents)
 library(dashCytoscape)
 library(XML)
-source("demosR/dummyData.R")
+
+# TODO: remove once "elements" defined
+source("demosR/phylogeny/dummyData.R")
 
 app <- Dash$new()
 
 tree <- xmlToList(xmlParse(file = "demos/data/apaf.xml"))$phylogeny
-capture.output(tree, file = "demosR/treeR.txt", append = FALSE)
 
 generate_elements <- function(tree, xlen=30, ylen=30, grabbable=FALSE, i=list(), n=1) {
   # there are 31 "terminal" nodes with their respective 31 "support" nodes
