@@ -115,17 +115,7 @@ generate_elements <- function(tree, xlen=30, ylen=30, grabbable=FALSE, i=list(),
   }
   lapply(tree, explore_child, child_id="r", branch_length=0)
 
-  # print("NODES")
-  # str(nodes)
-  # print(paste("SIZE", length(nodes)))
-  # print("EDGES")
-  # str(edges)
-  # print(paste("SIZE", length(edges)))
-
-  elements <- c(nodes, edges)
-  return(elements)
-
-  # TODO: remove these drafts
+  # TODO: remove these draft functions and respective outputs
   # get_terminals <- function(tree, terminals=list()) {
   #   get_name <- function(child) {
   #     if (class(child) == "list") {
@@ -162,9 +152,23 @@ generate_elements <- function(tree, xlen=30, ylen=30, grabbable=FALSE, i=list(),
   # col_positions <- get_col_positions(tree, taxa)
   # row_positions <- get_row_positions(tree, taxa)
 
+  # TODO: delete test print statements
+  # print("NODES")
+  # str(nodes)
+  # print(paste("SIZE", length(nodes)))
+  # print("EDGES")
+  # str(edges)
+  # print(paste("SIZE", length(edges)))
+
+  # TODO: add remaining attributes for nodes (i.e. position) in function the explore_child
+  elements <- c(nodes, edges)
+
+  return(elements)
 }
 
 elements <- generate_elements(tree)
+
+# TODO: delete test print statements
 # print("ELEMENTS")
 # str(elements)
 # print(paste("SIZE", length(elements)))
