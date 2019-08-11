@@ -1,19 +1,16 @@
 library(dash)
 library(dashHtmlComponents)
 library(dashCytoscape)
-# library(XML)
-# library(methods)
-# library(ape)
-# library(rphyloxml)
+library(XML)
 
 app <- Dash$new()
 
-# result <- xmlParse(file = "demosR/data/apaf.xml")
-# print(result)
+result <- xmlParse(file = "demos/data/apaf.xml")
+# print(typeof(result))
 
-# xml_file <- system.file("phyloxml/amphibian_tree_of_life_Frost_DR_2006.xml", package="rphyloxml")
-# xml_tree <- read_phyloxml(xml_file)
-# print(xml_tree)
+tree <- xmlToList(result)
+# print(typeof(tree))
+str(tree)
 
 layout <- list('name' = 'preset')
 
@@ -24,7 +21,7 @@ stylesheet <- list(
       'label' = 'data(confidence)',
       'background-opacity' = 0,
       "text-halign" = "left",
-      "text-valign" = "top",
+      "text-valign" = "top"
     )
   ),
   list(
@@ -35,7 +32,7 @@ stylesheet <- list(
     'selector' = 'edge',
     'style' = list(
       "source-endpoint" = "inside-to-node",
-      "target-endpoint" = "inside-to-node",
+      "target-endpoint" = "inside-to-node"
     )
   ),
   list(
@@ -56,7 +53,7 @@ app$layout(
     list(
       cytoCytoscape(
         id = 'cytoscape',
-        elements = elements,
+        elements = list(), # change to 'elements' once defined
         stylesheet = stylesheet,
         layout = layout,
         style = list(
@@ -83,4 +80,4 @@ app$callback(
   }
 )
 
-app$run_server()
+#app$run_server()
