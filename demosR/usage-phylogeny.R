@@ -37,7 +37,7 @@ generate_elements <- function(tree, xlen=30, ylen=30, grabbable=FALSE, i=list(),
         support_id <- paste0(child_id, "s", i[[length(i)]])
         child_id <- paste0(child_id, "c", i[[length(i)]])
         n <<- n+2
-        # support node and edge
+        # support node and preceding edge
         nodes[[n-1]] <<- list(
           data = list(id = support_id),
           # TODO: edit (x,y) according to branch_length = child$branch_length
@@ -52,7 +52,7 @@ generate_elements <- function(tree, xlen=30, ylen=30, grabbable=FALSE, i=list(),
             sourceCladeId = clade_id
           )
         )
-        # terminal node and edge
+        # terminal node and preceding edge
         nodes[[n]] <<- list(
           data = list(id = child_id, name = child$name),
           # TODO: edit (x,y) according to branch_length = child$branch_length
@@ -75,7 +75,7 @@ generate_elements <- function(tree, xlen=30, ylen=30, grabbable=FALSE, i=list(),
           support_id <- paste0(child_id, "s", i[[length(i)]])
           child_id <- paste0(child_id, "c", i[[length(i)]])
           n <<- n+2
-          # support node and edge
+          # support node and preceding edge
           nodes[[n-1]] <<- list(
             data = list(id = support_id),
             # TODO: edit (x,y) according to branch_length = child$branch_length
@@ -90,7 +90,7 @@ generate_elements <- function(tree, xlen=30, ylen=30, grabbable=FALSE, i=list(),
               sourceCladeId = clade_id
             )
           )
-          # nonterminal node and edge
+          # nonterminal node and preceding edge
           nodes[[n]] <<- list(
             data = list(id = child_id, confidence = child$confidence$text),
             # TODO: edit (x,y) according to branch_length = child$branch_length
