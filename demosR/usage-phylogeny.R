@@ -8,114 +8,78 @@ app <- Dash$new()
 tree <- xmlToList(xmlParse(file = "demos/data/apaf.xml"))$phylogeny
 capture.output(tree, file = "demosR/tree.txt", append = FALSE)
 
-# nodes: 31 terminal, 31 support; 30 nonterminal, 29 support (root has no support)
-
 generate_elements <- function(tree, xlen=30, ylen=30, grabbable=False) {
-  organize_tree <- function(tree, terminals=list(), nonterminals=list(), i=list(), t=0, n=0) {
+  # there are 31 "terminal" nodes with their respective 31 "support" nodes
+  # and 30 "nonterminal" nodes with their respective 29 "support" nodes
+  # since the root node does not require a preceding "support" node;
+  # each "support" node has the same x position as the parent clade,
+  # and the same y position as the child clade; it is used to create
+  # the 90 degree angle between the parent and the children;
+  # edge config: parent -> support -> child
 
-    explore_child <- function(child, id) {
+  organize_tree <- function(tree, nodes=list(), edges=list(), i=list(), n=1) {
+    # append root element
+    nodes[[n]] <- list(
+      data = list(id = "r"),
+      position = list(x = 30, y = 1200),
+      classes = "nonterminal",
+      grabbable = FALSE
+    )
+    # function to append all nodes and respective support nodes
+    explore_child <- function(child, child_id) {
       if (class(child) == "list") {
         if (!is.null(child$name)) {
-          t <<- t+1
-          id <- paste0(id, "c", i[[length(i)]])
-          i[[length(i)]] <<- i[[length(i)]]+1
-          terminals[[t]] <<- list(
-            id = id,
-            tmpID = paste0("t-", t),
-            name = child$name,
-            branch_length = child$branch_length,
-            classes = "terminal"
+          support_id <- paste0(child_id, "s", i[[length(i)]])
+          child_id <- paste0(child_id, "c", i[[length(i)]])
+          n <<- n+2
+          nodes[[n-1]] <<- list(
+            data = list(id = support_id),
+            # TODO: edit (x,y) according to branch_length = child$branch_length
+            position = list(x = 0, y = 0),
+            classes = "support",
+            grabbable = FALSE
           )
+          nodes[[n]] <<- list(
+            data = list(id = child_id, name = child$name),
+            # TODO: edit (x,y) according to branch_length = child$branch_length
+            position = list(x = 0, y = 0),
+            classes = "terminal",
+            grabbable = FALSE
+          )
+          i[[length(i)]] <<- i[[length(i)]]+1
         } else {
           if (!is.null(child$confidence$text)) {
-            n <<- n+1
-            id <- paste0(id, "c", i[[length(i)]])
-            i[[length(i)]] <<- i[[length(i)]]+1
-            nonterminals[[n]] <<- list(
-              id = id,
-              tmpID = paste0("n-", n),
-              confidence = child$confidence$text,
-              branch_length = child$branch_length,
-              classes = "nonterminal"
+            support_id <- paste0(child_id, "s", i[[length(i)]])
+            child_id <- paste0(child_id, "c", i[[length(i)]])
+            n <<- n+2
+            nodes[[n-1]] <<- list(
+              data = list(id = support_id),
+              # TODO: edit (x,y) according to branch_length = child$branch_length
+              position = list(x = 0, y = 0),
+              classes = "support",
+              grabbable = FALSE
             )
+            nodes[[n]] <<- list(
+              data = list(id = child_id, confidence = child$confidence$text),
+              # TODO: edit (x,y) according to branch_length = child$branch_length
+              position = list(x = 0, y = 0),
+              classes = "nonterminal",
+              grabbable = FALSE
+            )
+            i[[length(i)]] <<- i[[length(i)]]+1
           }
           i[[length(i)+1]] <<- 0
-          lapply(child, explore_child, id=id)
+          lapply(child, explore_child, child_id=child_id)
           i <<- i[-length(i)]
         }
       }
     }
-    lapply(tree, explore_child, id="r")
+    lapply(tree, explore_child, child_id="r")
 
-    # CORRECT SO FAR
-    # explore_child <- function(child, id) {
-    #   if (class(child) == "list") {
-    #     #i <<- i+1
-    #     #id <- paste0(id, "c", i)
-    #     if (!is.null(child$name)) {
-    #       t <<- t+1
-    #       terminals[[t]] <<- list(
-    #         #id = id,
-    #         tmpID = paste0("t-", t),
-    #         name = child$name,
-    #         branch_length = child$branch_length,
-    #         classes = "terminal"
-    #       )
-    #     } else {
-    #       if (!is.null(child$confidence$text)) {
-    #         n <<- n+1
-    #         nonterminals[[n]] <<- list(
-    #           #id = id,
-    #           tmpID = paste0("n-", n),
-    #           confidence = child$confidence$text,
-    #           branch_length = child$branch_length,
-    #           classes = "nonterminal"
-    #         )
-    #       }
-    #       lapply(child, explore_child, id=id)
-    #     }
-    #     #i <<- i-1
-    #   }
-    # }
-    # lapply(tree, explore_child, id="r")
+    str(nodes)
+    print(paste("SIZE", length(nodes)))
 
-    # FAILED ATTEMPT
-    # explore_child <- function(child) {
-    #   if (class(child) == "list") {
-    #     if (!is.null(child$name)) {
-    #       return(
-    #         list(
-    #           id = paste("t-", child$name),
-    #           name = child$name,
-    #           branch_length = child$branch_length,
-    #           classes = "terminal"
-    #         )
-    #       )
-    #     } else if (!is.null(child$confidence$text)) {
-    #       return(
-    #         list(
-    #           id = paste("n-", child$confidence$text),
-    #           confidence = child$confidence$text,
-    #           branch_length = child$branch_length,
-    #           classes = "nonterminal",
-    #           child = lapply(child, explore_child)
-    #         )
-    #       )
-    #     } else {
-    #       return(lapply(child, explore_child))
-    #     }
-    #   }
-    # }
-    # nodes <- lapply(tree, explore_child)
-
-    # print("TERMINALS")
-    # str(terminals)
-    # print(paste("SIZE", length(terminals)))
-    # print("NONTERMINALS")
-    # str(nonterminals)
-    # print(paste("SIZE", length(nonterminals)))
-
-    return(list(terminals = terminals, nonterminals = nonterminals))
+    return(nodes)
   }
 
   get_terminals <- function(tree, terminals=list()) {
@@ -168,38 +132,38 @@ generate_elements <- function(tree, xlen=30, ylen=30, grabbable=False) {
 
 elements <- generate_elements(tree)
 
-layout <- list('name' = 'preset')
+layout <- list("name" = "preset")
 
 stylesheet <- list(
   list(
-    'selector' = '.nonterminal',
-    'style' = list(
-      'label' = 'data(confidence)',
-      'background-opacity' = 0,
+    "selector" = ".nonterminal",
+    "style" = list(
+      "label" = "data(confidence)",
+      "background-opacity" = 0,
       "text-halign" = "left",
       "text-valign" = "top"
     )
   ),
   list(
-    'selector' = '.support',
-    'style' = list('background-opacity' = 0)
+    "selector" = ".support",
+    "style" = list("background-opacity" = 0)
   ),
   list(
-    'selector' = 'edge',
-    'style' = list(
+    "selector" = "edge",
+    "style" = list(
       "source-endpoint" = "inside-to-node",
       "target-endpoint" = "inside-to-node"
     )
   ),
   list(
-    'selector' = '.terminal',
-    'style' = list(
-      'label' = 'data(name)',
-      'width' = 10,
-      'height' = 10,
+    "selector" = ".terminal",
+    "style" = list(
+      "label" = "data(name)",
+      "width" = 10,
+      "height" = 10,
       "text-valign" = "center",
       "text-halign" = "right",
-      'background-color' = '#222222'
+      "background-color" = "#222222"
     )
   )
 )
@@ -208,13 +172,13 @@ app$layout(
   htmlDiv(
     list(
       cytoCytoscape(
-        id = 'cytoscape',
-        elements = list(), # TODO: change to 'elements' once defined
+        id = "cytoscape",
+        elements = list(), # TODO: change to "elements" once defined
         stylesheet = stylesheet,
         layout = layout,
         style = list(
-          'height' = '95vh',
-          'width' = '100%'
+          "height" = "95vh",
+          "width" = "100%"
         )
       )
     )
@@ -222,9 +186,9 @@ app$layout(
 )
 
 app$callback(
-  output = list(id = 'cytoscape', property = 'stylesheet'),
+  output = list(id = "cytoscape", property = "stylesheet"),
   params = list(
-    input(id = 'cytoscape', property = 'mouseoverEdgeData')
+    input(id = "cytoscape", property = "mouseoverEdgeData")
   ),
   function(data) {
     if (is.null(data)) {
