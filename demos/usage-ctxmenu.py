@@ -99,7 +99,12 @@ app.layout = html.Div([
                 'commands': [
                     {
                         'content': 'Node Option 1',
-                        'id': '1'
+                        'id': '1',
+                        'format': [
+                            "position",
+                            {'key': 'position', 'props': ['x']},
+                            "group"
+                        ]
                     },
                     {
                         'content': 'Node Option 2',
@@ -117,7 +122,33 @@ app.layout = html.Div([
                 'commands': [
                     {
                         'content': 'Core 1',
-                        'id': '1'
+                        'id': '1',
+                        'format': [
+                            "pan",
+                            "zoom",
+                            {
+                                'key': 'elements',
+                                'props': [
+                                    'node',
+                                    'nodes',
+                                    {
+                                        'key': 'edges',
+                                        'filter': {
+                                            'data': {
+                                                'source': 'j'
+                                            }
+                                        },
+                                        'props': [
+                                            'data',
+                                            {
+                                                'key': 'position',
+                                                'props': ['x']
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     {
                         'content': 'Core 2',
@@ -154,7 +185,7 @@ app.layout = html.Div([
 def handleCtxmenuReturn(ctxmenuData):
     app.logger.info(json.dumps(ctxmenuData))
     if ctxmenuData is None:
-        return Null
+        return "Option Id:"
     return "Option Id: " + ctxmenuData["id"]
 
 if __name__ == '__main__':
