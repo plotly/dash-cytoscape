@@ -122,7 +122,7 @@ app.layout = html.Div([
                 'commands': [
                     {
                         'content': 'Core 1',
-                        'id': '1',
+                        'id': 'a',
                         'format': [
                             "pan",
                             "zoom",
@@ -152,7 +152,7 @@ app.layout = html.Div([
                     },
                     {
                         'content': 'Core 2',
-                        'id': '2'
+                        'id': 'b'
                     }
                 ]
             },
@@ -161,11 +161,11 @@ app.layout = html.Div([
                 'commands': [
                     {
                         'content': 'Edge 1',
-                        'id': '1'
+                        'id': 'x'
                     },
                     {
                         'content': 'Edge 2',
-                        'id': '2'
+                        'id': 'y'
                     }
                 ]
             }
@@ -183,7 +183,7 @@ app.layout = html.Div([
 @app.callback(Output('output-div', 'children'),
               [Input('cytoscape', 'ctxmenuData')])
 def handleCtxmenuReturn(ctxmenuData):
-    app.logger.info(json.dumps(ctxmenuData))
+    app.logger.info(json.dumps(ctxmenuData, indent=4, sort_keys=True))
     if ctxmenuData is None:
         return "Option Id:"
     return "Option Id: " + ctxmenuData["id"]
