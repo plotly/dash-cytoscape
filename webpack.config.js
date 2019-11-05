@@ -1,4 +1,6 @@
 const path = require('path');
+const WebpackDashDynamicImport = require('@plotly/webpack-dash-dynamic-import');
+
 const packagejson = require('./package.json');
 
 const dashLibraryName = packagejson.name.replace(/-/g, '_');
@@ -25,12 +27,12 @@ module.exports = (env, argv) => {
     }
 
     let filename = (overrides.output || {}).filename;
-    if(!filename) {
+    if (!filename) {
         const modeSuffix = mode === 'development' ? 'dev' : 'min';
         filename = `${dashLibraryName}.${modeSuffix}.js`;
     }
 
-    const entry = overrides.entry || {main: './src/lib/index.js'};
+    const entry = overrides.entry || { main: './src/lib/index.js' };
 
     const devtool = overrides.devtool || (
         mode === 'development' ? "eval-source-map" : 'none'
@@ -47,6 +49,7 @@ module.exports = (env, argv) => {
         entry,
         output: {
             path: path.resolve(__dirname, dashLibraryName),
+            chunkFilename: mode === 'development' ? '[name].dev.js' : '[name].js',
             filename,
             library: dashLibraryName,
             libraryTarget: 'window',
@@ -74,6 +77,23 @@ module.exports = (env, argv) => {
                 },
             ],
         },
-        devtool
+        devtool,
+        optimization: {
+            splitChunks: {
+                name: true,
+                cacheGroups: {
+                    async: {
+                        chunks: 'async',
+                        minSize: 0,
+                        name(module, chunks, cacheGroupKey) {
+                            return `${cacheGroupKey}~${chunks[0].name}`;
+                        }
+                    }
+                }
+            }
+        },
+        plugins: [
+            new WebpackDashDynamicImport()
+        ]
     }
 };
