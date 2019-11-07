@@ -22,6 +22,7 @@
     "build:py": "dash-generate-components ./src/lib/components dash_cytoscape",
     "build:py-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py)",
     "build:all": "npm run build:js-all && npm run build:py",
+    "postbuild:all": "es-check es5 dash_cytoscape/*.js",
     "build:all-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:all)"
   },
   "author": "The Plotly Team <cytoscape@plot.ly>",
@@ -44,7 +45,6 @@
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@plotly/webpack-dash-dynamic-import": "^1.1.3-rc1",
@@ -52,6 +52,7 @@
     "babel-loader": "^8.0.6",
     "copyfiles": "^2.0.0",
     "css-loader": "^0.28.11",
+    "es-check": "^5.0.0",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.12.0",
