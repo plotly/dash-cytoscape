@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+* [#75](https://github.com/plotly/dash-cytoscape/pull/75) Async cytoscape component
 * Contributed initial build of R package.
 
 ### Changed
@@ -102,7 +103,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 into a Cytoscape graph, with interactive features such as highlighting.
 
 ### Updated
-* React-Cytoscapejs version, from 1.0.1 to 1.1.0 
+* React-Cytoscapejs version, from 1.0.1 to 1.1.0
 
 ## [0.0.2] - 2018-11-08
 ### Added
