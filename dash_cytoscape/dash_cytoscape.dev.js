@@ -215,25 +215,27 @@ window["dash_cytoscape"] =
 /******/ 	    })()
 /******/ 	});
 /******/
-/******/ 	var __jsonpScriptSrc__ = jsonpScriptSrc;
-/******/ 	jsonpScriptSrc = function(chunkId) {
-/******/ 	    var script = getCurrentScript();
-/******/ 	    var isLocal = isLocalScript(script);
+/******/ 	if (typeof jsonpScriptSrc !== 'undefined') {
+/******/ 	    var __jsonpScriptSrc__ = jsonpScriptSrc;
+/******/ 	    jsonpScriptSrc = function(chunkId) {
+/******/ 	        var script = getCurrentScript();
+/******/ 	        var isLocal = isLocalScript(script);
 /******/
-/******/ 	    var src = __jsonpScriptSrc__(chunkId);
+/******/ 	        var src = __jsonpScriptSrc__(chunkId);
 /******/
-/******/ 	    if(!isLocal) {
-/******/ 	        return src;
-/******/ 	    }
+/******/ 	        if(!isLocal) {
+/******/ 	            return src;
+/******/ 	        }
 /******/
-/******/ 	    var srcFragments = src.split('/');
-/******/ 	    var fileFragments = srcFragments.slice(-1)[0].split('.');
+/******/ 	        var srcFragments = src.split('/');
+/******/ 	        var fileFragments = srcFragments.slice(-1)[0].split('.');
 /******/
-/******/ 	    fileFragments.splice(1, 0, "v0_2_0m1573751136");
-/******/ 	    srcFragments.splice(-1, 1, fileFragments.join('.'))
+/******/ 	        fileFragments.splice(1, 0, "v0_2_0m1573752455");
+/******/ 	        srcFragments.splice(-1, 1, fileFragments.join('.'))
 /******/
-/******/ 	    return srcFragments.join('/');
-/******/ 	};
+/******/ 	        return srcFragments.join('/');
+/******/ 	    };
+/******/ 	}
 /******/
 /******/
 /******/ 	var jsonpArray = window["webpackJsonpdash_cytoscape"] = window["webpackJsonpdash_cytoscape"] || [];

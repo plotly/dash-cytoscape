@@ -21,9 +21,9 @@
     "build:js-all": "npm run build:js && npm run build:js-dev && npm run build:js-dev-extra && npm run build:js-extra",
     "build:py": "dash-generate-components ./src/lib/components dash_cytoscape",
     "build:py-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py)",
-    "build:all": "npm run build:js-all && npm run build:py",
-    "postbuild:all": "es-check es5 dash_cytoscape/*.js",
-    "build:all-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:all)"
+    "build": "npm run build:js-all && npm run build:py",
+    "postbuild": "es-check es5 dash_cytoscape/*.js",
+    "build:activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build)"
   },
   "author": "The Plotly Team <cytoscape@plot.ly>",
   "author-email": "cytoscape@plot.ly",

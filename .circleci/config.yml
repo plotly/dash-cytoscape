@@ -3,7 +3,7 @@ version: 2
 jobs:
     "node":
         docker:
-            - image: circleci/node:8.11.3
+            - image: circleci/node:10
 
         steps:
             - checkout
