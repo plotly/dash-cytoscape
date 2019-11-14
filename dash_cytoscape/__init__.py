@@ -47,7 +47,7 @@ _js_dist.extend([{
         'async': True
     } for async_resource in async_resources])
 
-_js_dist = [
+_js_dist.extend([
     {
         'relative_package_path': 'dash_cytoscape.min.js',
         'dev_package_path': 'dash_cytoscape.dev.js',
@@ -55,7 +55,7 @@ _js_dist = [
             package_name, __name__, __version__),
         'namespace': package_name
     }
-]
+])
 
 _css_dist = []
 
