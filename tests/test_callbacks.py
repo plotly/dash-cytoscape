@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 class Tests(IntegrationTests):
     def test_callbacks(self):
         app = importlib.import_module('usage-advanced').app
-        self.startServer(app)
+        self.startServer(app, eager_loading=True)
 
         WebDriverWait(self.driver, 20).until(
             EC.presence_of_element_located((By.ID, "cytoscape"))

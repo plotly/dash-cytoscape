@@ -10,7 +10,7 @@ class Tests(IntegrationTests):
     def create_usage_test(self, filename, dir_name='usage'):
         app = importlib.import_module(filename).app
 
-        self.startServer(app)
+        self.startServer(app, eager_loading=True)
 
         WebDriverWait(self.driver, 20).until(
             EC.presence_of_element_located((By.ID, "cytoscape"))

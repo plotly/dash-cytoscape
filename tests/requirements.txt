@@ -3,7 +3,7 @@
 # pip install -r requirements.txt
 
 chromedriver-binary
-dash>=0.38.0
+dash>=1.6.1
 ipdb
 percy
 selenium

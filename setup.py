@@ -21,11 +21,7 @@ setup(
     long_description=io.open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     url='https://dash.plot.ly/cytoscape',
-    install_requires=[
-        'dash',
-        'dash-html-components',
-        'dash_renderer',
-    ],
+    install_requires=['dash>=1.6.1'],
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Flask',

@@ -30,8 +30,24 @@ _current_path = _os.path.dirname(_os.path.abspath(__file__))
 
 _this_module = _sys.modules[__name__]
 
+async_resources = [
+    'cytoscape'
+]
 
-_js_dist = [
+_js_dist = []
+
+_js_dist.extend([{
+        'relative_package_path': 'async~{}.js'.format(async_resource),
+        'dev_package_path': 'async~{}.dev.js'.format(async_resource),
+        'external_url': (
+            'https://unpkg.com/dash-cytoscape@{}'
+            '/dash_cytoscape/async~{}.js'
+        ).format(__version__, async_resource),
+        'namespace': 'dash_cytoscape',
+        'async': True
+    } for async_resource in async_resources])
+
+_js_dist.extend([
     {
         'relative_package_path': 'dash_cytoscape.min.js',
         'dev_package_path': 'dash_cytoscape.dev.js',
@@ -39,7 +55,7 @@ _js_dist = [
             package_name, __name__, __version__),
         'namespace': package_name
     }
-]
+])
 
 _css_dist = []
 
