@@ -51,7 +51,7 @@ class Tests(IntegrationTests):
 
         # Initialize the apps
         app = importlib.import_module('usage-events').app
-        self.startServer(app)
+        self.startServer(app, eager_loading=True)
         WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, "cytoscape")))
 
         actions = ActionChains(self.driver)
