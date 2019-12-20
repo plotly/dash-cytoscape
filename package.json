@@ -22,7 +22,7 @@
     "build:py": "dash-generate-components ./src/lib/components dash_cytoscape",
     "build:py-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py)",
     "build:r": "dash-generate-components ./src/lib/components dash_cytoscape --r-prefix='cyto'",
-    "build:all": "npm run build:js-all && npm run build:py_and_r",
+    "build:all": "npm run build:js-all && npm run build:py",
     "build:all-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:all)"
   },
   "author": "The Plotly Team <cytoscape@plot.ly>",
