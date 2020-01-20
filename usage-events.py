@@ -18,23 +18,23 @@ basic_elements = [
     },
     {
         'data': {'id': 'two', 'label': 'Node 2'},
-        'position': {'x': 200, 'y': 200}
-    },
-    {
-        'data': {'id': 'three', 'label': 'Node 3'},
-        'position': {'x': 100, 'y': 150}
-    },
-    {
-        'data': {'id': 'four', 'label': 'Node 4'},
         'position': {'x': 400, 'y': 50}
     },
     {
-        'data': {'id': 'five', 'label': 'Node 5'},
-        'position': {'x': 250, 'y': 100}
+        'data': {'id': 'three', 'label': 'Node 3'},
+        'position': {'x': 400, 'y': 400}
     },
     {
-        'data': {'id': 'six', 'label': 'Node 6', 'parent': 'three'},
-        'position': {'x': 150, 'y': 150}
+        'data': {'id': 'four', 'label': 'Node 4'},
+        'position': {'x': 50, 'y': 400}
+    },
+    {
+        'data': {'id': 'five', 'label': 'Node 5'},
+        'position': {'x': 150, 'y': 225}
+    },
+    {
+        'data': {'id': 'six', 'label': 'Node 6'},
+        'position': {'x': 300, 'y': 225}
     },
     {
         'data': {
@@ -46,58 +46,66 @@ basic_elements = [
     },
     {
         'data': {
+            'id': 'one-four',
+            'source': 'one',
+            'target': 'four',
+            'label': 'Edge from Node1 to Node4'
+        }
+    },
+    {
+        'data': {
             'id': 'one-five',
             'source': 'one',
             'target': 'five',
-            'label': 'Edge from Node 1 to Node 5'
+            'label': 'Edge from Node1 to Node5'
         }
     },
     {
         'data': {
-            'id': 'two-four',
+            'id': 'two-three',
             'source': 'two',
-            'target': 'four',
-            'label': 'Edge from Node 2 to Node 4'
+            'target': 'three',
+            'label': 'Edge from Node2 to Node3'
         }
     },
     {
         'data': {
-            'id': 'three-five',
-            'source': 'three',
-            'target': 'five',
-            'label': 'Edge from Node 3 to Node 5'
-        }
-    },
-    {
-        'data': {
-            'id': 'three-two',
-            'source': 'three',
-            'target': 'two',
-            'label': 'Edge from Node 3 to Node 2'
-        }
-    },
-    {
-        'data': {
-            'id': 'four-four',
-            'source': 'four',
-            'target': 'four',
-            'label': 'Edge from Node 4 to Node 4'
-        }
-    },
-    {
-        'data': {
-            'id': 'four-six',
-            'source': 'four',
+            'id': 'two-six',
+            'source': 'two',
             'target': 'six',
-            'label': 'Edge from Node 4 to Node 6'
+            'label': 'Edge from Node2 to Node6'
         }
     },
     {
         'data': {
-            'id': 'five-one',
+            'id': 'three-four',
+            'source': 'three',
+            'target': 'four',
+            'label': 'Edge from Node3 to Node4'
+        }
+    },
+    {
+        'data': {
+            'id': 'three-six',
+            'source': 'three',
+            'target': 'six',
+            'label': 'Edge from Node3 to Node6'
+        }
+    },
+    {
+        'data': {
+            'id': 'four-five',
+            'source': 'four',
+            'target': 'five',
+            'label': 'Edge from Node4 to Node5'
+        }
+    },
+    {
+        'data': {
+            'id': 'five-six',
             'source': 'five',
-            'target': 'one',
-            'label': 'Edge from Node 5 to Node 1'
+            'target': 'six',
+            'label': 'Edge from Node5 to Node6'
         }
     },
 ]

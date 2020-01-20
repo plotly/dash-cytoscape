@@ -104,6 +104,13 @@ class Tests(IntegrationTests):
             cls.percy_runner.finalize_build()
 
     def run_percy_on(self, dir_name):
+        if not os.path.isdir(os.path.join(
+            os.path.dirname(__file__),
+            'screenshots',
+            dir_name
+        )):
+            return
+
         # Find the names of all the screenshots
         asset_list = os.listdir(os.path.join(
             os.path.dirname(__file__),

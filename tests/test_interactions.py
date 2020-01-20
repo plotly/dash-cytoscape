@@ -40,12 +40,12 @@ class Tests(IntegrationTests):
 
         # View module docstring for more information about initial positions
         init_pos = {
-            'Node 1': (80.94611044209678, 333.54879281525285),
-            'Node 2': (375.64032747402433, 628.2430098471805),
-            'Node 3': (277.40892179671516, 514.2945792615018 - 20),
-            'Node 4': (768.5659501832611, 333.54879281525285),
-            'Node 5': (473.8717331513335, 431.780198492562),
-            'Node 6': (277.40892179671516, 530.0116041698712)
+            'Node 1': (66.37696335078535, 62.376963350785346),
+            'Node 2': (774.6230366492147, 62.376963350785346),
+            'Node 3': (774.6230366492147, 770.6230366492147),
+            'Node 4': (66.37696335078535, 770.6230366492147),
+            'Node 5': (268.7329842931937, 416.5),
+            'Node 6': (572.2670157068062, 416.5)
         }
         init_x, init_y = init_pos['Node 1']
 
@@ -133,9 +133,9 @@ class Tests(IntegrationTests):
         def perform_mouseover(x, y, elem, dir_name='interactions'):
             actions.reset_actions()
             actions.move_to_element_with_offset(
-                self.driver.find_element_by_tag_name('body'), x - 100, y
+                self.driver.find_element_by_tag_name('body'), x - 65, y
             )
-            actions.move_by_offset(100, 0)
+            actions.move_by_offset(65, 0)
             actions.perform()
             time.sleep(1)
 
