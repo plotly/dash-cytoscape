@@ -37,10 +37,7 @@ class Tests(IntegrationTests):
     def create_app(dir_name):
         def encode(name):
             path = os.path.join(
-                os.path.dirname(__file__),
-                'screenshots',
-                dir_name,
-                name
+                os.path.dirname(__file__), 'screenshots', dir_name, name
             )
 
             with open(path, 'rb') as image_file:
@@ -50,15 +47,19 @@ class Tests(IntegrationTests):
         # Define the app
         app = dash.Dash(__name__)
 
-        app.layout = html.Div([
-            # represents the URL bar, doesn't render anything
-            dcc.Location(id='url', refresh=False),
-            # content will be rendered in this element
-            html.Div(id='page-content')
-        ])
+        app.layout = html.Div(
+            [
+                # represents the URL bar, doesn't render anything
+                dcc.Location(id='url', refresh=False),
+                # content will be rendered in this element
+                html.Div(id='page-content'),
+            ]
+        )
 
-        @app.callback(dash.dependencies.Output('page-content', 'children'),
-                      [dash.dependencies.Input('url', 'pathname')])
+        @app.callback(
+            dash.dependencies.Output('page-content', 'children'),
+            [dash.dependencies.Input('url', 'pathname')],
+        )
         def display_image(pathname):  # pylint: disable=W0612
             """
             Assign the url path to return the image it represent. For example,
@@ -77,14 +78,10 @@ class Tests(IntegrationTests):
     def percy_snapshot(self, name=''):
         if os.environ.get('PERCY_ENABLED', False):
             snapshot_name = '{} (Python {}.{})'.format(
-                name,
-                sys.version_info.major,
-                sys.version_info.minor
+                name, sys.version_info.major, sys.version_info.minor
             )
 
-            self.percy_runner.snapshot(
-                name=snapshot_name
-            )
+            self.percy_runner.snapshot(name=snapshot_name)
 
     @classmethod
     def setUpClass(cls):
@@ -104,19 +101,15 @@ class Tests(IntegrationTests):
             cls.percy_runner.finalize_build()
 
     def run_percy_on(self, dir_name):
-        if not os.path.isdir(os.path.join(
-            os.path.dirname(__file__),
-            'screenshots',
-            dir_name
-        )):
+        if not os.path.isdir(
+            os.path.join(os.path.dirname(__file__), 'screenshots', dir_name)
+        ):
             return
 
         # Find the names of all the screenshots
-        asset_list = os.listdir(os.path.join(
-            os.path.dirname(__file__),
-            'screenshots',
-            dir_name
-        ))
+        asset_list = os.listdir(
+            os.path.join(os.path.dirname(__file__), 'screenshots', dir_name)
+        )
 
         # Run Percy
         for image in asset_list:

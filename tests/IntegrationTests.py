@@ -56,11 +56,7 @@ class IntegrationTests(unittest.TestCase):
         def run():
             app.scripts.config.serve_locally = True
             app.css.config.serve_locally = True
-            app.run_server(
-                port=port,
-                debug=False,
-                processes=processes
-            )
+            app.run_server(port=port, debug=False, processes=processes)
 
         def run_windows():
             app.scripts.config.serve_locally = True
@@ -72,11 +68,7 @@ class IntegrationTests(unittest.TestCase):
                 stopper()
                 return 'stop'
 
-            app.run_server(
-                port=port,
-                debug=False,
-                threaded=False
-            )
+            app.run_server(port=port, debug=False, threaded=False)
 
         # Run on a separate process so that it doesn't block
 

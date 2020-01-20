@@ -45,37 +45,41 @@ class Tests(IntegrationTests):
             'Node 3': (774.6230366492147, 770.6230366492147),
             'Node 4': (66.37696335078535, 770.6230366492147),
             'Node 5': (268.7329842931937, 416.5),
-            'Node 6': (572.2670157068062, 416.5)
+            'Node 6': (572.2670157068062, 416.5),
         }
         init_x, init_y = init_pos['Node 1']
 
         # Initialize the apps
         app = importlib.import_module('usage-events').app
         self.startServer(app)
-        WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, "cytoscape")))
+        WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((By.ID, "cytoscape"))
+        )
 
         actions = ActionChains(self.driver)
 
         # FUNCTIONS
         def save_screenshot(dir_name, name):
             directory_path = os.path.join(
-                os.path.dirname(__file__),
-                'screenshots',
-                dir_name
+                os.path.dirname(__file__), 'screenshots', dir_name
             )
 
             # Create directory if it doesn't already exist
             if not os.path.exists(directory_path):
                 os.makedirs(directory_path)
 
-            self.driver.save_screenshot(os.path.join(
-                os.path.dirname(__file__),
-                'screenshots',
-                dir_name,
-                name + '.png'
-            ))
+            self.driver.save_screenshot(
+                os.path.join(
+                    os.path.dirname(__file__),
+                    'screenshots',
+                    dir_name,
+                    name + '.png',
+                )
+            )
 
-        def perform_dragging(x, y, delta_x, delta_y, elem, dir_name='interactions'):
+        def perform_dragging(
+            x, y, delta_x, delta_y, elem, dir_name='interactions'
+        ):
             """
             Performs dragging on a node, and return the difference from the start
             :param x: initial position of the node at the start of the action chain
@@ -89,7 +93,9 @@ class Tests(IntegrationTests):
             actions.move_to_element_with_offset(
                 self.driver.find_element_by_tag_name('body'), x, y
             )
-            actions.drag_and_drop_by_offset(source=None, xoffset=delta_x, yoffset=delta_y)
+            actions.drag_and_drop_by_offset(
+                source=None, xoffset=delta_x, yoffset=delta_y
+            )
             actions.click()
             actions.perform()
             time.sleep(1)
@@ -103,7 +109,9 @@ class Tests(IntegrationTests):
 
             save_screenshot(
                 dir_name,
-                'Dragged{}By{}x{}y'.format(clicked_label.replace(' ', ''), diff_x, diff_y)
+                'Dragged{}By{}x{}y'.format(
+                    clicked_label.replace(' ', ''), diff_x, diff_y
+                ),
             )
 
             return diff_x, diff_y
@@ -126,7 +134,9 @@ class Tests(IntegrationTests):
             time.sleep(1)
             clicked_label = json.loads(elem.text).get('data', {}).get('label')
 
-            save_screenshot(dir_name, 'Clicked' + clicked_label.replace(' ', ''))
+            save_screenshot(
+                dir_name, 'Clicked' + clicked_label.replace(' ', '')
+            )
 
             return clicked_label
 
@@ -141,39 +151,58 @@ class Tests(IntegrationTests):
 
             mouseover_label = json.loads(elem.text).get('label')
 
-            save_screenshot(dir_name, 'Mouseover' + mouseover_label.replace(' ', ''))
+            save_screenshot(
+                dir_name, 'Mouseover' + mouseover_label.replace(' ', '')
+            )
 
             return mouseover_label
 
         # Select the JSON output element
-        elem_tap = self.driver.find_element_by_css_selector('pre#tap-node-json-output')
+        elem_tap = self.driver.find_element_by_css_selector(
+            'pre#tap-node-json-output'
+        )
 
         # Test dragging the nodes around
         offset_x, offset_y = perform_dragging(init_x, init_y, 0, 0, elem_tap)
         init_x += offset_x
         init_y += offset_y
 
-        assert perform_dragging(init_x, init_y, 150, 0, elem_tap) == (150, 0), drag_error
-        assert perform_dragging(init_x+150, init_y, 0, 150, elem_tap) == (0, 150), drag_error
-        assert perform_dragging(init_x+150, init_y+150, -150, -150, elem_tap) == (-150, -150), \
-            drag_error
+        assert perform_dragging(init_x, init_y, 150, 0, elem_tap) == (
+            150,
+            0,
+        ), drag_error
+        assert perform_dragging(init_x + 150, init_y, 0, 150, elem_tap) == (
+            0,
+            150,
+        ), drag_error
+        assert perform_dragging(
+            init_x + 150, init_y + 150, -150, -150, elem_tap
+        ) == (-150, -150), drag_error
 
         # Test clicking the nodes
         for i in range(1, 7):
             label = 'Node {}'.format(i)
-            assert perform_clicking(*init_pos[label], elem_tap) == label, click_error
+            assert (
+                perform_clicking(*init_pos[label], elem_tap) == label
+            ), click_error
 
         # Open the Mouseover JSON tab
         actions.move_to_element(
-            self.driver.find_element_by_css_selector('#tabs > div:nth-child(3)'))
+            self.driver.find_element_by_css_selector(
+                '#tabs > div:nth-child(3)'
+            )
+        )
         actions.click().perform()
         time.sleep(1)
 
         # Select the JSON output element
         elem_mouseover = self.driver.find_element_by_css_selector(
-            'pre#mouseover-node-data-json-output')
+            'pre#mouseover-node-data-json-output'
+        )
 
         # Test hovering the nodes
         for i in range(1, 7):
             label = 'Node {}'.format(i)
-            assert perform_mouseover(*init_pos[label], elem_mouseover) == label, mouseover_error
+            assert (
+                perform_mouseover(*init_pos[label], elem_mouseover) == label
+            ), mouseover_error

@@ -17,21 +17,21 @@ class Tests(IntegrationTests):
         )
 
         directory_path = os.path.join(
-            os.path.dirname(__file__),
-            'screenshots',
-            dir_name
+            os.path.dirname(__file__), 'screenshots', dir_name
         )
 
         # Create directory if it doesn't already exist
         if not os.path.exists(directory_path):
             os.makedirs(directory_path)
 
-        self.driver.save_screenshot(os.path.join(
-            os.path.dirname(__file__),
-            'screenshots',
-            dir_name,
-            filename + '.png'
-        ))
+        self.driver.save_screenshot(
+            os.path.join(
+                os.path.dirname(__file__),
+                'screenshots',
+                dir_name,
+                filename + '.png',
+            )
+        )
 
     def test_usage_advanced(self):
         self.create_usage_test('usage-advanced')

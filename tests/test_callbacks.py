@@ -7,6 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
+
 class Tests(IntegrationTests):
     def test_callbacks(self):
         app = importlib.import_module('usage-advanced').app
@@ -16,18 +17,18 @@ class Tests(IntegrationTests):
             EC.presence_of_element_located((By.ID, "cytoscape"))
         )
 
-        def create_input_and_save(css_selector,
-                                  dir_name,
-                                  options,
-                                  prefix=None,
-                                  name_map=None,
-                                  save=True):
+        def create_input_and_save(
+            css_selector,
+            dir_name,
+            options,
+            prefix=None,
+            name_map=None,
+            save=True,
+        ):
             elem = self.driver.find_element_by_css_selector(css_selector)
 
             directory_path = os.path.join(
-                os.path.dirname(__file__),
-                'screenshots',
-                dir_name
+                os.path.dirname(__file__), 'screenshots', dir_name
             )
 
             # Create directory if it doesn't already exist
@@ -35,10 +36,7 @@ class Tests(IntegrationTests):
                 os.makedirs(directory_path)
 
             if prefix and not name_map:
-                name_map = {
-                    option: prefix + option
-                    for option in options
-                }
+                name_map = {option: prefix + option for option in options}
 
             elif not name_map:
                 name_map = {}
@@ -53,7 +51,11 @@ class Tests(IntegrationTests):
                     # we default to the value of the option to name the saved
                     # screenshot
                     name = name_map.get(option, option)
-                    name = name.replace('(', '_').replace(')', '').replace(',', '_')
+                    name = (
+                        name.replace('(', '_')
+                        .replace(')', '')
+                        .replace(',', '_')
+                    )
                     name = name.replace('#', '_hex_').replace(' ', '')
 
                     WebDriverWait(self.driver, 20).until(
@@ -64,7 +66,7 @@ class Tests(IntegrationTests):
                         os.path.dirname(__file__),
                         'screenshots',
                         dir_name,
-                        name + '.png'
+                        name + '.png',
                     )
 
                     self.driver.save_screenshot(path)
@@ -83,7 +85,7 @@ class Tests(IntegrationTests):
                         os.path.dirname(__file__),
                         'screenshots',
                         dir_name,
-                        name + '.png'
+                        name + '.png',
                     )
 
                     self.driver.save_screenshot(path)
@@ -91,7 +93,7 @@ class Tests(IntegrationTests):
         create_input_and_save(
             css_selector='input#dropdown-select-element-list',
             dir_name='elements',
-            options=['Basic', 'Compound', 'Gene', 'Wineandcheese']
+            options=['Basic', 'Compound', 'Gene', 'Wineandcheese'],
         )
 
         create_input_and_save(
@@ -103,8 +105,8 @@ class Tests(IntegrationTests):
                 'Circle',
                 'Concentric',
                 'Breadthfirst',
-                'Cose'
-            ]
+                'Cose',
+            ],
         )
 
         # Reset the input to what it was at the beginning
@@ -112,49 +114,40 @@ class Tests(IntegrationTests):
             css_selector='input#dropdown-select-element-list',
             dir_name='elements',
             options=['Basic'],
-            save=False
+            save=False,
         )
         create_input_and_save(
             css_selector='input#dropdown-layout',
             dir_name='layouts',
             options=['Circle'],
-            save=False
+            save=False,
         )
 
         # Input Different types of Node Content
         create_input_and_save(
             css_selector='input#input-node-content',
             dir_name='style',
-            options=[
-                'Hello',
-                'data(id)'
-            ],
+            options=['Hello', 'data(id)'],
             name_map={
                 'Hello': 'NodeDisplayContentStatic',
-                'data(id)': 'NodeDisplayID'
-            }
+                'data(id)': 'NodeDisplayID',
+            },
         )
 
         # Input Different node widths
         create_input_and_save(
             css_selector='input#input-node-width',
             dir_name='style',
-            options=[
-                '30',
-                '50'
-            ],
-            prefix='NodeWidth'
+            options=['30', '50'],
+            prefix='NodeWidth',
         )
 
         # Input Different node heights
         create_input_and_save(
             css_selector='input#input-node-height',
             dir_name='style',
-            options=[
-                '40',
-                '60'
-            ],
-            prefix='NodeHeight'
+            options=['40', '60'],
+            prefix='NodeHeight',
         )
 
         # Input different node shapes
@@ -171,99 +164,79 @@ class Tests(IntegrationTests):
                 'Star',
                 'Tag',
                 'Vee',
-                'Ellipse'
+                'Ellipse',
             ],
-            prefix='NodeShape'
+            prefix='NodeShape',
         )
 
         create_input_and_save(
             css_selector='input#input-node-color',
             dir_name='style',
-            options=[
-                'pink',
-                'sky blue',
-                'rgb(186,44,162)',
-                '#def229'
-            ],
-            prefix='NodeColor'
+            options=['pink', 'sky blue', 'rgb(186,44,162)', '#def229'],
+            prefix='NodeColor',
         )
 
         create_input_and_save(
             css_selector='input#input-node-border-width',
             dir_name='style',
             options=['2'],
-            save=False
+            save=False,
         )
 
         create_input_and_save(
             css_selector='input#input-node-border-color',
             dir_name='style',
-            options=[
-                'pink',
-                'sky blue',
-                'rgb(186,44,162)',
-                '#def229'
-            ],
-            prefix='BorderColor'
+            options=['pink', 'sky blue', 'rgb(186,44,162)', '#def229'],
+            prefix='BorderColor',
         )
 
         create_input_and_save(
             css_selector='input#input-node-border-width',
             dir_name='style',
             options=['5', '2'],
-            prefix='NodeBorderWidth'
+            prefix='NodeBorderWidth',
         )
 
         create_input_and_save(
             css_selector='input#dropdown-node-border-style',
             dir_name='style',
-            options=[
-                'Dashed',
-                'Dotted',
-                'Double',
-                'Solid',
-            ],
-            prefix='NodeBorderStyle'
+            options=['Dashed', 'Dotted', 'Double', 'Solid'],
+            prefix='NodeBorderStyle',
         )
 
         create_input_and_save(
             css_selector='input#input-node-padding',
             dir_name='style',
             options=['5px'],
-            prefix='NodePadding'
+            prefix='NodePadding',
         )
 
         create_input_and_save(
             css_selector='input#dropdown-node-padding-relative-to',
             dir_name='style',
             options=['Width', 'Height', 'Average', 'Min', 'Max'],
-            prefix='NodePaddingRelativeTo'
+            prefix='NodePaddingRelativeTo',
         )
 
         create_input_and_save(
             css_selector='input#input-edge-line-width',
             dir_name='style',
             options=['10', '1', '3'],
-            prefix='LineWidth'
+            prefix='LineWidth',
         )
 
         create_input_and_save(
             css_selector='input#dropdown-edge-curve-style',
             dir_name='style',
             options=['Haystack', 'Segments', 'Unbundled-bezier', 'Bezier'],
-            prefix='EdgeCurveStyle'
+            prefix='EdgeCurveStyle',
         )
 
         create_input_and_save(
             css_selector='input#input-edge-line-color',
             dir_name='style',
-            options=[
-                'pink',
-                'sky blue',
-                'rgb(186,44,162)',
-                '#def229'
-            ],
-            prefix='EdgeColor'
+            options=['pink', 'sky blue', 'rgb(186,44,162)', '#def229'],
+            prefix='EdgeColor',
         )
 
         # Modify Edge Styles
@@ -273,59 +246,47 @@ class Tests(IntegrationTests):
                 'EdgeStyleDotted': '//*[@id="radio-edge-line-style"]/label[2]',
                 'EdgeStyleDashed': '//*[@id="radio-edge-line-style"]/label[3]',
             },
-            dir_name='style'
+            dir_name='style',
         )
 
         # Set "Use Edge Arrow" to "Yes"
         click_button_and_save(
             name_to_xpaths={
-                'EdgeArrow': '//*[@id="radio-use-edge-arrow"]/label[1]'},
+                'EdgeArrow': '//*[@id="radio-use-edge-arrow"]/label[1]'
+            },
             dir_name='style',
-            save=False
+            save=False,
         )
 
         create_input_and_save(
             css_selector='input#dropdown-source-arrow-shape',
             dir_name='style',
-            options=[
-                'Circle',
-                'Vee',
-                'Tee',
-                'Diamond',
-                'Triangle'
-            ],
-            prefix='EdgeArrowShape'
+            options=['Circle', 'Vee', 'Tee', 'Diamond', 'Triangle'],
+            prefix='EdgeArrowShape',
         )
 
         create_input_and_save(
             css_selector='input#input-source-arrow-color',
             dir_name='style',
-            options=[
-                'pink',
-                'sky blue',
-                'rgb(186,44,162)',
-                '#def229'
-            ],
-            prefix='EdgeArrowColor'
+            options=['pink', 'sky blue', 'rgb(186,44,162)', '#def229'],
+            prefix='EdgeArrowColor',
         )
 
         click_button_and_save(
             name_to_xpaths={
-                'EdgeArrowFilled': ('//*[@id="radio-source-arrow-fill"]/'
-                                    'label[1]'),
-                'EdgeArrowHollow': ('//*[@id="radio-source-arrow-fill"]/'
-                                    'label[2]')
+                'EdgeArrowFilled': (
+                    '//*[@id="radio-source-arrow-fill"]/' 'label[1]'
+                ),
+                'EdgeArrowHollow': (
+                    '//*[@id="radio-source-arrow-fill"]/' 'label[2]'
+                ),
             },
-            dir_name='style'
+            dir_name='style',
         )
 
         create_input_and_save(
             css_selector='input#input-arrow-scale',
             dir_name='style',
-            options=[
-                '3',
-                '2',
-                '1'
-            ],
-            prefix='EdgeArrowScale'
+            options=['3', '2', '1'],
+            prefix='EdgeArrowScale',
         )
