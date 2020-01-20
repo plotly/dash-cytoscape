@@ -77,9 +77,7 @@ class Tests(IntegrationTests):
                 )
             )
 
-        def perform_dragging(
-            x, y, delta_x, delta_y, elem, dir_name='interactions'
-        ):
+        def perform_dragging(x, y, delta_x, delta_y, elem, dir_name='interactions'):
             """
             Performs dragging on a node, and return the difference from the start
             :param x: initial position of the node at the start of the action chain
