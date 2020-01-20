@@ -17,7 +17,12 @@ class Tests(IntegrationTests):
             EC.presence_of_element_located((By.ID, "cytoscape"))
         )
 
-        def create_input_and_save(css_selector, dir_name, options, prefix=None, name_map=None, save=True):
+        def create_input_and_save(css_selector,
+                                  dir_name,
+                                  options,
+                                  prefix=None,
+                                  name_map=None,
+                                  save=True):
             elem = self.driver.find_element_by_css_selector(css_selector)
 
             directory_path = os.path.join(
