@@ -68,6 +68,7 @@ class Tests(IntegrationTests):
             if not os.path.exists(directory_path):
                 os.makedirs(directory_path)
 
+            time.sleep(2)
             self.driver.save_screenshot(
                 os.path.join(
                     os.path.dirname(__file__),

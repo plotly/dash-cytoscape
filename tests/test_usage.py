@@ -1,5 +1,6 @@
 import os
 import importlib
+import time
 from .IntegrationTests import IntegrationTests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -24,6 +25,7 @@ class Tests(IntegrationTests):
         if not os.path.exists(directory_path):
             os.makedirs(directory_path)
 
+        time.sleep(2)
         self.driver.save_screenshot(
             os.path.join(
                 os.path.dirname(__file__),

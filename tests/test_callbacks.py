@@ -1,5 +1,6 @@
 import os
 import importlib
+import time
 
 from .IntegrationTests import IntegrationTests
 from selenium.webdriver.common.by import By
@@ -67,6 +68,7 @@ class Tests(IntegrationTests):
                         name + '.png',
                     )
 
+                    time.sleep(2)
                     self.driver.save_screenshot(path)
 
         def click_button_and_save(name_to_xpaths, dir_name, save=True):
@@ -86,6 +88,7 @@ class Tests(IntegrationTests):
                         name + '.png',
                     )
 
+                    time.sleep(2)
                     self.driver.save_screenshot(path)
 
         create_input_and_save(
