@@ -38,7 +38,6 @@ _js_dist = []
 
 _js_dist.extend([{
         'relative_package_path': 'async~{}.js'.format(async_resource),
-        'dev_package_path': 'async~{}.dev.js'.format(async_resource),
         'external_url': (
             'https://unpkg.com/dash-cytoscape@{}'
             '/dash_cytoscape/async~{}.js'
@@ -50,7 +49,6 @@ _js_dist.extend([{
 _js_dist.extend([
     {
         'relative_package_path': 'dash_cytoscape.min.js',
-        'dev_package_path': 'dash_cytoscape.dev.js',
         'external_url': 'https://unpkg.com/dash-cytoscape@{2}/{1}/{1}.min.js'.format(
             package_name, __name__, __version__),
         'namespace': package_name
@@ -97,16 +95,27 @@ def load_extra_layouts():
     """
     global _js_dist
 
-    _js_dist = [
+    _js_dist = []
+
+    _js_dist.extend([{
+            'relative_package_path': 'async_extra~{}.js'.format(async_resource),
+            'external_url': (
+                'https://unpkg.com/dash-cytoscape@{}'
+                '/dash_cytoscape/async_extra~{}.js'
+            ).format(__version__, async_resource),
+            'namespace': 'dash_cytoscape',
+            'async': True
+        } for async_resource in async_resources])
+
+    _js_dist.extend([
         {
             'relative_package_path': 'dash_cytoscape_extra.min.js',
-            'dev_package_path': 'dash_cytoscape_extra.dev.js',
             'external_url': 'https://unpkg.com/dash-cytoscape@{}/{}/{}.min.js'.format(
                 __version__, __name__, 'dash_cytoscape_extra'
             ),
             'namespace': package_name
         }
-    ]
+    ])
 
 
 def _display_default_values():

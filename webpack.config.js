@@ -1,4 +1,5 @@
 const path = require('path');
+const R = require('ramda');
 const WebpackDashDynamicImport = require('@plotly/webpack-dash-dynamic-import');
 
 const packagejson = require('./package.json');
@@ -6,55 +7,22 @@ const packagejson = require('./package.json');
 const dashLibraryName = packagejson.name.replace(/-/g, '_');
 
 module.exports = (env, argv) => {
+    const asyncChunks = {
+        chunks: 'async',
+        minSize: 0,
+        name(module, chunks, cacheGroupKey) {
+            return `${cacheGroupKey}~${chunks[0].name}`;
+        }
+    };
 
-    let mode;
-
-    const overrides = module.exports || {};
-
-    // if user specified mode flag take that value
-    if (argv && argv.mode) {
-        mode = argv.mode;
-    }
-
-    // else if configuration object is already set (module.exports) use that value
-    else if (overrides.mode) {
-        mode = overrides.mode;
-    }
-
-    // else take webpack default (production)
-    else {
-        mode = 'production';
-    }
-
-    let filename = (overrides.output || {}).filename;
-    if (!filename) {
-        const modeSuffix = mode === 'development' ? 'dev' : 'min';
-        filename = `${dashLibraryName}.${modeSuffix}.js`;
-    }
-
-    const entry = overrides.entry || { main: './src/lib/index.js' };
-
-    const devtool = overrides.devtool || (
-        mode === 'development' ? "eval-source-map" : 'none'
-    );
-
-    const externals = ('externals' in overrides) ? overrides.externals : ({
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'plotly.js': 'Plotly',
-    });
-
-    return {
-        mode,
-        entry,
-        output: {
-            path: path.resolve(__dirname, dashLibraryName),
-            chunkFilename: mode === 'development' ? '[name].dev.js' : '[name].js',
-            filename,
-            library: dashLibraryName,
-            libraryTarget: 'window',
+    const defaults = {
+        devtool: 'none',
+        externals: {
+            react: 'React',
+            'react-dom': 'ReactDOM',
+            'plotly.js': 'Plotly'
         },
-        externals,
+        mode: 'production',
         module: {
             rules: [
                 {
@@ -77,23 +45,49 @@ module.exports = (env, argv) => {
                 },
             ],
         },
-        devtool,
-        optimization: {
-            splitChunks: {
-                name: true,
-                cacheGroups: {
-                    async: {
-                        chunks: 'async',
-                        minSize: 0,
-                        name(module, chunks, cacheGroupKey) {
-                            return `${cacheGroupKey}~${chunks[0].name}`;
-                        }
-                    }
-                }
-            }
+        output: {
+            path: path.resolve(__dirname, dashLibraryName),
+            chunkFilename: '[name].js',
+            library: dashLibraryName,
+            libraryTarget: 'window',
         },
         plugins: [
             new WebpackDashDynamicImport()
         ]
-    }
+    };
+
+    const base = {
+        entry: { main: './src/lib/index.js' },
+        output: {
+            filename: 'dash_cytoscape.min.js'
+        },
+        optimization: {
+            splitChunks: {
+                name: true,
+                cacheGroups: {
+                    async: asyncChunks
+                }
+            }
+        }
+    };
+
+    const extras = {
+        entry: { main: './src/lib/extra_index.js' },
+        output: {
+            filename: 'dash_cytoscape_extra.min.js'
+        },
+        optimization: {
+            splitChunks: {
+                name: true,
+                cacheGroups: {
+                    async_extra: asyncChunks
+                }
+            }
+        }
+    };
+
+    return [
+        R.mergeDeepRight(defaults, base),
+        R.mergeDeepRight(defaults, extras)
+    ];
 };

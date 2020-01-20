@@ -130,30 +130,30 @@ class Tests(IntegrationTests):
     def test_usage(self):
         # Create and start the app
         app = self.create_app(dir_name='usage')
-        self.startServer(app, eager_loading=True)
+        self.startServer(app)
 
         self.run_percy_on('usage')
 
     def test_elements(self):
         app = self.create_app(dir_name='elements')
-        self.startServer(app, eager_loading=True)
+        self.startServer(app)
 
         self.run_percy_on('elements')
 
     def test_layouts(self):
         app = self.create_app(dir_name='layouts')
-        self.startServer(app, eager_loading=True)
+        self.startServer(app)
 
         self.run_percy_on('layouts')
 
     def test_style(self):
         app = self.create_app(dir_name='style')
-        self.startServer(app, eager_loading=True)
+        self.startServer(app)
 
         self.run_percy_on('style')
 
     def test_interactions(self):
         app = self.create_app(dir_name='interactions')
-        self.startServer(app, eager_loading=True)
+        self.startServer(app)
 
         self.run_percy_on('interactions')

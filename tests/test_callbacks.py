@@ -6,12 +6,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-
+import time
 
 class Tests(IntegrationTests):
     def test_callbacks(self):
         app = importlib.import_module('usage-advanced').app
-        self.startServer(app, eager_loading=True)
+        self.startServer(app)
 
         WebDriverWait(self.driver, 20).until(
             EC.presence_of_element_located((By.ID, "cytoscape"))
