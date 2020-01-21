@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component, Suspense } from 'react';
 
 // eslint-disable-next-line no-inline-comments
 import RealCytoscape from '../fragments/Cytoscape.react';
