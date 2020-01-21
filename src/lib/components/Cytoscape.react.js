@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component, lazy, Suspense } from 'react';
 
 // eslint-disable-next-line no-inline-comments
-const RealCytoscape = lazy(() => import(/* webpackChunkName: "cytoscape" */ '../fragments/Cytoscape.react'));
+import RealCytoscape from '../fragments/Cytoscape.react';
 
 /**
 A Component Library for Dash aimed at facilitating network visualization in
