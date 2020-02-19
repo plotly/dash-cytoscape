@@ -7,5 +7,5 @@
 A Component Library for Dash aimed at facilitating network visualization in R, wrapped around Cytoscape.js
 }
 \author{
-\strong{Maintainer}: The Plotly Team <cytoscape@plot.ly>
+\strong{Maintainer}: The Plotly Team <cytoscape@plotly.com>
 }

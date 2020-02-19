@@ -3,10 +3,10 @@ Thanks for your interest in Plotly's Dash Cytoscape Component!
 
 Note that GitHub issues in this repo are reserved for bug reports and feature
 requests. Implementation questions should be discussed in our
-[Dash Community Forum](https://community.plot.ly/c/dash).
+[Dash Community Forum](https://community.plotly.com/c/dash).
 
 Before opening a new issue, please search through existing issues (including
-closed issues) and the [Dash Community Forum](https://community.plot.ly/c/dash).
+closed issues) and the [Dash Community Forum](https://community.plotly.com/c/dash).
 
 When reporting a bug, please include a reproducible example! We recommend using
 the [latest version](https://github.com/plotly/dash-cytoscape/blob/master/CHANGELOG.md)
