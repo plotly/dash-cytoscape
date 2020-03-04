@@ -1,6 +1,6 @@
 biopython
 gunicorn
 plotly
-dash==0.39.0
+dash>=1.6.1
 
 colour==0.1.5
