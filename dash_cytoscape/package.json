@@ -17,7 +17,7 @@
     "build:all-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:all)"
   },
   "author": "The Plotly Team",
-  "author-email": "xinghan@plot.ly",
+  "author-email": "xinghan@plotly.com",
   "license": "MIT",
   "dependencies": {
     "cytoscape-cola": "^2.3.0",

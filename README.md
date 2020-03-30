@@ -6,10 +6,10 @@ A Dash component library for creating interactive and customizable networks in P
 ![usage-stylesheet-demo](https://raw.githubusercontent.com/plotly/dash-cytoscape/master/demos/images/usage-stylesheet-demo.gif)
 
 * 🌟 [Medium Article](https://medium.com/@plotlygraphs/introducing-dash-cytoscape-ce96cac824e4)
-* 📣 [Community Announcement](https://community.plot.ly/t/announcing-dash-cytoscape/19095)
+* 📣 [Community Announcement](https://community.plotly.com/t/announcing-dash-cytoscape/19095)
 * 💻 [Github Repository](https://github.com/plotly/dash-cytoscape) 
-* 📚 [User Guide](https://dash.plot.ly/cytoscape) 
-* 🗺 [Component Reference](https://dash.plot.ly/cytoscape/reference)
+* 📚 [User Guide](https://dash.plotly.com/cytoscape) 
+* 🗺 [Component Reference](https://dash.plotly.com/cytoscape/reference)
 * 📺 [Webinar Recording](https://www.youtube.com/watch?v=snXcIsCMQgk)
 
 ## Getting Started
@@ -21,7 +21,7 @@ Make sure that dash and its dependent libraries are correctly installed:
 pip install dash dash-html-components
 ```
 
-If you want to install the latest versions, check out the [Dash docs on installation](https://dash.plot.ly/installation).
+If you want to install the latest versions, check out the [Dash docs on installation](https://dash.plotly.com/installation).
 
 
 ### Usage
@@ -77,9 +77,9 @@ app.layout = html.Div([
 
 ## Documentation
 
-The [Dash Cytoscape User Guide](https://dash.plot.ly/cytoscape/) contains everything you need to know about the library. It contains useful examples, functioning code, and is fully interactive. You can also use the [component reference](https://dash.plot.ly/cytoscape/reference/) for a complete and concise specification of the API. 
+The [Dash Cytoscape User Guide](https://dash.plotly.com/cytoscape/) contains everything you need to know about the library. It contains useful examples, functioning code, and is fully interactive. You can also use the [component reference](https://dash.plotly.com/cytoscape/reference/) for a complete and concise specification of the API. 
 
-To learn more about the core Dash components and how to use callbacks, view the [Dash documentation](https://dash.plot.ly/).
+To learn more about the core Dash components and how to use callbacks, view the [Dash documentation](https://dash.plotly.com/).
 
 For supplementary information about the underlying Javascript  API, view the [Cytoscape.js documentation](http://js.cytoscape.org/).
 
@@ -93,7 +93,7 @@ Dash, Cytoscape.js and Dash Cytoscape are licensed under MIT. Please view [LICEN
 
 ## Contact and Support
 
-See https://plot.ly/dash/support for ways to get in touch.
+See https://plotly.com/dash/support for ways to get in touch.
 
 ## Acknowledgments
 
