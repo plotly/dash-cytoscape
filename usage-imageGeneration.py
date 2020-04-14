@@ -5,6 +5,7 @@ from dash.exceptions import PreventUpdate
 from dash.dependencies import Input, Output
 import dash_cytoscape as cyto
 
+
 from base64 import b64decode
 
 app = dash.Dash(__name__)
@@ -44,6 +45,7 @@ def get_image(n_clicks):
     # Set options here
     return {
         'type': 'png',
+        'action' : 'store'
     }
 
 

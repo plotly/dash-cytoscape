@@ -312,8 +312,11 @@ class Cytoscape extends Component {
         if (imageType === 'png') {
             output = this._cy.png(imageOptions)
         }
-        else if (imageType === 'jpg' || imageType === 'jpeg') {
+        if (imageType === 'jpg' || imageType === 'jpeg') {
             output = this._cy.jpg(imageOptions)
+        }
+        if (imageType === 'svg') {
+            output = this._cy.svg(imageOptions) 
         }
         
         /*
@@ -329,7 +332,14 @@ class Cytoscape extends Component {
             if (!fileName) {
                 fileName = 'cyto'
             }
-            this.downloadBlob(output, fileName + '.' + imageType)
+
+            if (imageType !== 'svg') {
+                this.downloadBlob(output, fileName + '.' + imageType)
+            }
+            else {
+                var blob = new Blob([output], {type:"image/svg+xml;charset=utf-8"});
+                this.downloadBlob(blob, fileName + '.' + imageType) 
+            }
         }
         
         if (output && storeImage) {
