@@ -24,12 +24,10 @@ app.layout = html.Div(
     children=[
         route,
         html.H1("My app"),
-        html.Button("Get Image as png", id="button1"),
-        html.Button("Get Image as jpg", id="button2"),
-        html.Button("Get Image as svg", id="button3"),
-        # Specifying generateImage here should do nothing
-        cyto.Cytoscape(id="cy", elements=elements),
-        dcc.Textarea("image-text", value="Image data here"),
+        html.Button("Get Image as png", id="btn-getPNG"),
+        html.Button("Get Image as jpg", id="btn-getJPG"),
+        html.Button("Get Image as svg", id="btn-getSVG"),
+        cyto.Cytoscape(id="cy", elements=elements)
     ]
 )
 
@@ -37,14 +35,14 @@ app.layout = html.Div(
 @app.callback(
     Output("cy", "generateImage"),
     [
-        Input("button1", "n_clicks"),
-        Input("button2", "n_clicks"),
-        Input("button3", "n_clicks"),
+        Input("btn-getPNG", "n_clicks"),
+        Input("btn-getJPG", "n_clicks"),
+        Input("btn-getSVG", "n_clicks"),
     ],
 )
-def get_image(btn1_clicks, btn2_clicks, btn3_clicks):
+def get_image(getPNG_clicks, getJPG_clicks, getSVG_clicks):
 
-    if btn1_clicks is None and btn2_clicks is None and btn3_clicks is None:
+    if getPNG_clicks is None and getJPG_clicks is None and getSVG_clicks is None:
         raise PreventUpdate
 
     ctx = dash.callback_context
@@ -53,10 +51,9 @@ def get_image(btn1_clicks, btn2_clicks, btn3_clicks):
         print(input_id)
 
         ftype = "png"
-        if input_id == "button2":
-            print("svg selected")
+        if input_id == "btn-getJPG":
             ftype = "jpg"
-        elif input_id == "button3":
+        elif input_id == "btn-getSVG":
             ftype = "svg"
 
         # Set options here
@@ -64,7 +61,6 @@ def get_image(btn1_clicks, btn2_clicks, btn3_clicks):
             "type": ftype,
             "action": "download",
         }
-
 
 if __name__ == "__main__":
     app.run_server(debug=False)
