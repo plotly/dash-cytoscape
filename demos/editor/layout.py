@@ -445,7 +445,7 @@ user_interface = html.Div(
                 )
             ),
             drc.NamedInput(
-                name=f'Line Color',
+                name='Line Color',
                 id='input-edge-line-color',
                 type='text',
                 placeholder='Input Color in Hex...'
@@ -559,8 +559,8 @@ user_interface = html.Div(
                           'mid-target']],
 
             drc.NamedInput(
-                name=f'Scale of Arrow Size',
-                id=f'input-arrow-scale',
+                name='Scale of Arrow Size',
+                id='input-arrow-scale',
                 type='number',
                 min=0,
                 placeholder='Input numerical value...'
