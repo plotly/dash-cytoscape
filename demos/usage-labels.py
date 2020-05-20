@@ -55,7 +55,7 @@ elements = [
     {'data': {'label': 'background'}, 'classes': 'background'}
 ]
 
-with open(f'labels/cy-style.json', 'r') as f:
+with open('labels/cy-style.json', 'r') as f:
     stylesheet = json.loads(f.read())
 
 # App
