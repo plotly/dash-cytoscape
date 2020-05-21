@@ -8,6 +8,60 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
 
+
+function objectSubsectionMatch(obj, matchObj) {
+    return !Object.keys(matchObj).some(matchKey =>
+        typeof matchObj[matchKey] === 'object'
+            ? !objectSubsectionMatch(obj[matchKey], matchObj[matchKey])
+            : obj[matchKey] !== matchObj[matchKey]
+    );
+}
+
+function ctxmenuTransformJson(data, shape) {
+    // if shape is empty then just return data
+    if(typeof shape !== 'object') {
+        return data;
+    }
+
+    return shape.map(matchItem =>
+            typeof matchItem === 'object' ? matchItem : {key: matchItem}
+        )
+        .reduce((acc, property) => {
+            const {key, props, filter} = property;
+
+            if(data[key] === undefined) {
+                // do nothing
+            }
+            if(typeof property.props === 'object') {
+                if(data[key].constructor === Array) {
+                    acc[key] = data[key].map(arrItem => {
+                        if(typeof filter === 'object') {
+                            if(objectSubsectionMatch(arrItem, filter)) {
+                                return ctxmenuTransformJson(arrItem, props);
+                            }
+                        }
+                        else {
+                            return ctxmenuTransformJson(arrItem, props);
+                        }
+                    })
+                        .filter(arrItem =>
+                            arrItem !== undefined
+                        );
+                }
+                else {
+                    acc[key] = ctxmenuTransformJson(data[key], props);
+                }
+            }
+            else {
+                acc[property.key] = data[property.key];
+            }
+
+            return acc;
+        }, {});
+}
+
+
+
 /**
 A Component Library for Dash aimed at facilitating network visualization in
 Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
@@ -17,6 +71,10 @@ class Cytoscape extends Component {
         super(props);
 
         this.handleCy = this.handleCy.bind(this);
+        this.ctxmenuTranformProps = this.ctxmenuTranformProps.bind(this);
+        this.ctxmenuUpdate = this.ctxmenuUpdate.bind(this);
+
+        this._ctxmenuHashtable = {};
         this._handleCyCalled = false;
     }
 
@@ -277,6 +335,65 @@ class Cytoscape extends Component {
         cy.on('add remove', () => {
             refreshLayout();
         });
+
+        this.ctxmenuUpdate();
+    }
+
+    ctxmenuUpdate() {
+        const {ctxmenu} = this.props;
+
+        if(typeof ctxmenu !== 'object' || ctxmenu.length === 0 || !this._cy || !this._cy.cxtmenu) {
+            return;
+        }
+
+        // take all ctxmenu objects from props and hash them
+        // compare props hash to hash list to find new hashes
+        let ctxmenuNew = [];
+        let ctxmenuHashCurrent = {};
+        ctxmenu.map(ctxmenuObj => {
+            let ctxmenuHash = JSON.stringify(ctxmenuObj);
+
+            if(!this._ctxmenuHashtable[ctxmenuHash]) {
+                ctxmenuNew.push(ctxmenuHash);
+            }
+
+            ctxmenuHashCurrent[ctxmenuHash] = true;
+        });
+
+        // delete removed ctxmenus
+        Object.keys(this._ctxmenuHashtable).map(ctxmenuHash => {
+            if(!ctxmenuHashCurrent[ctxmenuHash]) {
+                this._ctxmenuHashtable[ctxmenuHash].destroy();
+                delete this._ctxmenuHashtable[ctxmenuHash];
+            }
+        });
+
+        // initialize new ctxmenus and add object from cy to ctxmenu hash table
+        ctxmenuNew.map(ctxmenuHash => {
+            this._ctxmenuHashtable[ctxmenuHash] = this._cy.cxtmenu(
+                this.ctxmenuTranformProps(ctxmenuHash)
+            );
+        });
+    }
+
+    ctxmenuTranformProps(ctxmenuStr) {
+        let ctxmenu = JSON.parse(ctxmenuStr);
+
+        for(let i = 0; i < ctxmenu.commands.length; i++) {
+            ctxmenu.commands[i].select = ele => {
+                if(typeof this.props.setProps === 'function') {
+                    this.props.setProps({
+                        ctxmenuData: {
+                            id: ctxmenu.commands[i].id,
+                            data: ctxmenuTransformJson(ele.json(), ctxmenu.commands[i].format),
+                            timestamp: Date.now()
+                        }
+                    });
+                }
+            }
+        }
+
+        return ctxmenu;
     }
 
     render() {
@@ -304,6 +421,8 @@ class Cytoscape extends Component {
             autolock,
             autounselectify
         } = this.props;
+
+        this.ctxmenuUpdate();
 
         return (
             <CytoscapeComponent
@@ -612,7 +731,85 @@ Cytoscape.propTypes = {
      * The list of data dictionaries of all selected edges (e.g. using
      * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
-    selectedEdgeData: PropTypes.array
+    selectedEdgeData: PropTypes.array,
+
+
+    /**
+     * Property that determines whether a context menu is displayed and how. Requires extra layouts loaded.
+     * Context menu is accessed by right clicking or holding down left click on an element with context menu
+     * applied. It accepts a list of dictionaries, each of which describe a specific ctxmenu.
+     * See ctxmenu documentation on github to find more information.
+     *
+     * 1. Each dictionary describes the ctxmenu which is applied to one selector.
+     *     - `selector` (string): Elements matching this Cytoscape.js selector will trigger cxtmenus.
+     *     - `commands` (dictionary): An array of commands to list in the menu or a function that returns the array.
+     *         - `id` (string): Id that is returned in the ctxmenu callback to identify specific command triggered. Required.
+     *         - `content` (string): HTML/text content to be displayed in the menu. Required.
+     *         - `contentStyle` (dictionary): CSS key:value pairs to set the command's css in js if you want.
+     *         - `enabled` (bool): Whether the command is selectable.
+     *         - `format` (array): Data structure which determines how raw information from cytoscape's json function is filtered
+     *     - `menuRadius` (number): The radius of the circular menu in pixels.
+     *     - `fillColor` (string): The background colour of the menu.
+     *     - `activeFillColor` (string): The colour used to indicate the selected command.
+     *     - `activePadding` (number): Additional size in pixels for the active command.
+     *     - `indicatorSize` (number): The size in pixels of the pointer to the active command.
+     *     - `separatorWidth` (number): Elements matching this Cytoscape.js selector will trigger cxtmenus.
+     *     - `spotlightPadding` (number): Extra spacing in pixels between the element and the spotlight.
+     *     - `minSpotlightRadius` (number): The minimum radius in pixels of the spotlight.
+     *     - `maxSpotlightRadius` (number): The maximum radius in pixels of the spotlight.
+     *     - `openMenuEvents` (string): Space-separated cytoscape events that will open the menu; only `cxttapstart` and/or `taphold` work here.
+     *     - `itemColor` (string): The colour of text in the command's content.
+     *     - `itemTextShadowColor` (string): The text shadow colour of the command's content.
+     *     - `zIndex` (number): The z-index of the ui div.
+     *     - `atMouse` (bool): Draw menu at mouse position.
+     *
+     * 2. The format array inside the `commands` dictionary which determines how information is passed back.
+     * In the format array, strings can be entered to determine which properties of the cytoscape json object are selected.
+     * Alternatively, instead of a string, a dictionary can be used to select properties more specifically. The properties of such an object are outlined below:
+     *     - `key` (string): Specifies the property to be selected in the json object.
+     *     - `props` (array): This array specifies the properties of the key which are selected.
+     *     - `filter` (dictionary): This property is only to be applied where the value of the `key` is an array of objects. This object specifies the properties and values that the object in the array must have to not be removed from the array.
+     * For an example of the capabilities of this system, please reference the ctxmenu demo.
+     */
+    ctxmenu: PropTypes.arrayOf(
+        PropTypes.shape({
+            selector: PropTypes.string,
+            commands: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.string.isRequired,
+                    content: PropTypes.string.isRequired,
+                    contentStyle: PropTypes.object,
+                    fillColor: PropTypes.string,
+                    enabled: PropTypes.bool,
+                    format: PropTypes.array
+                })
+            ),
+            menuRadius: PropTypes.number,
+            fillColor: PropTypes.string,
+            activeFillColor: PropTypes.string,
+            activePadding: PropTypes.number,
+            indicatorSize: PropTypes.number,
+            separatorWidth: PropTypes.number,
+            spotlightPadding: PropTypes.number,
+            minSpotlightRadius: PropTypes.number,
+            maxSpotlightRadius: PropTypes.number,
+            openMenuEvents: PropTypes.string,
+            itemColor: PropTypes.string,
+            itemTextShadowColor: PropTypes.string,
+            zIndex: PropTypes.number,
+            atMouse: PropTypes.bool
+        })
+    ),
+
+    /**
+     * The dictionary returned when a ctxmenu option is selected. Read-only.
+     *
+     *     1. The structure of the dictionary is as follows:
+     *         - `id` (string): User supplied string meant to identify the specific ctxmenu option triggered
+     *         - `timestamp` (number): Millisecond UNIX timestamp indicating the time the ctxmenu option was selected
+     *         - `data` (dictionary): Data dump containing information on element ctxmenu is triggered on. This data is fetched by cytoscape json function.
+     */
+    ctxmenuData: PropTypes.object
 };
 
 Cytoscape.defaultProps = {
