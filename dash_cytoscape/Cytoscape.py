@@ -170,13 +170,13 @@ Value is cleared after data is received and image is generated. This property wi
 be ignored on the initial creation of the cytoscape object and must be invoked through
 a callback after it has been rendered. The `'type'` key is required.
 The following keys are supported:
-     - `type` (string): File type to ouput of 'png', 'jpg', or 'jpeg' (alias of 'jpg')
+     - `type` (string): File type to ouput of 'svg, 'png', 'jpg', or 'jpeg' (alias of 'jpg')
      - `options` (dictionary, optional): Dictionary of options to cy.png() or cy.jpg() for
          image generation. See http://js.cytoscape.org/#core/export for details.
          For `'output'`, only 'base64' and 'base64uri' are supported.
          Default: `{'output': 'base64uri'}`.
      - `action` (string, optional): Default: `'store'`. Must be one of the following:
-         - `'store'`: Stores the image data in `imageData` and invokes
+         - `'store'`: Stores the image data (only jpg and png are supported) in `imageData` and invokes
              server-side Dash callbacks.
          - `'download'`: Downloads the image as a file with all data handling
              done client-side. No `imageData` callbacks are fired.
