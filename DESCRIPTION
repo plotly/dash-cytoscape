@@ -1,15 +1,15 @@
 Package: dashCytoscape
-Title: A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around Cytoscape.js
+Title: A Component Library for Dash aimed at facilitating network visualization in R, wrapped around Cytoscape.js
 Version: 0.1.1
-Authors @R: as.person(c(The Plotly Team <cytoscape@plot.ly>))
-Description: A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around Cytoscape.js
+Description: A Component Library for Dash aimed at facilitating network visualization in R, wrapped around Cytoscape.js
 Depends: R (>= 3.0.2)
-Imports: dash
-Suggests: testthat, roxygen2
+Imports: 
+Suggests: 
 License: MIT + file LICENSE
 URL: https://github.com/plotly/dash-cytoscape
 BugReports: https://github.com/plotly/dash-cytoscape/issues
 Encoding: UTF-8
 LazyData: true
+KeepSource: true
 Author: The Plotly Team [aut]
-Maintainer: The Plotly Team <cytoscape@plot.ly>
+Maintainer: The Plotly Team <cytoscape@plotly.com>

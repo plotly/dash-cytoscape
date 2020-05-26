@@ -10,13 +10,13 @@ A Component Library for Dash aimed at facilitating network visualization in Pyth
 }
 
 \usage{
-cytoCytoscape(id=NULL, className=NULL, style=NULL, elements=NULL,
-stylesheet=NULL, layout=NULL, pan=NULL, zoom=NULL, panningEnabled=NULL,
-userPanningEnabled=NULL, minZoom=NULL, maxZoom=NULL, zoomingEnabled=NULL,
-userZoomingEnabled=NULL, boxSelectionEnabled=NULL, autoungrabify=NULL,
-autolock=NULL, autounselectify=NULL, autoRefreshLayout=NULL, tapNode=NULL,
-tapNodeData=NULL, tapEdge=NULL, tapEdgeData=NULL, mouseoverNodeData=NULL,
-mouseoverEdgeData=NULL, selectedNodeData=NULL, selectedEdgeData=NULL)
+cytoCytoscape(id=NULL, className=NULL, style=NULL, elements=NULL, stylesheet=NULL,
+layout=NULL, pan=NULL, zoom=NULL, panningEnabled=NULL, userPanningEnabled=NULL,
+minZoom=NULL, maxZoom=NULL, zoomingEnabled=NULL, userZoomingEnabled=NULL,
+boxSelectionEnabled=NULL, autoungrabify=NULL, autolock=NULL,
+autounselectify=NULL, autoRefreshLayout=NULL, tapNode=NULL, tapNodeData=NULL,
+tapEdge=NULL, tapEdgeData=NULL, mouseoverNodeData=NULL, mouseoverEdgeData=NULL,
+selectedNodeData=NULL, selectedEdgeData=NULL)
 }
 
 \arguments{
@@ -27,7 +27,7 @@ class attribute).}
 
 \item{style}{Named list. Add inline styles to the root element.}
 
-\item{elements}{List. A list of dictionaries representing the elements of the networks.
+\item{elements}{List of named lists. A list of dictionaries representing the elements of the networks.
     1. Each dictionary describes an element, and specifies its purpose.
         - `group` (string): Either 'nodes' or 'edges'. If not given, it's automatically inferred.
         - `data` (dictionary): Element specific data.
@@ -47,7 +47,7 @@ class attribute).}
 
     2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration.}
 
-\item{stylesheet}{List. A list of dictionaries representing the styles of the elements.
+\item{stylesheet}{List of named lists. A list of dictionaries representing the styles of the elements.
     1. Each dictionary requires the following keys:
         - `selector` (string): Which elements you are styling. Generally, you select a group of elements (node, edges, both), a class (that you declare in the element dictionary), or an element by ID.
         - `style` (dictionary): What aspects of the elements you want to modify. This could be the size or color of a node, the shape of an edge arrow, or many more.
@@ -203,4 +203,3 @@ Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-
 \item{selectedEdgeData}{Unnamed list. The list of data dictionaries of all selected edges (e.g. using
 Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.}
 }
-

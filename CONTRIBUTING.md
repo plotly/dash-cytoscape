@@ -152,7 +152,7 @@ python usage.py
 ```
 
 
-Make a post in the [Dash Community Forum](https://community.plot.ly/c/dash)
+Make a post in the [Dash Community Forum](https://community.plotly.com/c/dash)
 * Title it `":mega: Announcement! New <Your Feature> - Feedback Welcome"`
 * In the description, link to the PR and any relevant issue(s)
 * Pin the topic so that it appears at the top of the forum for two weeks
@@ -200,20 +200,20 @@ Our preferred package manager for this project is Yarn. Therefore we use `yarn.l
 
 ## Financial Contributions
 
-Dash, and many of Plotly's open source products, have been funded through direct sponsorship by companies. [Get in touch](https://plot.ly/products/on-premise/) about funding feature additions, consulting, or custom app development.
+Dash, and many of Plotly's open source products, have been funded through direct sponsorship by companies. [Get in touch](https://plotly.com/products/on-premise/) about funding feature additions, consulting, or custom app development.
 
-[Dash Core Components]: https://dash.plot.ly/dash-core-components
+[Dash Core Components]: https://dash.plotly.com/dash-core-components
 [Dash HTML Components]: https://github.com/plotly/dash-html-components
-[write your own components]: https://dash.plot.ly/plugins
+[write your own components]: https://dash.plotly.com/plugins
 [Dash Component Biolerplate]: https://github.com/plotly/dash-component-boilerplate
 [issues]: https://github.com/plotly/dash-core-components/issues 
 [GitHub flow]: https://guides.github.com/introduction/flow/
 [eslintrc-react.json]: https://github.com/plotly/dash-components-archetype/blob/master/config/eslint/eslintrc-react.json
 [contributors]: https://github.com/plotly/dash-core-components/graphs/contributors
 [semantic versioning]: https://semver.org/
-[Dash Community Forum]: https://community.plot.ly/c/dash
+[Dash Community Forum]: https://community.plotly.com/c/dash
 [Confirmation Modal component]: https://github.com/plotly/dash-core-components/pull/211#issue-195280462
-[Confirmation Modal announcement]: https://community.plot.ly/t/announcing-dash-confirmation-modal-feedback-welcome/11627
-[Get in touch]: https://plot.ly/products/consulting-and-oem
+[Confirmation Modal announcement]: https://community.plotly.com/t/announcing-dash-confirmation-modal-feedback-welcome/11627
+[Get in touch]: https://plotly.com/products/consulting-and-oem
 [Documentation]: https://github.com/orgs/plotly/projects/8
 [Dash Docs]: https://github.com/plotly/dash-docs

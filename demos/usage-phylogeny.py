@@ -1,5 +1,6 @@
 # pylint: disable=W0621
 import math
+import sys
 
 import dash
 from dash.dependencies import Input, Output
@@ -11,7 +12,7 @@ try:
 except ModuleNotFoundError as e:
     print(e,
           "Please make sure biopython is installed correctly before running this example.")
-    exit(1)
+    sys.exit(1)
 
 
 def generate_elements(tree, xlen=30, ylen=30, grabbable=False):

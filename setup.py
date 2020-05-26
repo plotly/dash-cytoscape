@@ -20,7 +20,7 @@ setup(
     description=package['description'] if 'description' in package else package_name,
     long_description=io.open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
-    url='https://dash.plot.ly/cytoscape',
+    url='https://dash.plotly.com/cytoscape',
     install_requires=[
         'dash',
         'dash-html-components',

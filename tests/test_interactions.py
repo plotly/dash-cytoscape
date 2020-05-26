@@ -133,9 +133,9 @@ class Tests(IntegrationTests):
         def perform_mouseover(x, y, elem, dir_name='interactions'):
             actions.reset_actions()
             actions.move_to_element_with_offset(
-                self.driver.find_element_by_tag_name('body'), x - 100, y
+                self.driver.find_element_by_tag_name('body'), x - 50, y
             )
-            actions.move_by_offset(100, 0)
+            actions.move_by_offset(50, 0)
             actions.perform()
             time.sleep(1)
 
