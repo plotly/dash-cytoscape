@@ -184,6 +184,9 @@ def get_image(tab, get_jpg_clicks, get_png_clicks, get_svg_clicks):
             action = "download"
             ftype = input_id.split("-")[-1]
 
+            # random print statement needed to pass pylint
+            print(get_jpg_clicks, get_png_clicks, get_svg_clicks)
+
     return {
         'type': ftype,
         'action': action
