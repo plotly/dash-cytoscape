@@ -165,9 +165,7 @@ def put_image_string(data):
         Input("btn-get-jpg", "n_clicks"),
         Input("btn-get-png", "n_clicks"),
         Input("btn-get-svg", "n_clicks"),
-    ]
-
-)
+    ])
 def get_image(tab, get_jpg_clicks, get_png_clicks, get_svg_clicks):
 
     # File type to ouput of 'svg, 'png', 'jpg', or 'jpeg' (alias of 'jpg')
@@ -190,6 +188,7 @@ def get_image(tab, get_jpg_clicks, get_png_clicks, get_svg_clicks):
         'type': ftype,
         'action': action
         }
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

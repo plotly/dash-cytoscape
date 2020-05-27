@@ -128,4 +128,8 @@ The Pull Request and Issue Templates were inspired from the
 [Code](demos/usage-elements-extra.py)
 ![View usage-elements-extra on Github](demos/images/usage-elements-extra.gif)
 
+### Use export graph as image
+[Code](demos/usage-image-export.py)
+![View usage-image-export on Github](demos/images/usage-image-export.gif)
+
 For an extended gallery, visit the [demos' readme](demos/README.md).
