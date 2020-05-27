@@ -1,6 +1,5 @@
 import dash
-from dash.dependencies import Input, Output, State
-from dash.exceptions import PreventUpdate
+from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
 
@@ -148,7 +147,6 @@ app.layout = html.Div([
         html.Button("as png", id="btn-get-png"),
         html.Button("as svg", id="btn-get-svg")
     ])
-
 ])
 
 
@@ -160,7 +158,6 @@ def put_image_string(data):
     return data
 
 
-# FIX IT
 @app.callback(
     Output("cytoscape", "generateImage"),
     [
@@ -173,12 +170,12 @@ def put_image_string(data):
 )
 def get_image(tab, get_jpg_clicks, get_png_clicks, get_svg_clicks):
 
-    #File type to ouput of 'svg, 'png', 'jpg', or 'jpeg' (alias of 'jpg')
+    # File type to ouput of 'svg, 'png', 'jpg', or 'jpeg' (alias of 'jpg')
     ftype = tab
 
-    #'store': Stores the image data in 'imageData' (only jpg and png are supported)
-    #'download'`: Downloads the image as a file with all data handling
-    #'both'`: Stores image data and downloads image as file.
+    # 'store': Stores the image data in 'imageData' !only jpg/png are supported
+    # 'download'`: Downloads the image as a file with all data handling
+    # 'both'`: Stores image data and downloads image as file.
     action = 'store'
 
     ctx = dash.callback_context
@@ -190,10 +187,9 @@ def get_image(tab, get_jpg_clicks, get_png_clicks, get_svg_clicks):
             ftype = input_id.split("-")[-1]
 
     return {
-        'type':ftype,
-        'action' : action
+        'type': ftype,
+        'action': action
         }
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)

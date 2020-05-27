@@ -156,7 +156,6 @@ class Cytoscape extends Component {
             return;
         }
         this._cy = cy;
-        console.log(cy)
         window.cy = cy;
         this._handleCyCalled = true;
 
@@ -282,14 +281,18 @@ class Cytoscape extends Component {
     }
     
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
-        imageOptions = imageOptions || {}
-        var desiredOutput = imageOptions.output
-        imageOptions.output = 'blob'
+
+        let options = {}
+        if (imageOptions){
+            options = imageOptions
+        }
         
-        var downloadImage;
-        var storeImage;
+        let desiredOutput = options.output
+        options.output = 'blob'
+        
+        let downloadImage;
+        let storeImage;
         switch (actionsToPerform) {
-            case undefined:
             case 'store':
                 downloadImage = false
                 storeImage = true
@@ -302,18 +305,22 @@ class Cytoscape extends Component {
                 downloadImage = true
                 storeImage = true
                 break
+            default:
+                downloadImage = false
+                storeImage = true
+                break
         }
         
-        var output;
+        let output;
         if (imageType === 'png') {
-            output = this._cy.png(imageOptions)
+            output = this._cy.png(options)
         }
         if (imageType === 'jpg' || imageType === 'jpeg') {
-            output = this._cy.jpg(imageOptions)
+            output = this._cy.jpg(options)
         }
+        // only works when svg is imported (see lib/extra_index.js)
         if (imageType === 'svg') {
-            // only works when svg is imported (see lib/extra_index.js)
-            output = this._cy.svg(imageOptions) 
+            output = this._cy.svg(options) 
         }
         
         /*
@@ -326,22 +333,25 @@ class Cytoscape extends Component {
              * the client. This avoids transferring a potentially large image
              * to the server and back again through a callback.
              */
+            let fName = fileName
             if (!fileName) {
-                fileName = 'cyto'
+                fName = 'cyto'
             }
 
             if (imageType !== 'svg') {
-                this.downloadBlob(output, fileName + '.' + imageType)
+                this.downloadBlob(output, fName + '.' + imageType)
             }
             else {
-                var blob = new Blob([output], {type:"image/svg+xml;charset=utf-8"});
-                this.downloadBlob(blob, fileName + '.' + imageType) 
+                const blob = new Blob([output], {type:"image/svg+xml;charset=utf-8"});
+                this.downloadBlob(blob, fName + '.' + imageType) 
             }
         }
         
+
         if (output && storeImage) {
+            // Default output type if unspecified 
             if (!desiredOutput) {
-                desiredOutput = 'base64uri'     // Default output type if unspecified
+                desiredOutput = 'base64uri'
             }
             
             if (!(desiredOutput === 'base64uri' || desiredOutput === 'base64')) {
@@ -352,13 +362,13 @@ class Cytoscape extends Component {
              * Convert blob to base64uri or base64 string to store the image data.
              * Thank you, base64guru https://base64.guru/developers/javascript/examples/encode-blob
              */
-            var reader = new FileReader()
+            const reader = new FileReader()
             reader.onload = () => {
                 /* FileReader is asynchronous, so the read function is non-blocking.
                  * If this code block is placed after the read command, it
                  * may result in empty output because the blob has not been loaded yet.
                  */
-                var callbackData = reader.result
+                let callbackData = reader.result
                 if (desiredOutput === 'base64') {
                     callbackData = callbackData.replace(/^data:.+;base64,/, '')
                 }
@@ -378,7 +388,7 @@ class Cytoscape extends Component {
          * intead of downloading as a file).
          * Thank you, koldev https://jsfiddle.net/koldev/cW7W5/
          */
-        var downloadLink = document.createElement("a")
+        const downloadLink = document.createElement("a")
         downloadLink.style = "display: none"
         document.body.appendChild(downloadLink)
         
@@ -749,7 +759,7 @@ Cytoscape.propTypes = {
      * a callback after it has been rendered. The `'type'` key is required.
      * The following keys are supported:
      *      - `type` (string): File type to ouput of 'svg, 'png', 'jpg', or 'jpeg' (alias of 'jpg')
-     *      - `options` (dictionary, optional): Dictionary of options to cy.png() or cy.jpg() for
+     *      - `options` (dictionary, optional): Dictionary of options to cy.png() / cy.jpg() or cy.svg() for
      *          image generation. See http://js.cytoscape.org/#core/export for details.
      *          For `'output'`, only 'base64' and 'base64uri' are supported.
      *          Default: `{'output': 'base64uri'}`.

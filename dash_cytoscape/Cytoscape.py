@@ -171,7 +171,7 @@ be ignored on the initial creation of the cytoscape object and must be invoked t
 a callback after it has been rendered. The `'type'` key is required.
 The following keys are supported:
      - `type` (string): File type to ouput of 'svg, 'png', 'jpg', or 'jpeg' (alias of 'jpg')
-     - `options` (dictionary, optional): Dictionary of options to cy.png() or cy.jpg() for
+     - `options` (dictionary, optional): Dictionary of options to cy.png() / cy.jpg() or cy.svg() for
          image generation. See http://js.cytoscape.org/#core/export for details.
          For `'output'`, only 'base64' and 'base64uri' are supported.
          Default: `{'output': 'base64uri'}`.

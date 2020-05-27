@@ -14,6 +14,8 @@
   "scripts": {
     "start": "webpack-serve ./webpack.serve.config.js --open",
     "validate-init": "python _validate_init.py",
+    "lint:test": "eslint src",
+    "lint": "eslint src --fix",
     "build:js-dev": "webpack --mode development",
     "build:js": "webpack --mode production",
     "build:js-dev-extra": "webpack --config webpack.dev.extra.config.js",
