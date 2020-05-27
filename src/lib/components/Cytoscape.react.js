@@ -2,15 +2,11 @@
  * JavaScript Requirements: cytoscape, cytoscape-svg
  * React.js requirements: react-cytoscapejs
  */
-import cytoscape from 'cytoscape';
-import svg from 'cytoscape-svg';
-
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
-cytoscape.use( svg );
 
 /**
 A Component Library for Dash aimed at facilitating network visualization in
@@ -316,6 +312,7 @@ class Cytoscape extends Component {
             output = this._cy.jpg(imageOptions)
         }
         if (imageType === 'svg') {
+            // only works when svg is imported (see lib/extra_index.js)
             output = this._cy.svg(imageOptions) 
         }
         

@@ -6,6 +6,9 @@ import dash_html_components as html
 
 import dash_cytoscape as cyto
 
+# enable svg export
+cyto.load_extra_layouts()
+
 app = dash.Dash(__name__)
 server = app.server
 

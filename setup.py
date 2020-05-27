@@ -14,7 +14,7 @@ setup(
     version=package["version"],
     author=package['author'],
     author_email=package['author-email'],
-    packages=[package_name,package_name+".utils"],
+    packages=[package_name],
     include_package_data=True,
     license=package['license'],
     description=package['description'] if 'description' in package else package_name,
