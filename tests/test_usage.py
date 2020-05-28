@@ -65,3 +65,6 @@ class Tests(IntegrationTests):
 
     def test_usage_linkout_example(self):
         self.create_usage_test('demos.usage-linkout-example')
+
+    def test_usage_image_export(self):
+        self.create_usage_test('demos.usage-image-export')

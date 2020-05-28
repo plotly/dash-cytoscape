@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Contributed initial build of R package.
+* Added access to cytoscape.js PNG and JPG image generation API through `generateImage` and
+  `imageData` properties.
+* Added ability to download image files generated with `generateImage` client-side without sending 
+  data to the server.
+* Used the newly added `generateImage` and `imageData` properties to enable svg generation using https://github.com/kinimesi/cytoscape-svg
 
 ### Changed
 * `utils.Tree`: v0.1.1 broke compatibility with Python 2. Therefore, modified code to be compatible
