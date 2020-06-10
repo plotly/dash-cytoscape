@@ -30,6 +30,8 @@ export default class Resize {
             if(state) {
                 cy.on('render', this.updateViewport);
                 cy.on('resize', this.resize);
+
+                this.updateViewport(cy);
             }
             else {
                 cy.removeListener('render', this.updateViewport);
