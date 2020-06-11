@@ -21,7 +21,7 @@ export default class Resize {
         this.resize = this.resize.bind(this);
     }
 
-    /////////////////////////////////////////////////////////////////
+
 
     toggle(state = !this.shouldResize) {
         const cy = this.cy;
@@ -42,7 +42,7 @@ export default class Resize {
         }
     }
 
-    /////////////////////////////////////////////////////////////////
+
 
     getViewport() {
         const cy = this.cy;
@@ -60,7 +60,7 @@ export default class Resize {
         this.prev = this.getViewport(cy);
     }
 
-    /////////////////////////////////////////////////////////////////
+
 
     _xConstrainedZoom(level) {
         const {curr, prev, marginPercentage} = this;
@@ -126,7 +126,7 @@ export default class Resize {
         curr.position.y = curr.position.y + (newYCentroidPos - yCentroidPos);
     }
 
-    /////////////////////////////////////////////////////////////////
+
 
     resize() {
         const cy = this.cy;
@@ -180,7 +180,7 @@ export default class Resize {
                             this.prev.width = maxContainedWidth;
                         }
                     }
-                    else { // if(currrentState === 1) {
+                    else {
                         const intermediateTargetWidth = targetState === -1
                             ? maxContainedWidth
                             : curr.width;
@@ -199,7 +199,7 @@ export default class Resize {
                 this._xConstrainedZoom(curr.zoom);
             }
         }
-        else { // is y Constrained
+        else {
             // calculate zoom so that the width remains same
             const targetZoom = prev.zoom / prev.height * curr.height;
             if(fullyContained) {
@@ -225,7 +225,7 @@ export default class Resize {
                             this.prev.height = maxContainedHeight;
                         }
                     }
-                    else { // if(currrentState === 1) {
+                    else {
                         const intermediateTargetHeight = targetState === -1
                             ? maxContainedHeight
                             : curr.height;

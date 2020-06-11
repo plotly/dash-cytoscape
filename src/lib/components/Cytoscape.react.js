@@ -19,7 +19,7 @@ class Cytoscape extends Component {
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
         this.handleImageGeneration = this.handleImageGeneration.bind(this)
-        this.resizeClass;
+        this.resizeClass = false;
     }
 
     generateNode(event) {
@@ -449,7 +449,9 @@ class Cytoscape extends Component {
             }
         }
 
-        this.resizeClass && this.resizeClass.toggle(responsive);        
+        if (this.resizeClass) {
+            this.resizeClass.toggle(responsive);
+        }
 
         return (
             <CytoscapeComponent

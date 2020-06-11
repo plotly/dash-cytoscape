@@ -4,11 +4,11 @@ Original Demo: http://js.cytoscape.org/demos/cose-layout/
 Note: This implementation looks different from the original implementation,
 although the input paramters are exactly the same.
 """
-import urllib.request, json 
+import urllib.request
+import json
 
 import dash
-from dash.dependencies import Input, Output, State
-import dash_core_components as dcc
+from dash.dependencies import Input, Output
 import dash_html_components as html
 
 import dash_cytoscape as cyto
@@ -47,8 +47,7 @@ styles = {
 }
 
 # App
-app.layout = html.Div(
-    style=styles['container'], children=[
+app.layout = html.Div(style=styles['container'], children=[
     html.Div([
         html.Button("Responsive Toggle", id='toggle-button'),
         html.Div(id='toggle-text')
@@ -82,16 +81,18 @@ app.layout = html.Div(
     ])
 ])
 
-@app.callback(Output('cytoscape', 'responsive'),
-              [Input('toggle-button', 'n_clicks')])
+
+@app.callback(Output('cytoscape', 'responsive'), [Input('toggle-button', 'n_clicks')])
 def toggle_responsive(n_clicks):
     n_clicks = 2 if n_clicks is None else n_clicks
-    toggle_on = True if n_clicks % 2 == 0 else False
+    toggle_on = n_clicks % 2 == 0
     return toggle_on
+
 
 @app.callback(Output('toggle-text', 'children'), [Input('cytoscape', 'responsive')])
 def update_toggle_text(responsive):
     return '\t' + 'Responsive ' + ('On' if responsive else 'Off')
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
