@@ -68,3 +68,6 @@ class Tests(IntegrationTests):
 
     def test_usage_image_export(self):
         self.create_usage_test('demos.usage-image-export')
+
+    def test_usage_responsive_graph(self):
+        self.create_usage_test('demos.usage-responsive-graph')
