@@ -4,7 +4,7 @@ Original Demo: http://js.cytoscape.org/demos/cose-layout/
 Note: This implementation looks different from the original implementation,
 although the input paramters are exactly the same.
 """
-import json
+import urllib.request, json 
 
 import dash
 from dash.dependencies import Input, Output, State
@@ -20,11 +20,11 @@ app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
 # Load Data
-with open('data/cose-layout/data.json', 'r') as f:
-    elements = json.loads(f.read())
+with urllib.request.urlopen('https://js.cytoscape.org/demos/colajs-graph/data.json') as url:
+    elements = json.loads(url.read().decode())
 
-with open('data/cose-layout/cy-style.json', 'r') as f:
-    stylesheet = json.loads(f.read())
+with urllib.request.urlopen('https://js.cytoscape.org/demos/colajs-graph/cy-style.json') as url:
+    stylesheet = json.loads(url.read().decode())
 
 styles = {
     'container': {
