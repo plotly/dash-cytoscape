@@ -8,6 +8,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
 import CyResponsive from '../cyResponsive.js';
+
 /**
 A Component Library for Dash aimed at facilitating network visualization in
 Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
@@ -792,7 +793,6 @@ Cytoscape.propTypes = {
      * image was requested yet or the previous request failed. Read-only.
      */
     imageData: PropTypes.string,
-
 
     /**
      * Toggles intelligent responsive resize of Cytoscape graph with viewport size change

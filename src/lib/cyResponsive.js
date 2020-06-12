@@ -66,14 +66,14 @@ export default class cyResponsive {
     _xConstrainedZoom(level) {
         const {curr, prev, marginPercentage} = this;
 
-    // Look at constrained dimension
+        // Look at constrained dimension
         // calculate the new position needed to maintain same left/right margin percentages
         // with new zoom
         const newRenderedBBX1 = marginPercentage.left * curr.width;
 
         curr.position.x = newRenderedBBX1 + (prev.position.x - prev.renderedBB.x1);
 
-    // Look at unconstrained dimension
+        // Look at unconstrained dimension
         // get midpoint
         const midpoint = curr.renderedBB.y1 + curr.renderedBB.h / 2;
         // get new height of graph
