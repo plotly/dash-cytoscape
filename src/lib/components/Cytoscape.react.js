@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
-import Resize from './Resize.js';
+import CyResponsive from '../cyResponsive.js';
 /**
 A Component Library for Dash aimed at facilitating network visualization in
 Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
@@ -19,7 +19,7 @@ class Cytoscape extends Component {
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
         this.handleImageGeneration = this.handleImageGeneration.bind(this)
-        this.resizeClass = false;
+        this.cyResponsiveClass = false;
     }
 
     generateNode(event) {
@@ -280,8 +280,8 @@ class Cytoscape extends Component {
             refreshLayout();
         });
 
-        this.resizeClass = new Resize(cy);
-        this.resizeClass.toggle(this.props.responsive);
+        this.cyResponsiveClass = new CyResponsive(cy);
+        this.cyResponsiveClass.toggle(this.props.responsive);
     }
     
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -449,8 +449,8 @@ class Cytoscape extends Component {
             }
         }
 
-        if (this.resizeClass) {
-            this.resizeClass.toggle(responsive);
+        if (this.cyResponsiveClass) {
+            this.cyResponsiveClass.toggle(responsive);
         }
 
         return (

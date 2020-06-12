@@ -1,4 +1,5 @@
-export default class Resize {
+export default class cyResponsive {
+
     constructor(cy) {
         this.shouldResize = false;
 
