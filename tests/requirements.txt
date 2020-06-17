@@ -11,4 +11,5 @@ flake8
 pylint
 pytest-dash>=2.1.1
 colour==0.1.5
-biopython
+biopython>=1.77;python_version>="3.0"
+biopython==1.76;python_version=="2.7"
