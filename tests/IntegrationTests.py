@@ -24,7 +24,7 @@ class IntegrationTests(unittest.TestCase):
         super(IntegrationTests, cls).setUpClass()
 
         options = Options()
-        options.add_arguments("--headless")
+        options.add_argument("--headless")
         if 'DASH_TEST_CHROMEPATH' in os.environ:
             options.binary_location = os.environ['DASH_TEST_CHROMEPATH']
 
