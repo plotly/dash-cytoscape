@@ -364,6 +364,17 @@
           "value": "null",
           "computed": false
         }
+      },
+      "responsive": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "Toggles intelligent responsive resize of Cytoscape graph with viewport size change",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
       }
     }
   }

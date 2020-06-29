@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
+import CyResponsive from '../cyResponsive.js';
 
 /**
 A Component Library for Dash aimed at facilitating network visualization in
@@ -19,6 +20,7 @@ class Cytoscape extends Component {
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
         this.handleImageGeneration = this.handleImageGeneration.bind(this)
+        this.cyResponsiveClass = false;
     }
 
     generateNode(event) {
@@ -176,7 +178,7 @@ class Cytoscape extends Component {
             } = this.props;
 
             if (autoRefreshLayout) {
-                cy.layout(layout).run()
+                cy.layout(layout).run();
             }
         }, SELECT_THRESHOLD);
 
@@ -278,6 +280,9 @@ class Cytoscape extends Component {
         cy.on('add remove', () => {
             refreshLayout();
         });
+
+        this.cyResponsiveClass = new CyResponsive(cy);
+        this.cyResponsiveClass.toggle(this.props.responsive);
     }
     
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -426,7 +431,9 @@ class Cytoscape extends Component {
             autolock,
             autounselectify,
             // Image handling
-            generateImage
+            generateImage,
+            // Responsive graphs
+            responsive
         } = this.props;
         
         if (Object.keys(generateImage).length > 0) {
@@ -442,7 +449,11 @@ class Cytoscape extends Component {
                 )
             }
         }
-        
+
+        if (this.cyResponsiveClass) {
+            this.cyResponsiveClass.toggle(responsive);
+        }
+
         return (
             <CytoscapeComponent
                 id={id}
@@ -782,6 +793,11 @@ Cytoscape.propTypes = {
      * image was requested yet or the previous request failed. Read-only.
      */
     imageData: PropTypes.string,
+
+    /**
+     * Toggles intelligent responsive resize of Cytoscape graph with viewport size change
+     */
+    responsive: PropTypes.bool
 };
 
 Cytoscape.defaultProps = {
@@ -801,7 +817,8 @@ Cytoscape.defaultProps = {
     autounselectify: false,
     autoRefreshLayout: true,
     generateImage: {},
-    imageData: null
+    imageData: null,
+    responsive: false
 };
 
 export default Cytoscape;
