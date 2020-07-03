@@ -818,7 +818,8 @@ Cytoscape.defaultProps = {
     autoRefreshLayout: true,
     generateImage: {},
     imageData: null,
-    responsive: false
+    responsive: false,
+    elements: {}
 };
 
 export default Cytoscape;
