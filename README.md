@@ -174,4 +174,8 @@ The Pull Request and Issue Templates were inspired from the
 [Code](demos/usage-image-export.py)
 ![View usage-image-export on Github](demos/images/usage-image-export.gif)
 
+### Make graph responsive
+[Code](demos/usage-responsive-graph.py)
+![View usage-responsive-graph on Github](demos/images/usage-responsive-graph.gif)
+
 For an extended gallery, visit the [demos' readme](demos/README.md).
