@@ -1,7 +1,7 @@
 import io
 import json
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 with open(os.path.join('dash_cytoscape', 'package.json')) as f:
@@ -14,7 +14,7 @@ setup(
     version=package["version"],
     author=package['author'],
     author_email=package['author-email'],
-    packages=[package_name],
+    packages=find_packages(include=[package_name, package_name + ".*"]),
     include_package_data=True,
     license=package['license'],
     description=package['description'] if 'description' in package else package_name,
@@ -23,8 +23,6 @@ setup(
     url='https://dash.plotly.com/cytoscape',
     install_requires=[
         'dash',
-        'dash-html-components',
-        'dash_renderer',
     ],
     classifiers=[
         'Environment :: Web Environment',

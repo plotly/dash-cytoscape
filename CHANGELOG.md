@@ -23,6 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the node's and edge's dictionaries, respectively (e.g., 'classes', 'positions', etc.).
 * Removed `Tree`'s method `add_child`, because it is redundant with `add_children` called with an
   argument of length 1.
+* `setup.py`: Remove `dash-html-components` and `dash_renderer` from `install_requires`
+
+### Fixed
+* `setup.py`: Use `packages=find_packages(include=[package_name, package_name + ".*"])` so that all 
+  subpackages like `utils` will be included when you `pip install dash-cytoscape`.
 
 ## [0.1.1] - 2019-04-05
 
