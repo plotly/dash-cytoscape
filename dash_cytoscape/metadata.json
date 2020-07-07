@@ -115,13 +115,25 @@
       },
       "elements": {
         "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "object"
-          }
+          "name": "union",
+          "value": [
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "object"
+              }
+            },
+            {
+              "name": "object"
+            }
+          ]
         },
         "required": false,
-        "description": "A list of dictionaries representing the elements of the networks.\n    1. Each dictionary describes an element, and specifies its purpose.\n        - `group` (string): Either 'nodes' or 'edges'. If not given, it's automatically inferred.\n        - `data` (dictionary): Element specific data.\n             - `id` (string): Reference to the element, useful for selectors and edges. Randomly assigned if not given.\n             - `label` (string): Optional name for the element, useful when `data(label)` is given to a style's `content` or `label`. It is only a convention.\n             - `parent` (string): Only for nodes. Optional reference to another node. Needed to create compound nodes.\n             - `source` (string): Only for edges. The id of the source node, which is where the edge starts.\n             - `target` (string): Only for edges. The id of the target node, where the edge ends.\n        - `position` (dictionary): Only for nodes. The position of the node.\n             - `x` (number): The x-coordinate of the node.\n             - `y` (number): The y-coordinate of the node.\n        - `selected` (boolean): If the element is selected upon initialisation.\n        - `selectable` (boolean): If the element can be selected.\n        - `locked` (boolean): Only for nodes. If the position is immutable.\n        - `grabbable` (boolean): Only for nodes. If the node can be grabbed and moved by the user.\n        - `classes` (string): Space separated string of class names of the element. Those classes can be selected by a style selector.\n\n    2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration."
+        "description": "A list of dictionaries representing the elements of the networks.\n    1. Each dictionary describes an element, and specifies its purpose.\n        - `group` (string): Either 'nodes' or 'edges'. If not given, it's automatically inferred.\n        - `data` (dictionary): Element specific data.\n             - `id` (string): Reference to the element, useful for selectors and edges. Randomly assigned if not given.\n             - `label` (string): Optional name for the element, useful when `data(label)` is given to a style's `content` or `label`. It is only a convention.\n             - `parent` (string): Only for nodes. Optional reference to another node. Needed to create compound nodes.\n             - `source` (string): Only for edges. The id of the source node, which is where the edge starts.\n             - `target` (string): Only for edges. The id of the target node, where the edge ends.\n        - `position` (dictionary): Only for nodes. The position of the node.\n             - `x` (number): The x-coordinate of the node.\n             - `y` (number): The y-coordinate of the node.\n        - `selected` (boolean): If the element is selected upon initialisation.\n        - `selectable` (boolean): If the element can be selected.\n        - `locked` (boolean): Only for nodes. If the position is immutable.\n        - `grabbable` (boolean): Only for nodes. If the node can be grabbed and moved by the user.\n        - `classes` (string): Space separated string of class names of the element. Those classes can be selected by a style selector.\n\n    2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration.\nAlternatively, a dictionary with the format { 'nodes': [], 'edges': [] } is allowed at initialization, but arrays remain the recommended format.",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
       },
       "stylesheet": {
         "type": {

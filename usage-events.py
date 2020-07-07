@@ -120,8 +120,8 @@ app.layout = html.Div([
                 'name': 'preset'
             },
             style={
-                'height': '95vh',
-                'width': '100%'
+                'height': '500px',
+                'width': '500px'
             }
         )
     ]),
@@ -187,8 +187,9 @@ app.layout = html.Div([
                 ])
             ])
         ]),
+    ]),
 
-    ])
+    html.Div(id='placeholder')
 ])
 
 

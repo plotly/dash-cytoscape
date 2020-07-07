@@ -38,16 +38,14 @@ class Tests(IntegrationTests):
         click_error = "Unable to click Cytoscape nodes properly"
         mouseover_error = "Unable to mouseover Cytoscape nodes properly"
 
-        y_offset = 60
-
         # View module docstring for more information about initial positions
         init_pos = {
-            'Node 1': (62, 321 - y_offset),
-            'Node 2': (369, 628 - y_offset),
-            'Node 3': (267, 510 - 20 - y_offset),
-            'Node 4': (778, 321 - y_offset),
-            'Node 5': (471, 423 - y_offset),
-            'Node 6': (267, 526 - y_offset)
+            'Node 1': (59, 204),
+            'Node 2': (227, 373),
+            'Node 3': (171, 308 - 20),
+            'Node 4': (451, 204),
+            'Node 5': (283, 261),
+            'Node 6': (171, 308)
         }
         init_x, init_y = init_pos['Node 1']
 
