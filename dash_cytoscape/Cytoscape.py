@@ -13,7 +13,7 @@ Keyword arguments:
 - className (string; optional): Sets the class name of the element (the value of an element's html
 class attribute).
 - style (dict; default {width: '600px', height: '600px'}): Add inline styles to the root element.
-- elements (list of dicts; optional): A list of dictionaries representing the elements of the networks.
+- elements (list of dicts | dict; optional): A list of dictionaries representing the elements of the networks.
     1. Each dictionary describes an element, and specifies its purpose.
         - `group` (string): Either 'nodes' or 'edges'. If not given, it's automatically inferred.
         - `data` (dictionary): Element specific data.
@@ -32,6 +32,7 @@ class attribute).
         - `classes` (string): Space separated string of class names of the element. Those classes can be selected by a style selector.
 
     2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration.
+Alternatively, a dictionary with the format { 'nodes': [], 'edges': [] } is allowed at initialization, but arrays remain the recommended format.
 - stylesheet (list of dicts; optional): A list of dictionaries representing the styles of the elements.
     1. Each dictionary requires the following keys:
         - `selector` (string): Which elements you are styling. Generally, you select a group of elements (node, edges, both), a class (that you declare in the element dictionary), or an element by ID.

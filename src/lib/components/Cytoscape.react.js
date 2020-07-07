@@ -530,8 +530,9 @@ Cytoscape.propTypes = {
      *         - `classes` (string): Space separated string of class names of the element. Those classes can be selected by a style selector.
      *
      *     2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration.
+     * Alternatively, a dictionary with the format { 'nodes': [], 'edges': [] } is allowed at initialization, but arrays remain the recommended format.
      */
-    elements: PropTypes.arrayOf(PropTypes.object),
+    elements: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.object]),
 
     /**
      * A list of dictionaries representing the styles of the elements.
@@ -819,7 +820,7 @@ Cytoscape.defaultProps = {
     generateImage: {},
     imageData: null,
     responsive: false,
-    elements: {}
+    elements: []
 };
 
 export default Cytoscape;
