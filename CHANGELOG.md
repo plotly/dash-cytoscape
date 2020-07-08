@@ -9,13 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Contributed initial build of R package.
 * Added access to cytoscape.js PNG and JPG image generation API through `generateImage` and
-  `imageData` properties.
+  `imageData` properties (PR [#88](https://github.com/plotly/dash-cytoscape/pull/88)).
 * Added ability to download image files generated with `generateImage` client-side without sending 
-  data to the server.
-* Used the newly added `generateImage` and `imageData` properties to enable svg generation using https://github.com/kinimesi/cytoscape-svg
-* Added responsive cytoscape.js graph feature toggled using the `responsive` property.
+  data to the server (PR [#88](https://github.com/plotly/dash-cytoscape/pull/88)).
+* Used the newly added `generateImage` and `imageData` properties to enable svg generation using [cytoscape-svg](https://github.com/kinimesi/cytoscape-svg).
+* Added responsive cytoscape.js graph feature toggled using the `responsive` property (PR [#93](https://github.com/plotly/dash-cytoscape/pull/92)).
 * One new demo:
     * `demos/usage-responsive-graph.py`: Example of graph with the ability to toggle the responsive feature on and off.
+    * `demos/usage-image-export.py`: Shows how to export images as JPG, PNG or SVG.
 
 ### Changed
 * `utils.Tree`: v0.1.1 broke compatibility with Python 2. Therefore, modified code to be compatible
@@ -23,11 +24,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the node's and edge's dictionaries, respectively (e.g., 'classes', 'positions', etc.).
 * Removed `Tree`'s method `add_child`, because it is redundant with `add_children` called with an
   argument of length 1.
-* `setup.py`: Remove `dash-html-components` and `dash_renderer` from `install_requires`
+* `setup.py`: Remove `dash-html-components` and `dash_renderer` from `install_requires`.
+* `usage-events.py`: Fix the size of the cytoscape graph to 500px by 500px.
 
 ### Fixed
 * `setup.py`: Use `packages=find_packages(include=[package_name, package_name + ".*"])` so that all 
   subpackages like `utils` will be included when you `pip install dash-cytoscape`.
+* Issue where `dash-cytoscape` cannot read property of 'length' of undefined when elements is not specified.
+* `tests.test_interactions`.
 
 ## [0.1.1] - 2019-04-05
 
