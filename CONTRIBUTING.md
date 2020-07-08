@@ -10,7 +10,7 @@ Please follow the following steps for local testing:
 ```commandline
 git clone https://github.com/plotly/dash-cytoscape.git
 ```
-2. In order to run the Python builds (`npm run build:py`) you need to create a 
+2. In order to run the Python builds (`yarn run build:py`) you need to create a 
 venv for this project. Make sure you have `virtualenv` correctly installed and run this:
 ```commandline
 mkdir dash_cytoscape_dev
@@ -30,6 +30,13 @@ venv\Scripts\activate
 yarn
 yarn run build:all
 ```
+
+#### Preferred package manager
+Our preferred package manager for this project is Yarn. Therefore we use `yarn.lock` rather than `package-lock.json`. 
+* If you are contributing a PR to dash-cytoscape, we encourage you to also use `yarn`.
+* If during your PR, you accidentally created a `package-lock.json`, you can just delete it and update `yarn.lock` instead before the PR is merged.
+* If you decide to start using `npm` to manage a personal or custom version of `dash-cytoscape`, you are free to do so. However, it  will create a `package-lock.json`, so it is preferable that you delete `yarn.lock`.
+* If you later decide to contribute that custom version of `dash-cytoscape` as a PR, make sure to follow the first two bullet points.
 
 ## Coding Style
 
@@ -108,7 +115,7 @@ Those tests are rendered into images located inside `tests/screenshots`, which a
 
 ## Publishing
 
-Create a pull request and tag the Plotly team (`@plotly/dash_bio`) and tag / request review from [@xhlulu](https://github.com/xhlulu).
+Create a pull request and tag the Plotly team (`@plotly/dash`) and tag / request review from [@xhlulu](https://github.com/xhlulu).
 
 After a review has been done and your changes have been approved, create a prerelease and comment in the PR. Version numbers should follow [semantic versioning][].
 
@@ -119,7 +126,7 @@ To publish or create a prerelease:
 3. Once the pull request is merged into master:
 4. Build
 ```
-npm run build:all
+yarn run build:all
 ```
 5. Create distribution tarball
 ```
@@ -136,7 +143,7 @@ python usage.py
 ```
 7. If the examples work, then publish:
 ```
-npm publish
+yarn publish
 twine upload dist/dash_cytoscape-x.x.x.tar.gz
 ```
 8. Tag your release with git:
@@ -160,7 +167,7 @@ Make a post in the [Dash Community Forum](https://community.plotly.com/c/dash)
 ## [Checklists](http://rs.io/unreasonable-effectiveness-of-checklists/)
 **Beginner tip:** _Copy and paste this section as a comment in your PR, then check off the boxes as you go!_
 ### Pre-Merge checklist
-- [ ] The project was correctly built with `npm run build:all`.
+- [ ] The project was correctly built with `yarn run build:all`.
 - [ ] If there was any conflict, it was solved correctly
 - [ ] All changes were documented in CHANGELOG.md.
 - [ ] All tests on CircleCI have passed.
@@ -190,12 +197,7 @@ Complete the "Publishing" section.
 - [ ] Step 1 and 2 of Post-merge checklist are completed.
 - [ ] You have closed all issues that this pull request solves, and commented the new version number users should install.
 - [ ] If significant enough, you have created an issue about documenting the new feature or change and you have added it to the [Documentation] project.
-- [ ] You have created a pull request in [Dash Docs] with the new release of your feature by editing that project's [`requirements.txt` file](https://github.com/plotly/dash-docs/blob/master/requirements.txt) and you have assigned `@chriddyp` to review.
-
-## Notes
-
-#### Package manager
-Our preferred package manager for this project is Yarn. Therefore we use `yarn.lock` rather than `package-lock.json`. If you decide to start using npm for package management (which will create package-lock.json) and you commit this project to Dokku, make sure to delete `yarn.lock`.
+- [ ] You have created a pull request in [Dash Docs] with the new release of your feature by editing that project's [`requirements.txt` file](https://github.com/plotly/dash-docs/blob/master/requirements.txt) and you have assigned `@plotly/dash` to review.
 
 
 ## Financial Contributions
