@@ -12,26 +12,20 @@ A Dash component library for creating interactive and customizable networks in P
 * 🗺 [Component Reference](https://dash.plotly.com/cytoscape/reference)
 * 📺 [Webinar Recording](https://www.youtube.com/watch?v=snXcIsCMQgk)
 
-## Getting Started
+## Getting Started in Python
 
-### Prerequisites (Python)
+### Prerequisites
 
 Make sure that dash and its dependent libraries are correctly installed:
 ```commandline
-pip install dash dash-html-components
+pip install dash
 ```
 
 If you want to install the latest versions, check out the [Dash docs on installation](https://dash.plotly.com/installation).
 
-### Prerequisites (R)
+### Usage
 
-```R
-install.packages(c("devtools", "dash"))
-```
-
-### Usage (Python)
-
-Install the library using pip:
+Install the library using `pip`:
 
 ```
 pip install dash-cytoscape
@@ -63,7 +57,34 @@ if __name__ == '__main__':
 
 ![basic-usage](https://raw.githubusercontent.com/plotly/dash-cytoscape/master/demos/images/basic-usage.gif)
 
-### Usage (R)
+### External layouts
+
+You can also add external layouts. Use the `cyto.load_extra_layouts()` function to get started:
+
+```python
+import dash
+import dash_cytoscape as cyto
+import dash_html_components as html
+
+cyto.load_extra_layouts()
+
+app = dash.Dash(__name__)
+app.layout = html.Div([
+    cyto.Cytoscape(...)
+])
+```
+
+Calling `cyto.load_extra_layouts()` also enables generating SVG images.
+
+
+## Getting Started in R
+
+### Prerequisites
+
+```R
+install.packages(c("devtools", "dash"))
+```
+### Usage
 
 Install the library using devtools:
 
@@ -100,23 +121,6 @@ app$layout(
 app$run_server()
 ```
 
-### External layouts
-
-You can also add external layouts. Use the `cyto.load_extra_layouts()` function to get started:
-
-```python
-import dash
-import dash_cytoscape as cyto
-import dash_html_components as html
-
-cyto.load_extra_layouts()
-
-app = dash.Dash(__name__)
-app.layout = html.Div([
-    cyto.Cytoscape(...)
-])
-```
-
 ## Documentation
 
 The [Dash Cytoscape User Guide](https://dash.plotly.com/cytoscape/) contains everything you need to know about the library. It contains useful examples, functioning code, and is fully interactive. You can also use the [component reference](https://dash.plotly.com/cytoscape/reference/) for a complete and concise specification of the API. 
@@ -127,7 +131,11 @@ For supplementary information about the underlying Javascript  API, view the [Cy
 
 ## Contributing
 
-Make sure that you have read and understood our [code of conduct](CODE_OF_CONDUCT.md), then head over to [CONTRIBUTING](CONTRIBUTING.md) to get started. 
+Make sure that you have read and understood our [code of conduct](CODE_OF_CONDUCT.md), then head over to [CONTRIBUTING](CONTRIBUTING.md) to get started.
+
+### Testing
+
+Instructions on how to run [tests](CONTRIBUTING.md#tests) are given in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
