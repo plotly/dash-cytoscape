@@ -27,9 +27,13 @@ venv\Scripts\activate
 
 3. Install the JavaScript dependencies and build the code:
 ```commandline
-yarn
-yarn run build:all
+npm install
+npm run build:all
 ```
+
+#### Package manager
+
+Before v0.2.0, our preferred package manager for this project is Yarn. Starting with v0.2.0, we will be using `npm` in order to create less confusion and ensure a unified package manager with other Dash components. Therefore we use `package-lock.json` rather than `yarn.lock.`. If you are contributing a PR to dash-cytoscape, we encourage you to also use `npm`.
 
 ## Coding Style
 
@@ -108,7 +112,7 @@ Those tests are rendered into images located inside `tests/screenshots`, which a
 
 ## Publishing
 
-Create a pull request and tag the Plotly team (`@plotly/dash_bio`) and tag / request review from [@xhlulu](https://github.com/xhlulu).
+Create a pull request and tag the Plotly team (`@plotly/dash-core`) and tag / request review from [@xhlulu](https://github.com/xhlulu).
 
 After a review has been done and your changes have been approved, create a prerelease and comment in the PR. Version numbers should follow [semantic versioning][].
 
@@ -190,12 +194,7 @@ Complete the "Publishing" section.
 - [ ] Step 1 and 2 of Post-merge checklist are completed.
 - [ ] You have closed all issues that this pull request solves, and commented the new version number users should install.
 - [ ] If significant enough, you have created an issue about documenting the new feature or change and you have added it to the [Documentation] project.
-- [ ] You have created a pull request in [Dash Docs] with the new release of your feature by editing that project's [`requirements.txt` file](https://github.com/plotly/dash-docs/blob/master/requirements.txt) and you have assigned `@chriddyp` to review.
-
-## Notes
-
-#### Package manager
-Our preferred package manager for this project is Yarn. Therefore we use `yarn.lock` rather than `package-lock.json`. If you decide to start using npm for package management (which will create package-lock.json) and you commit this project to Dokku, make sure to delete `yarn.lock`.
+- [ ] You have created a pull request in [Dash Docs] with the new release of your feature by editing that project's [`requirements.txt` file](https://github.com/plotly/dash-docs/blob/master/requirements.txt).
 
 
 ## Financial Contributions

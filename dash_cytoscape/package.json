@@ -41,7 +41,7 @@
     "lodash": "^4.17.11",
     "ramda": "^0.25.0",
     "react": "15.4.2",
-    "react-cytoscapejs": "1.1.0",
+    "react-cytoscapejs": "1.2.1",
     "react-dom": "15.4.2"
   },
   "devDependencies": {
