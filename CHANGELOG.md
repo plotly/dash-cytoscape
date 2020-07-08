@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   argument of length 1.
 * `setup.py`: Remove `dash-html-components` and `dash_renderer` from `install_requires`.
 * `usage-events.py`: Fix the size of the cytoscape graph to 500px by 500px.
+* Upgrade `react-cytoscape.js` to latest, `yarn upgrade` to latest packages for everything in `yarn.lock`.
 
 ### Fixed
 * `setup.py`: Use `packages=find_packages(include=[package_name, package_name + ".*"])` so that all 
