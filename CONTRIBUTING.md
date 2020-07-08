@@ -10,7 +10,7 @@ Please follow the following steps for local testing:
 ```commandline
 git clone https://github.com/plotly/dash-cytoscape.git
 ```
-2. In order to run the Python builds (`yarn run build:py`) you need to create a 
+2. In order to run the Python builds (`npm run build:py`) you need to create a 
 venv for this project. Make sure you have `virtualenv` correctly installed and run this:
 ```commandline
 mkdir dash_cytoscape_dev
@@ -27,16 +27,13 @@ venv\Scripts\activate
 
 3. Install the JavaScript dependencies and build the code:
 ```commandline
-yarn
-yarn run build:all
+npm install
+npm run build:all
 ```
 
-#### Preferred package manager
-Our preferred package manager for this project is Yarn. Therefore we use `yarn.lock` rather than `package-lock.json`. 
-* If you are contributing a PR to dash-cytoscape, we encourage you to also use `yarn`.
-* If during your PR, you accidentally created a `package-lock.json`, you can just delete it and update `yarn.lock` instead before the PR is merged.
-* If you decide to start using `npm` to manage a personal or custom version of `dash-cytoscape`, you are free to do so. However, it  will create a `package-lock.json`, so it is preferable that you delete `yarn.lock`.
-* If you later decide to contribute that custom version of `dash-cytoscape` as a PR, make sure to follow the first two bullet points.
+#### Package manager
+
+Before v0.2.0, our preferred package manager for this project is Yarn. Starting with v0.2.0, we will be using `npm` in order to create less confusion and ensure a unified package manager with other Dash components. Therefore we use `package-lock.json` rather than `yarn.lock.`. If you are contributing a PR to dash-cytoscape, we encourage you to also use `npm`.
 
 ## Coding Style
 
@@ -126,7 +123,7 @@ To publish or create a prerelease:
 3. Once the pull request is merged into master:
 4. Build
 ```
-yarn run build:all
+npm run build:all
 ```
 5. Create distribution tarball
 ```
@@ -143,7 +140,7 @@ python usage.py
 ```
 7. If the examples work, then publish:
 ```
-yarn publish
+npm publish
 twine upload dist/dash_cytoscape-x.x.x.tar.gz
 ```
 8. Tag your release with git:
@@ -167,7 +164,7 @@ Make a post in the [Dash Community Forum](https://community.plotly.com/c/dash)
 ## [Checklists](http://rs.io/unreasonable-effectiveness-of-checklists/)
 **Beginner tip:** _Copy and paste this section as a comment in your PR, then check off the boxes as you go!_
 ### Pre-Merge checklist
-- [ ] The project was correctly built with `yarn run build:all`.
+- [ ] The project was correctly built with `npm run build:all`.
 - [ ] If there was any conflict, it was solved correctly
 - [ ] All changes were documented in CHANGELOG.md.
 - [ ] All tests on CircleCI have passed.

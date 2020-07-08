@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     * `demos/usage-image-export.py`: Shows how to export images as JPG, PNG or SVG.
 
 ### Changed
+* Changed the official package manager from `yarn` to `npm`.
 * `utils.Tree`: v0.1.1 broke compatibility with Python 2. Therefore, modified code to be compatible
   with Python 2. Added `props` and `edge_props` properties to accept arguments passed directly to
   the node's and edge's dictionaries, respectively (e.g., 'classes', 'positions', etc.).
@@ -26,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   argument of length 1.
 * `setup.py`: Remove `dash-html-components` and `dash_renderer` from `install_requires`.
 * `usage-events.py`: Fix the size of the cytoscape graph to 500px by 500px.
-* Upgrade `react-cytoscape.js` to latest, `yarn upgrade` to latest packages for everything in `yarn.lock`.
+* Upgrade `react-cytoscape.js` to latest.
 
 ### Fixed
 * `setup.py`: Use `packages=find_packages(include=[package_name, package_name + ".*"])` so that all 
