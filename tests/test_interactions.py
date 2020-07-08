@@ -40,12 +40,12 @@ class Tests(IntegrationTests):
 
         # View module docstring for more information about initial positions
         init_pos = {
-            'Node 1': (59, 204),
-            'Node 2': (227, 373),
-            'Node 3': (171, 308 - 20),
-            'Node 4': (451, 204),
-            'Node 5': (283, 261),
-            'Node 6': (171, 308)
+            'Node 1': (59, 182),
+            'Node 2': (222, 345),
+            'Node 3': (168, 283 - 20),
+            'Node 4': (440, 182),
+            'Node 5': (277, 236),
+            'Node 6': (168, 283)
         }
         init_x, init_y = init_pos['Node 1']
 
