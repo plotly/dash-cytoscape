@@ -20,8 +20,8 @@ What does this implement/fix? Explain your changes.
 -->
 
 ## Pre-Merge checklist
-- [ ] The project was correctly built with `npm run build:all`.
-- [ ] If there was any conflict, it was solved correctly
+- [ ] The project was correctly built with `yarn run build:all`.
+- [ ] If there was any conflict, it was solved correctly.
 - [ ] All changes were documented in CHANGELOG.md.
 - [ ] All tests on CircleCI have passed.
 - [ ] All Percy visual changes have been approved.
