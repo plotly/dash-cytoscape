@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 20120-07-09
+
 ### Added
 * Contributed initial build of R package.
 * Added access to cytoscape.js PNG and JPG image generation API through `generateImage` and
