@@ -10,8 +10,6 @@ import _ from 'lodash';
 import CyResponsive from '../cyResponsive.js';
 import CyCtxMenu from '../cyCtxMenu.js';
 
-
-
 /**
 A Component Library for Dash aimed at facilitating network visualization in
 Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
@@ -25,6 +23,7 @@ class Cytoscape extends Component {
         this._handleCyCalled = false;
 
         this.handleImageGeneration = this.handleImageGeneration.bind(this)
+
         this.cyResponsiveClass = false;
         this.cyCtxMenuClass = false;
     }

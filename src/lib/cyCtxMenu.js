@@ -57,8 +57,8 @@ export default class cyCtxMenu {
         this.ctxmenuUpdate = this.ctxmenuUpdate.bind(this);
         this.ctxmenuTranformProps = this.ctxmenuTranformProps.bind(this);
 
-        this._ctxmenuHashtable = {};
-        this._cy = cy;
+        this.ctxmenuHashtable = {};
+        this.cy = cy;
         this.setProps = null;
     }
 
@@ -66,7 +66,7 @@ export default class cyCtxMenu {
         const {ctxmenu, setProps} = props;
         this.setProps = setProps;
 
-        if(typeof ctxmenu !== 'object' || ctxmenu.length === 0 || !this._cy || !this._cy.cxtmenu) {
+        if(typeof ctxmenu !== 'object' || ctxmenu.length === 0 || !this.cy || !this.cy.cxtmenu) {
             return;
         }
 
@@ -77,7 +77,7 @@ export default class cyCtxMenu {
         ctxmenu.map(ctxmenuObj => {
             let ctxmenuHash = JSON.stringify(ctxmenuObj);
 
-            if(!this._ctxmenuHashtable[ctxmenuHash]) {
+            if(!this.ctxmenuHashtable[ctxmenuHash]) {
                 ctxmenuNew.push(ctxmenuHash);
             }
 
@@ -85,16 +85,16 @@ export default class cyCtxMenu {
         });
 
         // delete removed ctxmenus
-        Object.keys(this._ctxmenuHashtable).map(ctxmenuHash => {
+        Object.keys(this.ctxmenuHashtable).map(ctxmenuHash => {
             if(!ctxmenuHashCurrent[ctxmenuHash]) {
-                this._ctxmenuHashtable[ctxmenuHash].destroy();
-                delete this._ctxmenuHashtable[ctxmenuHash];
+                this.ctxmenuHashtable[ctxmenuHash].destroy();
+                delete this.ctxmenuHashtable[ctxmenuHash];
             }
         });
 
         // initialize new ctxmenus and add object from cy to ctxmenu hash table
         ctxmenuNew.map(ctxmenuHash => {
-            this._ctxmenuHashtable[ctxmenuHash] = this._cy.cxtmenu(
+            this.ctxmenuHashtable[ctxmenuHash] = this.cy.cxtmenu(
                 this.ctxmenuTranformProps(ctxmenuHash)
             );
         });
