@@ -101,9 +101,8 @@ app.layout = html.Div([
                         'content': 'Node Option 1',
                         'id': '1',
                         'format': [
-                            "position",
+                            'group',
                             {'key': 'position', 'props': ['x']},
-                            "group"
                         ]
                     },
                     {
