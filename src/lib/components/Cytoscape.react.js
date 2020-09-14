@@ -8,58 +8,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
 import CyResponsive from '../cyResponsive.js';
-
-
-function objectSubsectionMatch(obj, matchObj) {
-    return !Object.keys(matchObj).some(matchKey =>
-        typeof matchObj[matchKey] === 'object'
-            ? !objectSubsectionMatch(obj[matchKey], matchObj[matchKey])
-            : obj[matchKey] !== matchObj[matchKey]
-    );
-}
-
-function ctxmenuTransformJson(data, shape) {
-    // if shape is empty then just return data
-    if(typeof shape !== 'object') {
-        return data;
-    }
-
-    return shape.map(matchItem =>
-            typeof matchItem === 'object' ? matchItem : {key: matchItem}
-        )
-        .reduce((acc, property) => {
-            const {key, props, filter} = property;
-
-            if(data[key] === undefined) {
-                // do nothing
-            }
-            if(typeof property.props === 'object') {
-                if(data[key].constructor === Array) {
-                    acc[key] = data[key].map(arrItem => {
-                        if(typeof filter === 'object') {
-                            if(objectSubsectionMatch(arrItem, filter)) {
-                                return ctxmenuTransformJson(arrItem, props);
-                            }
-                        }
-                        else {
-                            return ctxmenuTransformJson(arrItem, props);
-                        }
-                    })
-                        .filter(arrItem =>
-                            arrItem !== undefined
-                        );
-                }
-                else {
-                    acc[key] = ctxmenuTransformJson(data[key], props);
-                }
-            }
-            else {
-                acc[property.key] = data[property.key];
-            }
-
-            return acc;
-        }, {});
-}
+import CyCtxMenu from '../cyCtxMenu.js';
 
 
 
@@ -72,13 +21,12 @@ class Cytoscape extends Component {
         super(props);
 
         this.handleCy = this.handleCy.bind(this);
-        this.ctxmenuTranformProps = this.ctxmenuTranformProps.bind(this);
-        this.ctxmenuUpdate = this.ctxmenuUpdate.bind(this);
 
-        this._ctxmenuHashtable = {};
         this._handleCyCalled = false;
+
         this.handleImageGeneration = this.handleImageGeneration.bind(this)
         this.cyResponsiveClass = false;
+        this.cyCtxMenuClass = false;
     }
 
     generateNode(event) {
@@ -342,7 +290,8 @@ class Cytoscape extends Component {
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
 
-        this.ctxmenuUpdate();
+        this.cyCtxMenuClass = new CyCtxMenu(cy);
+        this.cyCtxMenuClass.ctxmenuUpdate(this.props);
     }
     
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -466,63 +415,6 @@ class Cytoscape extends Component {
         document.body.removeChild(downloadLink)
     }
 
-    ctxmenuUpdate() {
-        const {ctxmenu} = this.props;
-
-        if(typeof ctxmenu !== 'object' || ctxmenu.length === 0 || !this._cy || !this._cy.cxtmenu) {
-            return;
-        }
-
-        // take all ctxmenu objects from props and hash them
-        // compare props hash to hash list to find new hashes
-        let ctxmenuNew = [];
-        let ctxmenuHashCurrent = {};
-        ctxmenu.map(ctxmenuObj => {
-            let ctxmenuHash = JSON.stringify(ctxmenuObj);
-
-            if(!this._ctxmenuHashtable[ctxmenuHash]) {
-                ctxmenuNew.push(ctxmenuHash);
-            }
-
-            ctxmenuHashCurrent[ctxmenuHash] = true;
-        });
-
-        // delete removed ctxmenus
-        Object.keys(this._ctxmenuHashtable).map(ctxmenuHash => {
-            if(!ctxmenuHashCurrent[ctxmenuHash]) {
-                this._ctxmenuHashtable[ctxmenuHash].destroy();
-                delete this._ctxmenuHashtable[ctxmenuHash];
-            }
-        });
-
-        // initialize new ctxmenus and add object from cy to ctxmenu hash table
-        ctxmenuNew.map(ctxmenuHash => {
-            this._ctxmenuHashtable[ctxmenuHash] = this._cy.cxtmenu(
-                this.ctxmenuTranformProps(ctxmenuHash)
-            );
-        });
-    }
-
-    ctxmenuTranformProps(ctxmenuStr) {
-        let ctxmenu = JSON.parse(ctxmenuStr);
-
-        for(let i = 0; i < ctxmenu.commands.length; i++) {
-            ctxmenu.commands[i].select = ele => {
-                if(typeof this.props.setProps === 'function') {
-                    this.props.setProps({
-                        ctxmenuData: {
-                            id: ctxmenu.commands[i].id,
-                            data: ctxmenuTransformJson(ele.json(), ctxmenu.commands[i].format),
-                            timestamp: Date.now()
-                        }
-                    });
-                }
-            }
-        }
-
-        return ctxmenu;
-    }
-
     render() {
         const {
             // HTML attribute props
@@ -571,7 +463,9 @@ class Cytoscape extends Component {
             this.cyResponsiveClass.toggle(responsive);
         }
 
-        this.ctxmenuUpdate();
+        if (this.cyCtxMenu) {
+            this.cyCtxMenuClass.ctxmenuUpdate(this.props);
+        }
 
         return (
             <CytoscapeComponent
