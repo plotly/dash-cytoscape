@@ -5,6 +5,7 @@ jobs:
         docker:
             - image: circleci/node:8.11.3
 
+
         steps:
             - checkout
 
@@ -24,6 +25,7 @@ jobs:
                 name: Run eslint
                 command: ./node_modules/.bin/eslint src
                 when: always
+
 
 
     "python-3.6": &test-template
