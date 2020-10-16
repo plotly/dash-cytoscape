@@ -17,6 +17,7 @@ class Tests(IntegrationTests):
             EC.presence_of_element_located((By.ID, "cytoscape"))
         )
 
+        
         def create_input_and_save(css_selector,
                                   dir_name,
                                   options,
@@ -214,6 +215,7 @@ class Tests(IntegrationTests):
             options=['5', '2'],
             prefix='NodeBorderWidth'
         )
+        
 
         create_input_and_save(
             css_selector='input#dropdown-node-border-style',
