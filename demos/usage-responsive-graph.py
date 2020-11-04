@@ -76,7 +76,7 @@ app.layout = html.Div(style=styles['container'], children=[
                 'coolingFactor': 0.95,
                 'minTemp': 1.0
             },
-            responsive=True
+            responsive=False
         )
     ])
 ])
@@ -85,7 +85,7 @@ app.layout = html.Div(style=styles['container'], children=[
 @app.callback(Output('cytoscape', 'responsive'), [Input('toggle-button', 'n_clicks')])
 def toggle_responsive(n_clicks):
     n_clicks = 2 if n_clicks is None else n_clicks
-    toggle_on = n_clicks % 2 == 0
+    toggle_on = n_clicks % 2 == 1
     return toggle_on
 
 

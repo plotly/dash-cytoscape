@@ -281,8 +281,11 @@ class Cytoscape extends Component {
             refreshLayout();
         });
 
-        this.cyResponsiveClass = new CyResponsive(cy);
-        this.cyResponsiveClass.toggle(this.props.responsive);
+        
+        if (this.props.responsive && !this.cyResponsiveClass) {
+            this.cyResponsiveClass = new CyResponsive(cy);
+            this.cyResponsiveClass.toggle(this.props.responsive);
+        }
     }
     
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -450,9 +453,14 @@ class Cytoscape extends Component {
             }
         }
 
-        if (this.cyResponsiveClass) {
-            this.cyResponsiveClass.toggle(responsive);
+        if (this.props.responsive && !this.cyResponsiveClass && this._cy){
+            this.cyResponsiveClass = new CyResponsive(this._cy);
         }
+
+        if (this.cyResponsiveClass){
+            this.cyResponsiveClass.toggle(this.props.responsive);
+        }
+
 
         return (
             <CytoscapeComponent
