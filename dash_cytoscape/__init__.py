@@ -12,7 +12,7 @@ from ._imports_ import __all__
 from . import utils
 
 
-if not hasattr(_dash, 'development'):
+if not hasattr(_dash, '__plotly_dash') and not hasattr(_dash, 'development'):
     print('Dash was not successfully imported. '
           'Make sure you don\'t have a file '
           'named \n"dash.py" in your current directory.', file=_sys.stderr)
