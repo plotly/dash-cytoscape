@@ -8,6 +8,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
 import CyResponsive from '../cyResponsive.js';
+import CyCtxMenu from '../cyCtxMenu.js';
 
 /**
 A Component Library for Dash aimed at facilitating network visualization in
@@ -18,9 +19,13 @@ class Cytoscape extends Component {
         super(props);
 
         this.handleCy = this.handleCy.bind(this);
+
         this._handleCyCalled = false;
+
         this.handleImageGeneration = this.handleImageGeneration.bind(this)
+
         this.cyResponsiveClass = false;
+        this.cyCtxMenuClass = false;
     }
 
     generateNode(event) {
@@ -283,6 +288,9 @@ class Cytoscape extends Component {
 
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
+
+        this.cyCtxMenuClass = new CyCtxMenu(cy);
+        this.cyCtxMenuClass.ctxmenuUpdate(this.props);
     }
     
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -452,6 +460,10 @@ class Cytoscape extends Component {
 
         if (this.cyResponsiveClass) {
             this.cyResponsiveClass.toggle(responsive);
+        }
+
+        if (this.cyCtxMenu) {
+            this.cyCtxMenuClass.ctxmenuUpdate(this.props);
         }
 
         return (
@@ -798,7 +810,84 @@ Cytoscape.propTypes = {
     /**
      * Toggles intelligent responsive resize of Cytoscape graph with viewport size change
      */
-    responsive: PropTypes.bool
+    responsive: PropTypes.bool,
+
+    /**
+     * Property that determines whether a context menu is displayed and how. Requires extra layouts loaded.
+     * Context menu is accessed by right clicking or holding down left click on an element with context menu
+     * applied. It accepts a list of dictionaries, each of which describe a specific ctxmenu.
+     * See ctxmenu documentation on github to find more information.
+     *
+     * 1. Each dictionary describes the ctxmenu which is applied to one selector.
+     *     - `selector` (string): Elements matching this Cytoscape.js selector will trigger cxtmenus.
+     *     - `commands` (dictionary): An array of commands to list in the menu or a function that returns the array.
+     *         - `id` (string): Id that is returned in the ctxmenu callback to identify specific command triggered. Required.
+     *         - `content` (string): HTML/text content to be displayed in the menu. Required.
+     *         - `contentStyle` (dictionary): CSS key:value pairs to set the command's css in js if you want.
+     *         - `enabled` (bool): Whether the command is selectable.
+     *         - `format` (array): Data structure which determines how raw information from cytoscape's json function is filtered
+     *     - `menuRadius` (number): The radius of the circular menu in pixels.
+     *     - `fillColor` (string): The background colour of the menu.
+     *     - `activeFillColor` (string): The colour used to indicate the selected command.
+     *     - `activePadding` (number): Additional size in pixels for the active command.
+     *     - `indicatorSize` (number): The size in pixels of the pointer to the active command.
+     *     - `separatorWidth` (number): Elements matching this Cytoscape.js selector will trigger cxtmenus.
+     *     - `spotlightPadding` (number): Extra spacing in pixels between the element and the spotlight.
+     *     - `minSpotlightRadius` (number): The minimum radius in pixels of the spotlight.
+     *     - `maxSpotlightRadius` (number): The maximum radius in pixels of the spotlight.
+     *     - `openMenuEvents` (string): Space-separated cytoscape events that will open the menu; only `cxttapstart` and/or `taphold` work here.
+     *     - `itemColor` (string): The colour of text in the command's content.
+     *     - `itemTextShadowColor` (string): The text shadow colour of the command's content.
+     *     - `zIndex` (number): The z-index of the ui div.
+     *     - `atMouse` (bool): Draw menu at mouse position.
+     *
+     * 2. The format array inside the `commands` dictionary which determines how information is passed back.
+     * In the format array, strings can be entered to determine which properties of the cytoscape json object are selected.
+     * Alternatively, instead of a string, a dictionary can be used to select properties more specifically. The properties of such an object are outlined below:
+     *     - `key` (string): Specifies the property to be selected in the json object.
+     *     - `props` (array): This array specifies the properties of the key which are selected.
+     *     - `filter` (dictionary): This property is only to be applied where the value of the `key` is an array of objects. This object specifies the properties and values that the object in the array must have to not be removed from the array.
+     * For an example of the capabilities of this system, please reference the ctxmenu demo.
+     */
+    ctxmenu: PropTypes.arrayOf(
+        PropTypes.shape({
+            selector: PropTypes.string,
+            commands: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.string.isRequired,
+                    content: PropTypes.string.isRequired,
+                    contentStyle: PropTypes.object,
+                    fillColor: PropTypes.string,
+                    enabled: PropTypes.bool,
+                    format: PropTypes.array
+                })
+            ),
+            menuRadius: PropTypes.number,
+            fillColor: PropTypes.string,
+            activeFillColor: PropTypes.string,
+            activePadding: PropTypes.number,
+            indicatorSize: PropTypes.number,
+            separatorWidth: PropTypes.number,
+            spotlightPadding: PropTypes.number,
+            minSpotlightRadius: PropTypes.number,
+            maxSpotlightRadius: PropTypes.number,
+            openMenuEvents: PropTypes.string,
+            itemColor: PropTypes.string,
+            itemTextShadowColor: PropTypes.string,
+            zIndex: PropTypes.number,
+            atMouse: PropTypes.bool
+        })
+    ),
+
+    /**
+     * The dictionary returned when a ctxmenu option is selected. Read-only.
+     *
+     *     1. The structure of the dictionary is as follows:
+     *         - `id` (string): User supplied string meant to identify the specific ctxmenu option triggered
+     *         - `timestamp` (number): Millisecond UNIX timestamp indicating the time the ctxmenu option was selected
+     *         - `data` (dictionary): Data dump containing information on element ctxmenu is triggered on. This data is fetched by cytoscape json function.
+     */
+    ctxmenuData: PropTypes.object
 };
 
 Cytoscape.defaultProps = {
