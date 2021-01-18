@@ -19,7 +19,7 @@ class Cytoscape extends Component {
 
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
-        this.handleImageGeneration = this.handleImageGeneration.bind(this)
+        this.handleImageGeneration = this.handleImageGeneration.bind(this);
         this.cyResponsiveClass = false;
     }
 
@@ -37,19 +37,19 @@ class Cytoscape extends Component {
 
         // Trim down the element objects to only the data contained
         const edgesData = ele.connectedEdges().map(ele => {
-                return ele.data()
+                return ele.data();
             }),
             childrenData = ele.children().map(ele => {
-                return ele.data()
+                return ele.data();
             }),
             ancestorsData = ele.ancestors().map(ele => {
-                return ele.data()
+                return ele.data();
             }),
             descendantsData = ele.descendants().map(ele => {
-                return ele.data()
+                return ele.data();
             }),
             siblingsData = ele.siblings().map(ele => {
-                return ele.data()
+                return ele.data();
             });
 
         const {timeStamp} = event;
@@ -102,7 +102,6 @@ class Cytoscape extends Component {
         return nodeObject;
     }
 
-
     generateEdge(event) {
         const ele = event.target;
 
@@ -123,7 +122,7 @@ class Cytoscape extends Component {
             group,
             locked,
             selectable,
-            selected,
+            selected
         } = ele.json();
 
         const edgeObject = {
@@ -172,10 +171,7 @@ class Cytoscape extends Component {
             /**
              * Refresh Layout if needed
              */
-            const {
-                autoRefreshLayout,
-                layout
-            } = this.props;
+            const {autoRefreshLayout, layout} = this.props;
 
             if (autoRefreshLayout) {
                 cy.layout(layout).run();
@@ -196,7 +192,7 @@ class Cytoscape extends Component {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
                     selectedNodeData: nodeData
-                })
+                });
             }
         }, SELECT_THRESHOLD);
 
@@ -206,7 +202,7 @@ class Cytoscape extends Component {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
                     selectedEdgeData: edgeData
-                })
+                });
             }
         }, SELECT_THRESHOLD);
 
@@ -237,7 +233,7 @@ class Cytoscape extends Component {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
                     mouseoverNodeData: event.target.data()
-                })
+                });
             }
         });
 
@@ -245,7 +241,7 @@ class Cytoscape extends Component {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
                     mouseoverEdgeData: event.target.data()
-                })
+                });
             }
         });
 
@@ -284,50 +280,49 @@ class Cytoscape extends Component {
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
     }
-    
-    handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
 
-        let options = {}
-        if (imageOptions){
-            options = imageOptions
+    handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
+        let options = {};
+        if (imageOptions) {
+            options = imageOptions;
         }
-        
-        let desiredOutput = options.output
-        options.output = 'blob'
-        
+
+        let desiredOutput = options.output;
+        options.output = 'blob';
+
         let downloadImage;
         let storeImage;
         switch (actionsToPerform) {
             case 'store':
-                downloadImage = false
-                storeImage = true
-                break
+                downloadImage = false;
+                storeImage = true;
+                break;
             case 'download':
-                downloadImage = true
-                storeImage = false
-                break
+                downloadImage = true;
+                storeImage = false;
+                break;
             case 'both':
-                downloadImage = true
-                storeImage = true
-                break
+                downloadImage = true;
+                storeImage = true;
+                break;
             default:
-                downloadImage = false
-                storeImage = true
-                break
+                downloadImage = false;
+                storeImage = true;
+                break;
         }
-        
+
         let output;
         if (imageType === 'png') {
-            output = this._cy.png(options)
+            output = this._cy.png(options);
         }
         if (imageType === 'jpg' || imageType === 'jpeg') {
-            output = this._cy.jpg(options)
+            output = this._cy.jpg(options);
         }
         // only works when svg is imported (see lib/extra_index.js)
         if (imageType === 'svg') {
-            output = this._cy.svg(options) 
+            output = this._cy.svg(options);
         }
-        
+
         /*
          * If output is empty because of bad options or a cytoscape error,
          * skip any download or storage steps.
@@ -338,51 +333,53 @@ class Cytoscape extends Component {
              * the client. This avoids transferring a potentially large image
              * to the server and back again through a callback.
              */
-            let fName = fileName
+            let fName = fileName;
             if (!fileName) {
-                fName = 'cyto'
+                fName = 'cyto';
             }
 
             if (imageType !== 'svg') {
-                this.downloadBlob(output, fName + '.' + imageType)
-            }
-            else {
-                const blob = new Blob([output], {type:"image/svg+xml;charset=utf-8"});
-                this.downloadBlob(blob, fName + '.' + imageType) 
+                this.downloadBlob(output, fName + '.' + imageType);
+            } else {
+                const blob = new Blob([output], {
+                    type: 'image/svg+xml;charset=utf-8'
+                });
+                this.downloadBlob(blob, fName + '.' + imageType);
             }
         }
-        
 
         if (output && storeImage) {
-            // Default output type if unspecified 
+            // Default output type if unspecified
             if (!desiredOutput) {
-                desiredOutput = 'base64uri'
+                desiredOutput = 'base64uri';
             }
-            
-            if (!(desiredOutput === 'base64uri' || desiredOutput === 'base64')) {
-                return
+
+            if (
+                !(desiredOutput === 'base64uri' || desiredOutput === 'base64')
+            ) {
+                return;
             }
-            
+
             /*
              * Convert blob to base64uri or base64 string to store the image data.
              * Thank you, base64guru https://base64.guru/developers/javascript/examples/encode-blob
              */
-            const reader = new FileReader()
+            const reader = new FileReader();
             reader.onload = () => {
                 /* FileReader is asynchronous, so the read function is non-blocking.
                  * If this code block is placed after the read command, it
                  * may result in empty output because the blob has not been loaded yet.
                  */
-                let callbackData = reader.result
+                let callbackData = reader.result;
                 if (desiredOutput === 'base64') {
-                    callbackData = callbackData.replace(/^data:.+;base64,/, '')
+                    callbackData = callbackData.replace(/^data:.+;base64,/, '');
                 }
-                this.props.setProps({'imageData': callbackData})
-            }
+                this.props.setProps({imageData: callbackData});
+            };
             reader.readAsDataURL(output);
         }
     }
-    
+
     downloadBlob(blob, fileName) {
         /*
          * Download blob as file by dynamically creating link.
@@ -393,17 +390,17 @@ class Cytoscape extends Component {
          * intead of downloading as a file).
          * Thank you, koldev https://jsfiddle.net/koldev/cW7W5/
          */
-        const downloadLink = document.createElement("a")
-        downloadLink.style = "display: none"
-        document.body.appendChild(downloadLink)
-        
-        const url = window.URL.createObjectURL(blob)
-        downloadLink.href = url
-        downloadLink.download = fileName
-        downloadLink.click()
-        window.URL.revokeObjectURL(url)
-        
-        document.body.removeChild(downloadLink)
+        const downloadLink = document.createElement('a');
+        downloadLink.style = 'display: none';
+        document.body.appendChild(downloadLink);
+
+        const url = window.URL.createObjectURL(blob);
+        downloadLink.href = url;
+        downloadLink.download = fileName;
+        downloadLink.click();
+        window.URL.revokeObjectURL(url);
+
+        document.body.removeChild(downloadLink);
     }
 
     render() {
@@ -435,18 +432,18 @@ class Cytoscape extends Component {
             // Responsive graphs
             responsive
         } = this.props;
-        
+
         if (Object.keys(generateImage).length > 0) {
             // If no cytoscape object has been created yet, an image cannot be generated,
             // so generateImage will be ignored and cleared.
-            this.props.setProps({'generateImage': {}})
+            this.props.setProps({generateImage: {}});
             if (this._cy) {
                 this.handleImageGeneration(
                     generateImage.type,
                     generateImage.options,
                     generateImage.action,
                     generateImage.filename
-                )
+                );
             }
         }
 
@@ -476,10 +473,9 @@ class Cytoscape extends Component {
                 autolock={autolock}
                 autounselectify={autounselectify}
             />
-        )
+        );
     }
 }
-
 
 Cytoscape.propTypes = {
     // HTML attribute props
@@ -511,94 +507,166 @@ Cytoscape.propTypes = {
     // Common props
 
     /**
-     * A list of dictionaries representing the elements of the networks.
-     *     1. Each dictionary describes an element, and specifies its purpose.
-     *         - `group` (string): Either 'nodes' or 'edges'. If not given, it's automatically inferred.
-     *         - `data` (dictionary): Element specific data.
-     *              - `id` (string): Reference to the element, useful for selectors and edges. Randomly assigned if not given.
-     *              - `label` (string): Optional name for the element, useful when `data(label)` is given to a style's `content` or `label`. It is only a convention.
-     *              - `parent` (string): Only for nodes. Optional reference to another node. Needed to create compound nodes.
-     *              - `source` (string): Only for edges. The id of the source node, which is where the edge starts.
-     *              - `target` (string): Only for edges. The id of the target node, where the edge ends.
-     *         - `position` (dictionary): Only for nodes. The position of the node.
-     *              - `x` (number): The x-coordinate of the node.
-     *              - `y` (number): The y-coordinate of the node.
-     *         - `selected` (boolean): If the element is selected upon initialisation.
-     *         - `selectable` (boolean): If the element can be selected.
-     *         - `locked` (boolean): Only for nodes. If the position is immutable.
-     *         - `grabbable` (boolean): Only for nodes. If the node can be grabbed and moved by the user.
-     *         - `classes` (string): Space separated string of class names of the element. Those classes can be selected by a style selector.
-     *
-     *     2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration.
-     * Alternatively, a dictionary with the format { 'nodes': [], 'edges': [] } is allowed at initialization, but arrays remain the recommended format.
+     * A list of dictionaries representing the elements of the networks. Each dictionary describes an element, and
+     * specifies its purpose. The [official Cytoscape.js documentation](https://js.cytoscape.org/#notation/elements-json)
+     * offers an extensive overview and examples of element declaration.
+     * Alternatively, a dictionary with the format { 'nodes': [], 'edges': [] } is allowed at initialization,
+     * but arrays remain the recommended format.
      */
-    elements: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.object), PropTypes.object]),
+    elements: PropTypes.oneOfType([
+        PropTypes.arrayOf(
+            PropTypes.exact({
+                /**
+                 * Either 'nodes' or 'edges'. If not given, it's automatically inferred.
+                 */
+                group: PropTypes.string,
+                /** Element specific data.*/
+                data: PropTypes.exact({
+                    /**  Reference to the element, useful for selectors and edges. Randomly assigned if not given.*/
+                    id: PropTypes.string,
+                    /**
+                     * Optional name for the element, useful when `data(label)` is given to a style's `content`
+                     * or `label`. It is only a convention. */
+                    label: PropTypes.string,
+                    /** Only for nodes. Optional reference to another node. Needed to create compound nodes. */
+                    parent: PropTypes.string,
+                    /** Only for edges. The id of the source node, which is where the edge starts. */
+                    source: PropTypes.string,
+                    /** Only for edges. The id of the target node, where the edge ends. */
+                    target: PropTypes.string
+                }),
+                /** Only for nodes. The position of the node. */
+                position: PropTypes.exact({
+                    /** The x-coordinate of the node. */
+                    x: PropTypes.number,
+                    /** The y-coordinate of the node. */
+                    y: PropTypes.number
+                }),
+                /** If the element is selected upon initialisation. */
+                selected: PropTypes.bool,
+                /** If the element can be selected. */
+                selectable: PropTypes.bool,
+                /** Only for nodes. If the position is immutable. */
+                locked: PropTypes.bool,
+                /** Only for nodes. If the node can be grabbed and moved by the user. */
+                grabbable: PropTypes.bool,
+                /**
+                 * Space separated string of class names of the element. Those classes can be selected
+                 * by a style selector.
+                 */
+                classes: PropTypes.string
+            })
+        ),
+        PropTypes.exact({
+            nodes: PropTypes.array,
+            edges: PropTypes.array
+        })
+    ]),
 
     /**
      * A list of dictionaries representing the styles of the elements.
-     *     1. Each dictionary requires the following keys:
-     *         - `selector` (string): Which elements you are styling. Generally, you select a group of elements (node, edges, both), a class (that you declare in the element dictionary), or an element by ID.
-     *         - `style` (dictionary): What aspects of the elements you want to modify. This could be the size or color of a node, the shape of an edge arrow, or many more.
+     * Each dictionary requires the following keys: `selector` and `style`.
      *
-     *     2. Both [the selector string](http://js.cytoscape.org/#selectors) and
-     *     [the style dictionary](http://js.cytoscape.org/#style/node-body) are
-     *     exhaustively documented in the Cytoscape.js docs. Although methods such
-     *     as `cy.elements(...)` and `cy.filter(...)` are not available, the selector
-     *     string syntax stays the same.
+     * Both the [selector](https://js.cytoscape.org/#selectors) and
+     * the [style](https://js.cytoscape.org/#style/node-body) are
+     * exhaustively documented in the Cytoscape.js docs. Although methods such
+     * as `cy.elements(...)` and `cy.filter(...)` are not available, the selector
+     * string syntax stays the same.
      */
-    stylesheet: PropTypes.arrayOf(PropTypes.object),
+    stylesheet: PropTypes.arrayOf(
+        PropTypes.exact({
+            /**
+             * Which elements you are styling. Generally, you select a group of elements (node, edges, both),
+             * a class (that you declare in the element dictionary), or an element by ID.
+             */
+            selector: PropTypes.string.isRequired,
+            /**
+             * What aspects of the elements you want to modify. This could be the size or
+             * color of a node, the shape of an edge arrow, or many more.
+             */
+            style: PropTypes.object.isRequired
+        })
+    ),
 
     /**
      * A dictionary specifying how to set the position of the elements in your
      * graph. The `'name'` key is required, and indicates which layout (algorithm) to
-     * use.
-     *     1. The layouts available by default are:
-     *         - `random`: Randomly assigns positions
-     *         - `preset`: Assigns position based on the `position` key in element dictionaries
-     *         - `circle`: Single-level circle, with optional radius
-     *         - `concentric`: Multi-level circle, with optional radius
-     *         - `grid`: Square grid, optionally with numbers of `rows` and `cols`
-     *         - `breadthfirst`: Tree structure built using BFS, with optional `roots`
-     *         - `cose`: Force-directed physics simulation
+     * use. The keys accepted by `layout` vary depending on the algorithm, but these
+     * keys are accepted by all layouts: `fit`,  `padding`, `animate`, `animationDuration`,
+     * `boundingBox`.
      *
-     *     2. Some external layouts are also included. To use them, run
-     *     `dash_cytoscape.load_extra_layouts()` before creating your Dash app. Be careful about
-     *     using the extra layouts when not necessary, since they require supplementary bandwidth
-     *     for loading, which impacts the startup time of the app.
-     *         - `cose-bilkent`: https://github.com/cytoscape/cytoscape.js-cose-bilkent
-     *         - `cola`: https://github.com/cytoscape/cytoscape.js-cola
-     *         - `euler`: https://github.com/cytoscape/cytoscape.js-dagre
-     *         - `spread`: https://github.com/cytoscape/cytoscape.js-spread
-     *         - `dagre`: https://github.com/cytoscape/cytoscape.js-dagre
-     *         - `klay`: https://github.com/cytoscape/cytoscape.js-klay
-     *
-     *     3. The keys accepted by `layout` vary depending on the algorithm, but some
-     *     keys are accepted by all layouts:
-     *         - `fit` (boolean): Whether to render the nodes in order to fit the canvas.
-     *         - `padding` (number): Padding around the sides of the canvas, if fit is enabled.
-     *         - `animate` (boolean): Whether to animate change in position when the layout changes.
-     *         - `animationDuration` (number): Duration of animation in milliseconds, if enabled.
-     *         - `boundingBox` (dictionary): How to constrain the layout in a specific area. Keys accepted are either `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.
-     *
-     *     4. The complete list of layouts and their accepted options are available
-     *     on the [Cytoscape.js docs](http://js.cytoscape.org/#layouts). For the
-     *     external layouts, the options are listed in the "API" section of the
-     *     README.
-     *     Note that certain keys are not supported in Dash since the value is a
-     *     JavaScript function or a callback. Please visit [this issue](https://github.com/plotly/dash-cytoscape/issues/25)
-     *     for more information.
+     *  The complete list of layouts and their accepted options are available on the
+     *  [Cytoscape.js docs](https://js.cytoscape.org/#layouts) . For the external layouts,
+     * the options are listed in the "API" section of the  README.
+     *  Note that certain keys are not supported in Dash since the value is a JavaScript
+     *  function or a callback. Please visit this
+     * [issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.
      */
-    layout: PropTypes.object,
+    layout: PropTypes.shape({
+        /**
+         * The layouts available by default are:
+         *   `random`: Randomly assigns positions.
+         *   `preset`: Assigns position based on the `position` key in element dictionaries.
+         *   `circle`: Single-level circle, with optional radius.
+         *   `concentric`: Multi-level circle, with optional radius.
+         *   `grid`: Square grid, optionally with numbers of `rows` and `cols`.
+         *   `breadthfirst`: Tree structure built using BFS, with optional `roots`.
+         *   `cose`: Force-directed physics simulation.
+         *
+         * Some external layouts are also included. To use them, run
+         *   `dash_cytoscape.load_extra_layouts()` before creating your Dash app. Be careful about
+         *   using the extra layouts when not necessary, since they require supplementary bandwidth
+         *   for loading, which impacts the startup time of the app.
+         *   The external layouts are:
+         *   [cose-bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent),
+         *   [cola](https://github.com/cytoscape/cytoscape.js-cola),
+         *   [euler](https://github.com/cytoscape/cytoscape.js-dagre),
+         *   [spread](https://github.com/cytoscape/cytoscape.js-spread),
+         *   [dagre](https://github.com/cytoscape/cytoscape.js-dagre),
+         *   [klay](https://github.com/cytoscape/cytoscape.js-klay),
+         */
+        name: PropTypes.oneOf([
+            'random',
+            'preset',
+            'circle',
+            'concentric',
+            'grid',
+            'breadthfirst',
+            'cose',
+            'close-bilkent',
+            'cola',
+            'euler',
+            'spread',
+            'dagre',
+            'klay'
+        ]).isRequired,
+        /**  Whether to render the nodes in order to fit the canvas. */
+        fit: PropTypes.bool,
+        /** Padding around the sides of the canvas, if fit is enabled. */
+        padding: PropTypes.number,
+        /** Whether to animate change in position when the layout changes. */
+        animate: PropTypes.bool,
+        /** Duration of animation in milliseconds, if enabled. */
+        animationDuration: PropTypes.number,
+        /**
+         * How to constrain the layout in a specific area. Keys accepted are either
+         * `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.
+         */
+        boundingBox: PropTypes.object
+    }),
 
     // Viewport Manipulation
 
     /**
      * Dictionary indicating the initial panning position of the graph. The
      * following keys are accepted:
-     *     - `x` (number): The x-coordinate of the position.
-     *     - `y` (number): The y-coordinate of the position.
      */
-    pan: PropTypes.object,
+    pan: PropTypes.exact({
+        /** The x-coordinate of the node */
+        x: PropTypes.number,
+        /** The y-coordinate of the node  */
+        y: PropTypes.number
+    }),
 
     /**
      * The initial zoom level of the graph. You can set `minZoom` and
@@ -676,36 +744,53 @@ Cytoscape.propTypes = {
 
     /**
      * The complete node dictionary returned when you tap or click it. Read-only.
-     *
-     *     1. Node-specific items:
-     *         - `edgesData` (dictionary)
-     *         - `renderedPosition` (dictionary)
-     *         - `timeStamp` (number)
-     *
-     *     2. General items (for all elements):
-     *         - `classes` (string)
-     *         - `data` (dictionary)
-     *         - `grabbable` (boolean)
-     *         - `group` (string)
-     *         - `locked` (boolean)
-     *         - `position` (dictionary)
-     *         - `selectable` (boolean)
-     *         - `selected` (boolean)
-     *         - `style` (dictionary)
-     *
-     *     3. Items for compound nodes:
-     *         - `ancestorsData` (dictionary)
-     *         - `childrenData` (dictionary)
-     *         - `descendantsData` (dictionary)
-     *         - `parentData` (dictionary)
-     *         - `siblingsData` (dictionary)
-     *         - `isParent` (boolean)
-     *         - `isChildless` (boolean)
-     *         - `isChild` (boolean)
-     *         - `isOrphan` (boolean)
-     *         - `relativePosition` (dictionary)
      */
-    tapNode: PropTypes.object,
+    tapNode: PropTypes.exact({
+        /** node specific item */
+        edgesData: PropTypes.object,
+        /** node specific item */
+        renderedPosition: PropTypes.object,
+        /** node specific item */
+        timeStamp: PropTypes.number,
+        /** General item (for all elements) */
+        classes: PropTypes.string,
+        /** General item (for all elements) */
+        data: PropTypes.object,
+        /** General item (for all elements) */
+        grabbable: PropTypes.bool,
+        /** General item (for all elements) */
+        group: PropTypes.string,
+        /** General item (for all elements) */
+        locked: PropTypes.bool,
+        /** General item (for all elements) */
+        position: PropTypes.object,
+        /** General item (for all elements) */
+        selectable: PropTypes.bool,
+        /** General item (for all elements) */
+        selected: PropTypes.bool,
+        /** General item (for all elements) */
+        style: PropTypes.object,
+        /** Item for compound nodes */
+        ancestorsData: PropTypes.object,
+        /** Item for compound nodes */
+        childrenData: PropTypes.object,
+        /** Item for compound nodes */
+        descendantsData: PropTypes.object,
+        /** Item for compound nodes */
+        parentData: PropTypes.object,
+        /** Item for compound nodes */
+        siblingsData: PropTypes.object,
+        /** Item for compound nodes */
+        isParent: PropTypes.bool,
+        /** Item for compound nodes */
+        isChildless: PropTypes.bool,
+        /** Item for compound nodes */
+        isChild: PropTypes.bool,
+        /** Item for compound nodes */
+        isOrphan: PropTypes.bool,
+        /** Item for compound nodes */
+        relativePosition: PropTypes.object
+    }),
 
     /**
      * The data dictionary of a node returned when you tap or click it. Read-only.
@@ -714,28 +799,41 @@ Cytoscape.propTypes = {
 
     /**
      * The complete edge dictionary returned when you tap or click it. Read-only.
-     *
-     *     1. Edge-specific items:
-     *         - `isLoop` (boolean)
-     *         - `isSimple` (boolean)
-     *         - `midpoint` (dictionary)
-     *         - `sourceData` (dictionary)
-     *         - `sourceEndpoint` (dictionary)
-     *         - `targetData` (dictionary)
-     *         - `targetEndpoint` (dictionary)
-     *         - `timeStamp` (number)
-     *
-     *     2. General items (for all elements):
-     *         - `classes` (string)
-     *         - `data` (dictionary)
-     *         - `grabbable` (boolean)
-     *         - `group` (string)
-     *         - `locked` (boolean)
-     *         - `selectable` (boolean)
-     *         - `selected` (boolean)
-     *         - `style` (dictionary)
      */
-    tapEdge: PropTypes.object,
+    tapEdge: PropTypes.exact({
+        /** Edge-specific item */
+        isLoop: PropTypes.bool,
+        /** Edge-specific item */
+        isSimple: PropTypes.bool,
+        /** Edge-specific item */
+        midpoint: PropTypes.object,
+        /** Edge-specific item */
+        sourceData: PropTypes.object,
+        /** Edge-specific item */
+        sourceEndpoint: PropTypes.object,
+        /** Edge-specific item */
+        targetData: PropTypes.object,
+        /** Edge-specific item */
+        targetEndpoint: PropTypes.object,
+        /** Edge-specific item */
+        timeStamp: PropTypes.number,
+        /** General item (for all elements) */
+        classes: PropTypes.string,
+        /** General item (for all elements) */
+        data: PropTypes.object,
+        /** General item (for all elements) */
+        grabbable: PropTypes.bool,
+        /** General item (for all elements) */
+        group: PropTypes.string,
+        /** General item (for all elements) */
+        locked: PropTypes.bool,
+        /** General item (for all elements) */
+        selectable: PropTypes.bool,
+        /** General item (for all elements) */
+        selected: PropTypes.bool,
+        /** General item (for all elements) */
+        style: PropTypes.object
+    }),
 
     /**
      * The data dictionary of an edge returned when you tap or click it. Read-only.
@@ -763,32 +861,35 @@ Cytoscape.propTypes = {
      * Shift+Click to select multiple nodes, or Shift+Drag to use box selection). Read-only.
      */
     selectedEdgeData: PropTypes.array,
-    
+
     /**
      * Dictionary specifying options to generate an image of the current cytoscape graph.
      * Value is cleared after data is received and image is generated. This property will
      * be ignored on the initial creation of the cytoscape object and must be invoked through
-     * a callback after it has been rendered. The `'type'` key is required.
-     * The following keys are supported:
-     *      - `type` (string): File type to ouput of 'svg, 'png', 'jpg', or 'jpeg' (alias of 'jpg')
-     *      - `options` (dictionary, optional): Dictionary of options to cy.png() / cy.jpg() or cy.svg() for
-     *          image generation. See http://js.cytoscape.org/#core/export for details.
-     *          For `'output'`, only 'base64' and 'base64uri' are supported.
-     *          Default: `{'output': 'base64uri'}`.
-     *      - `action` (string, optional): Default: `'store'`. Must be one of the following:
-     *          - `'store'`: Stores the image data (only jpg and png are supported) in `imageData` and invokes
-     *              server-side Dash callbacks.
-     *          - `'download'`: Downloads the image as a file with all data handling
-     *              done client-side. No `imageData` callbacks are fired.
-     *          - `'both'`: Stores image data and downloads image as file.
-     *      - `filename` (string, optional): Name for the file to be downloaded. Default: 'cyto'.
+     * a callback after it has been rendered.
      *
      * If the app does not need the image data server side and/or it will only be used to download
      * the image, it may be prudent to invoke `'download'` for `action` instead of
      * `'store'` to improve performance by preventing transfer of data to the server.
      */
-    generateImage: PropTypes.object,
-    
+    generateImage: PropTypes.exact({
+        /** File type to output  */
+        type: PropTypes.oneOf(['svg', 'png', 'jpg', 'jpeg']).isRequired,
+        /** Dictionary of options to cy.png() / cy.jpg() or cy.svg() for image generation.
+         * See https://js.cytoscape.org/#core/export for details. For `'output'`, only 'base64'
+         * and 'base64uri' are supported. Default: `{'output': 'base64uri'}`.*/
+        options: PropTypes.object,
+        /**
+         * `'store'`: Stores the image data (only jpg and png are supported)
+         * in `imageData` and invokes server-side Dash callbacks. `'download'`: Downloads the image
+         * as a file with all data handling done client-side. No `imageData` callbacks are fired.
+         * `'both'`: Stores image data and downloads image as file. The default is `'store'`
+         */
+        action: PropTypes.oneOf(['store', 'download', 'both']),
+        /** Name for the file to be downloaded. Default: 'cyto'.*/
+        filename: PropTypes.string
+    }),
+
     /**
      * String representation of the image requested with generateImage. Null if no
      * image was requested yet or the previous request failed. Read-only.
