@@ -40,9 +40,9 @@
     "cytoscape-svg": "0.2.0",
     "lodash": "^4.17.11",
     "ramda": "^0.25.0",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-cytoscapejs": "1.2.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.14.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
