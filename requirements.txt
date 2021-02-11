@@ -1,7 +1,6 @@
 biopython>=1.77;python_version>="3.0"
 biopython==1.76;python_version=="2.7"
 gunicorn
-plotly
-dash==0.39.0
+dash[dev]==1.*
 
 colour==0.1.5
