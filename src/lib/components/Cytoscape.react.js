@@ -521,7 +521,7 @@ Cytoscape.propTypes = {
                  */
                 group: PropTypes.string,
                 /** Element specific data.*/
-                data: PropTypes.exact({
+                data: PropTypes.shape({
                     /**  Reference to the element, useful for selectors and edges. Randomly assigned if not given.*/
                     id: PropTypes.string,
                     /**
