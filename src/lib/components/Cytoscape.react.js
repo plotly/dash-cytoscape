@@ -536,7 +536,7 @@ Cytoscape.propTypes = {
                     target: PropTypes.string
                 }),
                 /** Only for nodes. The position of the node. */
-                position: PropTypes.exact({
+                position: PropTypes.shape({
                     /** The x-coordinate of the node. */
                     x: PropTypes.number,
                     /** The y-coordinate of the node. */
