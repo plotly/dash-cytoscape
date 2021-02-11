@@ -515,7 +515,7 @@ Cytoscape.propTypes = {
      */
     elements: PropTypes.oneOfType([
         PropTypes.arrayOf(
-            PropTypes.exact({
+            PropTypes.shape({
                 /**
                  * Either 'nodes' or 'edges'. If not given, it's automatically inferred.
                  */
