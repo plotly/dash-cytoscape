@@ -120,16 +120,107 @@
             {
               "name": "arrayOf",
               "value": {
-                "name": "object"
+                "name": "shape",
+                "value": {
+                  "group": {
+                    "name": "string",
+                    "description": "Either 'nodes' or 'edges'. If not given, it's automatically inferred.",
+                    "required": false
+                  },
+                  "data": {
+                    "name": "shape",
+                    "value": {
+                      "id": {
+                        "name": "string",
+                        "description": "Reference to the element, useful for selectors and edges. Randomly assigned if not given.",
+                        "required": false
+                      },
+                      "label": {
+                        "name": "string",
+                        "description": "Optional name for the element, useful when `data(label)` is given to a style's `content`\nor `label`. It is only a convention.",
+                        "required": false
+                      },
+                      "parent": {
+                        "name": "string",
+                        "description": "Only for nodes. Optional reference to another node. Needed to create compound nodes.",
+                        "required": false
+                      },
+                      "source": {
+                        "name": "string",
+                        "description": "Only for edges. The id of the source node, which is where the edge starts.",
+                        "required": false
+                      },
+                      "target": {
+                        "name": "string",
+                        "description": "Only for edges. The id of the target node, where the edge ends.",
+                        "required": false
+                      }
+                    },
+                    "description": "Element specific data.",
+                    "required": false
+                  },
+                  "position": {
+                    "name": "shape",
+                    "value": {
+                      "x": {
+                        "name": "number",
+                        "description": "The x-coordinate of the node.",
+                        "required": false
+                      },
+                      "y": {
+                        "name": "number",
+                        "description": "The y-coordinate of the node.",
+                        "required": false
+                      }
+                    },
+                    "description": "Only for nodes. The position of the node.",
+                    "required": false
+                  },
+                  "selected": {
+                    "name": "bool",
+                    "description": "If the element is selected upon initialisation.",
+                    "required": false
+                  },
+                  "selectable": {
+                    "name": "bool",
+                    "description": "If the element can be selected.",
+                    "required": false
+                  },
+                  "locked": {
+                    "name": "bool",
+                    "description": "Only for nodes. If the position is immutable.",
+                    "required": false
+                  },
+                  "grabbable": {
+                    "name": "bool",
+                    "description": "Only for nodes. If the node can be grabbed and moved by the user.",
+                    "required": false
+                  },
+                  "classes": {
+                    "name": "string",
+                    "description": "Space separated string of class names of the element. Those classes can be selected\nby a style selector.",
+                    "required": false
+                  }
+                }
               }
             },
             {
-              "name": "object"
+              "name": "exact",
+              "value": {
+                "nodes": {
+                  "name": "array",
+                  "required": false
+                },
+                "edges": {
+                  "name": "array",
+                  "required": false
+                }
+              }
             }
           ]
         },
         "required": false,
-        "description": "A list of dictionaries representing the elements of the networks.\n    1. Each dictionary describes an element, and specifies its purpose.\n        - `group` (string): Either 'nodes' or 'edges'. If not given, it's automatically inferred.\n        - `data` (dictionary): Element specific data.\n             - `id` (string): Reference to the element, useful for selectors and edges. Randomly assigned if not given.\n             - `label` (string): Optional name for the element, useful when `data(label)` is given to a style's `content` or `label`. It is only a convention.\n             - `parent` (string): Only for nodes. Optional reference to another node. Needed to create compound nodes.\n             - `source` (string): Only for edges. The id of the source node, which is where the edge starts.\n             - `target` (string): Only for edges. The id of the target node, where the edge ends.\n        - `position` (dictionary): Only for nodes. The position of the node.\n             - `x` (number): The x-coordinate of the node.\n             - `y` (number): The y-coordinate of the node.\n        - `selected` (boolean): If the element is selected upon initialisation.\n        - `selectable` (boolean): If the element can be selected.\n        - `locked` (boolean): Only for nodes. If the position is immutable.\n        - `grabbable` (boolean): Only for nodes. If the node can be grabbed and moved by the user.\n        - `classes` (string): Space separated string of class names of the element. Those classes can be selected by a style selector.\n\n    2. The [official Cytoscape.js documentation](http://js.cytoscape.org/#notation/elements-json) offers an extensive overview and examples of element declaration.\nAlternatively, a dictionary with the format { 'nodes': [], 'edges': [] } is allowed at initialization, but arrays remain the recommended format.",
+        "description": "A list of dictionaries representing the elements of the networks. Each dictionary describes an element, and\nspecifies its purpose. The [official Cytoscape.js documentation](https://js.cytoscape.org/#notation/elements-json)\noffers an extensive overview and examples of element declaration.\nAlternatively, a dictionary with the format { 'nodes': [], 'edges': [] } is allowed at initialization,\nbut arrays remain the recommended format.",
         "defaultValue": {
           "value": "[]",
           "computed": false
@@ -139,18 +230,116 @@
         "type": {
           "name": "arrayOf",
           "value": {
-            "name": "object"
+            "name": "exact",
+            "value": {
+              "selector": {
+                "name": "string",
+                "description": "Which elements you are styling. Generally, you select a group of elements (node, edges, both),\na class (that you declare in the element dictionary), or an element by ID.",
+                "required": true
+              },
+              "style": {
+                "name": "object",
+                "description": "What aspects of the elements you want to modify. This could be the size or\ncolor of a node, the shape of an edge arrow, or many more.",
+                "required": true
+              }
+            }
           }
         },
         "required": false,
-        "description": "A list of dictionaries representing the styles of the elements.\n    1. Each dictionary requires the following keys:\n        - `selector` (string): Which elements you are styling. Generally, you select a group of elements (node, edges, both), a class (that you declare in the element dictionary), or an element by ID.\n        - `style` (dictionary): What aspects of the elements you want to modify. This could be the size or color of a node, the shape of an edge arrow, or many more.\n\n    2. Both [the selector string](http://js.cytoscape.org/#selectors) and\n    [the style dictionary](http://js.cytoscape.org/#style/node-body) are\n    exhaustively documented in the Cytoscape.js docs. Although methods such\n    as `cy.elements(...)` and `cy.filter(...)` are not available, the selector\n    string syntax stays the same."
+        "description": "A list of dictionaries representing the styles of the elements.\nEach dictionary requires the following keys: `selector` and `style`.\n\nBoth the [selector](https://js.cytoscape.org/#selectors) and\nthe [style](https://js.cytoscape.org/#style/node-body) are\nexhaustively documented in the Cytoscape.js docs. Although methods such\nas `cy.elements(...)` and `cy.filter(...)` are not available, the selector\nstring syntax stays the same."
       },
       "layout": {
         "type": {
-          "name": "object"
+          "name": "shape",
+          "value": {
+            "name": {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "'random'",
+                  "computed": false
+                },
+                {
+                  "value": "'preset'",
+                  "computed": false
+                },
+                {
+                  "value": "'circle'",
+                  "computed": false
+                },
+                {
+                  "value": "'concentric'",
+                  "computed": false
+                },
+                {
+                  "value": "'grid'",
+                  "computed": false
+                },
+                {
+                  "value": "'breadthfirst'",
+                  "computed": false
+                },
+                {
+                  "value": "'cose'",
+                  "computed": false
+                },
+                {
+                  "value": "'close-bilkent'",
+                  "computed": false
+                },
+                {
+                  "value": "'cola'",
+                  "computed": false
+                },
+                {
+                  "value": "'euler'",
+                  "computed": false
+                },
+                {
+                  "value": "'spread'",
+                  "computed": false
+                },
+                {
+                  "value": "'dagre'",
+                  "computed": false
+                },
+                {
+                  "value": "'klay'",
+                  "computed": false
+                }
+              ],
+              "description": "The layouts available by default are:\n  `random`: Randomly assigns positions.\n  `preset`: Assigns position based on the `position` key in element dictionaries.\n  `circle`: Single-level circle, with optional radius.\n  `concentric`: Multi-level circle, with optional radius.\n  `grid`: Square grid, optionally with numbers of `rows` and `cols`.\n  `breadthfirst`: Tree structure built using BFS, with optional `roots`.\n  `cose`: Force-directed physics simulation.\n\nSome external layouts are also included. To use them, run\n  `dash_cytoscape.load_extra_layouts()` before creating your Dash app. Be careful about\n  using the extra layouts when not necessary, since they require supplementary bandwidth\n  for loading, which impacts the startup time of the app.\n  The external layouts are:\n  [cose-bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent),\n  [cola](https://github.com/cytoscape/cytoscape.js-cola),\n  [euler](https://github.com/cytoscape/cytoscape.js-dagre),\n  [spread](https://github.com/cytoscape/cytoscape.js-spread),\n  [dagre](https://github.com/cytoscape/cytoscape.js-dagre),\n  [klay](https://github.com/cytoscape/cytoscape.js-klay),",
+              "required": true
+            },
+            "fit": {
+              "name": "bool",
+              "description": "Whether to render the nodes in order to fit the canvas.",
+              "required": false
+            },
+            "padding": {
+              "name": "number",
+              "description": "Padding around the sides of the canvas, if fit is enabled.",
+              "required": false
+            },
+            "animate": {
+              "name": "bool",
+              "description": "Whether to animate change in position when the layout changes.",
+              "required": false
+            },
+            "animationDuration": {
+              "name": "number",
+              "description": "Duration of animation in milliseconds, if enabled.",
+              "required": false
+            },
+            "boundingBox": {
+              "name": "object",
+              "description": "How to constrain the layout in a specific area. Keys accepted are either\n`x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.",
+              "required": false
+            }
+          }
         },
         "required": false,
-        "description": "A dictionary specifying how to set the position of the elements in your\ngraph. The `'name'` key is required, and indicates which layout (algorithm) to\nuse.\n    1. The layouts available by default are:\n        - `random`: Randomly assigns positions\n        - `preset`: Assigns position based on the `position` key in element dictionaries\n        - `circle`: Single-level circle, with optional radius\n        - `concentric`: Multi-level circle, with optional radius\n        - `grid`: Square grid, optionally with numbers of `rows` and `cols`\n        - `breadthfirst`: Tree structure built using BFS, with optional `roots`\n        - `cose`: Force-directed physics simulation\n\n    2. Some external layouts are also included. To use them, run\n    `dash_cytoscape.load_extra_layouts()` before creating your Dash app. Be careful about\n    using the extra layouts when not necessary, since they require supplementary bandwidth\n    for loading, which impacts the startup time of the app.\n        - `cose-bilkent`: https://github.com/cytoscape/cytoscape.js-cose-bilkent\n        - `cola`: https://github.com/cytoscape/cytoscape.js-cola\n        - `euler`: https://github.com/cytoscape/cytoscape.js-dagre\n        - `spread`: https://github.com/cytoscape/cytoscape.js-spread\n        - `dagre`: https://github.com/cytoscape/cytoscape.js-dagre\n        - `klay`: https://github.com/cytoscape/cytoscape.js-klay\n\n    3. The keys accepted by `layout` vary depending on the algorithm, but some\n    keys are accepted by all layouts:\n        - `fit` (boolean): Whether to render the nodes in order to fit the canvas.\n        - `padding` (number): Padding around the sides of the canvas, if fit is enabled.\n        - `animate` (boolean): Whether to animate change in position when the layout changes.\n        - `animationDuration` (number): Duration of animation in milliseconds, if enabled.\n        - `boundingBox` (dictionary): How to constrain the layout in a specific area. Keys accepted are either `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.\n\n    4. The complete list of layouts and their accepted options are available\n    on the [Cytoscape.js docs](http://js.cytoscape.org/#layouts). For the\n    external layouts, the options are listed in the \"API\" section of the\n    README.\n    Note that certain keys are not supported in Dash since the value is a\n    JavaScript function or a callback. Please visit [this issue](https://github.com/plotly/dash-cytoscape/issues/25)\n    for more information.",
+        "description": "A dictionary specifying how to set the position of the elements in your\ngraph. The `'name'` key is required, and indicates which layout (algorithm) to\nuse. The keys accepted by `layout` vary depending on the algorithm, but these\nkeys are accepted by all layouts: `fit`,  `padding`, `animate`, `animationDuration`,\n`boundingBox`.\n\n The complete list of layouts and their accepted options are available on the\n [Cytoscape.js docs](https://js.cytoscape.org/#layouts) . For the external layouts,\nthe options are listed in the \"API\" section of the  README.\n Note that certain keys are not supported in Dash since the value is a JavaScript\n function or a callback. Please visit this\n[issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.",
         "defaultValue": {
           "value": "{name: 'grid'}",
           "computed": false
@@ -158,10 +347,22 @@
       },
       "pan": {
         "type": {
-          "name": "object"
+          "name": "exact",
+          "value": {
+            "x": {
+              "name": "number",
+              "description": "The x-coordinate of the node",
+              "required": false
+            },
+            "y": {
+              "name": "number",
+              "description": "The y-coordinate of the node",
+              "required": false
+            }
+          }
         },
         "required": false,
-        "description": "Dictionary indicating the initial panning position of the graph. The\nfollowing keys are accepted:\n    - `x` (number): The x-coordinate of the position.\n    - `y` (number): The y-coordinate of the position.",
+        "description": "Dictionary indicating the initial panning position of the graph. The\nfollowing keys are accepted:",
         "defaultValue": {
           "value": "{x: 0, y: 0}",
           "computed": false
@@ -301,10 +502,122 @@
       },
       "tapNode": {
         "type": {
-          "name": "object"
+          "name": "exact",
+          "value": {
+            "edgesData": {
+              "name": "object",
+              "description": "node specific item",
+              "required": false
+            },
+            "renderedPosition": {
+              "name": "object",
+              "description": "node specific item",
+              "required": false
+            },
+            "timeStamp": {
+              "name": "number",
+              "description": "node specific item",
+              "required": false
+            },
+            "classes": {
+              "name": "string",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "data": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "grabbable": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "group": {
+              "name": "string",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "locked": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "position": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "selectable": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "selected": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "style": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "ancestorsData": {
+              "name": "object",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "childrenData": {
+              "name": "object",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "descendantsData": {
+              "name": "object",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "parentData": {
+              "name": "object",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "siblingsData": {
+              "name": "object",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "isParent": {
+              "name": "bool",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "isChildless": {
+              "name": "bool",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "isChild": {
+              "name": "bool",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "isOrphan": {
+              "name": "bool",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "relativePosition": {
+              "name": "object",
+              "description": "Item for compound nodes",
+              "required": false
+            }
+          }
         },
         "required": false,
-        "description": "The complete node dictionary returned when you tap or click it. Read-only.\n\n    1. Node-specific items:\n        - `edgesData` (dictionary)\n        - `renderedPosition` (dictionary)\n        - `timeStamp` (number)\n\n    2. General items (for all elements):\n        - `classes` (string)\n        - `data` (dictionary)\n        - `grabbable` (boolean)\n        - `group` (string)\n        - `locked` (boolean)\n        - `position` (dictionary)\n        - `selectable` (boolean)\n        - `selected` (boolean)\n        - `style` (dictionary)\n\n    3. Items for compound nodes:\n        - `ancestorsData` (dictionary)\n        - `childrenData` (dictionary)\n        - `descendantsData` (dictionary)\n        - `parentData` (dictionary)\n        - `siblingsData` (dictionary)\n        - `isParent` (boolean)\n        - `isChildless` (boolean)\n        - `isChild` (boolean)\n        - `isOrphan` (boolean)\n        - `relativePosition` (dictionary)"
+        "description": "The complete node dictionary returned when you tap or click it. Read-only."
       },
       "tapNodeData": {
         "type": {
@@ -315,10 +628,92 @@
       },
       "tapEdge": {
         "type": {
-          "name": "object"
+          "name": "exact",
+          "value": {
+            "isLoop": {
+              "name": "bool",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "isSimple": {
+              "name": "bool",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "midpoint": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "sourceData": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "sourceEndpoint": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "targetData": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "targetEndpoint": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "timeStamp": {
+              "name": "number",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "classes": {
+              "name": "string",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "data": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "grabbable": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "group": {
+              "name": "string",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "locked": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "selectable": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "selected": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "style": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            }
+          }
         },
         "required": false,
-        "description": "The complete edge dictionary returned when you tap or click it. Read-only.\n\n    1. Edge-specific items:\n        - `isLoop` (boolean)\n        - `isSimple` (boolean)\n        - `midpoint` (dictionary)\n        - `sourceData` (dictionary)\n        - `sourceEndpoint` (dictionary)\n        - `targetData` (dictionary)\n        - `targetEndpoint` (dictionary)\n        - `timeStamp` (number)\n\n    2. General items (for all elements):\n        - `classes` (string)\n        - `data` (dictionary)\n        - `grabbable` (boolean)\n        - `group` (string)\n        - `locked` (boolean)\n        - `selectable` (boolean)\n        - `selected` (boolean)\n        - `style` (dictionary)"
+        "description": "The complete edge dictionary returned when you tap or click it. Read-only."
       },
       "tapEdgeData": {
         "type": {
@@ -357,10 +752,64 @@
       },
       "generateImage": {
         "type": {
-          "name": "object"
+          "name": "exact",
+          "value": {
+            "type": {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "'svg'",
+                  "computed": false
+                },
+                {
+                  "value": "'png'",
+                  "computed": false
+                },
+                {
+                  "value": "'jpg'",
+                  "computed": false
+                },
+                {
+                  "value": "'jpeg'",
+                  "computed": false
+                }
+              ],
+              "description": "File type to output",
+              "required": true
+            },
+            "options": {
+              "name": "object",
+              "description": "Dictionary of options to cy.png() / cy.jpg() or cy.svg() for image generation.\nSee https://js.cytoscape.org/#core/export for details. For `'output'`, only 'base64'\nand 'base64uri' are supported. Default: `{'output': 'base64uri'}`.",
+              "required": false
+            },
+            "action": {
+              "name": "enum",
+              "value": [
+                {
+                  "value": "'store'",
+                  "computed": false
+                },
+                {
+                  "value": "'download'",
+                  "computed": false
+                },
+                {
+                  "value": "'both'",
+                  "computed": false
+                }
+              ],
+              "description": "`'store'`: Stores the image data (only jpg and png are supported)\nin `imageData` and invokes server-side Dash callbacks. `'download'`: Downloads the image\nas a file with all data handling done client-side. No `imageData` callbacks are fired.\n`'both'`: Stores image data and downloads image as file. The default is `'store'`",
+              "required": false
+            },
+            "filename": {
+              "name": "string",
+              "description": "Name for the file to be downloaded. Default: 'cyto'.",
+              "required": false
+            }
+          }
         },
         "required": false,
-        "description": "Dictionary specifying options to generate an image of the current cytoscape graph.\nValue is cleared after data is received and image is generated. This property will\nbe ignored on the initial creation of the cytoscape object and must be invoked through\na callback after it has been rendered. The `'type'` key is required.\nThe following keys are supported:\n     - `type` (string): File type to ouput of 'svg, 'png', 'jpg', or 'jpeg' (alias of 'jpg')\n     - `options` (dictionary, optional): Dictionary of options to cy.png() / cy.jpg() or cy.svg() for\n         image generation. See http://js.cytoscape.org/#core/export for details.\n         For `'output'`, only 'base64' and 'base64uri' are supported.\n         Default: `{'output': 'base64uri'}`.\n     - `action` (string, optional): Default: `'store'`. Must be one of the following:\n         - `'store'`: Stores the image data (only jpg and png are supported) in `imageData` and invokes\n             server-side Dash callbacks.\n         - `'download'`: Downloads the image as a file with all data handling\n             done client-side. No `imageData` callbacks are fired.\n         - `'both'`: Stores image data and downloads image as file.\n     - `filename` (string, optional): Name for the file to be downloaded. Default: 'cyto'.\n\nIf the app does not need the image data server side and/or it will only be used to download\nthe image, it may be prudent to invoke `'download'` for `action` instead of\n`'store'` to improve performance by preventing transfer of data to the server.",
+        "description": "Dictionary specifying options to generate an image of the current cytoscape graph.\nValue is cleared after data is received and image is generated. This property will\nbe ignored on the initial creation of the cytoscape object and must be invoked through\na callback after it has been rendered.\n\nIf the app does not need the image data server side and/or it will only be used to download\nthe image, it may be prudent to invoke `'download'` for `action` instead of\n`'store'` to improve performance by preventing transfer of data to the server.",
         "defaultValue": {
           "value": "{}",
           "computed": false
