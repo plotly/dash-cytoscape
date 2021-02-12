@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+* Dash has been upgraded to 1.* in requirements.txt and tests/requirements.txt (#123)
+* React/react-dom have been upgraded to 16.14+ (#117)
+* Docgen upgraded to 5.3.0 (#117)
+* Improved prop typing (#117)
+
 ## [0.2.0] - 20120-07-09
 
 ### Added
