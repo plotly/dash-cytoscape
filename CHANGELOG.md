@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# Added
+* [Persistence](https://dash.plotly.com/persistence)
+
 ### Changed
 * Dash has been upgraded to 1.* in requirements.txt and tests/requirements.txt (#123)
 * React/react-dom have been upgraded to 16.14+ (#117)
