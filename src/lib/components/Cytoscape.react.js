@@ -951,7 +951,9 @@ Cytoscape.defaultProps = {
     generateImage: {},
     imageData: null,
     responsive: false,
-    elements: []
+    elements: [],
+    persisted_props: [],
+    persistence_type: 'local',
 };
 
 export default Cytoscape;
