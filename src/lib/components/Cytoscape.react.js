@@ -956,4 +956,16 @@ Cytoscape.defaultProps = {
     persistence_type: 'local',
 };
 
+const defaultPersistenceTransform = {
+    extract: propValue => propValue,
+    apply: storedValue => storedValue,
+};
+
+Cytoscape.persistenceTransforms = {
+    elements: defaultPersistenceTransform,
+    stylesheet: defaultPersistenceTransform,
+    layout: defaultPersistenceTransform
+
+}
+
 export default Cytoscape;
