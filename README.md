@@ -159,7 +159,7 @@ The Pull Request and Issue Templates were inspired from the
 ![View usage-elements on Github](demos/images/usage-elements-demo.gif)
 
 ### Interactively update stylesheet
-[Code](usage-elements.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-stylesheet)
+[Code](usage-stylesheet.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-stylesheet)
 ![View usage-stylesheet on Github](demos/images/usage-stylesheet.gif)
 
 ### Automatically generate interactive phylogeny trees
