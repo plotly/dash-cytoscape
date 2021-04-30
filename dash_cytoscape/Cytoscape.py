@@ -144,7 +144,7 @@ Keyword arguments:
         for details. For `'output'`, only 'base64' and 'base64uri' are
         supported. Default: `{'output': 'base64uri'}`.
 
-    - type (a value equal to: 'svg', 'png', 'jpg', 'jpeg'; required):
+    - type (a value equal to: 'svg', 'png', 'jpg', 'jpeg'; optional):
         File type to output.
 
 - imageData (string; optional):
@@ -342,10 +342,10 @@ Keyword arguments:
 
     `tapNode` is a dict with keys:
 
-    - ancestorsData (dict; optional):
+    - ancestorsData (dict | list; optional):
         Item for compound nodes.
 
-    - childrenData (dict; optional):
+    - childrenData (dict | list; optional):
         Item for compound nodes.
 
     - classes (string; optional):
@@ -354,10 +354,10 @@ Keyword arguments:
     - data (dict; optional):
         General item (for all elements).
 
-    - descendantsData (dict; optional):
+    - descendantsData (dict | list; optional):
         Item for compound nodes.
 
-    - edgesData (dict; optional):
+    - edgesData (list; optional):
         node specific item.
 
     - grabbable (boolean; optional):
@@ -381,7 +381,7 @@ Keyword arguments:
     - locked (boolean; optional):
         General item (for all elements).
 
-    - parentData (dict; optional):
+    - parentData (dict | list; optional):
         Item for compound nodes.
 
     - position (dict; optional):
@@ -399,7 +399,7 @@ Keyword arguments:
     - selected (boolean; optional):
         General item (for all elements).
 
-    - siblingsData (dict; optional):
+    - siblingsData (dict | list; optional):
         Item for compound nodes.
 
     - style (dict; optional):
