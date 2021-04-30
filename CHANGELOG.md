@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Docgen upgraded to 5.3.0 (#117)
 * Improved prop typing (#117)
 
+### Fixed
+* Various security fixes
+
 ## [0.2.0] - 20120-07-09
 
 ### Added
