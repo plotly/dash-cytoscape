@@ -505,7 +505,7 @@
           "name": "exact",
           "value": {
             "edgesData": {
-              "name": "object",
+              "name": "array",
               "description": "node specific item",
               "required": false
             },
@@ -565,27 +565,67 @@
               "required": false
             },
             "ancestorsData": {
-              "name": "object",
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
               "description": "Item for compound nodes",
               "required": false
             },
             "childrenData": {
-              "name": "object",
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
               "description": "Item for compound nodes",
               "required": false
             },
             "descendantsData": {
-              "name": "object",
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
               "description": "Item for compound nodes",
               "required": false
             },
             "parentData": {
-              "name": "object",
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
               "description": "Item for compound nodes",
               "required": false
             },
             "siblingsData": {
-              "name": "object",
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
               "description": "Item for compound nodes",
               "required": false
             },
@@ -752,7 +792,7 @@
       },
       "generateImage": {
         "type": {
-          "name": "exact",
+          "name": "shape",
           "value": {
             "type": {
               "name": "enum",
@@ -775,7 +815,7 @@
                 }
               ],
               "description": "File type to output",
-              "required": true
+              "required": false
             },
             "options": {
               "name": "object",

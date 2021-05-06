@@ -747,7 +747,7 @@ Cytoscape.propTypes = {
      */
     tapNode: PropTypes.exact({
         /** node specific item */
-        edgesData: PropTypes.object,
+        edgesData: PropTypes.array,
         /** node specific item */
         renderedPosition: PropTypes.object,
         /** node specific item */
@@ -771,15 +771,15 @@ Cytoscape.propTypes = {
         /** General item (for all elements) */
         style: PropTypes.object,
         /** Item for compound nodes */
-        ancestorsData: PropTypes.object,
+        ancestorsData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         /** Item for compound nodes */
-        childrenData: PropTypes.object,
+        childrenData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         /** Item for compound nodes */
-        descendantsData: PropTypes.object,
+        descendantsData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         /** Item for compound nodes */
-        parentData: PropTypes.object,
+        parentData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         /** Item for compound nodes */
-        siblingsData: PropTypes.object,
+        siblingsData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         /** Item for compound nodes */
         isParent: PropTypes.bool,
         /** Item for compound nodes */
@@ -872,9 +872,9 @@ Cytoscape.propTypes = {
      * the image, it may be prudent to invoke `'download'` for `action` instead of
      * `'store'` to improve performance by preventing transfer of data to the server.
      */
-    generateImage: PropTypes.exact({
+    generateImage: PropTypes.shape({
         /** File type to output  */
-        type: PropTypes.oneOf(['svg', 'png', 'jpg', 'jpeg']).isRequired,
+        type: PropTypes.oneOf(['svg', 'png', 'jpg', 'jpeg']),
         /** Dictionary of options to cy.png() / cy.jpg() or cy.svg() for image generation.
          * See https://js.cytoscape.org/#core/export for details. For `'output'`, only 'base64'
          * and 'base64uri' are supported. Default: `{'output': 'base64uri'}`.*/
