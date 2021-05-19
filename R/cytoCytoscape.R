@@ -1,8 +1,8 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
-cytoCytoscape <- function(id=NULL, className=NULL, style=NULL, elements=NULL, stylesheet=NULL, layout=NULL, pan=NULL, zoom=NULL, panningEnabled=NULL, userPanningEnabled=NULL, minZoom=NULL, maxZoom=NULL, zoomingEnabled=NULL, userZoomingEnabled=NULL, boxSelectionEnabled=NULL, autoungrabify=NULL, autolock=NULL, autounselectify=NULL, autoRefreshLayout=NULL, tapNode=NULL, tapNodeData=NULL, tapEdge=NULL, tapEdgeData=NULL, mouseoverNodeData=NULL, mouseoverEdgeData=NULL, selectedNodeData=NULL, selectedEdgeData=NULL) {
+cytoCytoscape <- function(id=NULL, autoRefreshLayout=NULL, autolock=NULL, autoungrabify=NULL, autounselectify=NULL, boxSelectionEnabled=NULL, className=NULL, elements=NULL, generateImage=NULL, imageData=NULL, layout=NULL, maxZoom=NULL, minZoom=NULL, mouseoverEdgeData=NULL, mouseoverNodeData=NULL, pan=NULL, panningEnabled=NULL, responsive=NULL, selectedEdgeData=NULL, selectedNodeData=NULL, style=NULL, stylesheet=NULL, tapEdge=NULL, tapEdgeData=NULL, tapNode=NULL, tapNodeData=NULL, userPanningEnabled=NULL, userZoomingEnabled=NULL, zoom=NULL, zoomingEnabled=NULL) {
     
-    props <- list(id=id, className=className, style=style, elements=elements, stylesheet=stylesheet, layout=layout, pan=pan, zoom=zoom, panningEnabled=panningEnabled, userPanningEnabled=userPanningEnabled, minZoom=minZoom, maxZoom=maxZoom, zoomingEnabled=zoomingEnabled, userZoomingEnabled=userZoomingEnabled, boxSelectionEnabled=boxSelectionEnabled, autoungrabify=autoungrabify, autolock=autolock, autounselectify=autounselectify, autoRefreshLayout=autoRefreshLayout, tapNode=tapNode, tapNodeData=tapNodeData, tapEdge=tapEdge, tapEdgeData=tapEdgeData, mouseoverNodeData=mouseoverNodeData, mouseoverEdgeData=mouseoverEdgeData, selectedNodeData=selectedNodeData, selectedEdgeData=selectedEdgeData)
+    props <- list(id=id, autoRefreshLayout=autoRefreshLayout, autolock=autolock, autoungrabify=autoungrabify, autounselectify=autounselectify, boxSelectionEnabled=boxSelectionEnabled, className=className, elements=elements, generateImage=generateImage, imageData=imageData, layout=layout, maxZoom=maxZoom, minZoom=minZoom, mouseoverEdgeData=mouseoverEdgeData, mouseoverNodeData=mouseoverNodeData, pan=pan, panningEnabled=panningEnabled, responsive=responsive, selectedEdgeData=selectedEdgeData, selectedNodeData=selectedNodeData, style=style, stylesheet=stylesheet, tapEdge=tapEdge, tapEdgeData=tapEdgeData, tapNode=tapNode, tapNodeData=tapNodeData, userPanningEnabled=userPanningEnabled, userZoomingEnabled=userZoomingEnabled, zoom=zoom, zoomingEnabled=zoomingEnabled)
     if (length(props) > 0) {
         props <- props[!vapply(props, is.null, logical(1))]
     }
@@ -10,7 +10,7 @@ cytoCytoscape <- function(id=NULL, className=NULL, style=NULL, elements=NULL, st
         props = props,
         type = 'Cytoscape',
         namespace = 'dash_cytoscape',
-        propNames = c('id', 'className', 'style', 'elements', 'stylesheet', 'layout', 'pan', 'zoom', 'panningEnabled', 'userPanningEnabled', 'minZoom', 'maxZoom', 'zoomingEnabled', 'userZoomingEnabled', 'boxSelectionEnabled', 'autoungrabify', 'autolock', 'autounselectify', 'autoRefreshLayout', 'tapNode', 'tapNodeData', 'tapEdge', 'tapEdgeData', 'mouseoverNodeData', 'mouseoverEdgeData', 'selectedNodeData', 'selectedEdgeData'),
+        propNames = c('id', 'autoRefreshLayout', 'autolock', 'autoungrabify', 'autounselectify', 'boxSelectionEnabled', 'className', 'elements', 'generateImage', 'imageData', 'layout', 'maxZoom', 'minZoom', 'mouseoverEdgeData', 'mouseoverNodeData', 'pan', 'panningEnabled', 'responsive', 'selectedEdgeData', 'selectedNodeData', 'style', 'stylesheet', 'tapEdge', 'tapEdgeData', 'tapNode', 'tapNodeData', 'userPanningEnabled', 'userZoomingEnabled', 'zoom', 'zoomingEnabled'),
         package = 'dashCytoscape'
         )
 
