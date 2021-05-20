@@ -1,13 +1,11 @@
 library(dash)
-library(dashHtmlComponents)
-library(dashCoreComponents)
 library(dashCytoscape)
 library(jsonlite)
 
 app <- Dash$new()
 
 # define elements
-basic_elements = list(
+basic_elements <- list(
   list(
     'data' = list('id' = 'one', 'label' = 'Node 1'),
     'position' = list('x' = 50, 'y' = 50)
@@ -98,7 +96,7 @@ basic_elements = list(
   )
 )
 
-styles = list(
+styles <- list(
   'json-output' = list(
     'overflow-y' = 'scroll',
     'height' = 'calc(50% - 25px)',

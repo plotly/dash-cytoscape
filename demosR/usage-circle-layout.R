@@ -1,7 +1,6 @@
 # original demo: http://js.cytoscape.org/demos/circle-layout/
 
 library(dash)
-library(dashHtmlComponents)
 library(dashCytoscape)
 library(jsonlite)
 

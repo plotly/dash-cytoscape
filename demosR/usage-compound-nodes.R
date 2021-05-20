@@ -3,7 +3,6 @@
 # note: the Dash version is also uncentered, and otherwise it works
 
 library(dash)
-library(dashHtmlComponents)
 library(dashCytoscape)
 
 app <- Dash$new()

@@ -1,7 +1,6 @@
 # original demo: http://js.cytoscape.org/demos/multiple-instances/
 
 library(dash)
-library(dashHtmlComponents)
 library(dashCytoscape)
 library(jsonlite)
 

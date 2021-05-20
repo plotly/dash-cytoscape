@@ -1,7 +1,6 @@
 # original demo: http://js.cytoscape.org/demos/visual-style/
 
 library(dash)
-library(dashHtmlComponents)
 library(dashCytoscape)
 
 app <- Dash$new()

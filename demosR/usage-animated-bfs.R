@@ -4,7 +4,6 @@
 # note: animation not implemented yet, please refer to code.
 
 library(dash)
-library(dashHtmlComponents)
 library(dashCytoscape)
 library(jsonlite)
 

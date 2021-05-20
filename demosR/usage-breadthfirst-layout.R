@@ -3,7 +3,6 @@
 # note: click animation is not implemented
 
 library(dash)
-library(dashHtmlComponents)
 library(dashCytoscape)
 library(jsonlite)
 
