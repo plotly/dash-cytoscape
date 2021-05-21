@@ -1,6 +1,5 @@
 # original demo: http://js.cytoscape.org/demos/compound-nodes/
 #
-# note: the Dash version is also uncentered, and otherwise it works
 
 library(dash)
 library(dashCytoscape)
