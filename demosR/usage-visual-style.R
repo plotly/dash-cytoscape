@@ -1,5 +1,6 @@
 # original demo: http://js.cytoscape.org/demos/visual-style/
-
+#
+# note: animation has not been implemented yet, please refer to code.
 library(dash)
 library(dashCytoscape)
 
