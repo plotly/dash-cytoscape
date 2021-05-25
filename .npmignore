@@ -24,3 +24,12 @@ venv
 .travis.yml
 CHANGELOG.md
 README.md
+demos
+*__pycache__*
+build
+.vscode
+tests
+dist
+usage*
+.circleci
+.github
