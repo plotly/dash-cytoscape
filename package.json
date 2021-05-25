@@ -31,6 +31,7 @@
   "author-email": "cytoscape@plotly.com",
   "license": "MIT",
   "dependencies": {
+    "cytoscape": "^3.19.0",
     "cytoscape-cola": "^2.3.0",
     "cytoscape-cose-bilkent": "^4.0.0",
     "cytoscape-dagre": "^2.2.2",
@@ -41,7 +42,7 @@
     "lodash": "^4.17.11",
     "ramda": "^0.25.0",
     "react": "^16.14.0",
-    "react-cytoscapejs": "1.2.1",
+    "react-cytoscapejs": "file:../react-cytoscapejs",
     "react-dom": "^16.14.0"
   },
   "devDependencies": {
