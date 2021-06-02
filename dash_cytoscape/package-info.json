@@ -1,6 +1,6 @@
 {
   "name": "dash-cytoscape",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around Cytoscape.js",
   "repository": {
     "type": "git",
@@ -21,10 +21,8 @@
     "build:js-dev-extra": "webpack --config webpack.dev.extra.config.js",
     "build:js-extra": "webpack --config webpack.prod.extra.config.js",
     "build:js-all": "npm run build:js && npm run build:js-dev && npm run build:js-dev-extra && npm run build:js-extra",
-    "build:py": "dash-generate-components ./src/lib/components dash_cytoscape",
-    "build:py-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:py)",
-    "build:r": "dash-generate-components ./src/lib/components dash_cytoscape --r-prefix='cyto'",
-    "build:all": "npm run build:js-all && npm run build:py",
+    "build:backends": "dash-generate-components ./src/lib/components dash_cytoscape -p package-info.json --r-prefix 'cyto' --jl-prefix 'cyto'",
+    "build:all": "npm run build:js-all && npm run build:backends",
     "build:all-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:all)"
   },
   "author": "The Plotly Team <cytoscape@plotly.com>",
