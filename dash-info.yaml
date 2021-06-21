@@ -1,4 +1,62 @@
 pkg_help_description: >-
-    A Component Library for Dash aimed at facilitating network visualization in R, wrapped around Cytoscape.js
+    A Component Library for 'Dash' aimed at facilitating network visualization in R, wrapped around Cytoscape.js.
 pkg_help_title: >-
-    A Component Library for Dash aimed at facilitating network visualization in R, wrapped around Cytoscape.js
+    A Component Library for 'Dash' aimed at facilitating network visualization in R, wrapped around Cytoscape.js.
+pkg_authors: >-
+    c(person("Chris", "Parmer", email = "chris@plotly.com", role = c("aut")), person("Xing Han", "Lu", email = "xinghan@plotly.com", role = c("cre")), person(family = "Plotly Technologies, Inc.", role = "cph"))
+pkg_copyright: >-
+    Plotly Technologies, Inc.
+r_examples:
+    - name: cytoCytoscape
+      dontrun: FALSE
+      code: |
+            if (interactive()) {
+              library(dash)
+              library(dashCytoscape)
+
+              app <- Dash$new()
+
+              app$layout(
+                cytoCytoscape(
+                id='cytoscape-elements-boolean',
+                layout = list(name = 'preset'),
+                style = list(width = '100\%', height = '400px'),
+                elements=list(
+                  list(
+                    data = list(id = 'one', label = 'Locked'),
+                    position = list(x = 75, y = 75),
+                    locked = TRUE
+                  ),
+                  list(
+                    data = list(id = 'two', label = 'Selected'),
+                    position = list(x = 75, y = 200),
+                    selected = TRUE
+                  ),
+                  list(
+                    data = list(id = 'three', label = 'Not Selectable'),
+                    position = list(x = 200, y = 75),
+                    selectable = FALSE
+                  ),
+                  list(
+                    data = list(id = 'four', label = 'Not Grabbable'),
+                    position = list(x = 200, y = 200),
+                    grabbable = FALSE
+                  ),
+                  list(
+                    data = list(source = 'one', target = 'two')
+                  ),
+                  list(
+                    data = list(source = 'two', target = 'three')
+                  ),
+                  list(
+                    data = list(source = 'three', target = 'four')
+                  ),
+                  list(
+                    data = list(source = 'two', target = 'four')
+                  )
+                )
+               )
+              )
+
+              app$run_server()
+            }
