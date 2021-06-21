@@ -10,7 +10,7 @@ Please follow the following steps for local testing:
 ```commandline
 git clone https://github.com/plotly/dash-cytoscape.git
 ```
-2. In order to run the Python builds (`npm run build:py`) you need to create a 
+2. In order to run the Python builds (`npm run build:backends`) you need to create a 
 venv for this project. Make sure you have `virtualenv` correctly installed and run this:
 ```commandline
 mkdir dash_cytoscape_dev
@@ -28,7 +28,7 @@ venv\Scripts\activate
 3. Install the JavaScript dependencies and build the code:
 ```commandline
 npm install
-npm run build:all
+npm run build:backends
 ```
 
 #### Package manager
@@ -123,7 +123,7 @@ To publish or create a prerelease:
 3. Once the pull request is merged into master:
 4. Build
 ```
-npm run build:all
+npm run build:backends
 ```
 5. Create distribution tarball
 ```
@@ -164,7 +164,7 @@ Make a post in the [Dash Community Forum](https://community.plotly.com/c/dash)
 ## [Checklists](http://rs.io/unreasonable-effectiveness-of-checklists/)
 **Beginner tip:** _Copy and paste this section as a comment in your PR, then check off the boxes as you go!_
 ### Pre-Merge checklist
-- [ ] The project was correctly built with `npm run build:all`.
+- [ ] The project was correctly built with `npm run build:backends`.
 - [ ] If there was any conflict, it was solved correctly
 - [ ] All changes were documented in CHANGELOG.md.
 - [ ] All tests on CircleCI have passed.
