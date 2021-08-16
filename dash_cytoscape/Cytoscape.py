@@ -183,7 +183,7 @@ Keyword arguments:
     - fit (boolean; optional):
         Whether to render the nodes in order to fit the canvas.
 
-    - name (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'close-bilkent', 'cola', 'euler', 'spread', 'dagre', 'klay'; required):
+    - name (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'cose-bilkent', 'cola', 'euler', 'spread', 'dagre', 'klay'; required):
         The layouts available by default are:   `random`: Randomly
         assigns positions.   `preset`: Assigns position based on the
         `position` key in element dictionaries.   `circle`:

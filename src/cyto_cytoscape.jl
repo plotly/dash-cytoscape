@@ -82,7 +82,7 @@ the options are listed in the "API" section of the  README.
  function or a callback. Please visit this
 [issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.. layout has the following type: lists containing elements 'name', 'fit', 'padding', 'animate', 'animationDuration', 'boundingBox'.
 Those elements have the following types:
-  - `name` (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'close-bilkent', 'cola', 'euler', 'spread', 'dagre', 'klay'; required): The layouts available by default are:
+  - `name` (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'cose-bilkent', 'cola', 'euler', 'spread', 'dagre', 'klay'; required): The layouts available by default are:
   `random`: Randomly assigns positions.
   `preset`: Assigns position based on the `position` key in element dictionaries.
   `circle`: Single-level circle, with optional radius.

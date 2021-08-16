@@ -96,7 +96,7 @@ image was requested yet or the previous request failed. Read-only.}
 
 \item{layout}{Lists containing elements 'name', 'fit', 'padding', 'animate', 'animationduration', 'boundingbox'.
 those elements have the following types:
-  - name (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'close-bilkent', 'cola', 'euler', 'spread', 'dagre', 'klay'; required): the layouts available by default are:
+  - name (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'cose-bilkent', 'cola', 'euler', 'spread', 'dagre', 'klay'; required): the layouts available by default are:
   `random`: randomly assigns positions.
   `preset`: assigns position based on the `position` key in element dictionaries.
   `circle`: single-level circle, with optional radius.

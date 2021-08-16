@@ -633,7 +633,7 @@ Cytoscape.propTypes = {
             'grid',
             'breadthfirst',
             'cose',
-            'close-bilkent',
+            'cose-bilkent',
             'cola',
             'euler',
             'spread',
