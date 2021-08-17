@@ -44,6 +44,8 @@ jobs:
             PERCY_ENABLED: True
 
         steps:
+            - browser-tools/install-chrome
+            - browser-tools/install-chromedriver
             - checkout
 
             - restore_cache:
