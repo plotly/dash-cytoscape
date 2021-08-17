@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.2.0
 
 jobs:
     "node":
@@ -9,6 +11,7 @@ jobs:
                   password: $DASH_PAT_DOCKERHUB
                   
         steps:
+            - browser-tools/install-chrome
             - checkout
 
             - restore_cache:
@@ -29,9 +32,9 @@ jobs:
                 when: always
 
 
-    "python-3.6": &test-template
+    "python-36": &test-template
         docker:
-            - image: circleci/python:3.6-stretch-browsers
+            - image: cimg/python:3.6-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
@@ -43,7 +46,7 @@ jobs:
             - checkout
 
             - restore_cache:
-                key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
+                key: deps2-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
 
             - run:
                 name: Create virtualenv
@@ -105,10 +108,10 @@ jobs:
                     python -m unittest tests.test_percy_snapshot
                 when: always
 
-    "python-3.7":
+    "python-37":
         <<: *test-template
         docker:
-            - image: circleci/python:3.7-stretch-browsers
+            - image: cimg/python:3.7-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
@@ -121,9 +124,9 @@ workflows:
     version: 2
     build:
         jobs:
-            - "python-3.6":
+            - "python-36":
                 context: dash-docker-hub
-            - "python-3.7":
+            - "python-37":
                 context: dash-docker-hub
             - "node":
                 context: dash-docker-hub
