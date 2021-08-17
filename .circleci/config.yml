@@ -49,7 +49,7 @@ jobs:
             - checkout
 
             - restore_cache:
-                key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
+                key: deps2-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
 
             - run:
                 name: Create virtualenv
@@ -63,7 +63,7 @@ jobs:
                     pip install -r tests/requirements.txt --quiet
 
             - save_cache:
-                key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
+                key: deps2-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
                 paths:
                     - "venv"
 
