@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.2.0
 
 jobs:
     "node":
@@ -9,6 +11,7 @@ jobs:
                   password: $DASH_PAT_DOCKERHUB
                   
         steps:
+            - browser-tools/install-chrome
             - checkout
 
             - restore_cache:
