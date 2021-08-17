@@ -5,13 +5,14 @@ orbs:
 jobs:
     "node":
         docker:
-            - image: circleci/node:8.11.3
+            - image: 'cimg/node:16.16-browsers'
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
                   
         steps:
             - browser-tools/install-chrome
+            - browser-tools/install-chromedriver
             - checkout
 
             - restore_cache:
