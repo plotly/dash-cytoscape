@@ -43,7 +43,7 @@ jobs:
             - checkout
 
             - restore_cache:
-                key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
+                key: deps2-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
 
             - run:
                 name: Create virtualenv
@@ -108,7 +108,7 @@ jobs:
     "python-3.7":
         <<: *test-template
         docker:
-            - image: circleci/python:3.7-stretch-browsers
+            - image: cimg/python:3.7-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
