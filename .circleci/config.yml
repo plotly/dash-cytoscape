@@ -32,7 +32,7 @@ jobs:
                 when: always
 
 
-    "python-3.6": &test-template
+    "python-36": &test-template
         docker:
             - image: cimg/python:3.6-browsers
               auth:
@@ -108,7 +108,7 @@ jobs:
                     python -m unittest tests.test_percy_snapshot
                 when: always
 
-    "python-3.7":
+    "python-37":
         <<: *test-template
         docker:
             - image: cimg/python:3.7-browsers
@@ -124,9 +124,9 @@ workflows:
     version: 2
     build:
         jobs:
-            - "python-3.6":
+            - "python-36":
                 context: dash-docker-hub
-            - "python-3.7":
+            - "python-37":
                 context: dash-docker-hub
             - "node":
                 context: dash-docker-hub
