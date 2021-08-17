@@ -44,12 +44,11 @@ jobs:
             PERCY_ENABLED: True
 
         steps:
-            - browser-tools/install-chrome
             - browser-tools/install-chromedriver
             - checkout
 
             - restore_cache:
-                key: deps2-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
+                key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
 
             - run:
                 name: Create virtualenv
