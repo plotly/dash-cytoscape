@@ -119,6 +119,7 @@ class Tests(IntegrationTests):
         self.save_screenshot(dir_name, 'Mouseover' + mouseover_label.replace(' ', ''))
 
         return mouseover_label
+
     def test_interactions(self):
         # VARIABLES
         drag_error = "Unable to drag Cytoscape nodes properly"
@@ -143,7 +144,6 @@ class Tests(IntegrationTests):
 
         actions = ActionChains(self.driver)
 
-
         # Select the JSON output element
         elem_tap = self.driver.find_element_by_css_selector('pre#tap-node-json-output')
 
@@ -152,10 +152,12 @@ class Tests(IntegrationTests):
         init_x += offset_x
         init_y += offset_y
 
-        assert self.perform_dragging(init_x, init_y, 150, 0, elem_tap, actions) == (150, 0), drag_error
-        assert self.perform_dragging(init_x+150, init_y, 0, 150, elem_tap, actions) == (0, 150), drag_error
-        assert self.perform_dragging(init_x+150, init_y+150, -150, -150, elem_tap, actions) == (-150, -150), \
+        assert self.perform_dragging(init_x, init_y, 150, 0, elem_tap, actions) == (150, 0), \
             drag_error
+        assert self.perform_dragging(init_x+150, init_y, 0, 150, elem_tap, actions) == (0, 150), \
+            drag_error
+        assert self.perform_dragging(init_x+150, init_y+150, -150, -150, elem_tap, actions) == \
+            (-150, -150), drag_error
 
         # Test clicking the nodes
         for i in range(1, 7):
@@ -175,4 +177,5 @@ class Tests(IntegrationTests):
         # Test hovering the nodes
         for i in range(1, 7):
             label = 'Node {}'.format(i)
-            assert self.perform_mouseover(*init_pos[label], elem_mouseover, actions) == label, mouseover_error
+            assert self.perform_mouseover(*init_pos[label], elem_mouseover, actions) == label, \
+                mouseover_error
