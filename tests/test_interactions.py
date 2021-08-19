@@ -32,6 +32,16 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 class Tests(IntegrationTests):
+    @classmethod
+    def setUpClass(cls):
+        super(Tests, cls).setUpClass()
+
+        # Initialize the apps
+        app = importlib.import_module('usage-events').app
+        cls.startServer(cls, app)
+        WebDriverWait(cls.driver, 20).until(EC.presence_of_element_located((By.ID, "cytoscape")))
+
+
     def save_screenshot(self, dir_name, name):
         directory_path = os.path.join(
             os.path.dirname(__file__),
@@ -136,11 +146,6 @@ class Tests(IntegrationTests):
             'Node 6': (168, 283)
         }
         init_x, init_y = init_pos['Node 1']
-
-        # Initialize the apps
-        app = importlib.import_module('usage-events').app
-        self.startServer(app)
-        WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, "cytoscape")))
 
         actions = ActionChains(self.driver)
 
