@@ -415,6 +415,7 @@ class Cytoscape extends Component {
             layout,
             // Viewport Manipulation
             pan,
+            wheelSensitivity,
             zoom,
             // Viewport Mutability and gesture Toggling
             panningEnabled,
@@ -461,6 +462,7 @@ class Cytoscape extends Component {
                 stylesheet={stylesheet}
                 layout={layout}
                 pan={pan}
+                wheelSensitivity={wheelSensitivity}
                 zoom={zoom}
                 panningEnabled={panningEnabled}
                 userPanningEnabled={userPanningEnabled}
@@ -668,6 +670,10 @@ Cytoscape.propTypes = {
         y: PropTypes.number
     }),
 
+    /**
+     * Changes the scroll wheel sensitivity when zooming.
+     */
+    wheelSensitivity: PropTypes.number,
     /**
      * The initial zoom level of the graph. You can set `minZoom` and
      * `maxZoom` to set restrictions on the zoom level.
@@ -906,6 +912,7 @@ Cytoscape.defaultProps = {
     style: {width: '600px', height: '600px'},
     layout: {name: 'grid'},
     pan: {x: 0, y: 0},
+    wheelSensitivity: 1,
     zoom: 1,
     minZoom: 1e-50,
     maxZoom: 1e50,

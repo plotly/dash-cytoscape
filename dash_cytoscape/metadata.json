@@ -368,6 +368,17 @@
           "computed": false
         }
       },
+      "wheelSensitivity": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "Changes the scroll wheel sensitivity when zooming.",
+        "defaultValue": {
+          "value": "1",
+          "computed": false
+        }
+      },
       "zoom": {
         "type": {
           "name": "number"

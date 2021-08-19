@@ -188,13 +188,14 @@ Those elements have the following types:
 pan the graph.
 - `userZoomingEnabled` (Bool; optional): Whether user events (e.g. dragging the graph background) are allowed
 to pan the graph.
+- `wheelSensitivity` (Real; optional): Changes the scroll wheel sensitivity when zooming.
 - `zoom` (Real; optional): The initial zoom level of the graph. You can set `minZoom` and
 `maxZoom` to set restrictions on the zoom level.
 - `zoomingEnabled` (Bool; optional): Whether zooming the graph is enabled (i.e., the zoom level of the graph
 is mutable overall).
 """
 function cyto_cytoscape(; kwargs...)
-        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :elements, :generateImage, :imageData, :layout, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :zoom, :zoomingEnabled]
+        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :elements, :generateImage, :imageData, :layout, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :wheelSensitivity, :zoom, :zoomingEnabled]
         wild_props = Symbol[]
         return Component("cyto_cytoscape", "Cytoscape", "dash_cytoscape", available_props, wild_props; kwargs...)
 end

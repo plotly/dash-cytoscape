@@ -20,7 +20,8 @@ responsive=NULL, selectedEdgeData=NULL,
 selectedNodeData=NULL, style=NULL, stylesheet=NULL,
 tapEdge=NULL, tapEdgeData=NULL, tapNode=NULL,
 tapNodeData=NULL, userPanningEnabled=NULL,
-userZoomingEnabled=NULL, zoom=NULL, zoomingEnabled=NULL)
+userZoomingEnabled=NULL, wheelSensitivity=NULL, zoom=NULL,
+zoomingEnabled=NULL)
 }
 
 \arguments{
@@ -230,6 +231,8 @@ pan the graph.}
 
 \item{userZoomingEnabled}{Logical. Whether user events (e.g. dragging the graph background) are allowed
 to pan the graph.}
+
+\item{wheelSensitivity}{Numeric. Changes the scroll wheel sensitivity when zooming.}
 
 \item{zoom}{Numeric. The initial zoom level of the graph. You can set `minZoom` and
 `maxZoom` to set restrictions on the zoom level.}
