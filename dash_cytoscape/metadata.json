@@ -288,6 +288,10 @@
                   "computed": false
                 },
                 {
+                  "value": "'fcose'",
+                  "computed": false
+                },
+                {
                   "value": "'cola'",
                   "computed": false
                 },
@@ -308,7 +312,7 @@
                   "computed": false
                 }
               ],
-              "description": "The layouts available by default are:\n  `random`: Randomly assigns positions.\n  `preset`: Assigns position based on the `position` key in element dictionaries.\n  `circle`: Single-level circle, with optional radius.\n  `concentric`: Multi-level circle, with optional radius.\n  `grid`: Square grid, optionally with numbers of `rows` and `cols`.\n  `breadthfirst`: Tree structure built using BFS, with optional `roots`.\n  `cose`: Force-directed physics simulation.\n\nSome external layouts are also included. To use them, run\n  `dash_cytoscape.load_extra_layouts()` before creating your Dash app. Be careful about\n  using the extra layouts when not necessary, since they require supplementary bandwidth\n  for loading, which impacts the startup time of the app.\n  The external layouts are:\n  [cose-bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent),\n  [cola](https://github.com/cytoscape/cytoscape.js-cola),\n  [euler](https://github.com/cytoscape/cytoscape.js-dagre),\n  [spread](https://github.com/cytoscape/cytoscape.js-spread),\n  [dagre](https://github.com/cytoscape/cytoscape.js-dagre),\n  [klay](https://github.com/cytoscape/cytoscape.js-klay),",
+              "description": "The layouts available by default are:\n  `random`: Randomly assigns positions.\n  `preset`: Assigns position based on the `position` key in element dictionaries.\n  `circle`: Single-level circle, with optional radius.\n  `concentric`: Multi-level circle, with optional radius.\n  `grid`: Square grid, optionally with numbers of `rows` and `cols`.\n  `breadthfirst`: Tree structure built using BFS, with optional `roots`.\n  `cose`: Force-directed physics simulation.\n\nSome external layouts are also included. To use them, run\n  `dash_cytoscape.load_extra_layouts()` before creating your Dash app. Be careful about\n  using the extra layouts when not necessary, since they require supplementary bandwidth\n  for loading, which impacts the startup time of the app.\n  The external layouts are:\n  [cose-bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent),\n  [fcose](https://github.com/iVis-at-Bilkent/cytoscape.js-fcose),\n  [cola](https://github.com/cytoscape/cytoscape.js-cola),\n  [euler](https://github.com/cytoscape/cytoscape.js-dagre),\n  [spread](https://github.com/cytoscape/cytoscape.js-spread),\n  [dagre](https://github.com/cytoscape/cytoscape.js-dagre),\n  [klay](https://github.com/cytoscape/cytoscape.js-klay),",
               "required": true
             },
             "fit": {

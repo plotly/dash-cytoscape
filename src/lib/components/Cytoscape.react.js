@@ -619,6 +619,7 @@ Cytoscape.propTypes = {
          *   for loading, which impacts the startup time of the app.
          *   The external layouts are:
          *   [cose-bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent),
+         *   [fcose](https://github.com/iVis-at-Bilkent/cytoscape.js-fcose),
          *   [cola](https://github.com/cytoscape/cytoscape.js-cola),
          *   [euler](https://github.com/cytoscape/cytoscape.js-dagre),
          *   [spread](https://github.com/cytoscape/cytoscape.js-spread),
@@ -634,6 +635,7 @@ Cytoscape.propTypes = {
             'breadthfirst',
             'cose',
             'cose-bilkent',
+            'fcose',
             'cola',
             'euler',
             'spread',

@@ -82,7 +82,7 @@ the options are listed in the "API" section of the  README.
  function or a callback. Please visit this
 [issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.. layout has the following type: lists containing elements 'name', 'fit', 'padding', 'animate', 'animationDuration', 'boundingBox'.
 Those elements have the following types:
-  - `name` (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'cose-bilkent', 'cola', 'euler', 'spread', 'dagre', 'klay'; required): The layouts available by default are:
+  - `name` (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'cose-bilkent', 'fcose', 'cola', 'euler', 'spread', 'dagre', 'klay'; required): The layouts available by default are:
   `random`: Randomly assigns positions.
   `preset`: Assigns position based on the `position` key in element dictionaries.
   `circle`: Single-level circle, with optional radius.
@@ -97,6 +97,7 @@ Some external layouts are also included. To use them, run
   for loading, which impacts the startup time of the app.
   The external layouts are:
   [cose-bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent),
+  [fcose](https://github.com/iVis-at-Bilkent/cytoscape.js-fcose),
   [cola](https://github.com/cytoscape/cytoscape.js-cola),
   [euler](https://github.com/cytoscape/cytoscape.js-dagre),
   [spread](https://github.com/cytoscape/cytoscape.js-spread),

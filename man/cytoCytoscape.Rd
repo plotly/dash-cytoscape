@@ -96,7 +96,7 @@ image was requested yet or the previous request failed. Read-only.}
 
 \item{layout}{Lists containing elements 'name', 'fit', 'padding', 'animate', 'animationduration', 'boundingbox'.
 those elements have the following types:
-  - name (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'cose-bilkent', 'cola', 'euler', 'spread', 'dagre', 'klay'; required): the layouts available by default are:
+  - name (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'cose-bilkent', 'fcose', 'cola', 'euler', 'spread', 'dagre', 'klay'; required): the layouts available by default are:
   `random`: randomly assigns positions.
   `preset`: assigns position based on the `position` key in element dictionaries.
   `circle`: single-level circle, with optional radius.
@@ -111,6 +111,7 @@ some external layouts are also included. to use them, run
   for loading, which impacts the startup time of the app.
   the external layouts are:
   [cose-bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent),
+  [fcose](https://github.com/ivis-at-bilkent/cytoscape.js-fcose),
   [cola](https://github.com/cytoscape/cytoscape.js-cola),
   [euler](https://github.com/cytoscape/cytoscape.js-dagre),
   [spread](https://github.com/cytoscape/cytoscape.js-spread),
