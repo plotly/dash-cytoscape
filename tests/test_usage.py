@@ -71,3 +71,6 @@ class Tests(IntegrationTests):
 
     def test_usage_responsive_graph(self):
         self.create_usage_test('demos.usage-responsive-graph')
+
+    def test_usage_cxtmenu(self):
+        self.create_usage_test('demos.usage-ctxmenu')

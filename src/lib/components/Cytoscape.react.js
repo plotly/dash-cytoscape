@@ -8,6 +8,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
 import CyResponsive from '../cyResponsive.js';
+import CyCxtMenu from '../cyCxtmenu.js';
 
 /**
 A Component Library for Dash aimed at facilitating network visualization in
@@ -21,6 +22,7 @@ class Cytoscape extends Component {
         this._handleCyCalled = false;
         this.handleImageGeneration = this.handleImageGeneration.bind(this);
         this.cyResponsiveClass = false;
+        this.cyCxtMenuClass = false;
     }
 
     generateNode(event) {
@@ -279,6 +281,9 @@ class Cytoscape extends Component {
 
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
+
+        this.cyCxtMenuClass = new CyCxtMenu(cy);
+        this.cyCxtMenuClass.update(this.props);
     }
 
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -449,6 +454,10 @@ class Cytoscape extends Component {
 
         if (this.cyResponsiveClass) {
             this.cyResponsiveClass.toggle(responsive);
+        }
+
+        if (this.cyCxtMenuClass) {
+            this.cyCxtMenuClass.update(this.props);
         }
 
         return (
@@ -841,7 +850,7 @@ Cytoscape.propTypes = {
     tapEdgeData: PropTypes.object,
 
     /**
-     * The data dictionary of a node returned when you hover over it. Read-only.
+        modified:   src/lib/cyCxtMenu.js
      */
     mouseoverNodeData: PropTypes.object,
 
@@ -899,7 +908,51 @@ Cytoscape.propTypes = {
     /**
      * Toggles intelligent responsive resize of Cytoscape graph with viewport size change
      */
-    responsive: PropTypes.bool
+    responsive: PropTypes.bool,
+
+    /**
+     * Property that determines whether a context menu is displayed and how. Requires extra layouts loaded.
+     * Context menu is accessed by right clicking. It accepts a list of dictionaries, each of which describes
+     * a context menu option. Options are rendered in the order presented.
+     */
+    cxtmenu: PropTypes.arrayOf(
+        PropTypes.exact({
+            /** ID associated with option. */
+            id: PropTypes.string,
+            /** 
+             * Determines which Cytoscape elements the option is attached to. Takes in a Cytoscape selector
+             * (see Cytoscape documentation for more information). Examples of valid selectors include node,
+             * edge, and core.
+             */
+            selector: PropTypes.string,
+            /** Label assigned to option. */
+            content: PropTypes.string,
+            /** Hover tooltip text assigned to option. */
+            tooltipText: PropTypes.string,
+            /** Toggles option disabled (greyed out). */
+            disabled: PropTypes.bool
+        })
+    ),
+
+    /**
+     * Dictionary returned when you a context menu option is selected. Read-only.
+     */
+    cxtmenuData: PropTypes.exact({
+        /** ID associated with option selected. */
+        id: PropTypes.string,
+        /** Position associated with option selected. */
+        position: PropTypes.exact({
+            x: PropTypes.number,
+            y: PropTypes.number,
+        }),
+        /** Time the option was selected. */
+        timestamp: PropTypes.number,
+        /** 
+         * Dictionary containing information about the selected item. Information provided varies depending 
+         * on the type of the selected item (node, edge, core, etc.).
+         */
+        target: PropTypes.object,
+    }),
 };
 
 Cytoscape.defaultProps = {

@@ -8,6 +8,8 @@ import euler from 'cytoscape-euler';
 import klay from 'cytoscape-klay';
 import spread from 'cytoscape-spread';
 import svg from 'cytoscape-svg';
+import contextMenus from 'cytoscape-context-menus';
+import 'cytoscape-context-menus/cytoscape-context-menus.css';
 
 CytoscapeJS.use(coseBilkent);
 CytoscapeJS.use(cola);
@@ -16,6 +18,7 @@ CytoscapeJS.use(euler);
 CytoscapeJS.use(klay);
 CytoscapeJS.use(spread);
 CytoscapeJS.use(svg);
+CytoscapeJS.use(contextMenus);
 
 export {
     Cytoscape
