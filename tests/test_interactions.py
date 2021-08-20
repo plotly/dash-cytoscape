@@ -23,6 +23,7 @@ import os
 import importlib
 import time
 import json
+import platform
 
 from .IntegrationTests import IntegrationTests
 from selenium.webdriver.common.by import By
@@ -40,7 +41,30 @@ class Tests(IntegrationTests):
         app = importlib.import_module('usage-events').app
         cls.startServer(cls, app)
         WebDriverWait(cls.driver, 20).until(EC.presence_of_element_located((By.ID, "cytoscape")))
+        cls.actions = ActionChains(cls.driver)
+        cls.init_pos = {
+            'Node 1': (59, 182),
+            'Node 2': (222, 345),
+            'Node 3': (168, 283 - 20),
+            'Node 4': (440, 182),
+            'Node 5': (277, 236),
+            'Node 6': (168, 283)
+        }
 
+    @classmethod
+    def tearDownClass(cls):
+        super(Tests, cls).tearDownClass()
+
+        time.sleep(3)
+        if platform.system() == 'Windows':
+            cls.driver.get('http://localhost:8050/stop')
+        else:
+            cls.server_process.terminate()
+        time.sleep(3)
+        cls.driver.quit()
+
+    def tearDown(self):
+        pass
 
     def save_screenshot(self, dir_name, name):
         directory_path = os.path.join(
@@ -130,24 +154,14 @@ class Tests(IntegrationTests):
 
         return mouseover_label
 
-    def test_interactions(self):
-        # VARIABLES
+    def test_dragging(self):
         drag_error = "Unable to drag Cytoscape nodes properly"
-        click_error = "Unable to click Cytoscape nodes properly"
-        mouseover_error = "Unable to mouseover Cytoscape nodes properly"
 
         # View module docstring for more information about initial positions
-        init_pos = {
-            'Node 1': (59, 182),
-            'Node 2': (222, 345),
-            'Node 3': (168, 283 - 20),
-            'Node 4': (440, 182),
-            'Node 5': (277, 236),
-            'Node 6': (168, 283)
-        }
+        init_pos = self.init_pos
         init_x, init_y = init_pos['Node 1']
 
-        actions = ActionChains(self.driver)
+        actions = self.actions
 
         # Select the JSON output element
         elem_tap = self.driver.find_element_by_css_selector('pre#tap-node-json-output')
@@ -164,10 +178,23 @@ class Tests(IntegrationTests):
         assert self.perform_dragging(init_x+150, init_y+150, -150, -150, elem_tap, actions) == \
             (-150, -150), drag_error
 
+    def test_clicking(self):
+        click_error = "Unable to click Cytoscape nodes properly"
+        actions = self.actions
+
+        # Select the JSON output element
+        elem_tap = self.driver.find_element_by_css_selector('pre#tap-node-json-output')
+
+        init_pos = self.init_pos
         # Test clicking the nodes
         for i in range(1, 7):
             label = 'Node {}'.format(i)
             assert self.perform_clicking(*init_pos[label], elem_tap, actions) == label, click_error
+
+    def test_mouseover(self):
+        init_pos = self.init_pos
+        mouseover_error = "Unable to mouseover Cytoscape nodes properly"
+        actions = self.actions
 
         # Open the Mouseover JSON tab
         actions.move_to_element(
