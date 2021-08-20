@@ -229,6 +229,28 @@ class Cytoscape extends Component {
             }
         });
 
+        cy.on('cxttap', 'node', event => {
+            const nodeObject = this.generateNode(event);
+
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
+                    cxtTapNode: nodeObject,
+                    cxtTapNodeData: nodeObject.data
+                });
+            }
+        });
+
+        cy.on('cxttap', 'edge', event => {
+            const edgeObject = this.generateEdge(event);
+
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
+                    cxtTapEdge: edgeObject,
+                    cxtTapEdgeData: edgeObject.data
+                });
+            }
+        });
+
         cy.on('mouseover', 'node', event => {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
@@ -241,6 +263,22 @@ class Cytoscape extends Component {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
                     mouseoverEdgeData: event.target.data()
+                });
+            }
+        });
+
+        cy.on('mouseout', 'node', event => {
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
+                    mouseoutNodeData: event.target.data()
+                });
+            }
+        });
+
+        cy.on('mouseout', 'edge', event => {
+            if (typeof this.props.setProps === 'function') {
+                this.props.setProps({
+                    mouseoutEdgeData: event.target.data()
                 });
             }
         });
@@ -841,6 +879,104 @@ Cytoscape.propTypes = {
     tapEdgeData: PropTypes.object,
 
     /**
+     * The complete node dictionary returned when you two-finger tap or right-click it. Read-only.
+     */
+    cxtTapNode: PropTypes.exact({
+        /** node specific item */
+        edgesData: PropTypes.array,
+        /** node specific item */
+        renderedPosition: PropTypes.object,
+        /** node specific item */
+        timeStamp: PropTypes.number,
+        /** General item (for all elements) */
+        classes: PropTypes.string,
+        /** General item (for all elements) */
+        data: PropTypes.object,
+        /** General item (for all elements) */
+        grabbable: PropTypes.bool,
+        /** General item (for all elements) */
+        group: PropTypes.string,
+        /** General item (for all elements) */
+        locked: PropTypes.bool,
+        /** General item (for all elements) */
+        position: PropTypes.object,
+        /** General item (for all elements) */
+        selectable: PropTypes.bool,
+        /** General item (for all elements) */
+        selected: PropTypes.bool,
+        /** General item (for all elements) */
+        style: PropTypes.object,
+        /** Item for compound nodes */
+        ancestorsData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+        /** Item for compound nodes */
+        childrenData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+        /** Item for compound nodes */
+        descendantsData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+        /** Item for compound nodes */
+        parentData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+        /** Item for compound nodes */
+        siblingsData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+        /** Item for compound nodes */
+        isParent: PropTypes.bool,
+        /** Item for compound nodes */
+        isChildless: PropTypes.bool,
+        /** Item for compound nodes */
+        isChild: PropTypes.bool,
+        /** Item for compound nodes */
+        isOrphan: PropTypes.bool,
+        /** Item for compound nodes */
+        relativePosition: PropTypes.object
+    }),
+
+    /**
+     * The data dictionary of a node returned when you two-finger tap or right-click it. Read-only.
+     */
+    cxtTapNodeData: PropTypes.object,
+
+    /**
+     * The complete edge dictionary returned when you two-finger tap or right-click it. Read-only.
+     */
+    cxtTapEdge: PropTypes.exact({
+        /** Edge-specific item */
+        isLoop: PropTypes.bool,
+        /** Edge-specific item */
+        isSimple: PropTypes.bool,
+        /** Edge-specific item */
+        midpoint: PropTypes.object,
+        /** Edge-specific item */
+        sourceData: PropTypes.object,
+        /** Edge-specific item */
+        sourceEndpoint: PropTypes.object,
+        /** Edge-specific item */
+        targetData: PropTypes.object,
+        /** Edge-specific item */
+        targetEndpoint: PropTypes.object,
+        /** Edge-specific item */
+        timeStamp: PropTypes.number,
+        /** General item (for all elements) */
+        classes: PropTypes.string,
+        /** General item (for all elements) */
+        data: PropTypes.object,
+        /** General item (for all elements) */
+        grabbable: PropTypes.bool,
+        /** General item (for all elements) */
+        group: PropTypes.string,
+        /** General item (for all elements) */
+        locked: PropTypes.bool,
+        /** General item (for all elements) */
+        selectable: PropTypes.bool,
+        /** General item (for all elements) */
+        selected: PropTypes.bool,
+        /** General item (for all elements) */
+        style: PropTypes.object
+    }),
+
+    /**
+     * The data dictionary of an edge returned when you two-finger tap or right-click it. Read-only.
+     */
+    cxtTapEdgeData: PropTypes.object,
+
+    /**
      * The data dictionary of a node returned when you hover over it. Read-only.
      */
     mouseoverNodeData: PropTypes.object,
@@ -849,6 +985,16 @@ Cytoscape.propTypes = {
      * The data dictionary of an edge returned when you hover over it. Read-only.
      */
     mouseoverEdgeData: PropTypes.object,
+
+    /**
+     * The data dictionary of a node returned when you hover out of it. Read-only.
+     */
+    mouseoutNodeData: PropTypes.object,
+
+    /**
+     * The data dictionary of an edge returned when you hover out of it. Read-only.
+     */
+    mouseoutEdgeData: PropTypes.object,
 
     /**
      * The list of data dictionaries of all selected nodes (e.g. using
