@@ -38,6 +38,140 @@ Keyword arguments:
     Sets the class name of the element (the value of an element's html
     class attribute).
 
+- cxtTapEdge (dict; optional):
+    The complete edge dictionary returned when you two-finger tap or
+    right-click it. Read-only.
+
+    `cxtTapEdge` is a dict with keys:
+
+    - classes (string; optional):
+        General item (for all elements).
+
+    - data (dict; optional):
+        General item (for all elements).
+
+    - grabbable (boolean; optional):
+        General item (for all elements).
+
+    - group (string; optional):
+        General item (for all elements).
+
+    - isLoop (boolean; optional):
+        Edge-specific item.
+
+    - isSimple (boolean; optional):
+        Edge-specific item.
+
+    - locked (boolean; optional):
+        General item (for all elements).
+
+    - midpoint (dict; optional):
+        Edge-specific item.
+
+    - selectable (boolean; optional):
+        General item (for all elements).
+
+    - selected (boolean; optional):
+        General item (for all elements).
+
+    - sourceData (dict; optional):
+        Edge-specific item.
+
+    - sourceEndpoint (dict; optional):
+        Edge-specific item.
+
+    - style (dict; optional):
+        General item (for all elements).
+
+    - targetData (dict; optional):
+        Edge-specific item.
+
+    - targetEndpoint (dict; optional):
+        Edge-specific item.
+
+    - timeStamp (number; optional):
+        Edge-specific item.
+
+- cxtTapEdgeData (dict; optional):
+    The data dictionary of an edge returned when you two-finger tap or
+    right-click it. Read-only.
+
+- cxtTapNode (dict; optional):
+    The complete node dictionary returned when you two-finger tap or
+    right-click it. Read-only.
+
+    `cxtTapNode` is a dict with keys:
+
+    - ancestorsData (dict | list; optional):
+        Item for compound nodes.
+
+    - childrenData (dict | list; optional):
+        Item for compound nodes.
+
+    - classes (string; optional):
+        General item (for all elements).
+
+    - data (dict; optional):
+        General item (for all elements).
+
+    - descendantsData (dict | list; optional):
+        Item for compound nodes.
+
+    - edgesData (list; optional):
+        node specific item.
+
+    - grabbable (boolean; optional):
+        General item (for all elements).
+
+    - group (string; optional):
+        General item (for all elements).
+
+    - isChild (boolean; optional):
+        Item for compound nodes.
+
+    - isChildless (boolean; optional):
+        Item for compound nodes.
+
+    - isOrphan (boolean; optional):
+        Item for compound nodes.
+
+    - isParent (boolean; optional):
+        Item for compound nodes.
+
+    - locked (boolean; optional):
+        General item (for all elements).
+
+    - parentData (dict | list; optional):
+        Item for compound nodes.
+
+    - position (dict; optional):
+        General item (for all elements).
+
+    - relativePosition (dict; optional):
+        Item for compound nodes.
+
+    - renderedPosition (dict; optional):
+        node specific item.
+
+    - selectable (boolean; optional):
+        General item (for all elements).
+
+    - selected (boolean; optional):
+        General item (for all elements).
+
+    - siblingsData (dict | list; optional):
+        Item for compound nodes.
+
+    - style (dict; optional):
+        General item (for all elements).
+
+    - timeStamp (number; optional):
+        node specific item.
+
+- cxtTapNodeData (dict; optional):
+    The data dictionary of a node returned when you two-finger tap or
+    right-click it. Read-only.
+
 - elements (list of dicts; optional):
     A list of dictionaries representing the elements of the networks.
     Each dictionary describes an element, and specifies its purpose.
@@ -215,6 +349,14 @@ Keyword arguments:
 - minZoom (number; default 1e-50):
     A minimum bound on the zoom level of the graph. The viewport can
     not be scaled smaller than this zoom level.
+
+- mouseoutEdgeData (dict; optional):
+    The data dictionary of an edge returned when you hover out of it.
+    Read-only.
+
+- mouseoutNodeData (dict; optional):
+    The data dictionary of a node returned when you hover out of it.
+    Read-only.
 
 - mouseoverEdgeData (dict; optional):
     The data dictionary of an edge returned when you hover over it.
@@ -428,12 +570,12 @@ Keyword arguments:
     Whether zooming the graph is enabled (i.e., the zoom level of the
     graph is mutable overall)."""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, elements=Component.UNDEFINED, stylesheet=Component.UNDEFINED, layout=Component.UNDEFINED, pan=Component.UNDEFINED, zoom=Component.UNDEFINED, panningEnabled=Component.UNDEFINED, userPanningEnabled=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, zoomingEnabled=Component.UNDEFINED, userZoomingEnabled=Component.UNDEFINED, boxSelectionEnabled=Component.UNDEFINED, autoungrabify=Component.UNDEFINED, autolock=Component.UNDEFINED, autounselectify=Component.UNDEFINED, autoRefreshLayout=Component.UNDEFINED, tapNode=Component.UNDEFINED, tapNodeData=Component.UNDEFINED, tapEdge=Component.UNDEFINED, tapEdgeData=Component.UNDEFINED, mouseoverNodeData=Component.UNDEFINED, mouseoverEdgeData=Component.UNDEFINED, selectedNodeData=Component.UNDEFINED, selectedEdgeData=Component.UNDEFINED, generateImage=Component.UNDEFINED, imageData=Component.UNDEFINED, responsive=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'autoRefreshLayout', 'autolock', 'autoungrabify', 'autounselectify', 'boxSelectionEnabled', 'className', 'elements', 'generateImage', 'imageData', 'layout', 'maxZoom', 'minZoom', 'mouseoverEdgeData', 'mouseoverNodeData', 'pan', 'panningEnabled', 'responsive', 'selectedEdgeData', 'selectedNodeData', 'style', 'stylesheet', 'tapEdge', 'tapEdgeData', 'tapNode', 'tapNodeData', 'userPanningEnabled', 'userZoomingEnabled', 'zoom', 'zoomingEnabled']
+    def __init__(self, id=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, elements=Component.UNDEFINED, stylesheet=Component.UNDEFINED, layout=Component.UNDEFINED, pan=Component.UNDEFINED, zoom=Component.UNDEFINED, panningEnabled=Component.UNDEFINED, userPanningEnabled=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, zoomingEnabled=Component.UNDEFINED, userZoomingEnabled=Component.UNDEFINED, boxSelectionEnabled=Component.UNDEFINED, autoungrabify=Component.UNDEFINED, autolock=Component.UNDEFINED, autounselectify=Component.UNDEFINED, autoRefreshLayout=Component.UNDEFINED, tapNode=Component.UNDEFINED, tapNodeData=Component.UNDEFINED, tapEdge=Component.UNDEFINED, tapEdgeData=Component.UNDEFINED, cxtTapNode=Component.UNDEFINED, cxtTapNodeData=Component.UNDEFINED, cxtTapEdge=Component.UNDEFINED, cxtTapEdgeData=Component.UNDEFINED, mouseoverNodeData=Component.UNDEFINED, mouseoverEdgeData=Component.UNDEFINED, mouseoutNodeData=Component.UNDEFINED, mouseoutEdgeData=Component.UNDEFINED, selectedNodeData=Component.UNDEFINED, selectedEdgeData=Component.UNDEFINED, generateImage=Component.UNDEFINED, imageData=Component.UNDEFINED, responsive=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'autoRefreshLayout', 'autolock', 'autoungrabify', 'autounselectify', 'boxSelectionEnabled', 'className', 'cxtTapEdge', 'cxtTapEdgeData', 'cxtTapNode', 'cxtTapNodeData', 'elements', 'generateImage', 'imageData', 'layout', 'maxZoom', 'minZoom', 'mouseoutEdgeData', 'mouseoutNodeData', 'mouseoverEdgeData', 'mouseoverNodeData', 'pan', 'panningEnabled', 'responsive', 'selectedEdgeData', 'selectedNodeData', 'style', 'stylesheet', 'tapEdge', 'tapEdgeData', 'tapNode', 'tapNodeData', 'userPanningEnabled', 'userZoomingEnabled', 'zoom', 'zoomingEnabled']
         self._type = 'Cytoscape'
         self._namespace = 'dash_cytoscape'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'autoRefreshLayout', 'autolock', 'autoungrabify', 'autounselectify', 'boxSelectionEnabled', 'className', 'elements', 'generateImage', 'imageData', 'layout', 'maxZoom', 'minZoom', 'mouseoverEdgeData', 'mouseoverNodeData', 'pan', 'panningEnabled', 'responsive', 'selectedEdgeData', 'selectedNodeData', 'style', 'stylesheet', 'tapEdge', 'tapEdgeData', 'tapNode', 'tapNodeData', 'userPanningEnabled', 'userZoomingEnabled', 'zoom', 'zoomingEnabled']
+        self.available_properties = ['id', 'autoRefreshLayout', 'autolock', 'autoungrabify', 'autounselectify', 'boxSelectionEnabled', 'className', 'cxtTapEdge', 'cxtTapEdgeData', 'cxtTapNode', 'cxtTapNodeData', 'elements', 'generateImage', 'imageData', 'layout', 'maxZoom', 'minZoom', 'mouseoutEdgeData', 'mouseoutNodeData', 'mouseoverEdgeData', 'mouseoverNodeData', 'pan', 'panningEnabled', 'responsive', 'selectedEdgeData', 'selectedNodeData', 'style', 'stylesheet', 'tapEdge', 'tapEdgeData', 'tapNode', 'tapNodeData', 'userPanningEnabled', 'userZoomingEnabled', 'zoom', 'zoomingEnabled']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

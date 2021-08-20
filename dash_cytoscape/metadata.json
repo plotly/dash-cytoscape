@@ -762,6 +762,268 @@
         "required": false,
         "description": "The data dictionary of an edge returned when you tap or click it. Read-only."
       },
+      "cxtTapNode": {
+        "type": {
+          "name": "exact",
+          "value": {
+            "edgesData": {
+              "name": "array",
+              "description": "node specific item",
+              "required": false
+            },
+            "renderedPosition": {
+              "name": "object",
+              "description": "node specific item",
+              "required": false
+            },
+            "timeStamp": {
+              "name": "number",
+              "description": "node specific item",
+              "required": false
+            },
+            "classes": {
+              "name": "string",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "data": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "grabbable": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "group": {
+              "name": "string",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "locked": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "position": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "selectable": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "selected": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "style": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "ancestorsData": {
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "childrenData": {
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "descendantsData": {
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "parentData": {
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "siblingsData": {
+              "name": "union",
+              "value": [
+                {
+                  "name": "object"
+                },
+                {
+                  "name": "array"
+                }
+              ],
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "isParent": {
+              "name": "bool",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "isChildless": {
+              "name": "bool",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "isChild": {
+              "name": "bool",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "isOrphan": {
+              "name": "bool",
+              "description": "Item for compound nodes",
+              "required": false
+            },
+            "relativePosition": {
+              "name": "object",
+              "description": "Item for compound nodes",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "The complete node dictionary returned when you two-finger tap or right-click it. Read-only."
+      },
+      "cxtTapNodeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data dictionary of a node returned when you two-finger tap or right-click it. Read-only."
+      },
+      "cxtTapEdge": {
+        "type": {
+          "name": "exact",
+          "value": {
+            "isLoop": {
+              "name": "bool",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "isSimple": {
+              "name": "bool",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "midpoint": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "sourceData": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "sourceEndpoint": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "targetData": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "targetEndpoint": {
+              "name": "object",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "timeStamp": {
+              "name": "number",
+              "description": "Edge-specific item",
+              "required": false
+            },
+            "classes": {
+              "name": "string",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "data": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "grabbable": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "group": {
+              "name": "string",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "locked": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "selectable": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "selected": {
+              "name": "bool",
+              "description": "General item (for all elements)",
+              "required": false
+            },
+            "style": {
+              "name": "object",
+              "description": "General item (for all elements)",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "The complete edge dictionary returned when you two-finger tap or right-click it. Read-only."
+      },
+      "cxtTapEdgeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data dictionary of an edge returned when you two-finger tap or right-click it. Read-only."
+      },
       "mouseoverNodeData": {
         "type": {
           "name": "object"
@@ -775,6 +1037,20 @@
         },
         "required": false,
         "description": "The data dictionary of an edge returned when you hover over it. Read-only."
+      },
+      "mouseoutNodeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data dictionary of a node returned when you hover out of it. Read-only."
+      },
+      "mouseoutEdgeData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "The data dictionary of an edge returned when you hover out of it. Read-only."
       },
       "selectedNodeData": {
         "type": {

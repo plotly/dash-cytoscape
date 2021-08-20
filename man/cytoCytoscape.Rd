@@ -12,11 +12,13 @@ A Component Library for Dash aimed at facilitating network visualization in Pyth
 \usage{
 cytoCytoscape(id=NULL, autoRefreshLayout=NULL, autolock=NULL,
 autoungrabify=NULL, autounselectify=NULL,
-boxSelectionEnabled=NULL, className=NULL, elements=NULL,
-generateImage=NULL, imageData=NULL, layout=NULL,
-maxZoom=NULL, minZoom=NULL, mouseoverEdgeData=NULL,
-mouseoverNodeData=NULL, pan=NULL, panningEnabled=NULL,
-responsive=NULL, selectedEdgeData=NULL,
+boxSelectionEnabled=NULL, className=NULL, cxtTapEdge=NULL,
+cxtTapEdgeData=NULL, cxtTapNode=NULL, cxtTapNodeData=NULL,
+elements=NULL, generateImage=NULL, imageData=NULL,
+layout=NULL, maxZoom=NULL, minZoom=NULL,
+mouseoutEdgeData=NULL, mouseoutNodeData=NULL,
+mouseoverEdgeData=NULL, mouseoverNodeData=NULL, pan=NULL,
+panningEnabled=NULL, responsive=NULL, selectedEdgeData=NULL,
 selectedNodeData=NULL, style=NULL, stylesheet=NULL,
 tapEdge=NULL, tapEdgeData=NULL, tapNode=NULL,
 tapNodeData=NULL, userPanningEnabled=NULL,
@@ -42,6 +44,54 @@ to select) is enabled. If enabled, the user must taphold to pan the graph.}
 
 \item{className}{Character. Sets the class name of the element (the value of an element's html
 class attribute).}
+
+\item{cxtTapEdge}{Lists containing elements 'isloop', 'issimple', 'midpoint', 'sourcedata', 'sourceendpoint', 'targetdata', 'targetendpoint', 'timestamp', 'classes', 'data', 'grabbable', 'group', 'locked', 'selectable', 'selected', 'style'.
+those elements have the following types:
+  - isloop (logical; optional): edge-specific item
+  - issimple (logical; optional): edge-specific item
+  - midpoint (named list; optional): edge-specific item
+  - sourcedata (named list; optional): edge-specific item
+  - sourceendpoint (named list; optional): edge-specific item
+  - targetdata (named list; optional): edge-specific item
+  - targetendpoint (named list; optional): edge-specific item
+  - timestamp (numeric; optional): edge-specific item
+  - classes (character; optional): general item (for all elements)
+  - data (named list; optional): general item (for all elements)
+  - grabbable (logical; optional): general item (for all elements)
+  - group (character; optional): general item (for all elements)
+  - locked (logical; optional): general item (for all elements)
+  - selectable (logical; optional): general item (for all elements)
+  - selected (logical; optional): general item (for all elements)
+  - style (named list; optional): general item (for all elements). The complete edge dictionary returned when you two-finger tap or right-click it. Read-only.}
+
+\item{cxtTapEdgeData}{Named list. The data dictionary of an edge returned when you two-finger tap or right-click it. Read-only.}
+
+\item{cxtTapNode}{Lists containing elements 'edgesdata', 'renderedposition', 'timestamp', 'classes', 'data', 'grabbable', 'group', 'locked', 'position', 'selectable', 'selected', 'style', 'ancestorsdata', 'childrendata', 'descendantsdata', 'parentdata', 'siblingsdata', 'isparent', 'ischildless', 'ischild', 'isorphan', 'relativeposition'.
+those elements have the following types:
+  - edgesdata (unnamed list; optional): node specific item
+  - renderedposition (named list; optional): node specific item
+  - timestamp (numeric; optional): node specific item
+  - classes (character; optional): general item (for all elements)
+  - data (named list; optional): general item (for all elements)
+  - grabbable (logical; optional): general item (for all elements)
+  - group (character; optional): general item (for all elements)
+  - locked (logical; optional): general item (for all elements)
+  - position (named list; optional): general item (for all elements)
+  - selectable (logical; optional): general item (for all elements)
+  - selected (logical; optional): general item (for all elements)
+  - style (named list; optional): general item (for all elements)
+  - ancestorsdata (named list | unnamed list; optional): item for compound nodes
+  - childrendata (named list | unnamed list; optional): item for compound nodes
+  - descendantsdata (named list | unnamed list; optional): item for compound nodes
+  - parentdata (named list | unnamed list; optional): item for compound nodes
+  - siblingsdata (named list | unnamed list; optional): item for compound nodes
+  - isparent (logical; optional): item for compound nodes
+  - ischildless (logical; optional): item for compound nodes
+  - ischild (logical; optional): item for compound nodes
+  - isorphan (logical; optional): item for compound nodes
+  - relativeposition (named list; optional): item for compound nodes. The complete node dictionary returned when you two-finger tap or right-click it. Read-only.}
+
+\item{cxtTapNodeData}{Named list. The data dictionary of a node returned when you two-finger tap or right-click it. Read-only.}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:
@@ -139,6 +189,10 @@ scaled larger than this zoom level.}
 
 \item{minZoom}{Numeric. A minimum bound on the zoom level of the graph. The viewport can not be
 scaled smaller than this zoom level.}
+
+\item{mouseoutEdgeData}{Named list. The data dictionary of an edge returned when you hover out of it. Read-only.}
+
+\item{mouseoutNodeData}{Named list. The data dictionary of a node returned when you hover out of it. Read-only.}
 
 \item{mouseoverEdgeData}{Named list. The data dictionary of an edge returned when you hover over it. Read-only.}
 
