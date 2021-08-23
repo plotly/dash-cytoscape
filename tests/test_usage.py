@@ -3,7 +3,8 @@ import importlib
 
 
 class Tests:
-    def create_usage_test(self, dash_duo, filename, dir_name='usage'):
+    @staticmethod
+    def create_usage_test(dash_duo, filename, dir_name='usage'):
         app = importlib.import_module(filename).app
 
         dash_duo.start_server(app)

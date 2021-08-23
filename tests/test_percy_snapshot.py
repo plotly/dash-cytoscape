@@ -68,7 +68,8 @@ class Tests:
 
         return app
 
-    def percy_snapshot(self, dash_duo, name=''):
+    @staticmethod
+    def percy_snapshot(dash_duo, name=''):
         if os.environ.get('PERCY_ENABLED', False):
             snapshot_name = '{} (Python {}.{})'.format(
                 name,
