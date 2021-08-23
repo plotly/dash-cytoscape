@@ -33,6 +33,7 @@ class Tests:
         app = importlib.import_module('usage-events').app
 
         dash_duo.start_server(app)
+        dash_duo.driver.set_window_size(1280, 1000)
         dash_duo.wait_for_element_by_id("cytoscape", 20)
 
         self.actions = ActionChains(dash_duo.driver)
