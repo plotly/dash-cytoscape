@@ -1,21 +1,16 @@
 import os
 import importlib
 
-from .IntegrationTests import IntegrationTests
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 
-class Tests(IntegrationTests):
-    def test_callbacks(self):
+class Tests:
+    def test_callbacks(self, dash_duo):
         app = importlib.import_module('usage-advanced').app
-        self.startServer(app)
 
-        WebDriverWait(self.driver, 20).until(
-            EC.presence_of_element_located((By.ID, "cytoscape"))
-        )
+        dash_duo.start_server(app)
+        dash_duo.wait_for_element_by_id("cytoscape", 20)
 
         def create_input_and_save(css_selector,
                                   dir_name,
@@ -23,7 +18,7 @@ class Tests(IntegrationTests):
                                   prefix=None,
                                   name_map=None,
                                   save=True):
-            elem = self.driver.find_element_by_css_selector(css_selector)
+            elem = dash_duo.find_element(css_selector)
 
             directory_path = os.path.join(
                 os.path.dirname(__file__),
@@ -57,9 +52,7 @@ class Tests(IntegrationTests):
                     name = name.replace('(', '_').replace(')', '').replace(',', '_')
                     name = name.replace('#', '_hex_').replace(' ', '')
 
-                    WebDriverWait(self.driver, 20).until(
-                        EC.presence_of_element_located((By.ID, "cytoscape"))
-                    )
+                    dash_duo.wait_for_element_by_id("cytoscape", 20)
 
                     path = os.path.join(
                         os.path.dirname(__file__),
@@ -68,17 +61,15 @@ class Tests(IntegrationTests):
                         name + '.png'
                     )
 
-                    self.driver.save_screenshot(path)
+                    dash_duo.driver.save_screenshot(path)
 
         def click_button_and_save(name_to_xpaths, dir_name, save=True):
             for name, xpath in name_to_xpaths.items():
-                button = self.driver.find_element(By.XPATH, xpath)
+                button = dash_duo.driver.find_element(By.XPATH, xpath)
                 button.click()
 
                 if save:
-                    WebDriverWait(self.driver, 20).until(
-                        EC.presence_of_element_located((By.ID, "cytoscape"))
-                    )
+                    dash_duo.wait_for_element_by_id("cytoscape", 20)
 
                     path = os.path.join(
                         os.path.dirname(__file__),
@@ -87,7 +78,7 @@ class Tests(IntegrationTests):
                         name + '.png'
                     )
 
-                    self.driver.save_screenshot(path)
+                    dash_duo.driver.save_screenshot(path)
 
         create_input_and_save(
             css_selector='input#dropdown-select-element-list',

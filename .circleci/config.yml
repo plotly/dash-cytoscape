@@ -81,28 +81,28 @@ jobs:
                 name: Integration Tests - Usage Apps Rendering
                 command: |
                     . venv/bin/activate
-                    python -m unittest tests.test_usage
+                    pytest --headless tests/test_usage.py
                 when: always
 
             - run:
                 name: Integration Tests - Interactions
                 command: |
                     . venv/bin/activate
-                    python -m unittest tests.test_interactions
+                    pytest --headless tests/test_interactions.py
                 when: always
 
             - run:
                 name: Integration Tests - Callbacks
                 command: |
                     . venv/bin/activate
-                    python -m unittest tests.test_callbacks
+                    pytest --headless tests/test_callbacks.py
                 when: always
 
             - run:
                 name: Capture Percy Snapshots
                 command: |
                     . venv/bin/activate
-                    python -m unittest tests.test_percy_snapshot
+                    pytest --headless tests/test_percy_snapshot.py
                 when: always
 
     "python-3.7":

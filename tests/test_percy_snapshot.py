@@ -2,18 +2,12 @@ import base64
 import os
 import sys
 import time
-
-from .IntegrationTests import IntegrationTests
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
-import percy
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
-class Tests(IntegrationTests):
+class Tests:
     """
     In order to render snapshots, Percy collects the DOM of the project and
     uses a custom rendering method, different from Selenium. Therefore, it
@@ -74,7 +68,7 @@ class Tests(IntegrationTests):
 
         return app
 
-    def percy_snapshot(self, name=''):
+    def percy_snapshot(self, dash_duo, name=''):
         if os.environ.get('PERCY_ENABLED', False):
             snapshot_name = '{} (Python {}.{})'.format(
                 name,
@@ -82,28 +76,11 @@ class Tests(IntegrationTests):
                 sys.version_info.minor
             )
 
-            self.percy_runner.snapshot(
+            dash_duo.percy_snapshot(
                 name=snapshot_name
             )
 
-    @classmethod
-    def setUpClass(cls):
-        super(Tests, cls).setUpClass()
-
-        if os.environ.get('PERCY_ENABLED', False):
-            loader = percy.ResourceLoader(webdriver=cls.driver)
-            percy_config = percy.Config(default_widths=[1280])
-            cls.percy_runner = percy.Runner(loader=loader, config=percy_config)
-            cls.percy_runner.initialize_build()
-
-    @classmethod
-    def tearDownClass(cls):
-        super(Tests, cls).tearDownClass()
-
-        if os.environ.get('PERCY_ENABLED', False):
-            cls.percy_runner.finalize_build()
-
-    def run_percy_on(self, dir_name):
+    def run_percy_on(self, dir_name, dash_duo):
         # Find the names of all the screenshots
         asset_list = os.listdir(os.path.join(
             os.path.dirname(__file__),
@@ -116,44 +93,41 @@ class Tests(IntegrationTests):
             if image.endswith('png'):
                 output_name = image.replace('.png', '')
 
-                self.driver.get('http://localhost:8050/{}'.format(image))
+                dash_duo.driver.get('http://localhost:8050/{}'.format(image))
 
-                WebDriverWait(self.driver, 20).until(
-                    EC.presence_of_element_located((By.ID, image))
-                )
+                dash_duo.wait_for_element_by_id(image, 20)
 
                 self.percy_snapshot(
-                    name='{}: {}'.format(dir_name.upper(), output_name)
+                    dash_duo, name='{}: {}'.format(dir_name.upper(), output_name)
                 )
                 time.sleep(2)
 
-    def test_usage(self):
-        # Create and start the app
+    def test_usage(self, dash_duo):
         app = self.create_app(dir_name='usage')
-        self.startServer(app)
+        dash_duo.start_server(app)
 
-        self.run_percy_on('usage')
+        self.run_percy_on('usage', dash_duo)
 
-    def test_elements(self):
+    def test_elements(self, dash_duo):
         app = self.create_app(dir_name='elements')
-        self.startServer(app)
+        dash_duo.start_server(app)
 
-        self.run_percy_on('elements')
+        self.run_percy_on('elements', dash_duo)
 
-    def test_layouts(self):
+    def test_layouts(self, dash_duo):
         app = self.create_app(dir_name='layouts')
-        self.startServer(app)
+        dash_duo.start_server(app)
 
-        self.run_percy_on('layouts')
+        self.run_percy_on('layouts', dash_duo)
 
-    def test_style(self):
+    def test_style(self, dash_duo):
         app = self.create_app(dir_name='style')
-        self.startServer(app)
+        dash_duo.start_server(app)
 
-        self.run_percy_on('style')
+        self.run_percy_on('style', dash_duo)
 
-    def test_interactions(self):
+    def test_interactions(self, dash_duo):
         app = self.create_app(dir_name='interactions')
-        self.startServer(app)
+        dash_duo.start_server(app)
 
-        self.run_percy_on('interactions')
+        self.run_percy_on('interactions', dash_duo)

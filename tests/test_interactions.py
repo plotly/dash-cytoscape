@@ -23,26 +23,20 @@ import os
 import importlib
 import time
 import json
-import platform
 
-from .IntegrationTests import IntegrationTests
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-class Tests(IntegrationTests):
-    @classmethod
-    def setUpClass(cls):
-        super(Tests, cls).setUpClass()
-
+class Tests:
+    def create_app(self, dash_duo):
         # Initialize the apps
         app = importlib.import_module('usage-events').app
-        cls.startServer(cls, app)
-        WebDriverWait(cls.driver, 20).until(EC.presence_of_element_located((By.ID, "cytoscape")))
-        cls.actions = ActionChains(cls.driver)
-        cls.init_pos = {
+
+        dash_duo.start_server(app)
+        dash_duo.wait_for_element_by_id("cytoscape", 20)
+
+        self.actions = ActionChains(dash_duo.driver)
+        self.init_pos = {
             'Node 1': (59, 182),
             'Node 2': (222, 345),
             'Node 3': (168, 283 - 20),
@@ -50,21 +44,6 @@ class Tests(IntegrationTests):
             'Node 5': (277, 236),
             'Node 6': (168, 283)
         }
-
-    @classmethod
-    def tearDownClass(cls):
-        super(Tests, cls).tearDownClass()
-
-        time.sleep(3)
-        if platform.system() == 'Windows':
-            cls.driver.get('http://localhost:8050/stop')
-        else:
-            cls.server_process.terminate()
-        time.sleep(3)
-        cls.driver.quit()
-
-    def tearDown(self):
-        pass
 
     def save_screenshot(self, dir_name, name):
         directory_path = os.path.join(
@@ -77,7 +56,7 @@ class Tests(IntegrationTests):
         if not os.path.exists(directory_path):
             os.makedirs(directory_path)
 
-        self.driver.save_screenshot(os.path.join(
+        self.dash_duo.driver.save_screenshot(os.path.join(
             os.path.dirname(__file__),
             'screenshots',
             dir_name,
@@ -96,7 +75,7 @@ class Tests(IntegrationTests):
         """
         actions.reset_actions()
         actions.move_to_element_with_offset(
-            self.driver.find_element_by_tag_name('body'), x, y
+            self.dash_duo.driver.find_element_by_tag_name('body'), x, y
         )
         actions.drag_and_drop_by_offset(source=None, xoffset=delta_x, yoffset=delta_y)
         actions.click()
@@ -127,7 +106,7 @@ class Tests(IntegrationTests):
         """
         actions.reset_actions()
         actions.move_to_element_with_offset(
-            self.driver.find_element_by_tag_name('body'), x, y
+            self.dash_duo.driver.find_element_by_tag_name('body'), x, y
         )
         actions.click()
         actions.perform()
@@ -142,7 +121,7 @@ class Tests(IntegrationTests):
     def perform_mouseover(self, x, y, elem, actions, dir_name='interactions'):
         actions.reset_actions()
         actions.move_to_element_with_offset(
-            self.driver.find_element_by_tag_name('body'), x - 50, y
+            self.dash_duo.driver.find_element_by_tag_name('body'), x - 50, y
         )
         actions.move_by_offset(50, 0)
         actions.perform()
@@ -154,7 +133,10 @@ class Tests(IntegrationTests):
 
         return mouseover_label
 
-    def test_dragging(self):
+    def test_dragging(self, dash_duo):
+        self.dash_duo = dash_duo
+        self.create_app(dash_duo)
+
         drag_error = "Unable to drag Cytoscape nodes properly"
 
         # View module docstring for more information about initial positions
@@ -164,7 +146,7 @@ class Tests(IntegrationTests):
         actions = self.actions
 
         # Select the JSON output element
-        elem_tap = self.driver.find_element_by_css_selector('pre#tap-node-json-output')
+        elem_tap = dash_duo.find_element('pre#tap-node-json-output')
 
         # Test dragging the nodes around
         offset_x, offset_y = self.perform_dragging(init_x, init_y, 0, 0, elem_tap, actions)
@@ -178,12 +160,15 @@ class Tests(IntegrationTests):
         assert self.perform_dragging(init_x+150, init_y+150, -150, -150, elem_tap, actions) == \
             (-150, -150), drag_error
 
-    def test_clicking(self):
+    def test_clicking(self, dash_duo):
+        self.dash_duo = dash_duo
+        self.create_app(dash_duo)
+
         click_error = "Unable to click Cytoscape nodes properly"
         actions = self.actions
 
         # Select the JSON output element
-        elem_tap = self.driver.find_element_by_css_selector('pre#tap-node-json-output')
+        elem_tap = dash_duo.find_element('pre#tap-node-json-output')
 
         init_pos = self.init_pos
         # Test clicking the nodes
@@ -191,20 +176,22 @@ class Tests(IntegrationTests):
             label = 'Node {}'.format(i)
             assert self.perform_clicking(*init_pos[label], elem_tap, actions) == label, click_error
 
-    def test_mouseover(self):
+    def test_mouseover(self, dash_duo):
+        self.dash_duo = dash_duo
+        self.create_app(dash_duo)
+
         init_pos = self.init_pos
         mouseover_error = "Unable to mouseover Cytoscape nodes properly"
         actions = self.actions
 
         # Open the Mouseover JSON tab
         actions.move_to_element(
-            self.driver.find_element_by_css_selector('#tabs > div:nth-child(3)'))
+            dash_duo.find_element('#tabs > div:nth-child(3)'))
         actions.click().perform()
         time.sleep(1)
 
         # Select the JSON output element
-        elem_mouseover = self.driver.find_element_by_css_selector(
-            'pre#mouseover-node-data-json-output')
+        elem_mouseover = dash_duo.find_element('pre#mouseover-node-data-json-output')
 
         # Test hovering the nodes
         for i in range(1, 7):
