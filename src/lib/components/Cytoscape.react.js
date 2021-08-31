@@ -850,7 +850,7 @@ Cytoscape.propTypes = {
     tapEdgeData: PropTypes.object,
 
     /**
-        modified:   src/lib/cyCxtMenu.js
+     * The data dictionary of a node returned when you hover over it. Read-only.
      */
     mouseoverNodeData: PropTypes.object,
 
@@ -911,9 +911,9 @@ Cytoscape.propTypes = {
     responsive: PropTypes.bool,
 
     /**
-     * Property that determines whether a context menu is displayed and how. Requires extra layouts loaded.
-     * Context menu is accessed by right clicking. It accepts a list of dictionaries, each of which describes
-     * a context menu option. Options are rendered in the order presented.
+     * Displays a context menu on right click. Requires extra layouts loaded.
+     * Accepts a list of dictionaries, each of which describes a context
+     * menu option. Options are rendered in the order presented.
      */
     cxtmenu: PropTypes.arrayOf(
         PropTypes.exact({
