@@ -46,6 +46,7 @@ jobs:
                   
         environment:
             PERCY_ENABLED: True
+            PERCY_PARALLEL_TOTAL: -1
 
         steps:
             - checkout
@@ -137,4 +138,4 @@ workflows:
                 context: dash-docker-hub
             - "percy-finalize":
                 requires:
-                    - "python-3.7"
+                    - "python-3.6"
