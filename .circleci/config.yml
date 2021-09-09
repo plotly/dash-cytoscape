@@ -1,6 +1,14 @@
 version: 2
 
 jobs:
+    "percy-finalize":
+        docker:
+            - image: percyio/agent
+              auth:
+                username: dashautomation
+                password: $DASH_PAT_DOCKERHUB
+        steps:
+            - run: percy finalize --all
     "node":
         docker:
             - image: circleci/node:8.11.3
@@ -81,7 +89,7 @@ jobs:
                 name: Integration Tests - Usage Apps Rendering
                 command: |
                     . venv/bin/activate
-                    pytest --headless tests/test_usage.py
+                    pytest --nopercyfinalize --headless tests/test_usage.py
                 when: always
 
             - run:
@@ -127,3 +135,6 @@ workflows:
                 context: dash-docker-hub
             - "node":
                 context: dash-docker-hub
+            - "percy-finalize":
+                requires:
+                    - "python-3.7"
