@@ -935,7 +935,7 @@ Cytoscape.propTypes = {
     ),
 
     /**
-     * Dictionary returned when you a context menu option is selected. Read-only.
+     * Dictionary returned when a context menu option is selected. Read-only.
      */
     cxtmenuData: PropTypes.exact({
         /** ID associated with option selected. */
