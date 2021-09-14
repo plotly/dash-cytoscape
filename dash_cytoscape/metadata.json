@@ -767,7 +767,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "The data dictionary of a node returned when you hover over it. Read-only."
+        "description": "modified:   src/lib/cyCxtMenu.js"
       },
       "mouseoverEdgeData": {
         "type": {
@@ -876,6 +876,82 @@
           "value": "false",
           "computed": false
         }
+      },
+      "cxtmenu": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "exact",
+            "value": {
+              "id": {
+                "name": "string",
+                "description": "ID associated with option.",
+                "required": false
+              },
+              "selector": {
+                "name": "string",
+                "description": "Determines which Cytoscape elements the option is attached to. Takes in a Cytoscape selector\n(see Cytoscape documentation for more information). Examples of valid selectors include node,\nedge, and core.",
+                "required": false
+              },
+              "content": {
+                "name": "string",
+                "description": "Label assigned to option.",
+                "required": false
+              },
+              "tooltipText": {
+                "name": "string",
+                "description": "Hover tooltip text assigned to option.",
+                "required": false
+              },
+              "disabled": {
+                "name": "bool",
+                "description": "Toggles option disabled (greyed out).",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": "Property that determines whether a context menu is displayed and how. Requires extra layouts loaded.\nContext menu is accessed by right clicking. It accepts a list of dictionaries, each of which describes\na context menu option. Options are rendered in the order presented."
+      },
+      "cxtmenuData": {
+        "type": {
+          "name": "exact",
+          "value": {
+            "id": {
+              "name": "string",
+              "description": "ID associated with option selected.",
+              "required": false
+            },
+            "position": {
+              "name": "exact",
+              "value": {
+                "x": {
+                  "name": "number",
+                  "required": false
+                },
+                "y": {
+                  "name": "number",
+                  "required": false
+                }
+              },
+              "description": "Position associated with option selected.",
+              "required": false
+            },
+            "timestamp": {
+              "name": "number",
+              "description": "Time the option was selected.",
+              "required": false
+            },
+            "target": {
+              "name": "object",
+              "description": "Dictionary containing information about the selected item. Information provided varies depending \non the type of the selected item (node, edge, core, etc.).",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Dictionary returned when you a context menu option is selected. Read-only."
       }
     }
   }
