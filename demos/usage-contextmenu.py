@@ -104,8 +104,8 @@ app.layout = html.Div([
 ])
 
 
-@app.callback(Output('cytoscape', 'cxtmenu'), [Input('toggle-button', 'n_clicks')])
-def toggle_cxtmenu_options(n_clicks):
+@app.callback(Output('cytoscape', 'contextmenu'), [Input('toggle-button', 'n_clicks')])
+def toggle_contextmenu_options(n_clicks):
     n_clicks = 2 if n_clicks is None else n_clicks
     toggle_on = n_clicks % 2 == 0
     if toggle_on:
@@ -163,12 +163,12 @@ def toggle_cxtmenu_options(n_clicks):
 
 
 @app.callback(Output('output-span', 'children'),
-              [Input('cytoscape', 'cxtmenuData')])
-def handleCtxmenuReturn(cxtmenuData):
-    app.logger.info(json.dumps(cxtmenuData, indent=4, sort_keys=True))
-    if cxtmenuData is None:
+              [Input('cytoscape', 'contextmenuData')])
+def handleCtxmenuReturn(contextmenuData):
+    app.logger.info(json.dumps(contextmenuData, indent=4, sort_keys=True))
+    if contextmenuData is None:
         return "Option ID:"
-    return "Option ID: " + cxtmenuData["id"]
+    return "Option ID: " + contextmenuData["id"]
 
 
 if __name__ == '__main__':

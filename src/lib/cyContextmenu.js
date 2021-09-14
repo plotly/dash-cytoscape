@@ -14,7 +14,7 @@ function removeCore(selectorStr) {
         .join(', ');
 }
 
-export default class cyCxtmenu {
+export default class cyContextmenu {
     constructor(cy) {
         this.initializeCxtmenu = this.initializeCxtmenu.bind(this);
         this.updateCtxmenu = this.update.bind(this);
@@ -22,24 +22,24 @@ export default class cyCxtmenu {
         this.populateBilkentCxtmenu = this.populateBilkentCxtmenu.bind(this);
 
         this.cy = cy;
-        this.cxtmenuHash = '';
+        this.contextmenuHash = '';
         this.setProps = null;
         this.bilkentInstance = null;
     }
 
     update(props) {
-        const {setProps, cxtmenu} = props;
+        const {setProps, contextmenu} = props;
         this.setProps = setProps;
 
-        if(typeof cxtmenu !== 'object' || !this.cy || !this.cy.contextMenus) {
+        if(typeof contextmenu !== 'object' || !this.cy || !this.cy.contextMenus) {
             return;
         }
 
-        const cxtmenuHashNew = JSON.stringify(cxtmenu);
-        if(cxtmenuHashNew !== this.cxtmenuHash) {
+        const contextmenuHashNew = JSON.stringify(contextmenu);
+        if(contextmenuHashNew !== this.contextmenuHash) {
             this.initializeCxtmenu();
-            this.populateBilkentCxtmenu(cxtmenu);
-            this.cxtmenuHash = cxtmenuHashNew;
+            this.populateBilkentCxtmenu(contextmenu);
+            this.contextmenuHash = contextmenuHashNew;
         }
     }
 
@@ -54,12 +54,12 @@ export default class cyCxtmenu {
         });
     }
 
-    populateBilkentCxtmenu(cxtmenuList) {
-        cxtmenuList.forEach(cxtmenuItem => this.addBilkentCxtmenuItem(cxtmenuItem));
+    populateBilkentCxtmenu(contextmenuList) {
+        contextmenuList.forEach(contextmenuItem => this.addBilkentCxtmenuItem(contextmenuItem));
     }
 
-    addBilkentCxtmenuItem(cxtmenuItem) {
-        const {id, content, tooltipText, selector, disabled} = cxtmenuItem;
+    addBilkentCxtmenuItem(contextmenuItem) {
+        const {id, content, tooltipText, selector, disabled} = contextmenuItem;
 
         this.bilkentInstance.appendMenuItem({
             id,
@@ -70,7 +70,7 @@ export default class cyCxtmenu {
             coreAsWell: containsCore(isUndefined(selector, '')),
             onClickFunction: e => {
                 this.setProps({
-                    cxtmenuData: {
+                    contextmenuData: {
                         id,
                         timestamp: e.timeStamp,
                         position: e.position,

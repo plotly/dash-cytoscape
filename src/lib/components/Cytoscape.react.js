@@ -8,7 +8,7 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 
 import CyResponsive from '../cyResponsive.js';
-import CyCxtMenu from '../cyCxtmenu.js';
+import CyCxtMenu from '../cyContextmenu.js';
 
 /**
 A Component Library for Dash aimed at facilitating network visualization in
@@ -915,7 +915,7 @@ Cytoscape.propTypes = {
      * Accepts a list of dictionaries, each of which describes a context
      * menu option. Options are rendered in the order presented.
      */
-    cxtmenu: PropTypes.arrayOf(
+    contextmenu: PropTypes.arrayOf(
         PropTypes.exact({
             /** ID associated with option. */
             id: PropTypes.string,
@@ -937,7 +937,7 @@ Cytoscape.propTypes = {
     /**
      * Dictionary returned when a context menu option is selected. Read-only.
      */
-    cxtmenuData: PropTypes.exact({
+    contextmenuData: PropTypes.exact({
         /** ID associated with option selected. */
         id: PropTypes.string,
         /** Position associated with option selected. */
