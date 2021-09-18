@@ -12,8 +12,8 @@ app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
 elements = [
-    {'data': {'id': 'a', 'lat': 43.662402, 'lng': -79.388910}},
-    {'data': {'id': 'b', 'lat': 43.658560, 'lng': -79.384574}},
+    {'data': {'id': 'a', 'lat': 43.662402, 'lon': -79.388910}},
+    {'data': {'id': 'b', 'lat': 43.658560, 'lon': -79.384574}},
     {'data': {'id': 'ab', 'source': 'a', 'target': 'b'}}
 ]
 
@@ -86,7 +86,7 @@ app.layout = html.Div([
         },
         leaflet={
             'tileUrl': 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png',
-            'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributorszzz &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
             'maxZoom': 18,
         }
     )

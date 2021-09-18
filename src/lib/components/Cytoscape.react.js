@@ -966,7 +966,7 @@ Cytoscape.propTypes = {
     /**
      * Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
      * configuration options are optional; provide an empty dictionary to use default options. Requires
-     * properties "lat" and "lng" to be included in the node data for positional information. Provided node
+     * latitude and longitude properties to be included in the node data for positional information. Provided node
      * "id" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded.
      */
     leaflet: PropTypes.exact({
@@ -976,6 +976,10 @@ Cytoscape.propTypes = {
         attribution: PropTypes.string,
         /** Sets the max zoom allowed by leaflet. See leaflet documentation for more information about zoom. */
         maxZoom: PropTypes.number,
+        /** Specifies the name of the node property containing the latitude of the node. Default: 'lat'. */
+        latitudeId: PropTypes.string,
+        /** Specifies the name of the node property containing the longitude of the node. Default: 'lon'. */
+        longitudeId: PropTypes.string,
     })
 };
 

@@ -42,7 +42,9 @@ export default class cyLeaflet {
 
     addLeafletTiles(props) {
         this.leafletInstance = this.cy.leaflet({
-            container: this.leafletContainer
+            container: this.leafletContainer,
+            latitude: node => node.data(props.leaflet.latitudeId || 'lat'),
+            longitude: node => node.data(props.leaflet.longitudeId || 'lon'),
         });
 
         this.leafletInstance.map.removeLayer(this.leafletInstance.defaultTileLayer);
