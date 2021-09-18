@@ -9,6 +9,7 @@ import _ from 'lodash';
 
 import CyResponsive from '../cyResponsive.js';
 import CyCxtMenu from '../cyContextmenu.js';
+import CyLeaflet from '../cyLeaflet.js';
 
 /**
 A Component Library for Dash aimed at facilitating network visualization in
@@ -23,6 +24,7 @@ class Cytoscape extends Component {
         this.handleImageGeneration = this.handleImageGeneration.bind(this);
         this.cyResponsiveClass = false;
         this.cyCxtMenuClass = false;
+        this.cyLeafletClass = false;
     }
 
     generateNode(event) {
@@ -284,6 +286,9 @@ class Cytoscape extends Component {
 
         this.cyCxtMenuClass = new CyCxtMenu(cy);
         this.cyCxtMenuClass.update(this.props);
+
+        this.cyLeafletClass = new CyLeaflet(cy);
+        this.cyLeafletClass.update(this.props);
     }
 
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -458,6 +463,10 @@ class Cytoscape extends Component {
 
         if (this.cyCxtMenuClass) {
             this.cyCxtMenuClass.update(this.props);
+        }
+
+        if (this.cyLeafletClass) {
+            this.cyLeafletClass.update(this.props);
         }
 
         return (
@@ -953,6 +962,21 @@ Cytoscape.propTypes = {
          */
         target: PropTypes.object,
     }),
+
+    /**
+     * Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
+     * configuration options are optional; provide an empty dictionary to use default options. Requires
+     * properties "lat" and "lng" to be included in the node data for positional information. Provided node
+     * "id" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded.
+     */
+    leaflet: PropTypes.exact({
+        /** Endpoint used by leaflet to fetch map tiles. */
+        tileUrl: PropTypes.string,
+        /** Attribution text displayed on the bottom right corner of the map. */
+        attribution: PropTypes.string,
+        /** Sets the max zoom allowed by leaflet. See leaflet documentation for more information about zoom. */
+        maxZoom: PropTypes.number,
+    })
 };
 
 Cytoscape.defaultProps = {
