@@ -131,12 +131,14 @@ Some external layouts are also included. To use them, run
 `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.
 - `leaflet` (optional): Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
 configuration options are optional; provide an empty dictionary to use default options. Requires
-properties "lat" and "lng" to be included in the node data for positional information. Provided node
-"id" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded.. leaflet has the following type: lists containing elements 'tileUrl', 'attribution', 'maxZoom'.
+latitude and longitude properties to be included in the node data for positional information. Provided node
+"id" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded.. leaflet has the following type: lists containing elements 'tileUrl', 'attribution', 'maxZoom', 'latitudeId', 'longitudeId'.
 Those elements have the following types:
   - `tileUrl` (String; optional): Endpoint used by leaflet to fetch map tiles.
   - `attribution` (String; optional): Attribution text displayed on the bottom right corner of the map.
   - `maxZoom` (Real; optional): Sets the max zoom allowed by leaflet. See leaflet documentation for more information about zoom.
+  - `latitudeId` (String; optional): Specifies the name of the node property containing the latitude of the node. Default: 'lat'.
+  - `longitudeId` (String; optional): Specifies the name of the node property containing the longitude of the node. Default: 'lon'.
 - `maxZoom` (Real; optional): A maximum bound on the zoom level of the graph. The viewport can not be
 scaled larger than this zoom level.
 - `minZoom` (Real; optional): A minimum bound on the zoom level of the graph. The viewport can not be

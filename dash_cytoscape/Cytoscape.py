@@ -263,9 +263,9 @@ Keyword arguments:
     Dictionary specifying configuration options to overlay a leaflet
     map on top of Cytoscape. All configuration options are optional;
     provide an empty dictionary to use default options. Requires
-    properties \"lat\" and \"lng\" to be included in the node data for
-    positional information. Provided node \"id\" will be used as the
-    node label. Requires preset layout to be used. Requires extra
+    latitude and longitude properties to be included in the node data
+    for positional information. Provided node \"id\" will be used as
+    the node label. Requires preset layout to be used. Requires extra
     layouts to be loaded.
 
     `leaflet` is a dict with keys:
@@ -273,6 +273,14 @@ Keyword arguments:
     - attribution (string; optional):
         Attribution text displayed on the bottom right corner of the
         map.
+
+    - latitudeId (string; optional):
+        Specifies the name of the node property containing the
+        latitude of the node. Default: 'lat'.
+
+    - longitudeId (string; optional):
+        Specifies the name of the node property containing the
+        longitude of the node. Default: 'lon'.
 
     - maxZoom (number; optional):
         Sets the max zoom allowed by leaflet. See leaflet

@@ -971,11 +971,21 @@
               "name": "number",
               "description": "Sets the max zoom allowed by leaflet. See leaflet documentation for more information about zoom.",
               "required": false
+            },
+            "latitudeId": {
+              "name": "string",
+              "description": "Specifies the name of the node property containing the latitude of the node. Default: 'lat'.",
+              "required": false
+            },
+            "longitudeId": {
+              "name": "string",
+              "description": "Specifies the name of the node property containing the longitude of the node. Default: 'lon'.",
+              "required": false
             }
           }
         },
         "required": false,
-        "description": "Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All\nconfiguration options are optional; provide an empty dictionary to use default options. Requires\nproperties \"lat\" and \"lng\" to be included in the node data for positional information. Provided node\n\"id\" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded."
+        "description": "Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All\nconfiguration options are optional; provide an empty dictionary to use default options. Requires\nlatitude and longitude properties to be included in the node data for positional information. Provided node\n\"id\" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded."
       }
     }
   }
