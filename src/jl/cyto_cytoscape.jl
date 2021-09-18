@@ -21,9 +21,9 @@ default (if true, overrides individual element state).
 to select) is enabled. If enabled, the user must taphold to pan the graph.
 - `className` (String; optional): Sets the class name of the element (the value of an element's html
 class attribute).
-- `cxtmenu` (optional): Property that determines whether a context menu is displayed and how. Requires extra layouts loaded.
-Context menu is accessed by right clicking. It accepts a list of dictionaries, each of which describes
-a context menu option. Options are rendered in the order presented.. cxtmenu has the following type: Array of lists containing elements 'id', 'selector', 'content', 'tooltipText', 'disabled'.
+- `contextmenu` (optional): Displays a context menu on right click. Requires extra layouts loaded.
+Accepts a list of dictionaries, each of which describes a context
+menu option. Options are rendered in the order presented.. contextmenu has the following type: Array of lists containing elements 'id', 'selector', 'content', 'tooltipText', 'disabled'.
 Those elements have the following types:
   - `id` (String; optional): ID associated with option.
   - `selector` (String; optional): Determines which Cytoscape elements the option is attached to. Takes in a Cytoscape selector
@@ -32,7 +32,7 @@ edge, and core.
   - `content` (String; optional): Label assigned to option.
   - `tooltipText` (String; optional): Hover tooltip text assigned to option.
   - `disabled` (Bool; optional): Toggles option disabled (greyed out).s
-- `cxtmenuData` (optional): Dictionary returned when you a context menu option is selected. Read-only.. cxtmenuData has the following type: lists containing elements 'id', 'position', 'timestamp', 'target'.
+- `contextmenuData` (optional): Dictionary returned when a context menu option is selected. Read-only.. contextmenuData has the following type: lists containing elements 'id', 'position', 'timestamp', 'target'.
 Those elements have the following types:
   - `id` (String; optional): ID associated with option selected.
   - `position` (optional): Position associated with option selected.. position has the following type: lists containing elements 'x', 'y'.
@@ -129,12 +129,20 @@ Some external layouts are also included. To use them, run
   - `animationDuration` (Real; optional): Duration of animation in milliseconds, if enabled.
   - `boundingBox` (Dict; optional): How to constrain the layout in a specific area. Keys accepted are either
 `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.
+- `leaflet` (optional): Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
+configuration options are optional; provide an empty dictionary to use default options. Requires
+properties "lat" and "lng" to be included in the node data for positional information. Provided node
+"id" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded.. leaflet has the following type: lists containing elements 'tileUrl', 'attribution', 'maxZoom'.
+Those elements have the following types:
+  - `tileUrl` (String; optional): Endpoint used by leaflet to fetch map tiles.
+  - `attribution` (String; optional): Attribution text displayed on the bottom right corner of the map.
+  - `maxZoom` (Real; optional): Sets the max zoom allowed by leaflet. See leaflet documentation for more information about zoom.
 - `maxZoom` (Real; optional): A maximum bound on the zoom level of the graph. The viewport can not be
 scaled larger than this zoom level.
 - `minZoom` (Real; optional): A minimum bound on the zoom level of the graph. The viewport can not be
 scaled smaller than this zoom level.
 - `mouseoverEdgeData` (Dict; optional): The data dictionary of an edge returned when you hover over it. Read-only.
-- `mouseoverNodeData` (Dict; optional): modified:   src/lib/cyCxtMenu.js
+- `mouseoverNodeData` (Dict; optional): The data dictionary of a node returned when you hover over it. Read-only.
 - `pan` (optional): Dictionary indicating the initial panning position of the graph. The
 following keys are accepted:. pan has the following type: lists containing elements 'x', 'y'.
 Those elements have the following types:
@@ -215,7 +223,7 @@ to pan the graph.
 is mutable overall).
 """
 function cyto_cytoscape(; kwargs...)
-        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :cxtmenu, :cxtmenuData, :elements, :generateImage, :imageData, :layout, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :zoom, :zoomingEnabled]
+        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :contextmenu, :contextmenuData, :elements, :generateImage, :imageData, :layout, :leaflet, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :zoom, :zoomingEnabled]
         wild_props = Symbol[]
         return Component("cyto_cytoscape", "Cytoscape", "dash_cytoscape", available_props, wild_props; kwargs...)
 end

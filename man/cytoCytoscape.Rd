@@ -12,11 +12,12 @@ A Component Library for Dash aimed at facilitating network visualization in Pyth
 \usage{
 cytoCytoscape(id=NULL, autoRefreshLayout=NULL, autolock=NULL,
 autoungrabify=NULL, autounselectify=NULL,
-boxSelectionEnabled=NULL, className=NULL, cxtmenu=NULL,
-cxtmenuData=NULL, elements=NULL, generateImage=NULL,
-imageData=NULL, layout=NULL, maxZoom=NULL, minZoom=NULL,
-mouseoverEdgeData=NULL, mouseoverNodeData=NULL, pan=NULL,
-panningEnabled=NULL, responsive=NULL, selectedEdgeData=NULL,
+boxSelectionEnabled=NULL, className=NULL, contextmenu=NULL,
+contextmenuData=NULL, elements=NULL, generateImage=NULL,
+imageData=NULL, layout=NULL, leaflet=NULL, maxZoom=NULL,
+minZoom=NULL, mouseoverEdgeData=NULL,
+mouseoverNodeData=NULL, pan=NULL, panningEnabled=NULL,
+responsive=NULL, selectedEdgeData=NULL,
 selectedNodeData=NULL, style=NULL, stylesheet=NULL,
 tapEdge=NULL, tapEdgeData=NULL, tapNode=NULL,
 tapNodeData=NULL, userPanningEnabled=NULL,
@@ -43,7 +44,7 @@ to select) is enabled. If enabled, the user must taphold to pan the graph.}
 \item{className}{Character. Sets the class name of the element (the value of an element's html
 class attribute).}
 
-\item{cxtmenu}{List of lists containing elements 'id', 'selector', 'content', 'tooltiptext', 'disabled'.
+\item{contextmenu}{List of lists containing elements 'id', 'selector', 'content', 'tooltiptext', 'disabled'.
 those elements have the following types:
   - id (character; optional): id associated with option.
   - selector (character; optional): determines which cytoscape elements the option is attached to. takes in a cytoscape selector
@@ -51,11 +52,11 @@ those elements have the following types:
 edge, and core.
   - content (character; optional): label assigned to option.
   - tooltiptext (character; optional): hover tooltip text assigned to option.
-  - disabled (logical; optional): toggles option disabled (greyed out).s. Property that determines whether a context menu is displayed and how. Requires extra layouts loaded.
-Context menu is accessed by right clicking. It accepts a list of dictionaries, each of which describes
-a context menu option. Options are rendered in the order presented.}
+  - disabled (logical; optional): toggles option disabled (greyed out).s. Displays a context menu on right click. Requires extra layouts loaded.
+Accepts a list of dictionaries, each of which describes a context
+menu option. Options are rendered in the order presented.}
 
-\item{cxtmenuData}{Lists containing elements 'id', 'position', 'timestamp', 'target'.
+\item{contextmenuData}{Lists containing elements 'id', 'position', 'timestamp', 'target'.
 those elements have the following types:
   - id (character; optional): id associated with option selected.
   - position (optional): position associated with option selected.. position has the following type: lists containing elements 'x', 'y'.
@@ -64,7 +65,7 @@ those elements have the following types:
   - y (numeric; optional)
   - timestamp (numeric; optional): time the option was selected.
   - target (named list; optional): dictionary containing information about the selected item. information provided varies depending 
-on the type of the selected item (node, edge, core, etc.).. Dictionary returned when you a context menu option is selected. Read-only.}
+on the type of the selected item (node, edge, core, etc.).. Dictionary returned when a context menu option is selected. Read-only.}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:
@@ -157,6 +158,15 @@ the options are listed in the "API" section of the  README.
  function or a callback. Please visit this
 [issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.}
 
+\item{leaflet}{Lists containing elements 'tileurl', 'attribution', 'maxzoom'.
+those elements have the following types:
+  - tileurl (character; optional): endpoint used by leaflet to fetch map tiles.
+  - attribution (character; optional): attribution text displayed on the bottom right corner of the map.
+  - maxzoom (numeric; optional): sets the max zoom allowed by leaflet. see leaflet documentation for more information about zoom.. Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
+configuration options are optional; provide an empty dictionary to use default options. Requires
+properties "lat" and "lng" to be included in the node data for positional information. Provided node
+"id" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded.}
+
 \item{maxZoom}{Numeric. A maximum bound on the zoom level of the graph. The viewport can not be
 scaled larger than this zoom level.}
 
@@ -165,7 +175,7 @@ scaled smaller than this zoom level.}
 
 \item{mouseoverEdgeData}{Named list. The data dictionary of an edge returned when you hover over it. Read-only.}
 
-\item{mouseoverNodeData}{Named list. modified:   src/lib/cyCxtMenu.js}
+\item{mouseoverNodeData}{Named list. The data dictionary of a node returned when you hover over it. Read-only.}
 
 \item{pan}{Lists containing elements 'x', 'y'.
 those elements have the following types:
