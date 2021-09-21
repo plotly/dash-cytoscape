@@ -183,7 +183,7 @@ Keyword arguments:
     - fit (boolean; optional):
         Whether to render the nodes in order to fit the canvas.
 
-    - name (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'close-bilkent', 'cola', 'euler', 'spread', 'dagre', 'klay'; required):
+    - name (a value equal to: 'random', 'preset', 'circle', 'concentric', 'grid', 'breadthfirst', 'cose', 'cose-bilkent', 'fcose', 'cola', 'euler', 'spread', 'dagre', 'klay'; required):
         The layouts available by default are:   `random`: Randomly
         assigns positions.   `preset`: Assigns position based on the
         `position` key in element dictionaries.   `circle`:
@@ -199,6 +199,7 @@ Keyword arguments:
         loading, which impacts the startup time of the app.   The
         external layouts are:
         [cose-bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent),
+        [fcose](https://github.com/iVis-at-Bilkent/cytoscape.js-fcose),
         [cola](https://github.com/cytoscape/cytoscape.js-cola),
         [euler](https://github.com/cytoscape/cytoscape.js-dagre),
         [spread](https://github.com/cytoscape/cytoscape.js-spread),
