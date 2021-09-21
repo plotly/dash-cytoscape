@@ -1,134 +1,111 @@
+"""
+In order to render snapshots, Percy collects the DOM of the project and
+uses a custom rendering method, different from Selenium. Therefore, it
+is unable to render Canvas elements, so can't render Cytoscape charts
+directly.
+
+Instead, we use Selenium webdrivers to automatically screenshot each of
+the apps being tested in test_usage.py, display them in a simple
+Dash app, and use Percy to take a snapshot for CVI.
+
+Here, we extend the setUpClass method from IntegrationTests by adding
+percy runner initialization. This is because other classes that inherits
+from IntegrationTests do not necessarily need to initialize Percy (since
+all they do is save snapshots), and doing so causes Percy to render an
+empty build that ends up failing. Therefore, we decide to initialize and
+finalize the Percy runner in this class rather than inside
+IntegrationTests.
+"""
+
 import base64
 import os
 import sys
 import time
+import pytest
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
 
 
-class Tests:
-    """
-    In order to render snapshots, Percy collects the DOM of the project and
-    uses a custom rendering method, different from Selenium. Therefore, it
-    is unable to render Canvas elements, so can't render Cytoscape charts
-    directly.
-
-    Instead, we use Selenium webdrivers to automatically screenshot each of
-    the apps being tested in test_usage.py, display them in a simple
-    Dash app, and use Percy to take a snapshot for CVI.
-
-    Here, we extend the setUpClass method from IntegrationTests by adding
-    percy runner initialization. This is because other classes that inherits
-    from IntegrationTests do not necessarily need to initialize Percy (since
-    all they do is save snapshots), and doing so causes Percy to render an
-    empty build that ends up failing. Therefore, we decide to initialize and
-    finalize the Percy runner in this class rather than inside
-    IntegrationTests.
-    """
-
-    @staticmethod
-    def create_app(dir_name):
-        def encode(name):
-            path = os.path.join(
-                os.path.dirname(__file__),
-                'screenshots',
-                dir_name,
-                name
-            )
-
-            with open(path, 'rb') as image_file:
-                encoded_string = base64.b64encode(image_file.read())
-            return "data:image/png;base64," + encoded_string.decode('ascii')
-
-        # Define the app
-        app = dash.Dash(__name__)
-
-        app.layout = html.Div([
-            # represents the URL bar, doesn't render anything
-            dcc.Location(id='url', refresh=False),
-            # content will be rendered in this element
-            html.Div(id='page-content')
-        ])
-
-        @app.callback(dash.dependencies.Output('page-content', 'children'),
-                      [dash.dependencies.Input('url', 'pathname')])
-        def display_image(pathname):  # pylint: disable=W0612
-            """
-            Assign the url path to return the image it represent. For example,
-            to return "usage.png", you can visit localhost/usage.png.
-            :param pathname: name of the screenshot, prefixed with "/"
-            :return: An html.Img object containing the base64 encoded image
-            """
-            if not pathname or pathname == '/':
-                return None
-
-            name = pathname.replace('/', '')
-            return html.Img(id=name, src=encode(name))
-
-        return app
-
-    @staticmethod
-    def percy_snapshot(dash_duo, name=''):
-        if os.environ.get('PERCY_ENABLED', False):
-            snapshot_name = '{} (Python {}.{})'.format(
-                name,
-                sys.version_info.major,
-                sys.version_info.minor
-            )
-
-            dash_duo.percy_snapshot(
-                name=snapshot_name
-            )
-
-    def run_percy_on(self, dir_name, dash_duo):
-        # Find the names of all the screenshots
-        asset_list = os.listdir(os.path.join(
+def create_app(dir_name):
+    def encode(name):
+        path = os.path.join(
             os.path.dirname(__file__),
             'screenshots',
-            dir_name
-        ))
+            dir_name,
+            name
+        )
 
-        # Run Percy
-        for image in asset_list:
-            if image.endswith('png'):
-                output_name = image.replace('.png', '')
+        with open(path, 'rb') as image_file:
+            encoded_string = base64.b64encode(image_file.read())
+        return "data:image/png;base64," + encoded_string.decode('ascii')
 
-                dash_duo.driver.get('http://localhost:8050/{}'.format(image))
+    # Define the app
+    app = dash.Dash(__name__)
 
-                dash_duo.wait_for_element_by_id(image, 20)
+    app.layout = html.Div([
+        # represents the URL bar, doesn't render anything
+        dcc.Location(id='url', refresh=False),
+        # content will be rendered in this element
+        html.Div(id='page-content')
+    ])
 
-                self.percy_snapshot(
-                    dash_duo, name='{}: {}'.format(dir_name.upper(), output_name)
-                )
-                time.sleep(2)
+    @app.callback(dash.dependencies.Output('page-content', 'children'),
+                  [dash.dependencies.Input('url', 'pathname')])
+    def display_image(pathname):  # pylint: disable=W0612
+        """
+        Assign the url path to return the image it represent. For example,
+        to return "usage.png", you can visit localhost/usage.png.
+        :param pathname: name of the screenshot, prefixed with "/"
+        :return: An html.Img object containing the base64 encoded image
+        """
+        if not pathname or pathname == '/':
+            return None
 
-    def test_usage(self, dash_duo):
-        app = self.create_app(dir_name='usage')
-        dash_duo.start_server(app)
+        name = pathname.replace('/', '')
+        return html.Img(id=name, src=encode(name))
 
-        self.run_percy_on('usage', dash_duo)
+    return app
 
-    def test_elements(self, dash_duo):
-        app = self.create_app(dir_name='elements')
-        dash_duo.start_server(app)
 
-        self.run_percy_on('elements', dash_duo)
+def percy_snapshot(dash_duo, name=''):
+    snapshot_name = '{} (Python {}.{})'.format(
+        name,
+        sys.version_info.major,
+        sys.version_info.minor
+    )
 
-    def test_layouts(self, dash_duo):
-        app = self.create_app(dir_name='layouts')
-        dash_duo.start_server(app)
+    dash_duo.percy_snapshot(
+        name=snapshot_name
+    )
 
-        self.run_percy_on('layouts', dash_duo)
 
-    def test_style(self, dash_duo):
-        app = self.create_app(dir_name='style')
-        dash_duo.start_server(app)
+def run_percy_on(dir_name, dash_duo):
+    # Find the names of all the screenshots
+    asset_list = os.listdir(os.path.join(
+        os.path.dirname(__file__),
+        'screenshots',
+        dir_name
+    ))
 
-        self.run_percy_on('style', dash_duo)
+    # Run Percy
+    for image in asset_list:
+        if image.endswith('png'):
+            output_name = image.replace('.png', '')
 
-    def test_interactions(self, dash_duo):
-        app = self.create_app(dir_name='interactions')
-        dash_duo.start_server(app)
+            dash_duo.driver.get('http://localhost:8050/{}'.format(image))
 
-        self.run_percy_on('interactions', dash_duo)
+            dash_duo.wait_for_element_by_id(image, 20)
+
+            percy_snapshot(
+                dash_duo, name='{}: {}'.format(dir_name.upper(), output_name)
+            )
+            time.sleep(2)
+
+
+@pytest.mark.parametrize('name', ['usage', 'elements', 'layouts', 'style', 'interactions'])
+def test_cyps001_snapshots(name, dash_duo):
+    app = create_app(dir_name=name)
+    dash_duo.start_server(app)
+
+    run_percy_on(name, dash_duo)

@@ -5,320 +5,344 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
-class Tests:
-    def create_input_and_save(self, css_selector,
-                              dir_name,
-                              options,
-                              prefix=None,
-                              name_map=None,
-                              save=True):
-        elem = self.dash_duo.find_element(css_selector)
+def create_input_and_save(dash_duo, css_selector,
+                          dir_name,
+                          options,
+                          prefix=None,
+                          name_map=None,
+                          save=True):
+    elem = dash_duo.find_element(css_selector)
 
-        directory_path = os.path.join(
-            os.path.dirname(__file__),
-            'screenshots',
-            dir_name
-        )
+    directory_path = os.path.join(
+        os.path.dirname(__file__),
+        'screenshots',
+        dir_name
+    )
 
-        # Create directory if it doesn't already exist
-        if not os.path.exists(directory_path):
-            os.makedirs(directory_path)
+    # Create directory if it doesn't already exist
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
 
-        if prefix and not name_map:
-            name_map = {
-                option: prefix + option
-                for option in options
-            }
+    if prefix and not name_map:
+        name_map = {
+            option: prefix + option
+            for option in options
+        }
 
-        elif not name_map:
-            name_map = {}
+    elif not name_map:
+        name_map = {}
 
-        for option in options:
-            elem.send_keys(Keys.CONTROL + "a")
-            elem.send_keys(option)
-            elem.send_keys(Keys.RETURN)
+    for option in options:
+        elem.send_keys(Keys.CONTROL + "a")
+        elem.send_keys(option)
+        elem.send_keys(Keys.RETURN)
 
-            if save:
-                # If the name map doesn't contain a custom name for the option,
-                # we default to the value of the option to name the saved
-                # screenshot
-                name = name_map.get(option, option)
-                name = name.replace('(', '_').replace(')', '').replace(',', '_')
-                name = name.replace('#', '_hex_').replace(' ', '')
+        if save:
+            # If the name map doesn't contain a custom name for the option,
+            # we default to the value of the option to name the saved
+            # screenshot
+            name = name_map.get(option, option)
+            name = name.replace('(', '_').replace(')', '').replace(',', '_')
+            name = name.replace('#', '_hex_').replace(' ', '')
 
-                self.dash_duo.wait_for_element_by_id("cytoscape", 20)
+            dash_duo.wait_for_element_by_id("cytoscape", 20)
 
-                path = os.path.join(
-                    os.path.dirname(__file__),
-                    'screenshots',
-                    dir_name,
-                    name + '.png'
-                )
+            path = os.path.join(
+                os.path.dirname(__file__),
+                'screenshots',
+                dir_name,
+                name + '.png'
+            )
 
-                self.dash_duo.driver.save_screenshot(path)
+            dash_duo.driver.save_screenshot(path)
 
-    def click_button_and_save(self, name_to_xpaths, dir_name, save=True):
-        for name, xpath in name_to_xpaths.items():
-            button = self.dash_duo.driver.find_element(By.XPATH, xpath)
-            button.click()
 
-            if save:
-                self.dash_duo.wait_for_element_by_id("cytoscape", 20)
+def click_button_and_save(dash_duo, name_to_xpaths, dir_name, save=True):
+    for name, xpath in name_to_xpaths.items():
+        button = dash_duo.driver.find_element(By.XPATH, xpath)
+        button.click()
 
-                path = os.path.join(
-                    os.path.dirname(__file__),
-                    'screenshots',
-                    dir_name,
-                    name + '.png'
-                )
+        if save:
+            dash_duo.wait_for_element_by_id("cytoscape", 20)
 
-                self.dash_duo.driver.save_screenshot(path)
+            path = os.path.join(
+                os.path.dirname(__file__),
+                'screenshots',
+                dir_name,
+                name + '.png'
+            )
 
-    def test_callbacks(self, dash_duo):
-        self.dash_duo = dash_duo
-        app = importlib.import_module('usage-advanced').app
+            dash_duo.driver.save_screenshot(path)
 
-        dash_duo.start_server(app)
-        dash_duo.wait_for_element_by_id("cytoscape", 20)
 
-        self.create_input_and_save(
-            css_selector='input#dropdown-select-element-list',
-            dir_name='elements',
-            options=['Basic', 'Compound', 'Gene', 'Wineandcheese']
-        )
+def test_cycb001_callbacks(dash_duo):
+    app = importlib.import_module('usage-advanced').app
 
-        self.create_input_and_save(
-            css_selector='input#dropdown-layout',
-            dir_name='layouts',
-            options=[
-                'Preset',
-                'Grid',
-                'Circle',
-                'Concentric',
-                'Breadthfirst',
-                'Cose'
-            ]
-        )
+    dash_duo.start_server(app)
+    dash_duo.wait_for_element_by_id("cytoscape", 20)
 
-        # Reset the input to what it was at the beginning
-        self.create_input_and_save(
-            css_selector='input#dropdown-select-element-list',
-            dir_name='elements',
-            options=['Basic'],
-            save=False
-        )
-        self.create_input_and_save(
-            css_selector='input#dropdown-layout',
-            dir_name='layouts',
-            options=['Circle'],
-            save=False
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#dropdown-select-element-list',
+        dir_name='elements',
+        options=['Basic', 'Compound', 'Gene', 'Wineandcheese']
+    )
 
-        # Input Different types of Node Content
-        self.create_input_and_save(
-            css_selector='input#input-node-content',
-            dir_name='style',
-            options=[
-                'Hello',
-                'data(id)'
-            ],
-            name_map={
-                'Hello': 'NodeDisplayContentStatic',
-                'data(id)': 'NodeDisplayID'
-            }
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#dropdown-layout',
+        dir_name='layouts',
+        options=[
+            'Preset',
+            'Grid',
+            'Circle',
+            'Concentric',
+            'Breadthfirst',
+            'Cose'
+        ]
+    )
 
-        # Input Different node widths
-        self.create_input_and_save(
-            css_selector='input#input-node-width',
-            dir_name='style',
-            options=[
-                '30',
-                '50'
-            ],
-            prefix='NodeWidth'
-        )
+    # Reset the input to what it was at the beginning
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#dropdown-select-element-list',
+        dir_name='elements',
+        options=['Basic'],
+        save=False
+    )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#dropdown-layout',
+        dir_name='layouts',
+        options=['Circle'],
+        save=False
+    )
 
-        # Input Different node heights
-        self.create_input_and_save(
-            css_selector='input#input-node-height',
-            dir_name='style',
-            options=[
-                '40',
-                '60'
-            ],
-            prefix='NodeHeight'
-        )
+    # Input Different types of Node Content
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-node-content',
+        dir_name='style',
+        options=[
+            'Hello',
+            'data(id)'
+        ],
+        name_map={
+            'Hello': 'NodeDisplayContentStatic',
+            'data(id)': 'NodeDisplayID'
+        }
+    )
 
-        # Input different node shapes
-        self.create_input_and_save(
-            css_selector='input#dropdown-node-shape',
-            dir_name='style',
-            options=[
-                'Triangle',
-                'Rectangle',
-                'Roundrectangle',
-                'Barrel',
-                'Diamond',
-                'Pentagon',
-                'Star',
-                'Tag',
-                'Vee',
-                'Ellipse'
-            ],
-            prefix='NodeShape'
-        )
+    # Input Different node widths
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-node-width',
+        dir_name='style',
+        options=[
+            '30',
+            '50'
+        ],
+        prefix='NodeWidth'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#input-node-color',
-            dir_name='style',
-            options=[
-                'pink',
-                'sky blue',
-                'rgb(186,44,162)',
-                '#def229'
-            ],
-            prefix='NodeColor'
-        )
+    # Input Different node heights
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-node-height',
+        dir_name='style',
+        options=[
+            '40',
+            '60'
+        ],
+        prefix='NodeHeight'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#input-node-border-width',
-            dir_name='style',
-            options=['2'],
-            save=False
-        )
+    # Input different node shapes
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#dropdown-node-shape',
+        dir_name='style',
+        options=[
+            'Triangle',
+            'Rectangle',
+            'Roundrectangle',
+            'Barrel',
+            'Diamond',
+            'Pentagon',
+            'Star',
+            'Tag',
+            'Vee',
+            'Ellipse'
+        ],
+        prefix='NodeShape'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#input-node-border-color',
-            dir_name='style',
-            options=[
-                'pink',
-                'sky blue',
-                'rgb(186,44,162)',
-                '#def229'
-            ],
-            prefix='BorderColor'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-node-color',
+        dir_name='style',
+        options=[
+            'pink',
+            'sky blue',
+            'rgb(186,44,162)',
+            '#def229'
+        ],
+        prefix='NodeColor'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#input-node-border-width',
-            dir_name='style',
-            options=['5', '2'],
-            prefix='NodeBorderWidth'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-node-border-width',
+        dir_name='style',
+        options=['2'],
+        save=False
+    )
 
-        self.create_input_and_save(
-            css_selector='input#dropdown-node-border-style',
-            dir_name='style',
-            options=[
-                'Dashed',
-                'Dotted',
-                'Double',
-                'Solid',
-            ],
-            prefix='NodeBorderStyle'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-node-border-color',
+        dir_name='style',
+        options=[
+            'pink',
+            'sky blue',
+            'rgb(186,44,162)',
+            '#def229'
+        ],
+        prefix='BorderColor'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#input-node-padding',
-            dir_name='style',
-            options=['5px'],
-            prefix='NodePadding'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-node-border-width',
+        dir_name='style',
+        options=['5', '2'],
+        prefix='NodeBorderWidth'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#dropdown-node-padding-relative-to',
-            dir_name='style',
-            options=['Width', 'Height', 'Average', 'Min', 'Max'],
-            prefix='NodePaddingRelativeTo'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#dropdown-node-border-style',
+        dir_name='style',
+        options=[
+            'Dashed',
+            'Dotted',
+            'Double',
+            'Solid',
+        ],
+        prefix='NodeBorderStyle'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#input-edge-line-width',
-            dir_name='style',
-            options=['10', '1', '3'],
-            prefix='LineWidth'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-node-padding',
+        dir_name='style',
+        options=['5px'],
+        prefix='NodePadding'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#dropdown-edge-curve-style',
-            dir_name='style',
-            options=['Haystack', 'Segments', 'Unbundled-bezier', 'Bezier'],
-            prefix='EdgeCurveStyle'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#dropdown-node-padding-relative-to',
+        dir_name='style',
+        options=['Width', 'Height', 'Average', 'Min', 'Max'],
+        prefix='NodePaddingRelativeTo'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#input-edge-line-color',
-            dir_name='style',
-            options=[
-                'pink',
-                'sky blue',
-                'rgb(186,44,162)',
-                '#def229'
-            ],
-            prefix='EdgeColor'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-edge-line-width',
+        dir_name='style',
+        options=['10', '1', '3'],
+        prefix='LineWidth'
+    )
 
-        # Modify Edge Styles
-        self.click_button_and_save(
-            name_to_xpaths={
-                'EdgeStyleSolid': '//*[@id="radio-edge-line-style"]/label[1]',
-                'EdgeStyleDotted': '//*[@id="radio-edge-line-style"]/label[2]',
-                'EdgeStyleDashed': '//*[@id="radio-edge-line-style"]/label[3]',
-            },
-            dir_name='style'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#dropdown-edge-curve-style',
+        dir_name='style',
+        options=['Haystack', 'Segments', 'Unbundled-bezier', 'Bezier'],
+        prefix='EdgeCurveStyle'
+    )
 
-        # Set "Use Edge Arrow" to "Yes"
-        self.click_button_and_save(
-            name_to_xpaths={
-                'EdgeArrow': '//*[@id="radio-use-edge-arrow"]/label[1]'},
-            dir_name='style',
-            save=False
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-edge-line-color',
+        dir_name='style',
+        options=[
+            'pink',
+            'sky blue',
+            'rgb(186,44,162)',
+            '#def229'
+        ],
+        prefix='EdgeColor'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#dropdown-source-arrow-shape',
-            dir_name='style',
-            options=[
-                'Circle',
-                'Vee',
-                'Tee',
-                'Diamond',
-                'Triangle'
-            ],
-            prefix='EdgeArrowShape'
-        )
+    # Modify Edge Styles
+    click_button_and_save(
+        dash_duo,
+        name_to_xpaths={
+            'EdgeStyleSolid': '//*[@id="radio-edge-line-style"]/label[1]',
+            'EdgeStyleDotted': '//*[@id="radio-edge-line-style"]/label[2]',
+            'EdgeStyleDashed': '//*[@id="radio-edge-line-style"]/label[3]',
+        },
+        dir_name='style'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#input-source-arrow-color',
-            dir_name='style',
-            options=[
-                'pink',
-                'sky blue',
-                'rgb(186,44,162)',
-                '#def229'
-            ],
-            prefix='EdgeArrowColor'
-        )
+    # Set "Use Edge Arrow" to "Yes"
+    click_button_and_save(
+        dash_duo,
+        name_to_xpaths={
+            'EdgeArrow': '//*[@id="radio-use-edge-arrow"]/label[1]'},
+        dir_name='style',
+        save=False
+    )
 
-        self.click_button_and_save(
-            name_to_xpaths={
-                'EdgeArrowFilled': ('//*[@id="radio-source-arrow-fill"]/'
-                                    'label[1]'),
-                'EdgeArrowHollow': ('//*[@id="radio-source-arrow-fill"]/'
-                                    'label[2]')
-            },
-            dir_name='style'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#dropdown-source-arrow-shape',
+        dir_name='style',
+        options=[
+            'Circle',
+            'Vee',
+            'Tee',
+            'Diamond',
+            'Triangle'
+        ],
+        prefix='EdgeArrowShape'
+    )
 
-        self.create_input_and_save(
-            css_selector='input#input-arrow-scale',
-            dir_name='style',
-            options=[
-                '3',
-                '2',
-                '1'
-            ],
-            prefix='EdgeArrowScale'
-        )
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-source-arrow-color',
+        dir_name='style',
+        options=[
+            'pink',
+            'sky blue',
+            'rgb(186,44,162)',
+            '#def229'
+        ],
+        prefix='EdgeArrowColor'
+    )
+
+    click_button_and_save(
+        dash_duo,
+        name_to_xpaths={
+            'EdgeArrowFilled': ('//*[@id="radio-source-arrow-fill"]/'
+                                'label[1]'),
+            'EdgeArrowHollow': ('//*[@id="radio-source-arrow-fill"]/'
+                                'label[2]')
+        },
+        dir_name='style'
+    )
+
+    create_input_and_save(
+        dash_duo,
+        css_selector='input#input-arrow-scale',
+        dir_name='style',
+        options=[
+            '3',
+            '2',
+            '1'
+        ],
+        prefix='EdgeArrowScale'
+    )
