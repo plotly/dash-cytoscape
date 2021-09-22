@@ -966,8 +966,8 @@ Cytoscape.propTypes = {
     /**
      * Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
      * configuration options are optional; provide an empty dictionary to use default options. Requires
-     * latitude and longitude properties to be included in the node data for positional information. Provided node
-     * "id" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded.
+     * latitude and longitude properties to be included in the node data for positional information.
+     * Requires preset layout to be used. Requires extra layouts to be loaded.
      */
     leaflet: PropTypes.exact({
         /** Specify a tile preset from Leaflet providers instead of a manual tileUrl.  See http://leaflet-extras.github.io/leaflet-providers/preview/  See also https://github.com/leaflet-extras/leaflet-providers */
