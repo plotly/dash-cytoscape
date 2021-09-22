@@ -8,9 +8,6 @@ cyto.load_extra_layouts()
 app = dash.Dash(__name__)
 server = app.server
 
-app.scripts.config.serve_locally = True
-app.css.config.serve_locally = True
-
 elements = [
     {'data': {'id': 'a', 'lat': 43.662402, 'lon': -79.388910}},
     {'data': {'id': 'b', 'lat': 43.658560, 'lon': -79.384574}},
@@ -21,8 +18,6 @@ elements = [
 app.layout = html.Div([
     cyto.Cytoscape(
         id='cytoscape',
-        boxSelectionEnabled=False,
-        autounselectify=True,
         elements=elements,
         layout={
             'name': 'preset',
@@ -85,13 +80,10 @@ app.layout = html.Div([
             'top': 0
         },
         leaflet={
-            'tileUrl': 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png',
-            'attribution': '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            'maxZoom': 18,
+            'preset': 'CartoDB.Positron'
         }
     )
 ])
-
 
 
 if __name__ == '__main__':
