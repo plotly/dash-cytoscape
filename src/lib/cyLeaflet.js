@@ -47,14 +47,19 @@ export default class cyLeaflet {
             longitude: 'lon',
         });
 
-        this.leafletInstance.map.removeLayer(this.leafletInstance.defaultTileLayer);
+        const { map, defaultTileLayer, L } = this.leafletInstance;
+        const { tileUrl, attribution, maxZoom, preset } = props.leaflet;
 
-        this.leafletInstance.L.tileLayer(
-            props.leaflet.tileUrl || 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png',
-            {
-                attribution: props.leaflet.attribution,
-                maxZoom: props.leaflet.maxZoom,
-            },
-        ).addTo(this.leafletInstance.map);
+        if(preset) {
+            map.removeLayer(defaultTileLayer);
+
+            L.tileLayer.provider(preset).addTo(map);
+        } else if(tileUrl) {
+            map.removeLayer(defaultTileLayer);
+
+            L.tileLayer(tileUrl, { attribution, maxZoom }).addTo(map);
+        } 
+        // otherwise use ext default
+
     }
 }

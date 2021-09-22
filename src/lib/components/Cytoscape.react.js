@@ -970,11 +970,13 @@ Cytoscape.propTypes = {
      * "id" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded.
      */
     leaflet: PropTypes.exact({
+        /** Specify a tile preset from Leaflet providers instead of a manual tileUrl.  See http://leaflet-extras.github.io/leaflet-providers/preview/  See also https://github.com/leaflet-extras/leaflet-providers */
+        preset: PropTypes.string,
         /** Endpoint used by leaflet to fetch map tiles. */
         tileUrl: PropTypes.string,
-        /** Attribution text displayed on the bottom right corner of the map. */
+        /** Attribution text displayed on the bottom right corner of the map (if not preset). */
         attribution: PropTypes.string,
-        /** Sets the max zoom allowed by leaflet. See leaflet documentation for more information about zoom. */
+        /** Sets the max zoom allowed by leaflet (if not preset). See leaflet documentation for more information about zoom. */
         maxZoom: PropTypes.number,
         /** Specifies the name of the node property containing the latitude of the node. Default: 'lat'. */
         latitudeId: PropTypes.string,
