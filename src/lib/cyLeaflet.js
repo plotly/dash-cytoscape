@@ -21,11 +21,17 @@ export default class cyLeaflet {
         }
 
         const leafletHashNew = JSON.stringify(leaflet);
-        if(this.leafletInstance) {
-            this.leafletInstance.destroy();
-            clearInterval(this.leafletContainerUpdateInterval);
-        }
         if(leafletHashNew !== this.leafletHash && leafletHashNew) {
+            if(this.leafletInstance) {
+                this.leafletInstance.destroy();
+                this.leafletInstance = null;
+            }
+
+            if(this.leafletContainer) {
+                this.leafletContainer.remove();
+                this.leafletContainer = null;
+            }
+
             this.initializeLeaflet();
             this.addLeafletTiles(props);
             this.leafletHash = leafletHashNew;
@@ -46,21 +52,15 @@ export default class cyLeaflet {
         if(!this.leafletContainer) {
             this.leafletContainer = document.createElement('div');
             this.leafletContainer.setAttribute('class', 'cy-leaflet-container');
-            this.leafletContainer.setAttribute('style', this.generateContainerStyle());
+            this.leafletContainer.setAttribute('style', 'position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 0;');
             this.cy.container().style.zIndex = 1;
             this.cy.container().parentNode.appendChild(this.leafletContainer);
-
-            this.leafletContainerUpdateInterval = setInterval(() => {
-                this.leafletContainer.setAttribute('style', this.generateContainerStyle());
-            }, 200);
         }
     }
 
     addLeafletTiles(props) {
-        const { map, defaultTileLayer, L } = this.leafletInstance;
         const { tileUrl, attribution, maxZoom, preset, latitudeId, longitudeId } = props.leaflet;
-
-        this.leafletInstance = this.cy.leaflet({
+        const { map, defaultTileLayer, L } = this.leafletInstance = this.cy.leaflet({
             container: this.leafletContainer,
             latitude: latitudeId || 'lat',
             longitude: longitudeId || 'lon',

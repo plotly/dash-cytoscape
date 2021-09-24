@@ -469,28 +469,31 @@ class Cytoscape extends Component {
             this.cyLeafletClass.update(this.props);
         }
 
+        const styleObject = Object.assign({position: 'relative'}, style);
         return (
-            <CytoscapeComponent
-                id={id}
-                cy={this.handleCy}
-                className={className}
-                style={style}
-                elements={CytoscapeComponent.normalizeElements(elements)}
-                stylesheet={stylesheet}
-                layout={layout}
-                pan={pan}
-                zoom={zoom}
-                panningEnabled={panningEnabled}
-                userPanningEnabled={userPanningEnabled}
-                minZoom={minZoom}
-                maxZoom={maxZoom}
-                zoomingEnabled={zoomingEnabled}
-                userZoomingEnabled={userZoomingEnabled}
-                boxSelectionEnabled={boxSelectionEnabled}
-                autoungrabify={autoungrabify}
-                autolock={autolock}
-                autounselectify={autounselectify}
-            />
+            <div className="dash-cytoscape-root" style={styleObject}>
+                <CytoscapeComponent
+                    id={id}
+                    style={{position: 'absolute', left: 0, top: 0, width: '100%', height: '100%'}}
+                    cy={this.handleCy}
+                    className={className}
+                    elements={CytoscapeComponent.normalizeElements(elements)}
+                    stylesheet={stylesheet}
+                    layout={layout}
+                    pan={pan}
+                    zoom={zoom}
+                    panningEnabled={panningEnabled}
+                    userPanningEnabled={userPanningEnabled}
+                    minZoom={minZoom}
+                    maxZoom={maxZoom}
+                    zoomingEnabled={zoomingEnabled}
+                    userZoomingEnabled={userZoomingEnabled}
+                    boxSelectionEnabled={boxSelectionEnabled}
+                    autoungrabify={autoungrabify}
+                    autolock={autolock}
+                    autounselectify={autounselectify}
+                />
+            </div>
         );
     }
 }
