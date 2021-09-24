@@ -957,6 +957,11 @@
         "type": {
           "name": "exact",
           "value": {
+            "preset": {
+              "name": "string",
+              "description": "Specify a tile preset from Leaflet providers instead of a manual tileUrl.  See http://leaflet-extras.github.io/leaflet-providers/preview/  See also https://github.com/leaflet-extras/leaflet-providers",
+              "required": false
+            },
             "tileUrl": {
               "name": "string",
               "description": "Endpoint used by leaflet to fetch map tiles.",
@@ -964,12 +969,12 @@
             },
             "attribution": {
               "name": "string",
-              "description": "Attribution text displayed on the bottom right corner of the map.",
+              "description": "Attribution text displayed on the bottom right corner of the map (if not preset).",
               "required": false
             },
             "maxZoom": {
               "name": "number",
-              "description": "Sets the max zoom allowed by leaflet. See leaflet documentation for more information about zoom.",
+              "description": "Sets the max zoom allowed by leaflet (if not preset). See leaflet documentation for more information about zoom.",
               "required": false
             },
             "latitudeId": {
@@ -985,7 +990,7 @@
           }
         },
         "required": false,
-        "description": "Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All\nconfiguration options are optional; provide an empty dictionary to use default options. Requires\nlatitude and longitude properties to be included in the node data for positional information. Provided node\n\"id\" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded."
+        "description": "Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All\nconfiguration options are optional; provide an empty dictionary to use default options. Requires\nlatitude and longitude properties to be included in the node data for positional information.\nRequires preset layout to be used. Requires extra layouts to be loaded."
       }
     }
   }

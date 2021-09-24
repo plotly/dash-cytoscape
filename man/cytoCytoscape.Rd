@@ -158,16 +158,17 @@ the options are listed in the "API" section of the  README.
  function or a callback. Please visit this
 [issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.}
 
-\item{leaflet}{Lists containing elements 'tileurl', 'attribution', 'maxzoom', 'latitudeid', 'longitudeid'.
+\item{leaflet}{Lists containing elements 'preset', 'tileurl', 'attribution', 'maxzoom', 'latitudeid', 'longitudeid'.
 those elements have the following types:
+  - preset (character; optional): specify a tile preset from leaflet providers instead of a manual tileurl.  see http://leaflet-extras.github.io/leaflet-providers/preview/  see also https://github.com/leaflet-extras/leaflet-providers
   - tileurl (character; optional): endpoint used by leaflet to fetch map tiles.
-  - attribution (character; optional): attribution text displayed on the bottom right corner of the map.
-  - maxzoom (numeric; optional): sets the max zoom allowed by leaflet. see leaflet documentation for more information about zoom.
+  - attribution (character; optional): attribution text displayed on the bottom right corner of the map (if not preset).
+  - maxzoom (numeric; optional): sets the max zoom allowed by leaflet (if not preset). see leaflet documentation for more information about zoom.
   - latitudeid (character; optional): specifies the name of the node property containing the latitude of the node. default: 'lat'.
   - longitudeid (character; optional): specifies the name of the node property containing the longitude of the node. default: 'lon'.. Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
 configuration options are optional; provide an empty dictionary to use default options. Requires
-latitude and longitude properties to be included in the node data for positional information. Provided node
-"id" will be used as the node label. Requires preset layout to be used. Requires extra layouts to be loaded.}
+latitude and longitude properties to be included in the node data for positional information.
+Requires preset layout to be used. Requires extra layouts to be loaded.}
 
 \item{maxZoom}{Numeric. A maximum bound on the zoom level of the graph. The viewport can not be
 scaled larger than this zoom level.}

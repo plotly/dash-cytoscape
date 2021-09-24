@@ -264,15 +264,14 @@ Keyword arguments:
     map on top of Cytoscape. All configuration options are optional;
     provide an empty dictionary to use default options. Requires
     latitude and longitude properties to be included in the node data
-    for positional information. Provided node \"id\" will be used as
-    the node label. Requires preset layout to be used. Requires extra
-    layouts to be loaded.
+    for positional information. Requires preset layout to be used.
+    Requires extra layouts to be loaded.
 
     `leaflet` is a dict with keys:
 
     - attribution (string; optional):
         Attribution text displayed on the bottom right corner of the
-        map.
+        map (if not preset).
 
     - latitudeId (string; optional):
         Specifies the name of the node property containing the
@@ -283,8 +282,14 @@ Keyword arguments:
         longitude of the node. Default: 'lon'.
 
     - maxZoom (number; optional):
-        Sets the max zoom allowed by leaflet. See leaflet
-        documentation for more information about zoom.
+        Sets the max zoom allowed by leaflet (if not preset). See
+        leaflet documentation for more information about zoom.
+
+    - preset (string; optional):
+        Specify a tile preset from Leaflet providers instead of a
+        manual tileUrl.  See
+        http://leaflet-extras.github.io/leaflet-providers/preview/
+        See also https://github.com/leaflet-extras/leaflet-providers.
 
     - tileUrl (string; optional):
         Endpoint used by leaflet to fetch map tiles.
