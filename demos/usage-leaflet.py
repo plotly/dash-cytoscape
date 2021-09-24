@@ -9,8 +9,8 @@ app = dash.Dash(__name__)
 server = app.server
 
 elements = [
-    {'data': {'id': 'a', 'lat': 43.662402, 'lon': -79.388910}},
-    {'data': {'id': 'b', 'lat': 43.658560, 'lon': -79.384574}},
+    {'data': {'id': 'a', 'label': 'Node A', 'lat': 43.662402, 'lon': -79.388910}},
+    {'data': {'id': 'b', 'label': 'Node B', 'lat': 43.658560, 'lon': -79.384574}},
     {'data': {'id': 'ab', 'source': 'a', 'target': 'b'}}
 ]
 
@@ -19,6 +19,7 @@ app.layout = html.Div([
     cyto.Cytoscape(
         id='cytoscape',
         elements=elements,
+        boxSelectionEnabled=True,
         layout={
             'name': 'preset',
             'padding': 10
@@ -33,7 +34,7 @@ app.layout = html.Div([
             {
                 'selector': 'node',
                 'style': {
-                    'content': 'data(id)',
+                    'content': 'data(label)',
                     'background-color': 'yellow',
                     'width': 15,
                     'height': 15
