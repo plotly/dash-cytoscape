@@ -57,14 +57,14 @@ export default class cyLeaflet {
     }
 
     addLeafletTiles(props) {
+        const { map, defaultTileLayer, L } = this.leafletInstance;
+        const { tileUrl, attribution, maxZoom, preset, latitudeId, longitudeId } = props.leaflet;
+
         this.leafletInstance = this.cy.leaflet({
             container: this.leafletContainer,
-            latitude: 'lat',
-            longitude: 'lon',
+            latitude: latitudeId || 'lat',
+            longitude: longitudeId || 'lon',
         });
-
-        const { map, defaultTileLayer, L } = this.leafletInstance;
-        const { tileUrl, attribution, maxZoom, preset } = props.leaflet;
 
         if(preset) {
             map.removeLayer(defaultTileLayer);
