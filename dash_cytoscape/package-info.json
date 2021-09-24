@@ -35,7 +35,7 @@
     "cytoscape-dagre": "^2.2.2",
     "cytoscape-euler": "^1.2.1",
     "cytoscape-klay": "^3.1.2",
-    "cytoscape-leaf": "^1.2.1",
+    "cytoscape-leaf": "^1.2.2",
     "cytoscape-spread": "^3.0.0",
     "cytoscape-svg": "0.2.0",
     "lodash": "^4.17.11",
