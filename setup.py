@@ -4,7 +4,7 @@ import os
 from setuptools import setup, find_packages
 
 
-with open('package.json') as f:
+with open(os.path.join('dash_cytoscape', 'package.json')) as f:
     package = json.load(f)
 
 package_name = package["name"].replace(" ", "_").replace("-", "_")
