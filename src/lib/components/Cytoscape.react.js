@@ -985,6 +985,10 @@ Cytoscape.propTypes = {
         latitudeId: PropTypes.string,
         /** Specifies the name of the node property containing the longitude of the node. Default: 'lon'. */
         longitudeId: PropTypes.string,
+        /** Sets the offset from the zoom number used in tile URLs */
+        zoomOffset: PropTypes.number,
+        /** Specifies the size of each tile image retrieved by leaflet */
+        tileSize: PropTypes.number,
     })
 };
 
