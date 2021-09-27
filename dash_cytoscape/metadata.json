@@ -986,6 +986,16 @@
               "name": "string",
               "description": "Specifies the name of the node property containing the longitude of the node. Default: 'lon'.",
               "required": false
+            },
+            "zoomOffset": {
+              "name": "number",
+              "description": "Sets the offset from the zoom number used in tile URLs",
+              "required": false
+            },
+            "tileSize": {
+              "name": "number",
+              "description": "Specifies the size of each tile image retrieved by leaflet",
+              "required": false
             }
           }
         },

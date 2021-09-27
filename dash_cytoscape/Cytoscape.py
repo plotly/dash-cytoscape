@@ -291,8 +291,14 @@ Keyword arguments:
         http://leaflet-extras.github.io/leaflet-providers/preview/
         See also https://github.com/leaflet-extras/leaflet-providers.
 
+    - tileSize (number; optional):
+        Specifies the size of each tile image retrieved by leaflet.
+
     - tileUrl (string; optional):
         Endpoint used by leaflet to fetch map tiles.
+
+    - zoomOffset (number; optional):
+        Sets the offset from the zoom number used in tile URLs.
 
 - maxZoom (number; default 1e50):
     A maximum bound on the zoom level of the graph. The viewport can

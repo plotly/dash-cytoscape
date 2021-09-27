@@ -158,14 +158,16 @@ the options are listed in the "API" section of the  README.
  function or a callback. Please visit this
 [issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.}
 
-\item{leaflet}{Lists containing elements 'preset', 'tileurl', 'attribution', 'maxzoom', 'latitudeid', 'longitudeid'.
+\item{leaflet}{Lists containing elements 'preset', 'tileurl', 'attribution', 'maxzoom', 'latitudeid', 'longitudeid', 'zoomoffset', 'tilesize'.
 those elements have the following types:
   - preset (character; optional): specify a tile preset from leaflet providers instead of a manual tileurl.  see http://leaflet-extras.github.io/leaflet-providers/preview/  see also https://github.com/leaflet-extras/leaflet-providers
   - tileurl (character; optional): endpoint used by leaflet to fetch map tiles.
   - attribution (character; optional): attribution text displayed on the bottom right corner of the map (if not preset).
   - maxzoom (numeric; optional): sets the max zoom allowed by leaflet (if not preset). see leaflet documentation for more information about zoom.
   - latitudeid (character; optional): specifies the name of the node property containing the latitude of the node. default: 'lat'.
-  - longitudeid (character; optional): specifies the name of the node property containing the longitude of the node. default: 'lon'.. Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
+  - longitudeid (character; optional): specifies the name of the node property containing the longitude of the node. default: 'lon'.
+  - zoomoffset (numeric; optional): sets the offset from the zoom number used in tile urls
+  - tilesize (numeric; optional): specifies the size of each tile image retrieved by leaflet. Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
 configuration options are optional; provide an empty dictionary to use default options. Requires
 latitude and longitude properties to be included in the node data for positional information.
 Requires preset layout to be used. Requires extra layouts to be loaded.}
