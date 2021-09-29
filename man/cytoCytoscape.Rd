@@ -158,12 +158,12 @@ the options are listed in the "API" section of the  README.
  function or a callback. Please visit this
 [issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.}
 
-\item{leaflet}{Lists containing elements 'preset', 'tileurl', 'attribution', 'maxzoom', 'latitudeid', 'longitudeid', 'zoomoffset', 'tilesize'.
+\item{leaflet}{Lists containing elements 'provider', 'tileurl', 'attribution', 'maxzoom', 'latitudeid', 'longitudeid', 'zoomoffset', 'tilesize'.
 those elements have the following types:
-  - preset (character; optional): specify a tile preset from leaflet providers instead of a manual tileurl.  see http://leaflet-extras.github.io/leaflet-providers/preview/  see also https://github.com/leaflet-extras/leaflet-providers
-  - tileurl (character; optional): endpoint used by leaflet to fetch map tiles.
-  - attribution (character; optional): attribution text displayed on the bottom right corner of the map (if not preset).
-  - maxzoom (numeric; optional): sets the max zoom allowed by leaflet (if not preset). see leaflet documentation for more information about zoom.
+  - provider (character; optional): specify a tile preset from leaflet providers instead of a manual tileurl.  see http://leaflet-extras.github.io/leaflet-providers/preview/  see also https://github.com/leaflet-extras/leaflet-providers
+  - tileurl (character; optional): endpoint used by leaflet to fetch map tiles (if not using provider).
+  - attribution (character; optional): attribution text displayed on the bottom right corner of the map (if not using provider).
+  - maxzoom (numeric; optional): sets the max zoom allowed by leaflet (if not using provider). see leaflet documentation for more information about zoom.
   - latitudeid (character; optional): specifies the name of the node property containing the latitude of the node. default: 'lat'.
   - longitudeid (character; optional): specifies the name of the node property containing the longitude of the node. default: 'lon'.
   - zoomoffset (numeric; optional): sets the offset from the zoom number used in tile urls

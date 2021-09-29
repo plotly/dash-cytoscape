@@ -957,24 +957,24 @@
         "type": {
           "name": "exact",
           "value": {
-            "preset": {
+            "provider": {
               "name": "string",
               "description": "Specify a tile preset from Leaflet providers instead of a manual tileUrl.  See http://leaflet-extras.github.io/leaflet-providers/preview/  See also https://github.com/leaflet-extras/leaflet-providers",
               "required": false
             },
             "tileUrl": {
               "name": "string",
-              "description": "Endpoint used by leaflet to fetch map tiles.",
+              "description": "Endpoint used by leaflet to fetch map tiles (if not using provider).",
               "required": false
             },
             "attribution": {
               "name": "string",
-              "description": "Attribution text displayed on the bottom right corner of the map (if not preset).",
+              "description": "Attribution text displayed on the bottom right corner of the map (if not using provider).",
               "required": false
             },
             "maxZoom": {
               "name": "number",
-              "description": "Sets the max zoom allowed by leaflet (if not preset). See leaflet documentation for more information about zoom.",
+              "description": "Sets the max zoom allowed by leaflet (if not using provider). See leaflet documentation for more information about zoom.",
               "required": false
             },
             "latitudeId": {

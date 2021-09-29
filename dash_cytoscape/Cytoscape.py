@@ -271,7 +271,7 @@ Keyword arguments:
 
     - attribution (string; optional):
         Attribution text displayed on the bottom right corner of the
-        map (if not preset).
+        map (if not using provider).
 
     - latitudeId (string; optional):
         Specifies the name of the node property containing the
@@ -282,10 +282,10 @@ Keyword arguments:
         longitude of the node. Default: 'lon'.
 
     - maxZoom (number; optional):
-        Sets the max zoom allowed by leaflet (if not preset). See
-        leaflet documentation for more information about zoom.
+        Sets the max zoom allowed by leaflet (if not using provider).
+        See leaflet documentation for more information about zoom.
 
-    - preset (string; optional):
+    - provider (string; optional):
         Specify a tile preset from Leaflet providers instead of a
         manual tileUrl.  See
         http://leaflet-extras.github.io/leaflet-providers/preview/
@@ -295,7 +295,8 @@ Keyword arguments:
         Specifies the size of each tile image retrieved by leaflet.
 
     - tileUrl (string; optional):
-        Endpoint used by leaflet to fetch map tiles.
+        Endpoint used by leaflet to fetch map tiles (if not using
+        provider).
 
     - zoomOffset (number; optional):
         Sets the offset from the zoom number used in tile URLs.
