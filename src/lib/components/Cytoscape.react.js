@@ -974,12 +974,12 @@ Cytoscape.propTypes = {
      */
     leaflet: PropTypes.exact({
         /** Specify a tile preset from Leaflet providers instead of a manual tileUrl.  See http://leaflet-extras.github.io/leaflet-providers/preview/  See also https://github.com/leaflet-extras/leaflet-providers */
-        preset: PropTypes.string,
-        /** Endpoint used by leaflet to fetch map tiles. */
+        provider: PropTypes.string,
+        /** Endpoint used by leaflet to fetch map tiles (if not using provider). */
         tileUrl: PropTypes.string,
-        /** Attribution text displayed on the bottom right corner of the map (if not preset). */
+        /** Attribution text displayed on the bottom right corner of the map (if not using provider). */
         attribution: PropTypes.string,
-        /** Sets the max zoom allowed by leaflet (if not preset). See leaflet documentation for more information about zoom. */
+        /** Sets the max zoom allowed by leaflet (if not using provider). See leaflet documentation for more information about zoom. */
         maxZoom: PropTypes.number,
         /** Specifies the name of the node property containing the latitude of the node. Default: 'lat'. */
         latitudeId: PropTypes.string,

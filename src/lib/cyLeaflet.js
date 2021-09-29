@@ -2,7 +2,6 @@ export default class cyLeaflet {
     constructor(cy) {
         this.updateCtxmenu = this.update.bind(this);
         this.initializeLeaflet = this.initializeLeaflet.bind(this);
-        this.generateContainerStyle = this.generateContainerStyle.bind(this);
         this.addLeafletTiles = this.addLeafletTiles.bind(this);
 
         this.cy = cy;
@@ -38,16 +37,6 @@ export default class cyLeaflet {
         }
     }
 
-    generateContainerStyle() {
-        if(this.cy) {
-            const {top, left, height, width} = this.cy.container().getBoundingClientRect();
-            return `position: fixed; z-index: 0; top: ${top}px; left: ${left}px; height: ${height}px; width: ${width}px;`;
-        }
-        else {
-            return '';
-        }
-    }
-
     initializeLeaflet() {
         if(!this.leafletContainer) {
             this.leafletContainer = document.createElement('div');
@@ -59,17 +48,17 @@ export default class cyLeaflet {
     }
 
     addLeafletTiles(props) {
-        const { tileUrl, attribution, maxZoom, zoomOffset, tileSize, preset, latitudeId, longitudeId } = props.leaflet;
+        const { tileUrl, attribution, maxZoom, zoomOffset, tileSize, provider, latitudeId, longitudeId } = props.leaflet;
         const { map, defaultTileLayer, L } = this.leafletInstance = this.cy.leaflet({
             container: this.leafletContainer,
             latitude: latitudeId || 'lat',
             longitude: longitudeId || 'lon',
         });
 
-        if(preset) {
+        if(provider) {
             map.removeLayer(defaultTileLayer);
 
-            L.tileLayer.provider(preset).addTo(map);
+            L.tileLayer.provider(provider).addTo(map);
         } else if(tileUrl) {
             map.removeLayer(defaultTileLayer);
 
