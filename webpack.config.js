@@ -72,6 +72,14 @@ module.exports = (env, argv) => {
                         },
                     ],
                 },
+                {
+                    test: /\.(png|jpe?g|gif)$/i,
+                    use: [
+                      {
+                        loader: 'url-loader',
+                      },
+                    ],
+                },
             ],
         },
         devtool

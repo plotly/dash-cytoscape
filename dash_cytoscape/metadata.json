@@ -767,7 +767,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "modified:   src/lib/cyCxtMenu.js"
+        "description": "The data dictionary of a node returned when you hover over it. Read-only."
       },
       "mouseoverEdgeData": {
         "type": {
@@ -877,7 +877,7 @@
           "computed": false
         }
       },
-      "cxtmenu": {
+      "contextmenu": {
         "type": {
           "name": "arrayOf",
           "value": {
@@ -912,9 +912,9 @@
           }
         },
         "required": false,
-        "description": "Property that determines whether a context menu is displayed and how. Requires extra layouts loaded.\nContext menu is accessed by right clicking. It accepts a list of dictionaries, each of which describes\na context menu option. Options are rendered in the order presented."
+        "description": "Displays a context menu on right click. Requires extra layouts loaded.\nAccepts a list of dictionaries, each of which describes a context\nmenu option. Options are rendered in the order presented."
       },
-      "cxtmenuData": {
+      "contextmenuData": {
         "type": {
           "name": "exact",
           "value": {
@@ -951,7 +951,56 @@
           }
         },
         "required": false,
-        "description": "Dictionary returned when you a context menu option is selected. Read-only."
+        "description": "Dictionary returned when a context menu option is selected. Read-only."
+      },
+      "leaflet": {
+        "type": {
+          "name": "exact",
+          "value": {
+            "provider": {
+              "name": "string",
+              "description": "Specify a tile preset from Leaflet providers instead of a manual tileUrl.  See http://leaflet-extras.github.io/leaflet-providers/preview/  See also https://github.com/leaflet-extras/leaflet-providers",
+              "required": false
+            },
+            "tileUrl": {
+              "name": "string",
+              "description": "Endpoint used by leaflet to fetch map tiles (if not using provider).",
+              "required": false
+            },
+            "attribution": {
+              "name": "string",
+              "description": "Attribution text displayed on the bottom right corner of the map (if not using provider).",
+              "required": false
+            },
+            "maxZoom": {
+              "name": "number",
+              "description": "Sets the max zoom allowed by leaflet (if not using provider). See leaflet documentation for more information about zoom.",
+              "required": false
+            },
+            "latitudeId": {
+              "name": "string",
+              "description": "Specifies the name of the node property containing the latitude of the node. Default: 'lat'.",
+              "required": false
+            },
+            "longitudeId": {
+              "name": "string",
+              "description": "Specifies the name of the node property containing the longitude of the node. Default: 'lon'.",
+              "required": false
+            },
+            "zoomOffset": {
+              "name": "number",
+              "description": "Sets the offset from the zoom number used in tile URLs",
+              "required": false
+            },
+            "tileSize": {
+              "name": "number",
+              "description": "Specifies the size of each tile image retrieved by leaflet",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": "Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All\nconfiguration options are optional; provide an empty dictionary to use default options. Requires\nlatitude and longitude properties to be included in the node data for positional information.\nRequires preset layout to be used. Requires extra layouts to be loaded."
       }
     }
   }

@@ -38,14 +38,12 @@ Keyword arguments:
     Sets the class name of the element (the value of an element's html
     class attribute).
 
-- cxtmenu (list of dicts; optional):
-    Property that determines whether a context menu is displayed and
-    how. Requires extra layouts loaded. Context menu is accessed by
-    right clicking. It accepts a list of dictionaries, each of which
-    describes a context menu option. Options are rendered in the order
-    presented.
+- contextmenu (list of dicts; optional):
+    Displays a context menu on right click. Requires extra layouts
+    loaded. Accepts a list of dictionaries, each of which describes a
+    context menu option. Options are rendered in the order presented.
 
-    `cxtmenu` is a list of dicts with keys:
+    `contextmenu` is a list of dicts with keys:
 
     - content (string; optional):
         Label assigned to option.
@@ -65,11 +63,11 @@ Keyword arguments:
     - tooltipText (string; optional):
         Hover tooltip text assigned to option.
 
-- cxtmenuData (dict; optional):
-    Dictionary returned when you a context menu option is selected.
+- contextmenuData (dict; optional):
+    Dictionary returned when a context menu option is selected.
     Read-only.
 
-    `cxtmenuData` is a dict with keys:
+    `contextmenuData` is a dict with keys:
 
     - id (string; optional):
         ID associated with option selected.
@@ -261,6 +259,48 @@ Keyword arguments:
     - padding (number; optional):
         Padding around the sides of the canvas, if fit is enabled.
 
+- leaflet (dict; optional):
+    Dictionary specifying configuration options to overlay a leaflet
+    map on top of Cytoscape. All configuration options are optional;
+    provide an empty dictionary to use default options. Requires
+    latitude and longitude properties to be included in the node data
+    for positional information. Requires preset layout to be used.
+    Requires extra layouts to be loaded.
+
+    `leaflet` is a dict with keys:
+
+    - attribution (string; optional):
+        Attribution text displayed on the bottom right corner of the
+        map (if not using provider).
+
+    - latitudeId (string; optional):
+        Specifies the name of the node property containing the
+        latitude of the node. Default: 'lat'.
+
+    - longitudeId (string; optional):
+        Specifies the name of the node property containing the
+        longitude of the node. Default: 'lon'.
+
+    - maxZoom (number; optional):
+        Sets the max zoom allowed by leaflet (if not using provider).
+        See leaflet documentation for more information about zoom.
+
+    - provider (string; optional):
+        Specify a tile preset from Leaflet providers instead of a
+        manual tileUrl.  See
+        http://leaflet-extras.github.io/leaflet-providers/preview/
+        See also https://github.com/leaflet-extras/leaflet-providers.
+
+    - tileSize (number; optional):
+        Specifies the size of each tile image retrieved by leaflet.
+
+    - tileUrl (string; optional):
+        Endpoint used by leaflet to fetch map tiles (if not using
+        provider).
+
+    - zoomOffset (number; optional):
+        Sets the offset from the zoom number used in tile URLs.
+
 - maxZoom (number; default 1e50):
     A maximum bound on the zoom level of the graph. The viewport can
     not be scaled larger than this zoom level.
@@ -274,7 +314,8 @@ Keyword arguments:
     Read-only.
 
 - mouseoverNodeData (dict; optional):
-    modified:   src/lib/cyCxtMenu.js.
+    The data dictionary of a node returned when you hover over it.
+    Read-only.
 
 - pan (dict; default {x: 0, y: 0}):
     Dictionary indicating the initial panning position of the graph.
@@ -480,12 +521,12 @@ Keyword arguments:
     Whether zooming the graph is enabled (i.e., the zoom level of the
     graph is mutable overall)."""
     @_explicitize_args
-    def __init__(self, id=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, elements=Component.UNDEFINED, stylesheet=Component.UNDEFINED, layout=Component.UNDEFINED, pan=Component.UNDEFINED, zoom=Component.UNDEFINED, panningEnabled=Component.UNDEFINED, userPanningEnabled=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, zoomingEnabled=Component.UNDEFINED, userZoomingEnabled=Component.UNDEFINED, boxSelectionEnabled=Component.UNDEFINED, autoungrabify=Component.UNDEFINED, autolock=Component.UNDEFINED, autounselectify=Component.UNDEFINED, autoRefreshLayout=Component.UNDEFINED, tapNode=Component.UNDEFINED, tapNodeData=Component.UNDEFINED, tapEdge=Component.UNDEFINED, tapEdgeData=Component.UNDEFINED, mouseoverNodeData=Component.UNDEFINED, mouseoverEdgeData=Component.UNDEFINED, selectedNodeData=Component.UNDEFINED, selectedEdgeData=Component.UNDEFINED, generateImage=Component.UNDEFINED, imageData=Component.UNDEFINED, responsive=Component.UNDEFINED, cxtmenu=Component.UNDEFINED, cxtmenuData=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['id', 'autoRefreshLayout', 'autolock', 'autoungrabify', 'autounselectify', 'boxSelectionEnabled', 'className', 'cxtmenu', 'cxtmenuData', 'elements', 'generateImage', 'imageData', 'layout', 'maxZoom', 'minZoom', 'mouseoverEdgeData', 'mouseoverNodeData', 'pan', 'panningEnabled', 'responsive', 'selectedEdgeData', 'selectedNodeData', 'style', 'stylesheet', 'tapEdge', 'tapEdgeData', 'tapNode', 'tapNodeData', 'userPanningEnabled', 'userZoomingEnabled', 'zoom', 'zoomingEnabled']
+    def __init__(self, id=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, elements=Component.UNDEFINED, stylesheet=Component.UNDEFINED, layout=Component.UNDEFINED, pan=Component.UNDEFINED, zoom=Component.UNDEFINED, panningEnabled=Component.UNDEFINED, userPanningEnabled=Component.UNDEFINED, minZoom=Component.UNDEFINED, maxZoom=Component.UNDEFINED, zoomingEnabled=Component.UNDEFINED, userZoomingEnabled=Component.UNDEFINED, boxSelectionEnabled=Component.UNDEFINED, autoungrabify=Component.UNDEFINED, autolock=Component.UNDEFINED, autounselectify=Component.UNDEFINED, autoRefreshLayout=Component.UNDEFINED, tapNode=Component.UNDEFINED, tapNodeData=Component.UNDEFINED, tapEdge=Component.UNDEFINED, tapEdgeData=Component.UNDEFINED, mouseoverNodeData=Component.UNDEFINED, mouseoverEdgeData=Component.UNDEFINED, selectedNodeData=Component.UNDEFINED, selectedEdgeData=Component.UNDEFINED, generateImage=Component.UNDEFINED, imageData=Component.UNDEFINED, responsive=Component.UNDEFINED, contextmenu=Component.UNDEFINED, contextmenuData=Component.UNDEFINED, leaflet=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['id', 'autoRefreshLayout', 'autolock', 'autoungrabify', 'autounselectify', 'boxSelectionEnabled', 'className', 'contextmenu', 'contextmenuData', 'elements', 'generateImage', 'imageData', 'layout', 'leaflet', 'maxZoom', 'minZoom', 'mouseoverEdgeData', 'mouseoverNodeData', 'pan', 'panningEnabled', 'responsive', 'selectedEdgeData', 'selectedNodeData', 'style', 'stylesheet', 'tapEdge', 'tapEdgeData', 'tapNode', 'tapNodeData', 'userPanningEnabled', 'userZoomingEnabled', 'zoom', 'zoomingEnabled']
         self._type = 'Cytoscape'
         self._namespace = 'dash_cytoscape'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'autoRefreshLayout', 'autolock', 'autoungrabify', 'autounselectify', 'boxSelectionEnabled', 'className', 'cxtmenu', 'cxtmenuData', 'elements', 'generateImage', 'imageData', 'layout', 'maxZoom', 'minZoom', 'mouseoverEdgeData', 'mouseoverNodeData', 'pan', 'panningEnabled', 'responsive', 'selectedEdgeData', 'selectedNodeData', 'style', 'stylesheet', 'tapEdge', 'tapEdgeData', 'tapNode', 'tapNodeData', 'userPanningEnabled', 'userZoomingEnabled', 'zoom', 'zoomingEnabled']
+        self.available_properties = ['id', 'autoRefreshLayout', 'autolock', 'autoungrabify', 'autounselectify', 'boxSelectionEnabled', 'className', 'contextmenu', 'contextmenuData', 'elements', 'generateImage', 'imageData', 'layout', 'leaflet', 'maxZoom', 'minZoom', 'mouseoverEdgeData', 'mouseoverNodeData', 'pan', 'panningEnabled', 'responsive', 'selectedEdgeData', 'selectedNodeData', 'style', 'stylesheet', 'tapEdge', 'tapEdgeData', 'tapNode', 'tapNodeData', 'userPanningEnabled', 'userZoomingEnabled', 'zoom', 'zoomingEnabled']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()

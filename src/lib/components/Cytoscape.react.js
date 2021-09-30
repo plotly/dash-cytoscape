@@ -9,6 +9,7 @@ import _ from 'lodash';
 
 import CyResponsive from '../cyResponsive.js';
 import CyCxtMenu from '../cyContextmenu.js';
+import CyLeaflet from '../cyLeaflet.js';
 
 /**
 A Component Library for Dash aimed at facilitating network visualization in
@@ -23,6 +24,7 @@ class Cytoscape extends Component {
         this.handleImageGeneration = this.handleImageGeneration.bind(this);
         this.cyResponsiveClass = false;
         this.cyCxtMenuClass = false;
+        this.cyLeafletClass = false;
     }
 
     generateNode(event) {
@@ -284,6 +286,9 @@ class Cytoscape extends Component {
 
         this.cyCxtMenuClass = new CyCxtMenu(cy);
         this.cyCxtMenuClass.update(this.props);
+
+        this.cyLeafletClass = new CyLeaflet(cy);
+        this.cyLeafletClass.update(this.props);
     }
 
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -460,28 +465,35 @@ class Cytoscape extends Component {
             this.cyCxtMenuClass.update(this.props);
         }
 
+        if (this.cyLeafletClass) {
+            this.cyLeafletClass.update(this.props);
+        }
+
+        const styleObject = Object.assign({position: 'relative'}, style);
         return (
-            <CytoscapeComponent
-                id={id}
-                cy={this.handleCy}
-                className={className}
-                style={style}
-                elements={CytoscapeComponent.normalizeElements(elements)}
-                stylesheet={stylesheet}
-                layout={layout}
-                pan={pan}
-                zoom={zoom}
-                panningEnabled={panningEnabled}
-                userPanningEnabled={userPanningEnabled}
-                minZoom={minZoom}
-                maxZoom={maxZoom}
-                zoomingEnabled={zoomingEnabled}
-                userZoomingEnabled={userZoomingEnabled}
-                boxSelectionEnabled={boxSelectionEnabled}
-                autoungrabify={autoungrabify}
-                autolock={autolock}
-                autounselectify={autounselectify}
-            />
+            <div className="dash-cytoscape-root" style={styleObject}>
+                <CytoscapeComponent
+                    id={id}
+                    style={{position: 'absolute', left: 0, top: 0, width: '100%', height: '100%'}}
+                    cy={this.handleCy}
+                    className={className}
+                    elements={CytoscapeComponent.normalizeElements(elements)}
+                    stylesheet={stylesheet}
+                    layout={layout}
+                    pan={pan}
+                    zoom={zoom}
+                    panningEnabled={panningEnabled}
+                    userPanningEnabled={userPanningEnabled}
+                    minZoom={minZoom}
+                    maxZoom={maxZoom}
+                    zoomingEnabled={zoomingEnabled}
+                    userZoomingEnabled={userZoomingEnabled}
+                    boxSelectionEnabled={boxSelectionEnabled}
+                    autoungrabify={autoungrabify}
+                    autolock={autolock}
+                    autounselectify={autounselectify}
+                />
+            </div>
         );
     }
 }
@@ -953,6 +965,31 @@ Cytoscape.propTypes = {
          */
         target: PropTypes.object,
     }),
+
+    /**
+     * Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
+     * configuration options are optional; provide an empty dictionary to use default options. Requires
+     * latitude and longitude properties to be included in the node data for positional information.
+     * Requires preset layout to be used. Requires extra layouts to be loaded.
+     */
+    leaflet: PropTypes.exact({
+        /** Specify a tile preset from Leaflet providers instead of a manual tileUrl.  See http://leaflet-extras.github.io/leaflet-providers/preview/  See also https://github.com/leaflet-extras/leaflet-providers */
+        provider: PropTypes.string,
+        /** Endpoint used by leaflet to fetch map tiles (if not using provider). */
+        tileUrl: PropTypes.string,
+        /** Attribution text displayed on the bottom right corner of the map (if not using provider). */
+        attribution: PropTypes.string,
+        /** Sets the max zoom allowed by leaflet (if not using provider). See leaflet documentation for more information about zoom. */
+        maxZoom: PropTypes.number,
+        /** Specifies the name of the node property containing the latitude of the node. Default: 'lat'. */
+        latitudeId: PropTypes.string,
+        /** Specifies the name of the node property containing the longitude of the node. Default: 'lon'. */
+        longitudeId: PropTypes.string,
+        /** Sets the offset from the zoom number used in tile URLs */
+        zoomOffset: PropTypes.number,
+        /** Specifies the size of each tile image retrieved by leaflet */
+        tileSize: PropTypes.number,
+    })
 };
 
 Cytoscape.defaultProps = {

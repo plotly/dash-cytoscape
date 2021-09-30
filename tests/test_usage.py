@@ -74,3 +74,6 @@ class Tests(IntegrationTests):
 
     def test_usage_cxtmenu(self):
         self.create_usage_test('demos.usage-contextmenu')
+
+    def test_usage_leaflet(self):
+        self.create_usage_test('demos.usage-leaflet')
