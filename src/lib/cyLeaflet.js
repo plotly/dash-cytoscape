@@ -62,7 +62,12 @@ export default class cyLeaflet {
         } else if(tileUrl) {
             map.removeLayer(defaultTileLayer);
 
-            L.tileLayer(tileUrl, { attribution, maxZoom, zoomOffset, tileSize }).addTo(map);
+            L.tileLayer(tileUrl, {
+                attribution,
+                maxZoom,
+                zoomOffset: zoomOffset ? zoomOffset : 0,
+                tileSize: tileSize ? tileSize : 256,
+            }).addTo(map);
         } 
         // otherwise use ext default
 
