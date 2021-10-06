@@ -21,7 +21,7 @@
     "build:js-dev-extra": "webpack --config webpack.dev.extra.config.js",
     "build:js-extra": "webpack --config webpack.prod.extra.config.js",
     "build:js-all": "npm run build:js && npm run build:js-dev && npm run build:js-dev-extra && npm run build:js-extra",
-    "build:backends": "dash-generate-components ./src/lib/components dash_cytoscape -p package-info.json --r-prefix 'cyto' --jl-prefix 'cyto'",
+    "build:backends": "dash-generate-components ./src/lib/components dash_cytoscape --r-prefix 'cyto' --jl-prefix 'cyto'",
     "build:all": "npm run build:js-all && npm run build:backends",
     "build:all-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:all)"
   },
@@ -33,6 +33,7 @@
     "cytoscape-cose-bilkent": "^4.0.0",
     "cytoscape-dagre": "^2.2.2",
     "cytoscape-euler": "^1.2.1",
+    "cytoscape-fcose": "^2.1.0",
     "cytoscape-klay": "^3.1.2",
     "cytoscape-spread": "^3.0.0",
     "cytoscape-svg": "0.2.0",

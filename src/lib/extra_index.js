@@ -2,6 +2,7 @@
 import Cytoscape from './components/Cytoscape.react';
 import CytoscapeJS from 'cytoscape';
 import coseBilkent from 'cytoscape-cose-bilkent';
+import fcose from 'cytoscape-fcose';
 import cola from 'cytoscape-cola';
 import dagre from 'cytoscape-dagre';
 import euler from 'cytoscape-euler';
@@ -10,6 +11,7 @@ import spread from 'cytoscape-spread';
 import svg from 'cytoscape-svg';
 
 CytoscapeJS.use(coseBilkent);
+CytoscapeJS.use(fcose);
 CytoscapeJS.use(cola);
 CytoscapeJS.use(dagre);
 CytoscapeJS.use(euler);
