@@ -11,7 +11,7 @@ import dash_html_components as html
 elements = [
     {'data': {'id': 'one', 'label': 'Node 1'}, 'position': {'x': 50, 'y': 50}},
     {'data': {'id': 'two', 'label': 'Node 2'}, 'position': {'x': 200, 'y': 200}},
-    {'data': {'source': 'one', 'target': 'two', 'label': 'Node 1 to 2'}}
+    # {'data': {'source': 'one', 'target': 'two', 'label': 'Node 1 to 2'}}
 ]
 
 layout = {'name': 'grid'}
