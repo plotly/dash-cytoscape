@@ -991,6 +991,8 @@ Cytoscape.propTypes = {
         zoomOffset: PropTypes.number,
         /** Specifies the size of each tile image retrieved by leaflet */
         tileSize: PropTypes.number,
+        /** Specifies a pair of coordinates (latitude, longitude) to centre the viewport over and an optional zoom level for the viewport using an array */
+        view: PropTypes.arrayOf(PropTypes.number),
     })
 };
 
