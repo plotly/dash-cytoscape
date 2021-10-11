@@ -1,3 +1,5 @@
+const DEFAULT_TILE_SIZE = 256;
+
 export default class cyLeaflet {
     constructor(cy) {
         this.updateCtxmenu = this.update.bind(this);
@@ -77,7 +79,7 @@ export default class cyLeaflet {
                 attribution,
                 maxZoom,
                 zoomOffset: zoomOffset ? zoomOffset : 0,
-                tileSize: tileSize ? tileSize : 256,
+                tileSize: tileSize ? tileSize : DEFAULT_TILE_SIZE,
             }).addTo(map);
         } 
         // otherwise use ext default

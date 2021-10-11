@@ -1000,6 +1000,14 @@
               "name": "number",
               "description": "Specifies the size of each tile image retrieved by leaflet",
               "required": false
+            },
+            "view": {
+              "name": "arrayOf",
+              "value": {
+                "name": "number"
+              },
+              "description": "Specifies a pair of coordinates (latitude, longitude) to centre the viewport over and an optional zoom level for the viewport using an array",
+              "required": false
             }
           }
         },

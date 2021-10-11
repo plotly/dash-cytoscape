@@ -133,7 +133,7 @@ Some external layouts are also included. To use them, run
 - `leaflet` (optional): Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
 configuration options are optional; provide an empty dictionary to use default options. Requires
 latitude and longitude properties to be included in the node data for positional information.
-Requires preset layout to be used. Requires extra layouts to be loaded.. leaflet has the following type: lists containing elements 'provider', 'tileUrl', 'attribution', 'maxZoom', 'latitudeId', 'longitudeId', 'zoomOffset', 'tileSize'.
+Requires preset layout to be used. Requires extra layouts to be loaded.. leaflet has the following type: lists containing elements 'provider', 'tileUrl', 'attribution', 'maxZoom', 'latitudeId', 'longitudeId', 'zoomOffset', 'tileSize', 'view'.
 Those elements have the following types:
   - `provider` (String; optional): Specify a tile preset from Leaflet providers instead of a manual tileUrl.  See http://leaflet-extras.github.io/leaflet-providers/preview/  See also https://github.com/leaflet-extras/leaflet-providers
   - `tileUrl` (String; optional): Endpoint used by leaflet to fetch map tiles (if not using provider).
@@ -143,6 +143,7 @@ Those elements have the following types:
   - `longitudeId` (String; optional): Specifies the name of the node property containing the longitude of the node. Default: 'lon'.
   - `zoomOffset` (Real; optional): Sets the offset from the zoom number used in tile URLs
   - `tileSize` (Real; optional): Specifies the size of each tile image retrieved by leaflet
+  - `view` (Array of Reals; optional): Specifies a pair of coordinates (latitude, longitude) to centre the viewport over and an optional zoom level for the viewport using an array
 - `maxZoom` (Real; optional): A maximum bound on the zoom level of the graph. The viewport can not be
 scaled larger than this zoom level.
 - `minZoom` (Real; optional): A minimum bound on the zoom level of the graph. The viewport can not be
