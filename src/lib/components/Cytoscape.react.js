@@ -966,6 +966,8 @@ Cytoscape.propTypes = {
          * on the type of the selected item (node, edge, core, etc.).
          */
         target: PropTypes.object,
+        /** Array containing latitude and longitude where context menu was opened if leaflet is enabled. */
+        coordinates: PropTypes.arrayOf(PropTypes.number),
     }),
 
     /**

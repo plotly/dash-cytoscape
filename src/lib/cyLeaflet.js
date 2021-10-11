@@ -31,6 +31,7 @@ export default class cyLeaflet {
             if(this.leafletInstance) {
                 this.leafletInstance.destroy();
                 this.leafletInstance = null;
+                this.cy.scratch('leaf', undefined);
             }
 
             if(this.leafletContainer) {
@@ -67,6 +68,7 @@ export default class cyLeaflet {
             latitude: latitudeId || 'lat',
             longitude: longitudeId || 'lon',
         });
+        this.cy.scratch('leaf', this.leafletInstance);
 
         if(provider) {
             map.removeLayer(defaultTileLayer);

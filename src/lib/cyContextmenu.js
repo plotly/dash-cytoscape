@@ -69,14 +69,19 @@ export default class cyContextmenu {
             disabled: isUndefined(disabled, false),
             coreAsWell: containsCore(isUndefined(selector, '')),
             onClickFunction: e => {
-                this.setProps({
-                    contextmenuData: {
-                        id,
-                        timestamp: e.timeStamp,
-                        position: e.position,
-                        target: e.target.json(),
-                    }
-                })
+                const leaf = this.cy.scratch('leaf');
+                const contextmenuData = {
+                    id,
+                    timestamp: e.timeStamp,
+                    position: e.position,
+                    target: e.target.json(),
+                    coordinates: undefined,
+                };
+                if(leaf) {
+                    const ll = leaf.map.layerPointToLatLng(leaf.L.point([e.position.x, e.position.y]));
+                    contextmenuData.coordinates = [ll.lat, ll.lng];
+                }
+                this.setProps({ contextmenuData });
             }
         });
     }
