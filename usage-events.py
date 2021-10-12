@@ -14,27 +14,27 @@ server = app.server
 basic_elements = [
     {
         'data': {'id': 'one', 'label': 'Node 1'},
-        'position': {'x': 50, 'y': 50}
+        'renderedPosition': {'x': 50, 'y': 50}
     },
     {
         'data': {'id': 'two', 'label': 'Node 2'},
-        'position': {'x': 200, 'y': 200}
+        'renderedPosition': {'x': 200, 'y': 200}
     },
     {
         'data': {'id': 'three', 'label': 'Node 3'},
-        'position': {'x': 100, 'y': 150}
+        'renderedPosition': {'x': 100, 'y': 150}
     },
     {
         'data': {'id': 'four', 'label': 'Node 4'},
-        'position': {'x': 400, 'y': 50}
+        'renderedPosition': {'x': 400, 'y': 50}
     },
     {
         'data': {'id': 'five', 'label': 'Node 5'},
-        'position': {'x': 250, 'y': 100}
+        'renderedPosition': {'x': 250, 'y': 100}
     },
     {
         'data': {'id': 'six', 'label': 'Node 6', 'parent': 'three'},
-        'position': {'x': 150, 'y': 150}
+        'renderedPosition': {'x': 150, 'y': 150}
     },
     {
         'data': {

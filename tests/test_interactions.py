@@ -24,156 +24,171 @@ import importlib
 import time
 import json
 
-from .IntegrationTests import IntegrationTests
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-class Tests(IntegrationTests):
-    def test_interactions(self):
-        # VARIABLES
-        drag_error = "Unable to drag Cytoscape nodes properly"
-        click_error = "Unable to click Cytoscape nodes properly"
-        mouseover_error = "Unable to mouseover Cytoscape nodes properly"
+def create_app(dash_duo):
+    # Initialize the apps
+    app = importlib.import_module('usage-events').app
 
-        # View module docstring for more information about initial positions
-        init_pos = {
-            'Node 1': (59, 182),
-            'Node 2': (222, 345),
-            'Node 3': (168, 283 - 20),
-            'Node 4': (440, 182),
-            'Node 5': (277, 236),
-            'Node 6': (168, 283)
-        }
-        init_x, init_y = init_pos['Node 1']
+    dash_duo.start_server(app)
+    dash_duo.driver.set_window_size(1280, 1000)
+    dash_duo.wait_for_element_by_id("cytoscape", 20)
 
-        # Initialize the apps
-        app = importlib.import_module('usage-events').app
-        self.startServer(app)
-        WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, "cytoscape")))
+    actions = ActionChains(dash_duo.driver)
+    init_pos = {
+        'Node 1': (59, 182),
+        'Node 2': (222, 345),
+        'Node 3': (168, 283 - 20),
+        'Node 4': (440, 182),
+        'Node 5': (277, 236),
+        'Node 6': (168, 283)
+    }
+    return init_pos, actions
 
-        actions = ActionChains(self.driver)
 
-        # FUNCTIONS
-        def save_screenshot(dir_name, name):
-            directory_path = os.path.join(
-                os.path.dirname(__file__),
-                'screenshots',
-                dir_name
-            )
+def save_screenshot(dash_duo, dir_name, name):
+    directory_path = os.path.join(
+        os.path.dirname(__file__),
+        'screenshots',
+        dir_name
+    )
 
-            # Create directory if it doesn't already exist
-            if not os.path.exists(directory_path):
-                os.makedirs(directory_path)
+    # Create directory if it doesn't already exist
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
 
-            self.driver.save_screenshot(os.path.join(
-                os.path.dirname(__file__),
-                'screenshots',
-                dir_name,
-                name + '.png'
-            ))
+    dash_duo.driver.save_screenshot(os.path.join(
+        os.path.dirname(__file__),
+        'screenshots',
+        dir_name,
+        name + '.png'
+    ))
 
-        def perform_dragging(x, y, delta_x, delta_y, elem, dir_name='interactions'):
-            """
-            Performs dragging on a node, and return the difference from the start
-            :param x: initial position of the node at the start of the action chain
-            :param y: initial position of the node at the start of the action chain
-            :param delta_x: how much we want to drag the node
-            :param delta_y: how much we want to drag the node
-            :param dir_name: The directory in which we store our screenshots
-            :return: the difference between the position after drag and the starting position
-            """
-            actions.reset_actions()
-            actions.move_to_element_with_offset(
-                self.driver.find_element_by_tag_name('body'), x, y
-            )
-            actions.drag_and_drop_by_offset(source=None, xoffset=delta_x, yoffset=delta_y)
-            actions.click()
-            actions.perform()
-            time.sleep(1)
 
-            elem_json = json.loads(elem.text)
-            new_pos = elem_json.get('renderedPosition')
-            clicked_label = elem_json.get('data', {}).get('label')
+def perform_dragging(dash_duo, x, y, delta_x, delta_y, elem, actions, dir_name='interactions'):
+    """
+    Performs dragging on a node, and return the difference from the start
+    :param x: initial position of the node at the start of the action chain
+    :param y: initial position of the node at the start of the action chain
+    :param delta_x: how much we want to drag the node
+    :param delta_y: how much we want to drag the node
+    :param dir_name: The directory in which we store our screenshots
+    :return: the difference between the position after drag and the starting position
+    """
+    actions.reset_actions()
+    actions.move_to_element_with_offset(
+        dash_duo.driver.find_element_by_tag_name('body'), x, y
+    )
+    actions.drag_and_drop_by_offset(source=None, xoffset=delta_x, yoffset=delta_y)
+    actions.click()
+    actions.perform()
+    time.sleep(1)
 
-            diff_x = round(new_pos['x'] - x)
-            diff_y = round(new_pos['y'] - y)
+    elem_json = json.loads(elem.text)
+    new_pos = elem_json.get('renderedPosition')
+    clicked_label = elem_json.get('data', {}).get('label')
 
-            save_screenshot(
-                dir_name,
-                'Dragged{}By{}x{}y'.format(clicked_label.replace(' ', ''), diff_x, diff_y)
-            )
+    diff_x = round(new_pos['x'] - x)
+    diff_y = round(new_pos['y'] - y)
 
-            return diff_x, diff_y
+    save_screenshot(dash_duo, dir_name,
+                    'Dragged{}By{}x{}y'.format(clicked_label.replace(' ', ''), diff_x, diff_y))
 
-        def perform_clicking(x, y, elem, dir_name='interactions'):
-            """
-            :param x: The position on the screen where we want to click
-            :param y: The position on the screen where we want to click
-            :param elem: The element object from where we retrieve the JSON
-            :param dir_name: The directory in which we store our screenshots
-            :return: The label of element most recently clicked, if any
-            """
-            actions.reset_actions()
-            actions.move_to_element_with_offset(
-                self.driver.find_element_by_tag_name('body'), x, y
-            )
-            actions.click()
-            actions.perform()
+    return diff_x, diff_y
 
-            time.sleep(1)
-            clicked_label = json.loads(elem.text).get('data', {}).get('label')
 
-            save_screenshot(dir_name, 'Clicked' + clicked_label.replace(' ', ''))
+def perform_clicking(dash_duo, x, y, elem, actions, dir_name='interactions'):
+    """
+    :param x: The position on the screen where we want to click
+    :param y: The position on the screen where we want to click
+    :param elem: The element object from where we retrieve the JSON
+    :param dir_name: The directory in which we store our screenshots
+    :return: The label of element most recently clicked, if any
+    """
+    actions.reset_actions()
+    actions.move_to_element_with_offset(
+        dash_duo.driver.find_element_by_tag_name('body'), x, y
+    )
+    actions.click()
+    actions.perform()
 
-            return clicked_label
+    time.sleep(1)
+    clicked_label = json.loads(elem.text).get('data', {}).get('label')
 
-        def perform_mouseover(x, y, elem, dir_name='interactions'):
-            actions.reset_actions()
-            actions.move_to_element_with_offset(
-                self.driver.find_element_by_tag_name('body'), x - 50, y
-            )
-            actions.move_by_offset(50, 0)
-            actions.perform()
-            time.sleep(1)
+    save_screenshot(dash_duo, dir_name, 'Clicked' + clicked_label.replace(' ', ''))
 
-            mouseover_label = json.loads(elem.text).get('label')
+    return clicked_label
 
-            save_screenshot(dir_name, 'Mouseover' + mouseover_label.replace(' ', ''))
 
-            return mouseover_label
+def perform_mouseover(dash_duo, x, y, elem, actions, dir_name='interactions'):
+    actions.reset_actions()
+    actions.move_to_element_with_offset(
+        dash_duo.driver.find_element_by_tag_name('body'), x - 50, y
+    )
+    actions.move_by_offset(50, 0)
+    actions.perform()
+    time.sleep(1)
 
-        # Select the JSON output element
-        elem_tap = self.driver.find_element_by_css_selector('pre#tap-node-json-output')
+    mouseover_label = json.loads(elem.text).get('label')
 
-        # Test dragging the nodes around
-        offset_x, offset_y = perform_dragging(init_x, init_y, 0, 0, elem_tap)
-        init_x += offset_x
-        init_y += offset_y
+    save_screenshot(dash_duo, dir_name, 'Mouseover' + mouseover_label.replace(' ', ''))
 
-        assert perform_dragging(init_x, init_y, 150, 0, elem_tap) == (150, 0), drag_error
-        assert perform_dragging(init_x+150, init_y, 0, 150, elem_tap) == (0, 150), drag_error
-        assert perform_dragging(init_x+150, init_y+150, -150, -150, elem_tap) == (-150, -150), \
-            drag_error
+    return mouseover_label
 
-        # Test clicking the nodes
-        for i in range(1, 7):
-            label = 'Node {}'.format(i)
-            assert perform_clicking(*init_pos[label], elem_tap) == label, click_error
 
-        # Open the Mouseover JSON tab
-        actions.move_to_element(
-            self.driver.find_element_by_css_selector('#tabs > div:nth-child(3)'))
-        actions.click().perform()
-        time.sleep(1)
+def test_cyin001_dragging(dash_duo):
+    init_pos, actions = create_app(dash_duo)
 
-        # Select the JSON output element
-        elem_mouseover = self.driver.find_element_by_css_selector(
-            'pre#mouseover-node-data-json-output')
+    drag_error = "Unable to drag Cytoscape nodes properly"
 
-        # Test hovering the nodes
-        for i in range(1, 7):
-            label = 'Node {}'.format(i)
-            assert perform_mouseover(*init_pos[label], elem_mouseover) == label, mouseover_error
+    # View module docstring for more information about initial positions
+    init_x, init_y = init_pos['Node 1']
+
+    # Select the JSON output element
+    elem_tap = dash_duo.find_element('pre#tap-node-json-output')
+
+    # Test dragging the nodes around
+    offset_x, offset_y = perform_dragging(dash_duo, init_x, init_y, 0, 0, elem_tap, actions)
+    init_x += offset_x
+    init_y += offset_y
+
+    assert perform_dragging(dash_duo, init_x, init_y, 150, 0, elem_tap, actions) == (150, 0), \
+        drag_error
+    assert perform_dragging(dash_duo, init_x+150, init_y, 0, 150, elem_tap, actions) == (0, 150), \
+        drag_error
+    assert perform_dragging(dash_duo, init_x+150, init_y+150, -150, -150, elem_tap, actions) == \
+        (-150, -150), drag_error
+
+
+def test_cyin002_clicking(dash_duo):
+    init_pos, actions = create_app(dash_duo)
+    click_error = "Unable to click Cytoscape nodes properly"
+
+    # Select the JSON output element
+    elem_tap = dash_duo.find_element('pre#tap-node-json-output')
+
+    # Test clicking the nodes
+    for i in range(1, 7):
+        label = 'Node {}'.format(i)
+        assert perform_clicking(dash_duo, *init_pos[label], elem_tap, actions) == label, click_error
+
+
+def test_cyin003_mouseover(dash_duo):
+    init_pos, actions = create_app(dash_duo)
+    mouseover_error = "Unable to mouseover Cytoscape nodes properly"
+
+    # Open the Mouseover JSON tab
+    actions.move_to_element(
+        dash_duo.find_element('#tabs > div:nth-child(3)'))
+    actions.click().perform()
+    time.sleep(1)
+
+    # Select the JSON output element
+    elem_mouseover = dash_duo.find_element('pre#mouseover-node-data-json-output')
+
+    # Test hovering the nodes
+    for i in range(1, 7):
+        label = 'Node {}'.format(i)
+        assert perform_mouseover(dash_duo, *init_pos[label], elem_mouseover, actions) == label, \
+            mouseover_error

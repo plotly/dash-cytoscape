@@ -153,13 +153,12 @@ def toggle_contextmenu_options(n_clicks):
                 'id': 'E2',
             }
         ]
-    else:
-        return [
-            {
-                'content': 'Context Menu Change',
-                'id': 'CH',
-            }
-        ]
+    return [
+        {
+            'content': 'Context Menu Change',
+            'id': 'CH',
+        }
+    ]
 
 
 @app.callback(Output('output-span', 'children'),

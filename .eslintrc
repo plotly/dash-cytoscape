@@ -117,5 +117,10 @@
         "ignore": [-1, 0, 1, 2, 3, 100, 10, 0.5]
     }],
     "no-underscore-dangle": ["off"]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
