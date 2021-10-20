@@ -56,7 +56,7 @@ edge, and core.
 Accepts a list of dictionaries, each of which describes a context
 menu option. Options are rendered in the order presented.}
 
-\item{contextmenuData}{Lists containing elements 'id', 'position', 'timestamp', 'target'.
+\item{contextmenuData}{Lists containing elements 'id', 'position', 'timestamp', 'target', 'coordinates'.
 those elements have the following types:
   - id (character; optional): id associated with option selected.
   - position (optional): position associated with option selected.. position has the following type: lists containing elements 'x', 'y'.
@@ -65,7 +65,8 @@ those elements have the following types:
   - y (numeric; optional)
   - timestamp (numeric; optional): time the option was selected.
   - target (named list; optional): dictionary containing information about the selected item. information provided varies depending 
-on the type of the selected item (node, edge, core, etc.).. Dictionary returned when a context menu option is selected. Read-only.}
+on the type of the selected item (node, edge, core, etc.).
+  - coordinates (list of numerics; optional): array containing latitude and longitude where context menu was opened if leaflet is enabled.. Dictionary returned when a context menu option is selected. Read-only.}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:

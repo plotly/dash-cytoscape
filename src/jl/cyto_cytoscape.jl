@@ -32,7 +32,7 @@ edge, and core.
   - `content` (String; optional): Label assigned to option.
   - `tooltipText` (String; optional): Hover tooltip text assigned to option.
   - `disabled` (Bool; optional): Toggles option disabled (greyed out).s
-- `contextmenuData` (optional): Dictionary returned when a context menu option is selected. Read-only.. contextmenuData has the following type: lists containing elements 'id', 'position', 'timestamp', 'target'.
+- `contextmenuData` (optional): Dictionary returned when a context menu option is selected. Read-only.. contextmenuData has the following type: lists containing elements 'id', 'position', 'timestamp', 'target', 'coordinates'.
 Those elements have the following types:
   - `id` (String; optional): ID associated with option selected.
   - `position` (optional): Position associated with option selected.. position has the following type: lists containing elements 'x', 'y'.
@@ -42,6 +42,7 @@ Those elements have the following types:
   - `timestamp` (Real; optional): Time the option was selected.
   - `target` (Dict; optional): Dictionary containing information about the selected item. Information provided varies depending 
 on the type of the selected item (node, edge, core, etc.).
+  - `coordinates` (Array of Reals; optional): Array containing latitude and longitude where context menu was opened if leaflet is enabled.
 - `elements` (optional): A list of dictionaries representing the elements of the networks. Each dictionary describes an element, and
 specifies its purpose. The [official Cytoscape.js documentation](https://js.cytoscape.org/#notation/elements-json)
 offers an extensive overview and examples of element declaration.

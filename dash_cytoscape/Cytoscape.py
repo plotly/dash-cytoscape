@@ -69,6 +69,10 @@ Keyword arguments:
 
     `contextmenuData` is a dict with keys:
 
+    - coordinates (list of numbers; optional):
+        Array containing latitude and longitude where context menu was
+        opened if leaflet is enabled.
+
     - id (string; optional):
         ID associated with option selected.
 
