@@ -78,7 +78,7 @@ export default class cyContextmenu {
                     coordinates: undefined,
                 };
                 if(leaf) {
-                    const ll = leaf.map.layerPointToLatLng(leaf.L.point([e.position.x, e.position.y]));
+                    const ll = leaf.map.containerPointToLatLng(leaf.L.point([e.position.x, e.position.y]));
                     contextmenuData.coordinates = [ll.lat, ll.lng];
                 }
                 this.setProps({ contextmenuData });

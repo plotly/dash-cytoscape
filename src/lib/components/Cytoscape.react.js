@@ -440,7 +440,9 @@ class Cytoscape extends Component {
             // Image handling
             generateImage,
             // Responsive graphs
-            responsive
+            responsive,
+            // Leaflet
+            leaflet,
         } = this.props;
 
         if (Object.keys(generateImage).length > 0) {
@@ -482,11 +484,11 @@ class Cytoscape extends Component {
                     layout={layout}
                     pan={pan}
                     zoom={zoom}
-                    panningEnabled={panningEnabled}
+                    panningEnabled={leaflet ? panningEnabled : false}
                     userPanningEnabled={userPanningEnabled}
                     minZoom={minZoom}
                     maxZoom={maxZoom}
-                    zoomingEnabled={zoomingEnabled}
+                    zoomingEnabled={leaflet ? zoomingEnabled : false}
                     userZoomingEnabled={userZoomingEnabled}
                     boxSelectionEnabled={boxSelectionEnabled}
                     autoungrabify={autoungrabify}
