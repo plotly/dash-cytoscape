@@ -440,7 +440,9 @@ class Cytoscape extends Component {
             // Image handling
             generateImage,
             // Responsive graphs
-            responsive
+            responsive,
+            // Leaflet
+            leaflet,
         } = this.props;
 
         if (Object.keys(generateImage).length > 0) {
@@ -482,11 +484,11 @@ class Cytoscape extends Component {
                     layout={layout}
                     pan={pan}
                     zoom={zoom}
-                    panningEnabled={panningEnabled}
+                    panningEnabled={leaflet ? panningEnabled : false}
                     userPanningEnabled={userPanningEnabled}
                     minZoom={minZoom}
                     maxZoom={maxZoom}
-                    zoomingEnabled={zoomingEnabled}
+                    zoomingEnabled={leaflet ? zoomingEnabled : false}
                     userZoomingEnabled={userZoomingEnabled}
                     boxSelectionEnabled={boxSelectionEnabled}
                     autoungrabify={autoungrabify}
@@ -966,6 +968,8 @@ Cytoscape.propTypes = {
          * on the type of the selected item (node, edge, core, etc.).
          */
         target: PropTypes.object,
+        /** Array containing latitude and longitude where context menu was opened if leaflet is enabled. */
+        coordinates: PropTypes.arrayOf(PropTypes.number),
     }),
 
     /**
@@ -991,6 +995,8 @@ Cytoscape.propTypes = {
         zoomOffset: PropTypes.number,
         /** Specifies the size of each tile image retrieved by leaflet */
         tileSize: PropTypes.number,
+        /** Specifies a pair of coordinates (latitude, longitude) to centre the viewport over and an optional zoom level for the viewport using an array */
+        view: PropTypes.arrayOf(PropTypes.number),
     })
 };
 

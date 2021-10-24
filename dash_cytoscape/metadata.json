@@ -951,6 +951,14 @@
               "name": "object",
               "description": "Dictionary containing information about the selected item. Information provided varies depending \non the type of the selected item (node, edge, core, etc.).",
               "required": false
+            },
+            "coordinates": {
+              "name": "arrayOf",
+              "value": {
+                "name": "number"
+              },
+              "description": "Array containing latitude and longitude where context menu was opened if leaflet is enabled.",
+              "required": false
             }
           }
         },
@@ -999,6 +1007,14 @@
             "tileSize": {
               "name": "number",
               "description": "Specifies the size of each tile image retrieved by leaflet",
+              "required": false
+            },
+            "view": {
+              "name": "arrayOf",
+              "value": {
+                "name": "number"
+              },
+              "description": "Specifies a pair of coordinates (latitude, longitude) to centre the viewport over and an optional zoom level for the viewport using an array",
               "required": false
             }
           }

@@ -69,6 +69,10 @@ Keyword arguments:
 
     `contextmenuData` is a dict with keys:
 
+    - coordinates (list of numbers; optional):
+        Array containing latitude and longitude where context menu was
+        opened if leaflet is enabled.
+
     - id (string; optional):
         ID associated with option selected.
 
@@ -298,6 +302,11 @@ Keyword arguments:
     - tileUrl (string; optional):
         Endpoint used by leaflet to fetch map tiles (if not using
         provider).
+
+    - view (list of numbers; optional):
+        Specifies a pair of coordinates (latitude, longitude) to
+        centre the viewport over and an optional zoom level for the
+        viewport using an array.
 
     - zoomOffset (number; optional):
         Sets the offset from the zoom number used in tile URLs.

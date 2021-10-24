@@ -56,7 +56,7 @@ edge, and core.
 Accepts a list of dictionaries, each of which describes a context
 menu option. Options are rendered in the order presented.}
 
-\item{contextmenuData}{Lists containing elements 'id', 'position', 'timestamp', 'target'.
+\item{contextmenuData}{Lists containing elements 'id', 'position', 'timestamp', 'target', 'coordinates'.
 those elements have the following types:
   - id (character; optional): id associated with option selected.
   - position (optional): position associated with option selected.. position has the following type: lists containing elements 'x', 'y'.
@@ -65,7 +65,8 @@ those elements have the following types:
   - y (numeric; optional)
   - timestamp (numeric; optional): time the option was selected.
   - target (named list; optional): dictionary containing information about the selected item. information provided varies depending 
-on the type of the selected item (node, edge, core, etc.).. Dictionary returned when a context menu option is selected. Read-only.}
+on the type of the selected item (node, edge, core, etc.).
+  - coordinates (list of numerics; optional): array containing latitude and longitude where context menu was opened if leaflet is enabled.. Dictionary returned when a context menu option is selected. Read-only.}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:
@@ -159,7 +160,7 @@ the options are listed in the "API" section of the  README.
  function or a callback. Please visit this
 [issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.}
 
-\item{leaflet}{Lists containing elements 'provider', 'tileurl', 'attribution', 'maxzoom', 'latitudeid', 'longitudeid', 'zoomoffset', 'tilesize'.
+\item{leaflet}{Lists containing elements 'provider', 'tileurl', 'attribution', 'maxzoom', 'latitudeid', 'longitudeid', 'zoomoffset', 'tilesize', 'view'.
 those elements have the following types:
   - provider (character; optional): specify a tile preset from leaflet providers instead of a manual tileurl.  see http://leaflet-extras.github.io/leaflet-providers/preview/  see also https://github.com/leaflet-extras/leaflet-providers
   - tileurl (character; optional): endpoint used by leaflet to fetch map tiles (if not using provider).
@@ -168,7 +169,8 @@ those elements have the following types:
   - latitudeid (character; optional): specifies the name of the node property containing the latitude of the node. default: 'lat'.
   - longitudeid (character; optional): specifies the name of the node property containing the longitude of the node. default: 'lon'.
   - zoomoffset (numeric; optional): sets the offset from the zoom number used in tile urls
-  - tilesize (numeric; optional): specifies the size of each tile image retrieved by leaflet. Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
+  - tilesize (numeric; optional): specifies the size of each tile image retrieved by leaflet
+  - view (list of numerics; optional): specifies a pair of coordinates (latitude, longitude) to centre the viewport over and an optional zoom level for the viewport using an array. Dictionary specifying configuration options to overlay a leaflet map on top of Cytoscape. All
 configuration options are optional; provide an empty dictionary to use default options. Requires
 latitude and longitude properties to be included in the node data for positional information.
 Requires preset layout to be used. Requires extra layouts to be loaded.}

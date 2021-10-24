@@ -1,3 +1,5 @@
+const DEFAULT_TILE_SIZE = 256;
+
 export default class cyLeaflet {
     constructor(cy) {
         this.updateCtxmenu = this.update.bind(this);
@@ -9,6 +11,7 @@ export default class cyLeaflet {
         this.leafletContainer = null;
         this.leafletInstance = null;
         this.leafletHash = '';
+        this.leafletViewHash = '';
         this.leafletContainerUpdateInterval = null;
     }
 
@@ -19,11 +22,16 @@ export default class cyLeaflet {
             return;
         }
 
-        const leafletHashNew = JSON.stringify(leaflet);
+        const leafletHashNew = JSON.stringify(Object.assign(
+            {},
+            leaflet,
+            {view: null}
+        ));
         if(leafletHashNew !== this.leafletHash && leafletHashNew) {
             if(this.leafletInstance) {
                 this.leafletInstance.destroy();
                 this.leafletInstance = null;
+                this.cy.scratch('leaf', undefined);
             }
 
             if(this.leafletContainer) {
@@ -35,6 +43,12 @@ export default class cyLeaflet {
             this.addLeafletTiles(props);
             this.leafletHash = leafletHashNew;
         }
+
+        const leafletViewHashNew = JSON.stringify(leaflet.view);
+        if(leafletViewHashNew !== this.leafletViewHash && leafletViewHashNew && leaflet.view.length >= 2) {
+            this.leafletInstance.map.setView([leaflet.view[0], leaflet.view[1]], leaflet.view[2]);
+        }
+        this.leafletViewHash = leafletViewHashNew;
     }
 
     initializeLeaflet() {
@@ -54,6 +68,7 @@ export default class cyLeaflet {
             latitude: latitudeId || 'lat',
             longitude: longitudeId || 'lon',
         });
+        this.cy.scratch('leaf', this.leafletInstance);
 
         if(provider) {
             map.removeLayer(defaultTileLayer);
@@ -61,16 +76,14 @@ export default class cyLeaflet {
             L.tileLayer.provider(provider).addTo(map);
         } else if(tileUrl) {
             map.removeLayer(defaultTileLayer);
-            const defaultTileSize = 256;
 
             L.tileLayer(tileUrl, {
                 attribution,
                 maxZoom,
                 zoomOffset: zoomOffset ? zoomOffset : 0,
-                tileSize: tileSize ? tileSize : defaultTileSize,
+                tileSize: tileSize ? tileSize : DEFAULT_TILE_SIZE,
             }).addTo(map);
         } 
         // otherwise use ext default
-
     }
 }

@@ -80,7 +80,7 @@ app.layout = html.Div([
             'top': 0
         },
         leaflet={
-            'preset': 'CartoDB.Positron'
+            'provider': 'CartoDB.Positron'
         }
     )
 ])
