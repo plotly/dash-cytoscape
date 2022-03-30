@@ -76,6 +76,18 @@ app.layout = html.Div([
 
 Calling `cyto.load_extra_layouts()` also enables generating SVG images.
 
+### Panzoom
+
+This version contains the [panzoom](https://github.com/cytoscape/cytoscape.js-panzoom) extension to the dash cytoscape app. Note that you still need to add "Font Awesome" to your app's `external_stylesheets`. For example:
+
+```
+    {
+        'href': 'https://use.fontawesome.com/releases/v5.8.1/css/all.css',
+        'rel': 'stylesheet',
+        'integrity': 'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf',
+        'crossorigin': 'anonymous'
+    },
+```
 
 ## Getting Started in R
 
