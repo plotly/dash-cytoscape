@@ -6,8 +6,14 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
+import CytoscapeJS from 'cytoscape';
+import panzoom from 'cytoscape-panzoom';
+import "cytoscape-panzoom/cytoscape.js-panzoom.css";
+
+CytoscapeJS.use(panzoom)
 
 import CyResponsive from '../cyResponsive.js';
+
 
 /**
 A Component Library for Dash aimed at facilitating network visualization in
@@ -20,7 +26,7 @@ class Cytoscape extends Component {
         this.handleCy = this.handleCy.bind(this);
         this._handleCyCalled = false;
         this.handleImageGeneration = this.handleImageGeneration.bind(this);
-        this.cyResponsiveClass = false;
+        this.cyResponsiveClass = false;	
     }
 
     generateNode(event) {
@@ -150,6 +156,7 @@ class Cytoscape extends Component {
         return edgeObject;
     }
 
+
     handleCy(cy) {
         // If the cy pointer has not been modified, and handleCy has already
         // been called before, than we don't run this function.
@@ -159,6 +166,7 @@ class Cytoscape extends Component {
         this._cy = cy;
         window.cy = cy;
         this._handleCyCalled = true;
+
 
         // ///////////////////////////////////// CONSTANTS /////////////////////////////////////////
         const SELECT_THRESHOLD = 100;
@@ -279,6 +287,36 @@ class Cytoscape extends Component {
 
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
+
+	// the default values of each option are outlined below:
+	var defaultZoomControls = {
+	zoomFactor: 0.05, // zoom factor per zoom tick
+	zoomDelay: 45, // how many ms between zoom ticks
+	minZoom: 0.1, // min zoom level
+	maxZoom: 10, // max zoom level
+	fitPadding: 50, // padding when fitting
+	panSpeed: 10, // how many ms in between pan ticks
+	panDistance: 10, // max pan distance per tick
+	panDragAreaSize: 75, // the length of the pan drag box in which the vector for panning is calculated (bigger = finer control of pan speed and direction)
+	panMinPercentSpeed: 0.25, // the slowest speed we can pan by (as a percent of panSpeed)
+	panInactiveArea: 8, // radius of inactive area in pan drag box
+	panIndicatorMinOpacity: 0.5, // min opacity of pan indicator (the draggable nib); scales from this to 1.0
+	zoomOnly: false, // a minimal version of the ui only with zooming (useful on systems with bad mousewheel resolution)
+	fitSelector: undefined, // selector of elements to fit
+	animateOnFit: function(){ // whether to animate on fit
+	return false;
+	},
+	fitAnimationDuration: 1000, // duration of animation on fit
+
+	// icon class names
+	sliderHandleIcon: 'fa fa-minus',
+	zoomInIcon: 'fa fa-plus',
+	zoomOutIcon: 'fa fa-minus',
+	resetIcon: 'fa fa-expand'
+	};
+
+	// add the panzoom control
+	cy.panzoom(defaultZoomControls);
     }
 
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -450,6 +488,7 @@ class Cytoscape extends Component {
         if (this.cyResponsiveClass) {
             this.cyResponsiveClass.toggle(responsive);
         }
+
 
         return (
             <CytoscapeComponent
