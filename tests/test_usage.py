@@ -32,6 +32,6 @@ def create_usage_test(dash_duo, filename, dir_name='usage'):
     'demos.usage-breadthfirst-layout', 'demos.usage-compound-nodes', 'usage-events',
     'usage-elements', 'demos.usage-pie-style', 'usage', 'usage-stylesheet',
     'demos.usage-initialisation', 'demos.usage-linkout-example', 'demos.usage-image-export',
-    'demos.usage-responsive-graph', 'usage-contextmenu'])
+    'demos.usage-responsive-graph'])
 def test_cyug001_usage(name, dash_duo):
     create_usage_test(dash_duo, name)
