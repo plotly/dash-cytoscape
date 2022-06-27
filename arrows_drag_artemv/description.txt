@@ -1,0 +1,10 @@
+Изменения сделаны в следующих файлах:
+
+Засечки:
+node_modules/cytoscape/src/extensions/renderer/canvas/arrow-shapes.js (назван canvas-arrow-shapes.js)
+node_modules/cytoscape/src/extensions/renderer/base/arrow-shapes.js (назван base-arrow-shapes.js)
+node_modules/cytoscape/src/style/properties.js
+
+Событие drag:
+src/lib/components/Cytoscape.react.js
+dash_cytoscape/Cytoscape.py
