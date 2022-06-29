@@ -49,6 +49,21 @@ function triangleTee( context, trianglePoints, teePoints ){
   if( context.closePath ){ context.closePath(); }
 }
 
+// ОТРИСОВКА С ПЕРЕМЕННЫМ КОЛИЧЕСТВОМ ЗАСЕЧЕК
+function variableTee( context, points ){
+  if( context.beginPath ){ context.beginPath(); }
+
+  for ( var i = 0; i < points.length; i++ ) {
+    context.moveTo( points[i][0].x, points[i][0].y)
+    for ( var j = 0; j < points[i].length; j++) {
+      var pt = points[i][j]
+      context.lineTo( pt.x, pt.y );
+    }
+  }
+
+  if( context.closePath ){ context.closePath(); }
+}
+
 function circleTriangle(context, trianglePoints, rx, ry, r) {
   if (context.beginPath) { context.beginPath(); }
   context.arc(rx, ry, r, 0, Math.PI * 2, false);    
@@ -76,7 +91,13 @@ CRp.arrowShapeImpl = function( name ){
 
     'triangle-tee': triangleTee,
 
-    'double-tee': triangleTee,
+    'tee-2': triangleTee,
+
+    'tee-3': variableTee,
+
+    'tee-4': variableTee,
+
+    'tee-5': variableTee,
 
     'circle-triangle' : circleTriangle,
 

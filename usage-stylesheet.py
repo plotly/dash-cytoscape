@@ -8,6 +8,7 @@ import dash_html_components as html
 
 import dash_cytoscape as cyto
 from demos import dash_reusable_components as drc
+from random import randint
 
 app = dash.Dash(__name__)
 server = app.server
@@ -18,7 +19,7 @@ with open('demos/data/sample_network.txt', 'r') as f:
     network_data = f.read().split('\n')
 
 # We select the first 750 edges and associated nodes for an easier visualization
-edges = network_data[:750]
+edges = network_data[:50]
 nodes = set()
 
 cy_edges = []
@@ -29,15 +30,18 @@ for network_edge in edges:
 
     if source not in nodes:
         nodes.add(source)
-        cy_nodes.append({"data": {"id": source, "label": "User #" + source[-5:]}})
+        cy_nodes.append({"data": {"id": source,
+                                  "label": "Контракт #" + source[-5:]}})
     if target not in nodes:
         nodes.add(target)
-        cy_nodes.append({"data": {"id": target, "label": "User #" + target[-5:]}})
+        cy_nodes.append({"data": {"id": target,
+                                  "label": "Контракт #" + target[-5:]}})
 
     cy_edges.append({
         'data': {
             'source': source,
-            'target': target
+            'target': target,
+            'weight': randint(-100, 100)
         }
     })
 
@@ -56,6 +60,20 @@ default_stylesheet = [
             "mid-target-arrow-shape": "tee",
         }
     },
+    {
+      "selector": "[weight > 50]",
+      "style": {
+            "mid-target-arrow-color": "red",
+            "mid-target-arrow-shape": f"tee-{1}"
+      }
+    },
+{
+      "selector": "[weight < 0]",
+      "style": {
+            "mid-target-arrow-color": "blue",
+            "mid-target-arrow-shape": f"tee-{5}"
+      }
+    }
 ]
 
 styles = {
@@ -77,7 +95,7 @@ app.layout = html.Div([
             style={
                 'height': '95vh',
                 'width': '100%'
-            }
+            },
         )
     ]),
 
@@ -121,7 +139,7 @@ app.layout = html.Div([
                 drc.NamedDropdown(
                     name='Засечка',
                     id='dropdown-edge-arrow',
-                    value='tee',
+                    value='tee-1',
                     clearable=False,
                     options=drc.DropdownOptionsList(
                         'triangle',
@@ -130,13 +148,15 @@ app.layout = html.Div([
                         'triangle-cross',
                         'triangle-backcurve',
                         'vee',
-                        'tee',
+                        'tee-1',
+                        'tee-2',
+                        'tee-3',
+                        'tee-4',
+                        'tee-5',
                         'square',
                         'circle',
                         'diamond',
                         'chevron',
-                        'double-tee',
-                        'test',
                         'none'
                     )
                 ),
@@ -168,6 +188,8 @@ app.layout = html.Div([
         ]),
     ])
 ])
+
+
 
 @app.callback(Output('drag-node-json-output', 'children'),
               [Input('cytoscape', 'grabNodeData'),
@@ -209,21 +231,6 @@ def generate_stylesheet(node, follower_color, following_color, edge_arrow, node_
             "mid-target-arrow-shape": edge_arrow,
             "curve-style": "bezier",
         }
-    }, {
-        "selector": 'node[id = "{}"]'.format(node['data']['id']),
-        "style": {
-            'background-color': '#B10DC9',
-            "border-color": "purple",
-            "border-width": 2,
-            "border-opacity": 1,
-            "opacity": 1,
-
-            "label": "data(label)",
-            "color": "#B10DC9",
-            "text-opacity": 1,
-            "font-size": 12,
-            'z-index': 9999
-        }
     }]
 
     for edge in node['edgesData']:
@@ -238,7 +245,7 @@ def generate_stylesheet(node, follower_color, following_color, edge_arrow, node_
             stylesheet.append({
                 "selector": 'edge[id= "{}"]'.format(edge['id']),
                 "style": {
-                    "mid-target-arrow-color": following_color,
+                    "mid-target-arrow-color": "black",
                     "mid-target-arrow-shape": edge_arrow,
                     "line-color": following_color,
                     'opacity': 0.9,
@@ -258,7 +265,7 @@ def generate_stylesheet(node, follower_color, following_color, edge_arrow, node_
             stylesheet.append({
                 "selector": 'edge[id= "{}"]'.format(edge['id']),
                 "style": {
-                    "mid-target-arrow-color": follower_color,
+                    "mid-target-arrow-color": "black",
                     "mid-target-arrow-shape": edge_arrow,
                     "line-color": follower_color,
                     'opacity': 1,

@@ -5,6 +5,4 @@ node_modules/cytoscape/src/extensions/renderer/canvas/arrow-shapes.js (назв�
 node_modules/cytoscape/src/extensions/renderer/base/arrow-shapes.js (назван base-arrow-shapes.js)
 node_modules/cytoscape/src/style/properties.js
 
-Событие drag:
-src/lib/components/Cytoscape.react.js
-dash_cytoscape/Cytoscape.py
+Засечки от 1 до 5 с именами "tee-1", "tee-2" и т.п.

@@ -70,7 +70,7 @@ const styfn = {};
       'tag', 'round-tag', 'star', 'diamond', 'round-diamond', 'vee', 'rhomboid', 'polygon',
     ] },
     compoundIncludeLabels: { enums: [ 'include', 'exclude' ] },
-    arrowShape: { enums: [ 'double-tee', 'tee', 'triangle', 'triangle-tee', 'circle-triangle', 'triangle-cross', 'triangle-backcurve', 'vee', 'square', 'circle', 'diamond', 'chevron', 'none' ] },
+    arrowShape: { enums: [ 'tee-5', 'tee-4', 'tee-3', 'tee-2', 'tee-1', 'triangle', 'triangle-tee', 'circle-triangle', 'triangle-cross', 'triangle-backcurve', 'vee', 'square', 'circle', 'diamond', 'chevron', 'none' ] },
     arrowFill: { enums: [ 'filled', 'hollow' ] },
     display: { enums: [ 'element', 'none' ] },
     visibility: { enums: [ 'hidden', 'visible' ] },

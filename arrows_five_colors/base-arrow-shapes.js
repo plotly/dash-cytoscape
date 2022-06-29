@@ -84,36 +84,37 @@ BRp.registerArrowShapes = function(){
     }
 
     arrowShapes[ name ] = util.extend( {
-      name: name,
 
-      points: [
-        -0.15, -0.3,
-        0.15, -0.3,
-        0.15, 0.3,
-        -0.15, 0.3
-      ],
+        name: name,
 
-      collide: function( x, y, size, angle, translation, padding ){
-        var points = pointsToArr( transformPoints( this.points, size + 2 * padding, angle, translation ) );
-        var inside = math.pointInsidePolygonPoints( x, y, points );
+        points: [
+          -0.15, -0.3,
+          0.15, -0.3,
+          0.15, 0.3,
+          -0.15, 0.3
+        ],
 
-        return inside;
-      },
+        collide: function( x, y, size, angle, translation, padding ){
+          var points = pointsToArr( transformPoints( this.points, size + 2 * padding, angle, translation ) );
+          var inside = math.pointInsidePolygonPoints( x, y, points );
 
-      roughCollide: bbCollide,
+          return inside;
+        },
 
-      draw: function( context, size, angle, translation ){
-        var points = transformPoints( this.points, size, angle, translation );
+        roughCollide: bbCollide,
 
-        renderer.arrowShapeImpl( 'polygon' )( context, points );
-      },
+        draw: function( context, size, angle, translation ){
+          var points = transformPoints( this.points, size, angle, translation );
 
-      spacing: function( edge ){
-        return 0;
-      },
+          renderer.arrowShapeImpl( 'polygon' )( context, points );
+        },
 
-      gap: standardGap
-    }, defn );
+        spacing: function( edge ){
+          return 0;
+        },
+
+        gap: standardGap
+      }, defn );
   };
 
   defineArrowShape( 'none', {
@@ -285,7 +286,7 @@ BRp.registerArrowShapes = function(){
     }
   } );
 
-  defineArrowShape( 'tee', {
+  defineArrowShape( 'tee-1', {
     points: [
       -0.15, 0,
       -0.15, -0.1,
@@ -302,15 +303,15 @@ BRp.registerArrowShapes = function(){
     }
   } );
 
-  defineArrowShape( 'double-tee', {
-    points: [
+  defineArrowShape( 'tee-2', {
+    p1: [
       -0.15, 0.5,
       -0.15, 0.4,
       0.15, 0.4,
       0.15, 0.5
     ],
 
-    pointsTee: [
+    p2: [
       -0.15, -0.4,
       -0.15, -0.5,
       0.15, -0.5,
@@ -318,19 +319,150 @@ BRp.registerArrowShapes = function(){
     ],
 
     collide: function( x, y, size, angle, translation, edgeWidth, padding ){
-      var triPts = pointsToArr( transformPoints( this.points, size + 2 * padding, angle, translation ) );
-      var teePts = pointsToArr( transformPoints( this.pointsTee, size + 2 * padding, angle, translation ) );
+      var pts1 = pointsToArr( transformPoints( this.p1, size + 2 * padding, angle, translation ) );
+      var pts2 = pointsToArr( transformPoints( this.p2, size + 2 * padding, angle, translation ) );
 
-      var inside = math.pointInsidePolygonPoints( x, y, triPts ) || math.pointInsidePolygonPoints( x, y, teePts );
+      var inside = math.pointInsidePolygonPoints( x, y, pts1 ) || math.pointInsidePolygonPoints( x, y, pts2 );
 
       return inside;
     },
 
     draw: function( context, size, angle, translation, edgeWidth ) {
-      var triPts = transformPoints( this.points, size, angle, translation );
-      var teePts = transformPoints( this.pointsTee, size, angle, translation );
+      var pts1 = transformPoints( this.p1, size, angle, translation );
+      var pts2 = transformPoints( this.p2, size, angle, translation );
 
-      renderer.arrowShapeImpl( this.name )( context, triPts, teePts );
+      renderer.arrowShapeImpl( this.name )( context, pts1, pts2 );
+    }
+    } );
+
+    defineArrowShape( 'tee-3', {
+    points: [[
+      -0.15, 0.6,
+      -0.15, 0.5,
+      0.15, 0.5,
+      0.15, 0.6
+    ], [
+      -0.15, -0.5,
+      -0.15, -0.6,
+      0.15, -0.6,
+      0.15, -0.5
+    ], [
+      -0.15, -0.05,
+      -0.15, 0.05,
+      0.15, 0.05,
+      0.15, -0.05
+    ]],
+
+
+    collide: function( x, y, size, angle, translation, edgeWidth, padding ){
+      var inside = []
+      for (var i=0; i<this.points.length; i++) {
+        var arrPoints = pointsToArr( transformPoints( this.points[i], size + 2 * padding, angle, translation ) );
+        inside.push(math.pointInsidePolygonPoints( x, y, arrPoints ))
+      }
+
+      return inside;
+    },
+
+    draw: function( context, size, angle, translation, edgeWidth ) {
+      var allTransformPoints = [];
+      for (var i=0; i<this.points.length; i++) {
+        allTransformPoints.push(transformPoints( this.points[i], size, angle, translation ))
+      }
+
+      renderer.arrowShapeImpl( this.name )( context, allTransformPoints );
+    }
+    } );
+
+    defineArrowShape( 'tee-4', {
+    points: [[
+      -0.15, 0.8,
+      -0.15, 0.7,
+      0.15, 0.7,
+      0.15, 0.8
+    ], [
+      -0.15, -0.8,
+      -0.15, -0.7,
+      0.15, -0.7,
+      0.15, -0.8
+    ], [
+      -0.15, 0.4,
+      -0.15, 0.3,
+      0.15, 0.3,
+      0.15, 0.4
+    ], [
+      -0.15, -0.4,
+      -0.15, -0.3,
+      0.15, -0.3,
+      0.15, -0.4
+    ]],
+
+
+    collide: function( x, y, size, angle, translation, edgeWidth, padding ){
+      var inside = []
+      for (var i=0; i<this.points.length; i++) {
+        var arrPoints = pointsToArr( transformPoints( this.points[i], size + 2 * padding, angle, translation ) );
+        inside.push(math.pointInsidePolygonPoints( x, y, arrPoints ))
+      }
+
+      return inside;
+    },
+
+    draw: function( context, size, angle, translation, edgeWidth ) {
+      var allTransformPoints = [];
+      for (var i=0; i<this.points.length; i++) {
+        allTransformPoints.push(transformPoints( this.points[i], size, angle, translation ))
+      }
+
+      renderer.arrowShapeImpl( this.name )( context, allTransformPoints );
+    }
+    } );
+
+    defineArrowShape( 'tee-5', {
+    points: [[
+      -0.15, 0.9,
+      -0.15, 0.8,
+      0.15, 0.8,
+      0.15, 0.9
+    ], [
+      -0.15, -0.9,
+      -0.15, -0.8,
+      0.15, -0.8,
+      0.15, -0.9
+    ], [
+      -0.15, -0.5,
+      -0.15, -0.4,
+      0.15, -0.4,
+      0.15, -0.5
+    ], [
+      -0.15, 0.5,
+      -0.15, 0.4,
+      0.15, 0.4,
+      0.15, 0.5
+    ], [
+      -0.15, -0.05,
+      -0.15, 0.05,
+      0.15, 0.05,
+      0.15, -0.05
+    ]],
+
+    collide: function( x, y, size, angle, translation, edgeWidth, padding ){
+      var inside = []
+      for (var i=0; i<this.points.length; i++) {
+        var arrPoints = pointsToArr( transformPoints( this.points[i], size + 2 * padding, angle, translation ) );
+        inside.push(math.pointInsidePolygonPoints( x, y, arrPoints ))
+      }
+
+      return inside;
+    },
+
+    draw: function( context, size, angle, translation, edgeWidth ) {
+      var allTransformPoints = [];
+      for (var i=0; i<this.points.length; i++) {
+        allTransformPoints.push(transformPoints( this.points[i], size, angle, translation ))
+      }
+
+      renderer.arrowShapeImpl( this.name )( context, allTransformPoints );
     }
     } );
 

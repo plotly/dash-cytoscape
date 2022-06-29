@@ -108,7 +108,7 @@ default_stylesheet = [
     {
         'selector': '.followingEdge',
         "style": {
-            "mid-target-arrow-color": "red",
+            "mid-target-arrow-color": "purple",
             "mid-target-arrow-shape": "vee",
             "line-color": "#FF4136",
         }
