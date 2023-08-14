@@ -1,49 +1,48 @@
 version: 2
 
 jobs:
-    "percy-finalize":
+    'percy-finalize':
         docker:
             - image: percyio/agent
               auth:
-                username: dashautomation
-                password: $DASH_PAT_DOCKERHUB
+                  username: dashautomation
+                  password: $DASH_PAT_DOCKERHUB
         steps:
             - run: percy finalize --all
-    "node":
+    'node':
         docker:
             - image: circleci/node:8.11.3
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
-                  
+
         steps:
             - checkout
 
             - restore_cache:
-                key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
+                  key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
 
             - run:
-                name: Install package.json
-                command: npm i
+                  name: Install package.json
+                  command: npm i
 
             - save_cache:
-                key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
-                paths:
-                    - node_modules
+                  key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
+                  paths:
+                      - node_modules
 
             - run:
-                name: Run eslint
-                command: ./node_modules/.bin/eslint src
-                when: always
+                  name: Run eslint
+                  command: ./node_modules/.bin/eslint src
+                  when: always
 
-
-    "python-3.6": &test-template
+    'python-3.6': &test-template
         docker:
             - image: circleci/python:3.6-stretch-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
-                  
+
         environment:
             PERCY_ENABLED: True
             PERCY_PARALLEL_TOTAL: -1
@@ -52,90 +51,96 @@ jobs:
             - checkout
 
             - restore_cache:
-                key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
+                  key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
 
             - run:
-                name: Create virtualenv
-                command: |
-                    python3 -m venv venv
+                  name: Create virtualenv
+                  command: |
+                      python3 -m venv venv
 
             - run:
-                name: Install requirements
-                command: |
-                    . venv/bin/activate
-                    pip install -r tests/requirements.txt --quiet
+                  name: Install requirements
+                  command: |
+                      . venv/bin/activate
+                      pip install -r tests/requirements.txt --quiet
 
             - save_cache:
-                key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
-                paths:
-                    - "venv"
+                  key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
+                  paths:
+                      - 'venv'
 
             - run:
-                name: Run pylint
-                command: |
-                    . venv/bin/activate
-                    pylint usage.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py
-                    pylint demos tests
-                when: always
+                  name: Run pylint
+                  command: |
+                      . venv/bin/activate
+                      pylint usage.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py
+                      pylint demos tests
+                  when: always
 
             - run:
-                name: Run flake8
-                command: |
-                    . venv/bin/activate
-                    flake8 --max-line-length=100 usage.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py
-                    flake8 --max-line-length=100 demos tests
-                when: always
+                  name: Run flake8
+                  command: |
+                      . venv/bin/activate
+                      flake8 --max-line-length=100 usage.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py
+                      flake8 --max-line-length=100 demos tests
+                  when: always
 
             - run:
-                name: Integration Tests - Usage Apps Rendering
-                command: |
-                    . venv/bin/activate
-                    pytest --nopercyfinalize --headless tests/test_usage.py
-                when: always
+                  name: Run prettier
+                  command: |
+                      . venv/bin/activate
+                      prettier --config .prettierrc --write src/**/*.js src/**/**/*.js
+                  when: always
 
             - run:
-                name: Integration Tests - Interactions
-                command: |
-                    . venv/bin/activate
-                    pytest --headless tests/test_interactions.py
-                when: always
+                  name: Integration Tests - Usage Apps Rendering
+                  command: |
+                      . venv/bin/activate
+                      pytest --nopercyfinalize --headless tests/test_usage.py
+                  when: always
 
             - run:
-                name: Integration Tests - Callbacks
-                command: |
-                    . venv/bin/activate
-                    pytest --headless tests/test_callbacks.py
-                when: always
+                  name: Integration Tests - Interactions
+                  command: |
+                      . venv/bin/activate
+                      pytest --headless tests/test_interactions.py
+                  when: always
 
             - run:
-                name: Capture Percy Snapshots
-                command: |
-                    . venv/bin/activate
-                    pytest --headless tests/test_percy_snapshot.py
-                when: always
+                  name: Integration Tests - Callbacks
+                  command: |
+                      . venv/bin/activate
+                      pytest --headless tests/test_callbacks.py
+                  when: always
 
-    "python-3.7":
+            - run:
+                  name: Capture Percy Snapshots
+                  command: |
+                      . venv/bin/activate
+                      pytest --headless tests/test_percy_snapshot.py
+                  when: always
+
+    'python-3.7':
         <<: *test-template
         docker:
             - image: circleci/python:3.7-stretch-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
-                  
+
         environment:
             PERCY_ENABLE: False
-
 
 workflows:
     version: 2
     build:
         jobs:
-            - "python-3.6":
-                context: dash-docker-hub
-            - "python-3.7":
-                context: dash-docker-hub
-            - "node":
-                context: dash-docker-hub
-            - "percy-finalize":
-                requires:
-                    - "python-3.6"
+            - 'python-3.6':
+                  context: dash-docker-hub
+            - 'python-3.7':
+                  context: dash-docker-hub
+            - 'node':
+                  context: dash-docker-hub
+            - 'percy-finalize':
+                  requires:
+                      - 'python-3.6'

@@ -19,6 +19,4 @@ CytoscapeJS.use(klay);
 CytoscapeJS.use(spread);
 CytoscapeJS.use(svg);
 
-export {
-    Cytoscape
-};
+export {Cytoscape};

@@ -1,5 +1,4 @@
 export default class cyResponsive {
-
     constructor(cy) {
         this.shouldResize = false;
 
@@ -22,19 +21,16 @@ export default class cyResponsive {
         this.resize = this.resize.bind(this);
     }
 
-
-
     toggle(state = !this.shouldResize) {
         const cy = this.cy;
 
-        if(state !== this.shouldResize) {
-            if(state) {
+        if (state !== this.shouldResize) {
+            if (state) {
                 cy.on('render', this.updateViewport);
                 cy.on('resize', this.resize);
 
                 this.updateViewport(cy);
-            }
-            else {
+            } else {
                 cy.removeListener('render', this.updateViewport);
                 cy.removeListener('resize', this.resize);
             }
@@ -42,8 +38,6 @@ export default class cyResponsive {
             this.shouldResize = state;
         }
     }
-
-
 
     getViewport() {
         const cy = this.cy;
@@ -61,8 +55,6 @@ export default class cyResponsive {
         this.prev = this.getViewport(cy);
     }
 
-
-
     _xConstrainedZoom(level) {
         const {curr, prev, marginPercentage} = this;
 
@@ -71,19 +63,21 @@ export default class cyResponsive {
         // with new zoom
         const newRenderedBBX1 = marginPercentage.left * curr.width;
 
-        curr.position.x = newRenderedBBX1 + (prev.position.x - prev.renderedBB.x1);
+        curr.position.x =
+            newRenderedBBX1 + (prev.position.x - prev.renderedBB.x1);
 
         // Look at unconstrained dimension
         // get midpoint
         const midpoint = curr.renderedBB.y1 + curr.renderedBB.h / 2;
         // get new height of graph
-        const newHeight = curr.renderedBB.h / prev.zoom * level;
+        const newHeight = (curr.renderedBB.h / prev.zoom) * level;
         // get new top margin
-        let newRenderedBBY1 = midpoint - (newHeight / 2);
+        let newRenderedBBY1 = midpoint - newHeight / 2;
         // compensate for any change in height between prev and curr
         newRenderedBBY1 = newRenderedBBY1 + (curr.height - prev.height) / 2;
 
-        curr.position.y = newRenderedBBY1 + (prev.position.y - prev.renderedBB.y1);
+        curr.position.y =
+            newRenderedBBY1 + (prev.position.y - prev.renderedBB.y1);
     }
 
     _xChangeMargin(width) {
@@ -105,14 +99,16 @@ export default class cyResponsive {
         const {curr, prev, marginPercentage} = this;
 
         const newRenderedBBY1 = marginPercentage.top * curr.height;
-        curr.position.y = newRenderedBBY1 + (prev.position.y - prev.renderedBB.y1);
+        curr.position.y =
+            newRenderedBBY1 + (prev.position.y - prev.renderedBB.y1);
 
         const midpoint = curr.renderedBB.x1 + curr.renderedBB.w / 2;
-        const newWidth = curr.renderedBB.w / prev.zoom * level;
-        let newRenderedBBX1 = midpoint - (newWidth / 2);
+        const newWidth = (curr.renderedBB.w / prev.zoom) * level;
+        let newRenderedBBX1 = midpoint - newWidth / 2;
         newRenderedBBX1 = newRenderedBBX1 + (curr.width - prev.width) / 2;
 
-        curr.position.x = newRenderedBBX1 + (prev.position.x - prev.renderedBB.x1);
+        curr.position.x =
+            newRenderedBBX1 + (prev.position.x - prev.renderedBB.x1);
     }
 
     _yChangeMargin() {
@@ -127,8 +123,6 @@ export default class cyResponsive {
         curr.position.y = curr.position.y + (newYCentroidPos - yCentroidPos);
     }
 
-
-
     resize() {
         const cy = this.cy;
         this.curr = this.getViewport(cy);
@@ -136,10 +130,11 @@ export default class cyResponsive {
         const {curr, prev} = this;
 
         // Is the figure fully contained in the viewport?
-        const fullyContained = (prev.renderedBB.x1 >= 0)
-            && (prev.renderedBB.y1 >= 0)
-            && (prev.renderedBB.x2 <= prev.width)
-            && (prev.renderedBB.y2 <= prev.height);
+        const fullyContained =
+            prev.renderedBB.x1 >= 0 &&
+            prev.renderedBB.y1 >= 0 &&
+            prev.renderedBB.x2 <= prev.width &&
+            prev.renderedBB.y2 <= prev.height;
 
         // Calculate margin percentages based on prev vals
         this.marginPercentage = {
@@ -151,42 +146,52 @@ export default class cyResponsive {
 
         // Find constrained dimension
         // Find which dimension has changed the most as a percentage of the currrent dimensions
-        const xConstrained = Math.abs(1 - (curr.width / prev.width))
-            > Math.abs(1 - (curr.height / prev.height));
+        const xConstrained =
+            Math.abs(1 - curr.width / prev.width) >
+            Math.abs(1 - curr.height / prev.height);
 
         // define output variables
-        if(xConstrained) {
+        if (xConstrained) {
             // calculate zoom so that the width remains same
-            const targetZoom = prev.zoom / prev.width * curr.width;
-            if(fullyContained) {
-                const maxContainedZoom = Math.min(
-                    (curr.renderedBB.y1 + (curr.renderedBB.h / 2)) * prev.zoom * 2 / curr.renderedBB.h,
-                    - (curr.renderedBB.y1 + (curr.renderedBB.h / 2) - prev.height) * prev.zoom * 2 / curr.renderedBB.h
-                ) - this.containedZoomMargin;
-                const maxContainedWidth = prev.width / prev.zoom * maxContainedZoom;
+            const targetZoom = (prev.zoom / prev.width) * curr.width;
+            if (fullyContained) {
+                const maxContainedZoom =
+                    Math.min(
+                        ((curr.renderedBB.y1 + curr.renderedBB.h / 2) *
+                            prev.zoom *
+                            2) /
+                            curr.renderedBB.h,
+                        (-(
+                            curr.renderedBB.y1 +
+                            curr.renderedBB.h / 2 -
+                            prev.height
+                        ) *
+                            prev.zoom *
+                            2) /
+                            curr.renderedBB.h
+                    ) - this.containedZoomMargin;
+                const maxContainedWidth =
+                    (prev.width / prev.zoom) * maxContainedZoom;
 
                 // Setup state machine and required variables
                 let currrentState = curr.zoom < maxContainedZoom ? -1 : 1;
                 const targetState = targetZoom < maxContainedZoom ? -1 : 1;
-                while(Math.abs(currrentState) <= 1) {
+                while (Math.abs(currrentState) <= 1) {
                     // set an intermediate target zoom if a transition through the maxContained level is needed
-                    if(currrentState === -1) {
-                        const intermediateTargetZoom = targetState === 1
-                            ? maxContainedZoom
-                            : targetZoom;
+                    if (currrentState === -1) {
+                        const intermediateTargetZoom =
+                            targetState === 1 ? maxContainedZoom : targetZoom;
                         this._xConstrainedZoom(intermediateTargetZoom);
                         curr.zoom = intermediateTargetZoom;
-                        if(targetState === 1) {
+                        if (targetState === 1) {
                             this.prev.position = this.curr.position;
                             this.prev.width = maxContainedWidth;
                         }
-                    }
-                    else {
-                        const intermediateTargetWidth = targetState === -1
-                            ? maxContainedWidth
-                            : curr.width;
+                    } else {
+                        const intermediateTargetWidth =
+                            targetState === -1 ? maxContainedWidth : curr.width;
                         this._xChangeMargin(intermediateTargetWidth);
-                        if(targetState === -1) {
+                        if (targetState === -1) {
                             this.prev.position = this.curr.position;
                             this.prev.width = maxContainedWidth;
                         }
@@ -194,44 +199,53 @@ export default class cyResponsive {
 
                     currrentState += 2 * targetState;
                 }
-            }
-            else {
+            } else {
                 curr.zoom = targetZoom;
                 this._xConstrainedZoom(curr.zoom);
             }
-        }
-        else {
+        } else {
             // calculate zoom so that the width remains same
-            const targetZoom = prev.zoom / prev.height * curr.height;
-            if(fullyContained) {
-                const maxContainedZoom = Math.min(
-                    (curr.renderedBB.x1 + (curr.renderedBB.w / 2)) * prev.zoom * 2 / curr.renderedBB.w,
-                    - (curr.renderedBB.x1 + (curr.renderedBB.w / 2) - prev.width) * prev.zoom * 2 / curr.renderedBB.w
-                ) - this.containedZoomMargin;
-                const maxContainedHeight = prev.height / prev.zoom * maxContainedZoom;
+            const targetZoom = (prev.zoom / prev.height) * curr.height;
+            if (fullyContained) {
+                const maxContainedZoom =
+                    Math.min(
+                        ((curr.renderedBB.x1 + curr.renderedBB.w / 2) *
+                            prev.zoom *
+                            2) /
+                            curr.renderedBB.w,
+                        (-(
+                            curr.renderedBB.x1 +
+                            curr.renderedBB.w / 2 -
+                            prev.width
+                        ) *
+                            prev.zoom *
+                            2) /
+                            curr.renderedBB.w
+                    ) - this.containedZoomMargin;
+                const maxContainedHeight =
+                    (prev.height / prev.zoom) * maxContainedZoom;
 
                 // Setup state machine and required variables
                 let currrentState = curr.zoom < maxContainedZoom ? -1 : 1;
                 const targetState = targetZoom < maxContainedZoom ? -1 : 1;
-                while(Math.abs(currrentState) <= 1) {
+                while (Math.abs(currrentState) <= 1) {
                     // set an intermediate target zoom if a transition through the maxContained level is needed
-                    if(currrentState === -1) {
-                        const intermediateTargetZoom = targetState === 1
-                            ? maxContainedZoom
-                            : targetZoom;
+                    if (currrentState === -1) {
+                        const intermediateTargetZoom =
+                            targetState === 1 ? maxContainedZoom : targetZoom;
                         this._yConstrainedZoom(intermediateTargetZoom);
                         curr.zoom = intermediateTargetZoom;
-                        if(targetState === 1) {
+                        if (targetState === 1) {
                             this.prev.position = this.curr.position;
                             this.prev.height = maxContainedHeight;
                         }
-                    }
-                    else {
-                        const intermediateTargetHeight = targetState === -1
-                            ? maxContainedHeight
-                            : curr.height;
+                    } else {
+                        const intermediateTargetHeight =
+                            targetState === -1
+                                ? maxContainedHeight
+                                : curr.height;
                         this._yChangeMargin(intermediateTargetHeight);
-                        if(targetState === -1) {
+                        if (targetState === -1) {
                             this.prev.position = this.curr.position;
                             this.prev.height = maxContainedHeight;
                         }
@@ -239,8 +253,7 @@ export default class cyResponsive {
 
                     currrentState += 2 * targetState;
                 }
-            }
-            else {
+            } else {
                 curr.zoom = targetZoom;
                 this._yConstrainedZoom(curr.zoom);
             }
@@ -252,4 +265,4 @@ export default class cyResponsive {
 
         return curr;
     }
-};
+}

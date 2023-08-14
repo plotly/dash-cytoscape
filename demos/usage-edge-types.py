@@ -31,35 +31,34 @@ server = app.server
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
-with open('data/edge-types/data.json', 'r') as f:
+with open("data/edge-types/data.json", "r") as f:
     elements = json.loads(f.read())
 
-with open('data/edge-types/cy-style.json', 'r') as f:
+with open("data/edge-types/cy-style.json", "r") as f:
     stylesheet = json.loads(f.read())
 
 
 # App
-app.layout = html.Div([
-    cyto.Cytoscape(
-        id='cytoscape',
-        boxSelectionEnabled=False,
-        autounselectify=True,
-        elements=elements,
-        layout={
-            'name': 'grid',
-            'col': 4
-        },
-        stylesheet=stylesheet,
-        style={
-            'width': '100%',
-            'height': '100%',
-            'position': 'absolute',
-            'left': 0,
-            'top': 0,
-            'z-index': 999
-        }
-    )
-])
+app.layout = html.Div(
+    [
+        cyto.Cytoscape(
+            id="cytoscape",
+            boxSelectionEnabled=False,
+            autounselectify=True,
+            elements=elements,
+            layout={"name": "grid", "col": 4},
+            stylesheet=stylesheet,
+            style={
+                "width": "100%",
+                "height": "100%",
+                "position": "absolute",
+                "left": 0,
+                "top": 0,
+                "z-index": 999,
+            },
+        )
+    ]
+)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run_server(debug=True)

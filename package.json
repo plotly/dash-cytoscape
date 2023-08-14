@@ -14,8 +14,12 @@
   "scripts": {
     "start": "webpack-serve ./webpack.serve.config.js --open",
     "validate-init": "python _validate_init.py",
+    "private::format.black": "black dash_cytoscape/ tests/ setup.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py usage.py",
     "lint:test": "eslint src",
     "lint": "eslint src --fix",
+    "lint:format.prettier": "prettier --config .prettierrc --write src/**/*.js src/**/**/*.js",
+    "lint:lint.black": "node -e \"if ((process.env.PYVERSION || 'python39') !== 'python36'){process.exit(1)} \" || black --check dash_cytoscape/ tests/ setup.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py usage.py",
+    "lint:lint.prettier": "prettier --config .prettierrc src/**/*.js src/**/**/*.js --list-different",
     "build:js-dev": "webpack --mode development",
     "build:js": "webpack --mode production",
     "build:js-dev-extra": "webpack --config webpack.dev.extra.config.js",
