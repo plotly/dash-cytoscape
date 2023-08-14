@@ -89,6 +89,7 @@ jobs:
                   name: Run prettier
                   command: |
                       . venv/bin/activate
+                      npm install prettier
                       prettier --config .prettierrc --write src/**/*.js src/**/**/*.js
                   when: always
 
