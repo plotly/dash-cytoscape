@@ -14,14 +14,18 @@
   "scripts": {
     "start": "webpack-serve ./webpack.serve.config.js --open",
     "validate-init": "python _validate_init.py",
+    "private::format.black": "black dash_cytoscape/ tests/ setup.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py usage.py",
     "lint:test": "eslint src",
     "lint": "eslint src --fix",
+    "lint:format.prettier": "prettier --config .prettierrc --write src/**/*.js src/**/**/*.js",
+    "lint:lint.black": "node -e \"if ((process.env.PYVERSION || 'python39') !== 'python36'){process.exit(1)} \" || black --check dash_cytoscape/ tests/ setup.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py usage.py",
+    "lint:lint.prettier": "prettier --config .prettierrc src/**/*.js src/**/**/*.js --list-different",
     "build:js-dev": "webpack --mode development",
     "build:js": "webpack --mode production",
     "build:js-dev-extra": "webpack --config webpack.dev.extra.config.js",
     "build:js-extra": "webpack --config webpack.prod.extra.config.js",
     "build:js-all": "npm run build:js && npm run build:js-dev && npm run build:js-dev-extra && npm run build:js-extra",
-    "build:backends": "dash-generate-components ./src/lib/components dash_cytoscape --r-prefix 'cyto' --jl-prefix 'cyto'",
+    "build:backends": "dash-generate-components ./src/lib/components dash_cytoscape --r-prefix 'cyto' --jl-prefix 'cyto' && npm run private::format.black",
     "build:all": "npm run build:js-all && npm run build:backends",
     "build:all-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:all)"
   },
@@ -60,7 +64,8 @@
     "style-loader": "^0.21.0",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1",
-    "webpack-serve": "^1.0.2"
+    "webpack-serve": "^1.0.2",
+    "prettier": "^3.0.1"
   },
   "peerDependencies": {
     "react": ">=0.14",
