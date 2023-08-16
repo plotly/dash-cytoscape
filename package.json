@@ -25,7 +25,7 @@
     "build:js-dev-extra": "webpack --config webpack.dev.extra.config.js",
     "build:js-extra": "webpack --config webpack.prod.extra.config.js",
     "build:js-all": "npm run build:js && npm run build:js-dev && npm run build:js-dev-extra && npm run build:js-extra",
-    "build:backends": "dash-generate-components ./src/lib/components dash_cytoscape --r-prefix 'cyto' --jl-prefix 'cyto' && npm run private::format.black",
+    "build:backends": "dash-generate-components ./src/lib/components dash_cytoscape --r-prefix 'cyto' --jl-prefix 'cyto' && black dash_cytoscape/",
     "build:all": "npm run build:js-all && npm run build:backends",
     "build:all-activated": "(. venv/bin/activate || venv\\scripts\\activate && npm run build:all)"
   },
