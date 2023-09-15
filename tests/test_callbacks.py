@@ -67,14 +67,14 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#dropdown-select-element-list",
+        css_selector="#dropdown-select-element-list input",
         dir_name="elements",
         options=["Basic", "Compound", "Gene", "Wineandcheese"],
     )
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#dropdown-layout",
+        css_selector="#dropdown-layout input",
         dir_name="layouts",
         options=["Preset", "Grid", "Circle", "Concentric", "Breadthfirst", "Cose"],
     )
@@ -82,14 +82,14 @@ def test_cycb001_callbacks(dash_duo):
     # Reset the input to what it was at the beginning
     create_input_and_save(
         dash_duo,
-        css_selector="input#dropdown-select-element-list",
+        css_selector="#dropdown-select-element-list input",
         dir_name="elements",
         options=["Basic"],
         save=False,
     )
     create_input_and_save(
         dash_duo,
-        css_selector="input#dropdown-layout",
+        css_selector="#dropdown-layout input",
         dir_name="layouts",
         options=["Circle"],
         save=False,
@@ -98,7 +98,7 @@ def test_cycb001_callbacks(dash_duo):
     # Input Different types of Node Content
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-node-content",
+        css_selector="#input-node-content",
         dir_name="style",
         options=["Hello", "data(id)"],
         name_map={"Hello": "NodeDisplayContentStatic", "data(id)": "NodeDisplayID"},
@@ -107,7 +107,7 @@ def test_cycb001_callbacks(dash_duo):
     # Input Different node widths
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-node-width",
+        css_selector="#input-node-width",
         dir_name="style",
         options=["30", "50"],
         prefix="NodeWidth",
@@ -116,7 +116,7 @@ def test_cycb001_callbacks(dash_duo):
     # Input Different node heights
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-node-height",
+        css_selector="#input-node-height",
         dir_name="style",
         options=["40", "60"],
         prefix="NodeHeight",
@@ -125,7 +125,7 @@ def test_cycb001_callbacks(dash_duo):
     # Input different node shapes
     create_input_and_save(
         dash_duo,
-        css_selector="input#dropdown-node-shape",
+        css_selector="#dropdown-node-shape input",
         dir_name="style",
         options=[
             "Triangle",
@@ -144,7 +144,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-node-color",
+        css_selector="#input-node-color",
         dir_name="style",
         options=["pink", "sky blue", "rgb(186,44,162)", "#def229"],
         prefix="NodeColor",
@@ -152,7 +152,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-node-border-width",
+        css_selector="#input-node-border-width",
         dir_name="style",
         options=["2"],
         save=False,
@@ -160,7 +160,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-node-border-color",
+        css_selector="#input-node-border-color",
         dir_name="style",
         options=["pink", "sky blue", "rgb(186,44,162)", "#def229"],
         prefix="BorderColor",
@@ -168,7 +168,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-node-border-width",
+        css_selector="#input-node-border-width",
         dir_name="style",
         options=["5", "2"],
         prefix="NodeBorderWidth",
@@ -176,7 +176,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#dropdown-node-border-style",
+        css_selector="#dropdown-node-border-style input",
         dir_name="style",
         options=[
             "Dashed",
@@ -189,7 +189,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-node-padding",
+        css_selector="#input-node-padding",
         dir_name="style",
         options=["5px"],
         prefix="NodePadding",
@@ -197,7 +197,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#dropdown-node-padding-relative-to",
+        css_selector="#dropdown-node-padding-relative-to input",
         dir_name="style",
         options=["Width", "Height", "Average", "Min", "Max"],
         prefix="NodePaddingRelativeTo",
@@ -205,7 +205,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-edge-line-width",
+        css_selector="#input-edge-line-width",
         dir_name="style",
         options=["10", "1", "3"],
         prefix="LineWidth",
@@ -213,7 +213,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#dropdown-edge-curve-style",
+        css_selector="#dropdown-edge-curve-style input",
         dir_name="style",
         options=["Haystack", "Segments", "Unbundled-bezier", "Bezier"],
         prefix="EdgeCurveStyle",
@@ -221,7 +221,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-edge-line-color",
+        css_selector="#input-edge-line-color",
         dir_name="style",
         options=["pink", "sky blue", "rgb(186,44,162)", "#def229"],
         prefix="EdgeColor",
@@ -248,7 +248,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#dropdown-source-arrow-shape",
+        css_selector="#dropdown-source-arrow-shape input",
         dir_name="style",
         options=["Circle", "Vee", "Tee", "Diamond", "Triangle"],
         prefix="EdgeArrowShape",
@@ -256,7 +256,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-source-arrow-color",
+        css_selector="#input-source-arrow-color",
         dir_name="style",
         options=["pink", "sky blue", "rgb(186,44,162)", "#def229"],
         prefix="EdgeArrowColor",
@@ -273,7 +273,7 @@ def test_cycb001_callbacks(dash_duo):
 
     create_input_and_save(
         dash_duo,
-        css_selector="input#input-arrow-scale",
+        css_selector="#input-arrow-scale",
         dir_name="style",
         options=["3", "2", "1"],
         prefix="EdgeArrowScale",
