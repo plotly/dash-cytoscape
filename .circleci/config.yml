@@ -78,7 +78,7 @@ jobs:
             - run:
                   name: Show libraries version
                   command: |
-                      python3 -m pip freeze
+                      python3 -m pip3 freeze
 
             - run:
                   name: Run pylint
