@@ -39,7 +39,6 @@ jobs:
             - run:
                   name: Run prettier
                   command: |
-                      . venv/bin/activate
                       ./node_modules/.bin/prettier --config .prettierrc --write src/**/*.js src/**/**/*.js
                   when: always
 
