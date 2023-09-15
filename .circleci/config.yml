@@ -76,6 +76,11 @@ jobs:
                       - 'venv'
 
             - run:
+                  name: Show libraries version
+                  command: |
+                      python3 -m pip freeze
+
+            - run:
                   name: Run pylint
                   command: |
                       . venv/bin/activate
