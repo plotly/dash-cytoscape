@@ -44,7 +44,7 @@ jobs:
 
     'python-3.9': &test-template
         docker:
-            - image: cimg/python:3.9-stretch-browsers
+            - image: cimg/python:3.9-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
@@ -128,7 +128,7 @@ jobs:
     'python-3.8':
         <<: *test-template
         docker:
-            - image: cimg/python:3.8-stretch-browsers
+            - image: cimg/python:3.8-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
