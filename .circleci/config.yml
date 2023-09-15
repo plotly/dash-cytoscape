@@ -62,7 +62,7 @@ jobs:
             - run:
                   name: Create virtualenv
                   command: |
-                      python3 -m venv venv
+                      python -m venv venv
 
             - run:
                   name: Install requirements
