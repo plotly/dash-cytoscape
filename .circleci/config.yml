@@ -11,7 +11,7 @@ jobs:
             - run: percy finalize --all
     'node':
         docker:
-            - image: circleci/node:20.5.1
+            - image: cimg/node:20.5.1
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
