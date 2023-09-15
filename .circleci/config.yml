@@ -42,9 +42,9 @@ jobs:
                       ./node_modules/.bin/prettier --config .prettierrc --write src/**/*.js src/**/**/*.js
                   when: always
 
-    'python-3.6': &test-template
+    'python-3.9': &test-template
         docker:
-            - image: circleci/python:3.6-stretch-browsers
+            - image: circleci/python:3.9-stretch-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
@@ -101,34 +101,34 @@ jobs:
                   name: Integration Tests - Usage Apps Rendering
                   command: |
                       . venv/bin/activate
-                      python3 -m pytest --nopercyfinalize --headless tests/test_usage.py
+                      python -m pytest --nopercyfinalize --headless tests/test_usage.py
                   when: always
 
             - run:
                   name: Integration Tests - Interactions
                   command: |
                       . venv/bin/activate
-                      python3 -m pytest --headless tests/test_interactions.py
+                      python -m pytest --headless tests/test_interactions.py
                   when: always
 
             - run:
                   name: Integration Tests - Callbacks
                   command: |
                       . venv/bin/activate
-                      python3 -m pytest --headless tests/test_callbacks.py
+                      python -m pytest --headless tests/test_callbacks.py
                   when: always
 
             - run:
                   name: Capture Percy Snapshots
                   command: |
                       . venv/bin/activate
-                      python3 -m pytest --headless tests/test_percy_snapshot.py
+                      python -m pytest --headless tests/test_percy_snapshot.py
                   when: always
 
-    'python-3.7':
+    'python-3.8':
         <<: *test-template
         docker:
-            - image: circleci/python:3.7-stretch-browsers
+            - image: circleci/python:3.8-stretch-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
@@ -140,12 +140,12 @@ workflows:
     version: 2
     build:
         jobs:
-            - 'python-3.6':
+            - 'python-3.9':
                   context: dash-docker-hub
-            - 'python-3.7':
+            - 'python-3.8':
                   context: dash-docker-hub
             - 'node':
                   context: dash-docker-hub
             - 'percy-finalize':
                   requires:
-                      - 'python-3.6'
+                      - 'python-3.9'
