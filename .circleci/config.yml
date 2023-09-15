@@ -78,6 +78,7 @@ jobs:
             - run:
                   name: Show libraries version
                   command: |
+                      . venv/bin/activate
                       pip freeze
 
             - run:
