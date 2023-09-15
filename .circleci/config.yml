@@ -68,7 +68,7 @@ jobs:
                   name: Install requirements
                   command: |
                       . venv/bin/activate
-                      python3 -m pip install -r tests/requirements.txt --quiet
+                      python3 -m pip install -r tests/requirements.txt
 
             - save_cache:
                   key: deps1-{{ .Branch }}-{{ checksum "tests/requirements.txt" }}
