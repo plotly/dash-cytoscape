@@ -140,7 +140,7 @@ jobs:
             PERCY_ENABLE: False
 
 workflows:
-    version: 2
+    version: 2.1
     build:
         jobs:
             - 'python-3.9':
