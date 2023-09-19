@@ -16,7 +16,7 @@ server = app.server
 
 random.seed(2019)
 
-nodes = [{"data": {"id": str(i), "label": "Node {}".format(i)}} for i in range(1, 21)]
+nodes = [{"data": {"id": str(i), "label": f"Node {i}"}} for i in range(1, 21)]
 
 edges = [
     {

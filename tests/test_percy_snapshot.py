@@ -68,9 +68,7 @@ def create_app(dir_name):
 
 
 def percy_snapshot(dash_duo, name=""):
-    snapshot_name = "{} (Python {}.{})".format(
-        name, sys.version_info.major, sys.version_info.minor
-    )
+    snapshot_name = f"{name} (Python {sys.version_info.major}.{sys.version_info.minor})"
 
     dash_duo.percy_snapshot(name=snapshot_name)
 
@@ -91,9 +89,7 @@ def run_percy_on(dir_name, dash_duo):
 
             dash_duo.wait_for_element_by_id(image, 20)
 
-            percy_snapshot(
-                dash_duo, name="{}: {}".format(dir_name.upper(), output_name)
-            )
+            percy_snapshot(dash_duo, name=f"{dir_name.upper()}: {output_name}")
             time.sleep(2)
 
 

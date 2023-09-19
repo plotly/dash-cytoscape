@@ -31,10 +31,10 @@ server = app.server
 app.scripts.config.serve_locally = True
 app.css.config.serve_locally = True
 
-with open("data/edge-types/data.json", "r") as f:
+with open("data/edge-types/data.json", "r", encoding="utf-8") as f:
     elements = json.loads(f.read())
 
-with open("data/edge-types/cy-style.json", "r") as f:
+with open("data/edge-types/cy-style.json", "r", encoding="utf-8") as f:
     stylesheet = json.loads(f.read())
 
 

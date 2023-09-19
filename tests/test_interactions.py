@@ -90,7 +90,7 @@ def perform_dragging(
     save_screenshot(
         dash_duo,
         dir_name,
-        "Dragged{}By{}x{}y".format(clicked_label.replace(" ", ""), diff_x, diff_y),
+        f"Dragged{clicked_label.replace(' ', '')}By{diff_x}x{diff_y}y",
     )
 
     return diff_x, diff_y
@@ -174,7 +174,7 @@ def test_cyin002_clicking(dash_duo):
 
     # Test clicking the nodes
     for i in range(1, 7):
-        label = "Node {}".format(i)
+        label = f"Node {i}"
         assert (
             perform_clicking(dash_duo, *init_pos[label], elem_tap, actions) == label
         ), click_error
@@ -194,7 +194,7 @@ def test_cyin003_mouseover(dash_duo):
 
     # Test hovering the nodes
     for i in range(1, 7):
-        label = "Node {}".format(i)
+        label = f"Node {i}"
         assert (
             perform_mouseover(dash_duo, *init_pos[label], elem_mouseover, actions)
             == label

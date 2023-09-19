@@ -8,7 +8,7 @@ app = dash.Dash(__name__)
 
 # Request the data from the sample network
 url = "https://raw.githubusercontent.com/plotly/dash-cytoscape/master/demos/data/sample_network.txt"
-data = requests.get(url).text.split("\n")
+data = requests.get(url, timeout=100).text.split("\n")
 
 
 nodes = set()

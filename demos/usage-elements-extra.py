@@ -21,7 +21,7 @@ server = app.server
 
 # ###################### DATA PREPROCESSING ######################
 # Load data
-with open("data/sample_network.txt", "r") as f:
+with open("data/sample_network.txt", "r", encoding="utf-8") as f:
     network_data = f.read().split("\n")
 
 # We select the first 750 edges and associated nodes for an easier visualization
@@ -260,7 +260,6 @@ def generate_elements(nodeData, elements, expansion_mode):
             break
 
     if expansion_mode == "followers":
-
         followers_nodes = followers_node_di.get(nodeData["id"])
         followers_edges = followers_edges_di.get(nodeData["id"])
 
@@ -275,7 +274,6 @@ def generate_elements(nodeData, elements, expansion_mode):
             elements.extend(followers_edges)
 
     elif expansion_mode == "following":
-
         following_nodes = following_node_di.get(nodeData["id"])
         following_edges = following_edges_di.get(nodeData["id"])
 

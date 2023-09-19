@@ -6,7 +6,7 @@ def load_elements(path_name):
     dirname = os.path.dirname(__file__)
     path = os.path.join(dirname, path_name)
 
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:
         elements = json.loads(f.read())
 
     return elements
