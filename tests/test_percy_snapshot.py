@@ -81,12 +81,13 @@ def run_percy_on(dir_name, dash_duo):
         os.path.join(os.path.dirname(__file__), "screenshots", dir_name)
     )
 
+    current_url = dash_duo.driver.current_url
     # Run Percy
     for image in asset_list:
         if image.endswith("png"):
             output_name = image.replace(".png", "")
 
-            dash_duo.driver.get("http://localhost:8050/{}".format(image))
+            dash_duo.driver.get(current_url + image)
 
             dash_duo.wait_for_element_by_id(image, 20)
 
