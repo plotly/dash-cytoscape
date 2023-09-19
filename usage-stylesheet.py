@@ -13,7 +13,7 @@ server = app.server
 
 # ###################### DATA PREPROCESSING ######################
 # Load data
-with open("demos/data/sample_network.txt", "r") as f:
+with open("demos/data/sample_network.txt", "r", encoding="utf-8") as f:
     network_data = f.read().split("\n")
 
 # We select the first 750 edges and associated nodes for an easier visualization
@@ -191,7 +191,7 @@ def generate_stylesheet(node, follower_color, following_color, node_shape):
             },
         },
         {
-            "selector": 'node[id = "{}"]'.format(node["data"]["id"]),
+            "selector": f'node[id = "{node["data"]["id"]}"]',
             "style": {
                 "background-color": "#B10DC9",
                 "border-color": "purple",
@@ -211,13 +211,13 @@ def generate_stylesheet(node, follower_color, following_color, node_shape):
         if edge["source"] == node["data"]["id"]:
             stylesheet.append(
                 {
-                    "selector": 'node[id = "{}"]'.format(edge["target"]),
+                    "selector": f'node[id = "{edge["target"]}"]',
                     "style": {"background-color": following_color, "opacity": 0.9},
                 }
             )
             stylesheet.append(
                 {
-                    "selector": 'edge[id= "{}"]'.format(edge["id"]),
+                    "selector": f'edge[id= "{edge["id"]}"]',
                     "style": {
                         "mid-target-arrow-color": following_color,
                         "mid-target-arrow-shape": "vee",
@@ -231,7 +231,7 @@ def generate_stylesheet(node, follower_color, following_color, node_shape):
         if edge["target"] == node["data"]["id"]:
             stylesheet.append(
                 {
-                    "selector": 'node[id = "{}"]'.format(edge["source"]),
+                    "selector": f'node[id = "{edge["source"]}"]',
                     "style": {
                         "background-color": follower_color,
                         "opacity": 0.9,
@@ -241,7 +241,7 @@ def generate_stylesheet(node, follower_color, following_color, node_shape):
             )
             stylesheet.append(
                 {
-                    "selector": 'edge[id= "{}"]'.format(edge["id"]),
+                    "selector": f'edge[id= "{edge["id"]}"]',
                     "style": {
                         "mid-target-arrow-color": follower_color,
                         "mid-target-arrow-shape": "vee",
