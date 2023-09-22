@@ -85,10 +85,10 @@ jobs:
                       - 'venv'
 
             - run:
-                  name: Run lint
+                  name: Run lint for Python files
                   command: |
                       . venv/bin/activate
-                      npm run lint
+                      npm run lint:python
                   when: always
 
             - run:
