@@ -4,7 +4,7 @@ Original Demo: http://js.cytoscape.org/demos/grid-layout/
 import json
 
 import dash
-import dash_html_components as html
+from dash import html
 
 import dash_cytoscape as cyto
 

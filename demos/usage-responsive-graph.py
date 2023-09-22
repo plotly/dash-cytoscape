@@ -8,10 +8,10 @@ import urllib.request
 import json
 
 import dash
-from dash.dependencies import Input, Output
-import dash_html_components as html
+from dash import Input, Output, html, callback
 
 import dash_cytoscape as cyto
+
 
 app = dash.Dash(__name__)
 server = app.server
@@ -92,14 +92,14 @@ app.layout = html.Div(
 )
 
 
-@app.callback(Output("cytoscape", "responsive"), [Input("toggle-button", "n_clicks")])
+@callback(Output("cytoscape", "responsive"), Input("toggle-button", "n_clicks"))
 def toggle_responsive(n_clicks):
     n_clicks = 2 if n_clicks is None else n_clicks
     toggle_on = n_clicks % 2 == 0
     return toggle_on
 
 
-@app.callback(Output("toggle-text", "children"), [Input("cytoscape", "responsive")])
+@callback(Output("toggle-text", "children"), Input("cytoscape", "responsive"))
 def update_toggle_text(responsive):
     return "\t" + "Responsive " + ("On" if responsive else "Off")
 

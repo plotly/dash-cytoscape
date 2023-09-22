@@ -5,7 +5,7 @@ Code: https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/
 Note: Animation Not Implemented yet, please refer to code.
 """
 import dash
-import dash_html_components as html
+from dash import html
 
 import dash_cytoscape as cyto
 

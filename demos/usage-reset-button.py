@@ -3,9 +3,8 @@ An example to show how to reset the position, zoom level, and layout of a Cytosc
 button attached to a callback.
 """
 import dash
-from dash.dependencies import Input, Output
+from dash import Input, Output, html, callback
 import dash_cytoscape as cyto
-import dash_html_components as html
 
 
 elements = [
@@ -25,9 +24,10 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
-    [Output("cytoscape", "zoom"), Output("cytoscape", "elements")],
-    [Input("bt-reset", "n_clicks")],
+@callback(
+    Output("cytoscape", "zoom"),
+    Output("cytoscape", "elements"),
+    Input("bt-reset", "n_clicks"),
 )
 def reset_layout(n_clicks):
     print(n_clicks, "click")

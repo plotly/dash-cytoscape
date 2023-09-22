@@ -2,9 +2,9 @@
 Shows how to animate a graph using preset positions that are modified by a callback
 """
 import dash
-from dash.dependencies import Input, Output
+from dash import Input, Output, html, callback
 import dash_cytoscape as cyto
-import dash_html_components as html
+
 
 app = dash.Dash(__name__)
 
@@ -49,9 +49,7 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
-    Output("cytoscape-elements-callbacks", "layout"), [Input("button", "n_clicks")]
-)
+@callback(Output("cytoscape-elements-callbacks", "layout"), Input("button", "n_clicks"))
 def update_elements(n_clicks):
     if not n_clicks:
         n_clicks = 0

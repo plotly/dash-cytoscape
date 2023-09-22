@@ -1,7 +1,5 @@
 import dash
-from dash.dependencies import Input, Output
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Input, Output, dcc, html, callback
 
 from dash_cytoscape.utils import Tree
 import dash_cytoscape as cyto
@@ -54,9 +52,7 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
-    Output("cytoscape", "stylesheet"), [Input("dropdown-edge-style", "value")]
-)
+@callback(Output("cytoscape", "stylesheet"), Input("dropdown-edge-style", "value"))
 def update_edge_style(style):
     return [{"selector": "edge", "style": {"curve-style": style}}]
 

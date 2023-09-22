@@ -1,7 +1,5 @@
 import dash
-from dash.dependencies import Input, Output
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Input, Output, dcc, html, callback
 
 import dash_cytoscape as cyto
 
@@ -146,25 +144,22 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
+@callback(
     Output("image-text", "children"),
-    [Input("cytoscape", "imageData")],
+    Input("cytoscape", "imageData"),
 )
 def put_image_string(data):
     return data
 
 
-@app.callback(
+@callback(
     Output("cytoscape", "generateImage"),
-    [
-        Input("tabs", "value"),
-        Input("btn-get-jpg", "n_clicks"),
-        Input("btn-get-png", "n_clicks"),
-        Input("btn-get-svg", "n_clicks"),
-    ],
+    Input("tabs", "value"),
+    Input("btn-get-jpg", "n_clicks"),
+    Input("btn-get-png", "n_clicks"),
+    Input("btn-get-svg", "n_clicks"),
 )
 def get_image(tab, get_jpg_clicks, get_png_clicks, get_svg_clicks):
-
     # File type to ouput of 'svg, 'png', 'jpg', or 'jpeg' (alias of 'jpg')
     ftype = tab
 

@@ -7,7 +7,7 @@ although the input paramters are exactly the same.
 import json
 
 import dash
-import dash_html_components as html
+from dash import html
 
 import dash_cytoscape as cyto
 

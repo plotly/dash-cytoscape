@@ -3,9 +3,7 @@ import os
 import random
 
 import dash
-from dash.dependencies import Input, Output, State
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Input, Output, State, dcc, html, callback
 
 import dash_cytoscape as cyto
 
@@ -112,10 +110,11 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
+@callback(
     Output("cytoscape", "elements"),
-    [Input("remove-button", "n_clicks")],
-    [State("cytoscape", "elements"), State("cytoscape", "selectedNodeData")],
+    Input("remove-button", "n_clicks"),
+    State("cytoscape", "elements"),
+    State("cytoscape", "selectedNodeData"),
 )
 def remove_selected_nodes(_, elements, data):
     if elements and data:
@@ -130,31 +129,31 @@ def remove_selected_nodes(_, elements, data):
     return elements
 
 
-@app.callback(
-    Output("tap-node-data-json-output", "children"), [Input("cytoscape", "tapNodeData")]
+@callback(
+    Output("tap-node-data-json-output", "children"), Input("cytoscape", "tapNodeData")
 )
 def displayTapNodeData(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
-    Output("tap-edge-data-json-output", "children"), [Input("cytoscape", "tapEdgeData")]
+@callback(
+    Output("tap-edge-data-json-output", "children"), Input("cytoscape", "tapEdgeData")
 )
 def displayTapEdgeData(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
+@callback(
     Output("selected-node-data-json-output", "children"),
-    [Input("cytoscape", "selectedNodeData")],
+    Input("cytoscape", "selectedNodeData"),
 )
 def displaySelectedNodeData(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
+@callback(
     Output("selected-edge-data-json-output", "children"),
-    [Input("cytoscape", "selectedEdgeData")],
+    Input("cytoscape", "selectedEdgeData"),
 )
 def displaySelectedEdgeData(data):
     return json.dumps(data, indent=2)

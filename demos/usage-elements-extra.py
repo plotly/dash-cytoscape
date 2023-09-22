@@ -2,9 +2,7 @@ import json
 import os
 
 import dash
-from dash.dependencies import Input, Output, State
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Input, Output, State, dcc, html, callback
 
 import dash_cytoscape as cyto
 from demos import dash_reusable_components as drc
@@ -221,29 +219,26 @@ app.layout = html.Div(
 
 
 # ############################## CALLBACKS ####################################
-@app.callback(
-    Output("tap-node-json-output", "children"), [Input("cytoscape", "tapNode")]
-)
+@callback(Output("tap-node-json-output", "children"), Input("cytoscape", "tapNode"))
 def display_tap_node(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
-    Output("tap-edge-json-output", "children"), [Input("cytoscape", "tapEdge")]
-)
+@callback(Output("tap-edge-json-output", "children"), Input("cytoscape", "tapEdge"))
 def display_tap_edge(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(Output("cytoscape", "layout"), [Input("dropdown-layout", "value")])
+@callback(Output("cytoscape", "layout"), Input("dropdown-layout", "value"))
 def update_cytoscape_layout(layout):
     return {"name": layout}
 
 
-@app.callback(
+@callback(
     Output("cytoscape", "elements"),
-    [Input("cytoscape", "tapNodeData")],
-    [State("cytoscape", "elements"), State("radio-expand", "value")],
+    Input("cytoscape", "tapNodeData"),
+    State("cytoscape", "elements"),
+    State("radio-expand", "value"),
 )
 def generate_elements(nodeData, elements, expansion_mode):
     if not nodeData:

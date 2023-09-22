@@ -1,9 +1,7 @@
 import json
 
 import dash
-from dash.dependencies import Input, Output
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import Input, Output, dcc, html, callback
 
 import dash_cytoscape as cyto
 
@@ -216,61 +214,57 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
-    Output("tap-node-json-output", "children"), [Input("cytoscape", "tapNode")]
-)
+@callback(Output("tap-node-json-output", "children"), Input("cytoscape", "tapNode"))
 def displayTapNode(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
-    Output("tap-edge-json-output", "children"), [Input("cytoscape", "tapEdge")]
-)
+@callback(Output("tap-edge-json-output", "children"), Input("cytoscape", "tapEdge"))
 def displayTapEdge(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
-    Output("tap-node-data-json-output", "children"), [Input("cytoscape", "tapNodeData")]
+@callback(
+    Output("tap-node-data-json-output", "children"), Input("cytoscape", "tapNodeData")
 )
 def displayTapNodeData(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
-    Output("tap-edge-data-json-output", "children"), [Input("cytoscape", "tapEdgeData")]
+@callback(
+    Output("tap-edge-data-json-output", "children"), Input("cytoscape", "tapEdgeData")
 )
 def displayTapEdgeData(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
+@callback(
     Output("mouseover-node-data-json-output", "children"),
-    [Input("cytoscape", "mouseoverNodeData")],
+    Input("cytoscape", "mouseoverNodeData"),
 )
 def displayMouseoverNodeData(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
+@callback(
     Output("mouseover-edge-data-json-output", "children"),
-    [Input("cytoscape", "mouseoverEdgeData")],
+    Input("cytoscape", "mouseoverEdgeData"),
 )
 def displayMouseoverEdgeData(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
+@callback(
     Output("selected-node-data-json-output", "children"),
-    [Input("cytoscape", "selectedNodeData")],
+    Input("cytoscape", "selectedNodeData"),
 )
 def displaySelectedNodeData(data):
     return json.dumps(data, indent=2)
 
 
-@app.callback(
+@callback(
     Output("selected-edge-data-json-output", "children"),
-    [Input("cytoscape", "selectedEdgeData")],
+    Input("cytoscape", "selectedEdgeData"),
 )
 def displaySelectedEdgeData(data):
     return json.dumps(data, indent=2)

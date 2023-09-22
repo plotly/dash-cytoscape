@@ -2,7 +2,7 @@
 Original Demo: http://js.cytoscape.org/demos/multiple-instances/
 """
 import dash
-import dash_html_components as html
+from dash import html
 
 import dash_cytoscape as cyto
 

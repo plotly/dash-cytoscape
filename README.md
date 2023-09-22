@@ -1,22 +1,24 @@
 # Dash Cytoscape [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/plotly/dash-cytoscape/blob/master/LICENSE) [![PyPi Version](https://img.shields.io/pypi/v/dash-cytoscape.svg)](https://pypi.org/project/dash-cytoscape/)
+
 [![CircleCI](https://circleci.com/gh/plotly/dash-cytoscape.svg?style=svg)](https://circleci.com/gh/plotly/dash-cytoscape)
 
 A Dash component library for creating interactive and customizable networks in Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
 
 ![usage-stylesheet-demo](https://raw.githubusercontent.com/plotly/dash-cytoscape/master/demos/images/usage-stylesheet-demo.gif)
 
-* 🌟 [Medium Article](https://medium.com/@plotlygraphs/introducing-dash-cytoscape-ce96cac824e4)
-* 📣 [Community Announcement](https://community.plotly.com/t/announcing-dash-cytoscape/19095)
-* 💻 [Github Repository](https://github.com/plotly/dash-cytoscape) 
-* 📚 [User Guide](https://dash.plotly.com/cytoscape) 
-* 🗺 [Component Reference](https://dash.plotly.com/cytoscape/reference)
-* 📺 [Webinar Recording](https://www.youtube.com/watch?v=snXcIsCMQgk)
+-   🌟 [Medium Article](https://medium.com/@plotlygraphs/introducing-dash-cytoscape-ce96cac824e4)
+-   📣 [Community Announcement](https://community.plotly.com/t/announcing-dash-cytoscape/19095)
+-   💻 [Github Repository](https://github.com/plotly/dash-cytoscape)
+-   📚 [User Guide](https://dash.plotly.com/cytoscape)
+-   🗺 [Component Reference](https://dash.plotly.com/cytoscape/reference)
+-   📺 [Webinar Recording](https://www.youtube.com/watch?v=snXcIsCMQgk)
 
 ## Getting Started in Python
 
 ### Prerequisites
 
 Make sure that dash and its dependent libraries are correctly installed:
+
 ```commandline
 pip install dash
 ```
@@ -36,7 +38,7 @@ Create the following example inside an `app.py` file:
 ```python
 import dash
 import dash_cytoscape as cyto
-import dash_html_components as html
+from dash import html
 
 app = dash.Dash(__name__)
 app.layout = html.Div([
@@ -64,7 +66,7 @@ You can also add external layouts. Use the `cyto.load_extra_layouts()` function 
 ```python
 import dash
 import dash_cytoscape as cyto
-import dash_html_components as html
+from dash import html
 
 cyto.load_extra_layouts()
 
@@ -76,7 +78,6 @@ app.layout = html.Div([
 
 Calling `cyto.load_extra_layouts()` also enables generating SVG images.
 
-
 ## Getting Started in R
 
 ### Prerequisites
@@ -84,6 +85,7 @@ Calling `cyto.load_extra_layouts()` also enables generating SVG images.
 ```R
 install.packages(c("devtools", "dash"))
 ```
+
 ### Usage
 
 Install the library using devtools:
@@ -123,11 +125,11 @@ app$run_server()
 
 ## Documentation
 
-The [Dash Cytoscape User Guide](https://dash.plotly.com/cytoscape/) contains everything you need to know about the library. It contains useful examples, functioning code, and is fully interactive. You can also use the [component reference](https://dash.plotly.com/cytoscape/reference/) for a complete and concise specification of the API. 
+The [Dash Cytoscape User Guide](https://dash.plotly.com/cytoscape/) contains everything you need to know about the library. It contains useful examples, functioning code, and is fully interactive. You can also use the [component reference](https://dash.plotly.com/cytoscape/reference/) for a complete and concise specification of the API.
 
 To learn more about the core Dash components and how to use callbacks, view the [Dash documentation](https://dash.plotly.com/).
 
-For supplementary information about the underlying Javascript  API, view the [Cytoscape.js documentation](http://js.cytoscape.org/).
+For supplementary information about the underlying Javascript API, view the [Cytoscape.js documentation](http://js.cytoscape.org/).
 
 ## Contributing
 
@@ -155,34 +157,42 @@ The Pull Request and Issue Templates were inspired from the
 ## Gallery
 
 ### Dynamically expand elements
+
 [Code](usage-elements.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-elements)
 ![View usage-elements on Github](demos/images/usage-elements-demo.gif)
 
 ### Interactively update stylesheet
+
 [Code](usage-stylesheet.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-stylesheet)
 ![View usage-stylesheet on Github](demos/images/usage-stylesheet.gif)
 
 ### Automatically generate interactive phylogeny trees
+
 [Code](demos/usage-phylogeny.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-phylogeny/)
 ![View usage-phylogeny on Github](demos/images/usage-phylogeny.gif)
 
 ### Create your own stylesheet
+
 [Code](usage-advanced.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-advanced)
 ![View usage-advanced on Github](demos/images/usage-advanced.gif)
 
 ### Use event callbacks
+
 [Code](usage-events.py) | [Demo](https://dash-gallery.plotly.host/cytoscape-events)
 ![View usage-events on Github](demos/images/usage-events.gif)
 
 ### Use external layouts
+
 [Code](demos/usage-elements-extra.py)
 ![View usage-elements-extra on Github](demos/images/usage-elements-extra.gif)
 
 ### Use export graph as image
+
 [Code](demos/usage-image-export.py)
 ![View usage-image-export on Github](demos/images/usage-image-export.gif)
 
 ### Make graph responsive
+
 [Code](demos/usage-responsive-graph.py)
 ![View usage-responsive-graph on Github](demos/images/usage-responsive-graph.gif)
 

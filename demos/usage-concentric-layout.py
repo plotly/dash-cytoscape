@@ -18,7 +18,7 @@ Note: This example is broken because layout takes a function as input, i.e.
 import json
 
 import dash
-import dash_html_components as html
+from dash import html
 
 import dash_cytoscape as cyto
 

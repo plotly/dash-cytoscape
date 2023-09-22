@@ -23,8 +23,7 @@ import sys
 import time
 import pytest
 import dash
-import dash_html_components as html
-import dash_core_components as dcc
+from dash import html, dcc, Input, Output, callback
 
 
 def create_app(dir_name):
@@ -47,9 +46,9 @@ def create_app(dir_name):
         ]
     )
 
-    @app.callback(
-        dash.dependencies.Output("page-content", "children"),
-        [dash.dependencies.Input("url", "pathname")],
+    @callback(
+        Output("page-content", "children"),
+        Input("url", "pathname"),
     )
     def display_image(pathname):  # pylint: disable=W0612
         """

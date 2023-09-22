@@ -7,7 +7,7 @@ Note: This implementation DOES NOT work yet, since cose-bilkent hasn't been impl
 import json
 
 import dash
-import dash_html_components as html
+from dash import html
 
 import dash_cytoscape as cyto
 
