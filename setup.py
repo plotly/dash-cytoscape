@@ -24,6 +24,7 @@ setup(
     install_requires=[
         "dash",
     ],
+    python_requires=">=3.6",
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Flask",
@@ -36,9 +37,12 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: Database :: Front-Ends",
         "Topic :: Scientific/Engineering :: Visualization",
         "Topic :: Software Development :: Libraries :: Application Frameworks",
