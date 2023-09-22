@@ -12,6 +12,8 @@
   "homepage": "https://github.com/plotly/dash-cytoscape",
   "main": "build/index.js",
   "scripts": {
+    "lint.flake8": "flake8 --max-line-length=100 usage.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py demos tests",
+    "lint.pylint": "pylint usage.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py demos tests",
     "lint.eslint": "eslint src",
     "lint.prettier": "prettier --config .prettierrc src/**/*.js src/**/**/*.js --list-different",
     "lint.black": "node -e \"if ((process.env.PYVERSION || 'python39') !== 'python36'){process.exit(1)} \" || black --check dash_cytoscape/ tests/ setup.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py usage.py",
@@ -19,7 +21,7 @@
     "format.prettier": "prettier --config .prettierrc --write src/**/*.js src/**/**/*.js",
     "format.black": "black dash_cytoscape/ tests/ setup.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py usage.py",
     "format": "npm run format.eslint && npm run format.prettier && npm run format.black",
-    "lint": "npm run lint.eslint && npm run lint.prettier && npm run lint.black",
+    "lint": "npm run lint.flake8 && npm run lint.pylint && npm run lint.eslint && npm run lint.prettier && npm run lint.black",
     "build:js-dev": "webpack --mode development",
     "build:js": "webpack --mode production",
     "build:js-dev-extra": "webpack --config webpack.dev.extra.config.js",
