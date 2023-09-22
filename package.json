@@ -13,7 +13,6 @@
   "main": "build/index.js",
   "scripts": {
     "start": "webpack-serve ./webpack.serve.config.js --open",
-    "validate-init": "python _validate_init.py",
     "lint.eslint": "eslint src",
     "lint.prettier": "prettier --config .prettierrc src/**/*.js src/**/**/*.js --list-different",
     "lint.black": "node -e \"if ((process.env.PYVERSION || 'python39') !== 'python36'){process.exit(1)} \" || black --check dash_cytoscape/ tests/ setup.py usage-advanced.py usage-elements.py usage-events.py usage-stylesheet.py usage.py",
