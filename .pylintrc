@@ -453,8 +453,6 @@ init-import=no
 # builtins.
 redefining-builtins-modules=six.moves,past.builtins,future.builtins
 
-disable=W0640
-
 
 [CLASSES]
 

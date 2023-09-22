@@ -2,14 +2,9 @@
 import json
 from colour import Color
 
-from dash.dependencies import Input, Output, State
+from dash import Input, Output, State, MATCH, callback
 
-from .constants import (
-    ARROW_POSITIONS,
-    LABEL_ELEMENT_TYPES_ALL,
-    LABEL_ELEMENT_TYPES,
-    ELEMENTS,
-)
+from .constants import ARROW_POSITIONS, ELEMENTS
 
 
 def is_float(value):
@@ -73,87 +68,79 @@ def validate_px_percentage(value, default="0px"):
         return default
 
 
-def assign_callbacks(app):
+def assign_callbacks():
     # ############################## HIDING ###################################
-    for n in range(1, 17):
+    @callback(
+        Output({"type": "div-pie-slice", "index": MATCH}, "style"),
+        Input("dropdown-pie-slice-selected", "value"),
+        State({"type": "div-pie-slice", "index": MATCH}, "id"),
+    )
+    def hide_div_pie_slice(current_slice_selected, div_id):
+        if current_slice_selected != div_id:
+            return {"display": "none"}
+        else:
+            return {"display": "block"}
 
-        @app.callback(
-            Output(f"div-pie-slice-{n}", "style"),
-            [Input("dropdown-pie-slice-selected", "value")],
-            [State(f"div-pie-slice-{n}", "id")],
-        )
-        def hide_div_pie_slice(current_slice_selected, div_id):
-            if current_slice_selected != div_id:
-                return {"display": "none"}
-            else:
-                return {"display": "block"}
+    @callback(
+        Output({"type": "div-arrow-position", "index": MATCH}, "style"),
+        Input("dropdown-arrow-position", "value"),
+        State({"type": "div-arrow-position", "index": MATCH}, "id"),
+    )
+    def hide_div_arrow_position(current_pos_selected, div_id):
+        if current_pos_selected != div_id:
+            return {"display": "none"}
+        else:
+            return {"display": "block"}
 
-    for pos in ARROW_POSITIONS:
+    @callback(
+        Output({"type": "div-label", "index": MATCH}, "style"),
+        Input("dropdown-select-element-label-styling", "value"),
+        State({"type": "div-label", "index": MATCH}, "id"),
+    )
+    def hide_div_label_element(current_element_selected, div_id):
+        if current_element_selected != div_id:
+            return {"display": "none"}
+        else:
+            return {"display": "block"}
 
-        @app.callback(
-            Output(f"div-arrow-position-{pos}", "style"),
-            [Input("dropdown-arrow-position", "value")],
-            [State(f"div-arrow-position-{pos}", "id")],
-        )
-        def hide_div_arrow_position(current_pos_selected, div_id):
-            if current_pos_selected != div_id:
-                return {"display": "none"}
-            else:
-                return {"display": "block"}
+    @callback(
+        Output({"type": "div-text-wrapping", "index": MATCH}, "style"),
+        Input("dropdown-select-element-text-wrapping", "value"),
+        State({"type": "div-text-wrapping", "index": MATCH}, "id"),
+    )
+    def hide_div_text_wrapping(current_element_selected, div_id):
+        if current_element_selected != div_id:
+            return {"display": "none"}
+        else:
+            return {"display": "block"}
 
-    for element in LABEL_ELEMENT_TYPES:
+    @callback(
+        Output({"type": "div-text-margins", "index": MATCH}, "style"),
+        Input("dropdown-select-element-text-margins", "value"),
+        State({"type": "div-text-margins", "index": MATCH}, "id"),
+    )
+    def hide_div_text_margins(current_element_selected, div_id):
+        if current_element_selected != div_id:
+            return {"display": "none"}
+        else:
+            return {"display": "block"}
 
-        @app.callback(
-            Output(f"div-label-{element}", "style"),
-            [Input("dropdown-select-element-label-styling", "value")],
-            [State(f"div-label-{element}", "id")],
-        )
-        def hide_div_label_element(current_element_selected, div_id):
-            if current_element_selected != div_id:
-                return {"display": "none"}
-            else:
-                return {"display": "block"}
-
-        @app.callback(
-            Output(f"div-text-wrapping-{element}", "style"),
-            [Input("dropdown-select-element-text-wrapping", "value")],
-            [State(f"div-text-wrapping-{element}", "id")],
-        )
-        def hide_div_text_wrapping(current_element_selected, div_id):
-            if current_element_selected != div_id:
-                return {"display": "none"}
-            else:
-                return {"display": "block"}
-
-    for element in LABEL_ELEMENT_TYPES_ALL:
-
-        @app.callback(
-            Output(f"div-text-margins-{element}", "style"),
-            [Input("dropdown-select-element-text-margins", "value")],
-            [State(f"div-text-margins-{element}", "id")],
-        )
-        def hide_div_text_margins(current_element_selected, div_id):
-            if current_element_selected != div_id:
-                return {"display": "none"}
-            else:
-                return {"display": "block"}
-
-    @app.callback(
+    @callback(
         Output("div-display-stylesheet-json", "children"),
-        [Input("cytoscape", "stylesheet")],
+        Input("cytoscape", "stylesheet"),
     )
     def update_json_stylesheet_output(stylesheet):
         return json.dumps(stylesheet, indent=2)
 
-    @app.callback(
+    @callback(
         Output("div-display-elements-json", "children"),
-        [Input("cytoscape", "elements")],
+        Input("cytoscape", "elements"),
     )
     def update_json_elements_output(stylesheet):
         return json.dumps(stylesheet, indent=2)
 
     # ############################## STORING ##################################
-    @app.callback(
+    @callback(
         Output("div-storage-pie-background-color", "children"),
         [Input(f"input-pie-{n}-background-color", "value") for n in range(1, 17)],
     )
@@ -163,7 +150,7 @@ def assign_callbacks(app):
             dict(zip([f"pie-{i}-background-color" for i in range(1, 17)], args))
         )
 
-    @app.callback(
+    @callback(
         Output("div-storage-pie-background-size", "children"),
         [Input(f"input-pie-{n}-background-size", "value") for n in range(1, 17)],
     )
@@ -172,7 +159,7 @@ def assign_callbacks(app):
             dict(zip([f"pie-{i}-background-size" for i in range(1, 17)], args))
         )
 
-    @app.callback(
+    @callback(
         Output("div-storage-pie-background-opacity", "children"),
         [Input(f"slider-pie-{n}-background-opacity", "value") for n in range(1, 17)],
     )
@@ -181,7 +168,7 @@ def assign_callbacks(app):
             dict(zip([f"pie-{i}-background-opacity" for i in range(1, 17)], args))
         )
 
-    @app.callback(
+    @callback(
         Output("div-storage-arrow-color", "children"),
         [Input(f"input-{pos}-arrow-color", "value") for pos in ARROW_POSITIONS],
     )
@@ -191,7 +178,7 @@ def assign_callbacks(app):
             dict(zip([f"{pos}-arrow-color" for pos in ARROW_POSITIONS], args))
         )
 
-    @app.callback(
+    @callback(
         Output("div-storage-arrow-shape", "children"),
         [Input(f"dropdown-{pos}-arrow-shape", "value") for pos in ARROW_POSITIONS],
     )
@@ -200,7 +187,7 @@ def assign_callbacks(app):
             dict(zip([f"{pos}-arrow-shape" for pos in ARROW_POSITIONS], args))
         )
 
-    @app.callback(
+    @callback(
         Output("div-storage-arrow-fill", "children"),
         [Input(f"radio-{pos}-arrow-fill", "value") for pos in ARROW_POSITIONS],
     )
@@ -210,49 +197,61 @@ def assign_callbacks(app):
         )
 
     # ############################## DISABLING ################################
-    @app.callback(
+    @callback(
         Output("input-background-image-height", "disabled"),
-        [Input("radio-background-image-fit", "value")],
+        Input("radio-background-image-fit", "value"),
     )
     def disable_background_image_height(value):
         return value != "none"
 
-    @app.callback(
+    @callback(
         Output("input-background-image-width", "disabled"),
-        [Input("radio-background-image-fit", "value")],
+        Input("radio-background-image-fit", "value"),
     )
     def disable_background_image_width(value):
         return value != "none"
 
-    for side in ["source", "target"]:
+    @callback(
+        Output("input-source-endpoint-width", "disabled"),
+        Input("dropdown-source-endpoint-type", "value"),
+    )
+    def disable_source_endpoint_width(value):
+        return value != "other"
 
-        @app.callback(
-            Output(f"input-{side}-endpoint-width", "disabled"),
-            [Input(f"dropdown-{side}-endpoint-type", "value")],
-        )
-        def disable_side_endpoint_width(value):
-            return value != "other"
+    @callback(
+        Output("input-target-endpoint-width", "disabled"),
+        Input("dropdown-target-endpoint-type", "value"),
+    )
+    def disable_target_endpoint_width(value):
+        return value != "other"
 
-        @app.callback(
-            Output(f"input-{side}-endpoint-height", "disabled"),
-            [Input(f"dropdown-{side}-endpoint-type", "value")],
-        )
-        def disable_side_endpoint_height(value):
-            return value != "other"
+    @callback(
+        Output("input-source-endpoint-height", "disabled"),
+        Input("dropdown-source-endpoint-type", "value"),
+    )
+    def disable_source_endpoint_height(value):
+        return value != "other"
+
+    @callback(
+        Output("input-target-endpoint-height", "disabled"),
+        Input("dropdown-target-endpoint-type", "value"),
+    )
+    def disable_target_endpoint_height(value):
+        return value != "other"
 
     # ############################## CYTOSCAPE ################################
-    @app.callback(
+    @callback(
         Output("cytoscape", "elements"),
-        [Input("dropdown-select-element-list", "value")],
+        Input("dropdown-select-element-list", "value"),
     )
     def update_elements(dataset):
         return ELEMENTS[dataset]
 
-    @app.callback(Output("cytoscape", "layout"), [Input("dropdown-layout", "value")])
+    @callback(Output("cytoscape", "layout"), Input("dropdown-layout", "value"))
     def update_layout(name):
         return {"name": name}
 
-    @app.callback(
+    @callback(
         Output("cytoscape", "stylesheet"),
         [
             Input(component, "value")

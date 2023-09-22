@@ -352,10 +352,13 @@ user_interface = html.Div(
                     name="Select Pie Slice to modify",
                     id="dropdown-pie-slice-selected",
                     options=[
-                        {"label": f"Slice #{n}", "value": f"div-pie-slice-{n}"}
+                        {
+                            "label": f"Slice #{n}",
+                            "value": {"type": "div-pie-slice", "index": n},
+                        }
                         for n in range(1, 17)
                     ],
-                    value="div-pie-slice-1",
+                    value={"type": "div-pie-slice", "index": 1},
                     clearable=False,
                 ),
                 drc.NamedInput(
@@ -375,7 +378,7 @@ user_interface = html.Div(
                 ),
                 *[
                     html.Div(
-                        id=f"div-pie-slice-{n}",
+                        id={"type": "div-pie-slice", "index": n},
                         style={"display": "block"},
                         children=[
                             drc.NamedInput(
@@ -484,16 +487,16 @@ user_interface = html.Div(
                     options=[
                         {
                             "label": pos.capitalize(),
-                            "value": f"div-arrow-position-{pos}",
+                            "value": {"type": "div-arrow-position", "index": pos},
                         }
                         for pos in ["source", "mid-source", "target", "mid-target"]
                     ],
-                    value="div-arrow-position-source",
+                    value={"type": "div-arrow-position", "index": "source"},
                     clearable=False,
                 ),
                 *[
                     html.Div(
-                        id=f"div-arrow-position-{pos}",
+                        id={"type": "div-arrow-position", "index": pos},
                         style={"display": "block"},
                         children=[
                             drc.NamedInput(
@@ -654,15 +657,18 @@ user_interface = html.Div(
                     name="Select an element to modify its style",
                     id="dropdown-select-element-label-styling",
                     options=[
-                        {"label": element.capitalize(), "value": f"div-label-{element}"}
+                        {
+                            "label": element.capitalize(),
+                            "value": {"type": "div-label", "index": element},
+                        }
                         for element in LABEL_ELEMENT_TYPES
                     ],
                     clearable=False,
-                    value="div-label-node",
+                    value={"type": "div-label", "index": "node"},
                 ),
                 *[
                     html.Div(
-                        id=f"div-label-{element}",
+                        id={"type": "div-label", "index": element},
                         children=[
                             drc.NamedInput(
                                 name=f"{element.capitalize()} Label Color",
@@ -808,16 +814,16 @@ user_interface = html.Div(
                     options=[
                         {
                             "label": element.capitalize(),
-                            "value": f"div-text-margins-{element}",
+                            "value": {"type": "div-text-margins", "index": element},
                         }
                         for element in LABEL_ELEMENT_TYPES_ALL
                     ],
                     clearable=False,
-                    value="div-text-margins-node",
+                    value={"type": "div-text-margins", "index": "node"},
                 ),
                 *[
                     html.Div(
-                        id=f"div-text-margins-{element}",
+                        id={"type": "div-text-margins", "index": element},
                         children=[
                             drc.NamedInput(
                                 name=f"{element.capitalize()} Margin X (px)",
