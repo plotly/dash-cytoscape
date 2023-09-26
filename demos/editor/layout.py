@@ -353,11 +353,11 @@ user_interface = html.Div(
                     options=[
                         {
                             "label": f"Slice #{n}",
-                            "value": {"type": "div-pie-slice", "index": n},
+                            "value": n,
                         }
                         for n in range(1, 17)
                     ],
-                    value={"type": "div-pie-slice", "index": 1},
+                    value=1,
                     clearable=False,
                 ),
                 drc.NamedInput(
@@ -486,11 +486,11 @@ user_interface = html.Div(
                     options=[
                         {
                             "label": pos.capitalize(),
-                            "value": {"type": "div-arrow-position", "index": pos},
+                            "value": pos,
                         }
                         for pos in ["source", "mid-source", "target", "mid-target"]
                     ],
-                    value={"type": "div-arrow-position", "index": "source"},
+                    value="source",
                     clearable=False,
                 ),
                 *[
@@ -658,12 +658,12 @@ user_interface = html.Div(
                     options=[
                         {
                             "label": element.capitalize(),
-                            "value": {"type": "div-label", "index": element},
+                            "value": element,
                         }
                         for element in LABEL_ELEMENT_TYPES
                     ],
                     clearable=False,
-                    value={"type": "div-label", "index": "node"},
+                    value="node",
                 ),
                 *[
                     html.Div(
@@ -742,16 +742,16 @@ user_interface = html.Div(
                     options=[
                         {
                             "label": element.capitalize(),
-                            "value": f"div-text-wrapping-{element}",
+                            "value": element,
                         }
                         for element in LABEL_ELEMENT_TYPES
                     ],
                     clearable=False,
-                    value="div-text-wrapping-node",
+                    value="node",
                 ),
                 *[
                     html.Div(
-                        id=f"div-text-wrapping-{element}",
+                        id={"type": "div-text-wrapping", "index": element},
                         children=[
                             drc.NamedRadioItems(
                                 name=f"{element.capitalize()} Text Wrap",
@@ -813,12 +813,12 @@ user_interface = html.Div(
                     options=[
                         {
                             "label": element.capitalize(),
-                            "value": {"type": "div-text-margins", "index": element},
+                            "value": element,
                         }
                         for element in LABEL_ELEMENT_TYPES_ALL
                     ],
                     clearable=False,
-                    value={"type": "div-text-margins", "index": "node"},
+                    value="node",
                 ),
                 *[
                     html.Div(

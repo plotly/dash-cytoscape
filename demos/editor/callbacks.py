@@ -76,7 +76,7 @@ def assign_callbacks():
         State({"type": "div-pie-slice", "index": MATCH}, "id"),
     )
     def hide_div_pie_slice(current_slice_selected, div_id):
-        if current_slice_selected != div_id:
+        if current_slice_selected != div_id["index"]:
             return {"display": "none"}
         else:
             return {"display": "block"}
@@ -87,7 +87,7 @@ def assign_callbacks():
         State({"type": "div-arrow-position", "index": MATCH}, "id"),
     )
     def hide_div_arrow_position(current_pos_selected, div_id):
-        if current_pos_selected != div_id:
+        if current_pos_selected != div_id["index"]:
             return {"display": "none"}
         else:
             return {"display": "block"}
@@ -98,7 +98,7 @@ def assign_callbacks():
         State({"type": "div-label", "index": MATCH}, "id"),
     )
     def hide_div_label_element(current_element_selected, div_id):
-        if current_element_selected != div_id:
+        if current_element_selected != div_id["index"]:
             return {"display": "none"}
         else:
             return {"display": "block"}
@@ -109,7 +109,7 @@ def assign_callbacks():
         State({"type": "div-text-wrapping", "index": MATCH}, "id"),
     )
     def hide_div_text_wrapping(current_element_selected, div_id):
-        if current_element_selected != div_id:
+        if current_element_selected != div_id["index"]:
             return {"display": "none"}
         else:
             return {"display": "block"}
@@ -120,7 +120,7 @@ def assign_callbacks():
         State({"type": "div-text-margins", "index": MATCH}, "id"),
     )
     def hide_div_text_margins(current_element_selected, div_id):
-        if current_element_selected != div_id:
+        if current_element_selected != div_id["index"]:
             return {"display": "none"}
         else:
             return {"display": "block"}
