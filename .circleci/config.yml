@@ -126,12 +126,21 @@ jobs:
         environment:
             PERCY_ENABLE: False
 
+    python-3-11-react-18:
+        <<: *test-template
+        executor: python-3-11-executor
+
+        environment:
+            PERCY_ENABLE: False
+            REACT_VERSION: '18.2.0'
+
 workflows:
     version: 2.1
     build:
         jobs:
             - python-3-11
             - python-3-6
+            - python-3-11-react-18
             - node
             - percy-finalize:
                   requires:
