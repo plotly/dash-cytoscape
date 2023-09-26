@@ -73,9 +73,8 @@
   "peerDependencies": {
     "react": ">=0.14",
     "react-dom": ">=0.14",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.1",
-    "webpack-serve": "^1.0.2"
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "engines": {
     "node": ">=8.11.0",
