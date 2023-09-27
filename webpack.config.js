@@ -4,7 +4,6 @@ const packagejson = require('./package.json');
 const dashLibraryName = packagejson.name.replace(/-/g, '_');
 
 module.exports = (env, argv) => {
-
     let mode;
 
     const overrides = module.exports || {};
@@ -25,22 +24,25 @@ module.exports = (env, argv) => {
     }
 
     let filename = (overrides.output || {}).filename;
-    if(!filename) {
+    if (!filename) {
         const modeSuffix = mode === 'development' ? 'dev' : 'min';
         filename = `${dashLibraryName}.${modeSuffix}.js`;
     }
 
     const entry = overrides.entry || {main: './src/lib/index.js'};
 
-    const devtool = overrides.devtool || (
-        mode === 'development' ? "eval-source-map" : 'none'
-    );
+    const devtool =
+        overrides.devtool ||
+        (mode === 'development' ? 'eval-source-map' : undefined);
 
-    const externals = ('externals' in overrides) ? overrides.externals : ({
-        react: 'React',
-        'react-dom': 'ReactDOM',
-        'plotly.js': 'Plotly',
-    });
+    const externals =
+        'externals' in overrides
+            ? overrides.externals
+            : {
+                  react: 'React',
+                  'react-dom': 'ReactDOM',
+                  'plotly.js': 'Plotly',
+              };
 
     return {
         mode,
@@ -74,6 +76,6 @@ module.exports = (env, argv) => {
                 },
             ],
         },
-        devtool
-    }
+        devtool,
+    };
 };

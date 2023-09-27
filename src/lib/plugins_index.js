@@ -5,6 +5,4 @@ import svg from 'cytoscape-svg';
 
 CytoscapeJS.use(svg);
 
-export {
-    Cytoscape
-};
+export {Cytoscape};

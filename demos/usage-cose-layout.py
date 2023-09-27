@@ -7,58 +7,57 @@ although the input paramters are exactly the same.
 import json
 
 import dash
-import dash_html_components as html
+from dash import html
 
 import dash_cytoscape as cyto
 
 app = dash.Dash(__name__)
 server = app.server
 
-app.scripts.config.serve_locally = True
-app.css.config.serve_locally = True
 
 # Load Data
-with open('data/cose-layout/data.json', 'r') as f:
+with open("data/cose-layout/data.json", "r", encoding="utf-8") as f:
     elements = json.loads(f.read())
 
-with open('data/cose-layout/cy-style.json', 'r') as f:
+with open("data/cose-layout/cy-style.json", "r", encoding="utf-8") as f:
     stylesheet = json.loads(f.read())
 
 # App
-app.layout = html.Div([
-    cyto.Cytoscape(
-        id='cytoscape',
-        elements=elements,
-        stylesheet=stylesheet,
-        style={
-            'width': '100%',
-            'height': '100%',
-            'position': 'absolute',
-            'left': 0,
-            'top': 0,
-            'z-index': 999
+app.layout = html.Div(
+    [
+        cyto.Cytoscape(
+            id="cytoscape",
+            elements=elements,
+            stylesheet=stylesheet,
+            style={
+                "width": "100%",
+                "height": "100%",
+                "position": "absolute",
+                "left": 0,
+                "top": 0,
+                "z-index": 999,
+            },
+            layout={
+                "name": "cose",
+                "idealEdgeLength": 100,
+                "nodeOverlap": 20,
+                "refresh": 20,
+                "fit": True,
+                "padding": 30,
+                "randomize": False,
+                "componentSpacing": 100,
+                "nodeRepulsion": 400000,
+                "edgeElasticity": 100,
+                "nestingFactor": 5,
+                "gravity": 80,
+                "numIter": 1000,
+                "initialTemp": 200,
+                "coolingFactor": 0.95,
+                "minTemp": 1.0,
+            },
+        )
+    ]
+)
 
-        },
-        layout={
-            'name': 'cose',
-            'idealEdgeLength': 100,
-            'nodeOverlap': 20,
-            'refresh': 20,
-            'fit': True,
-            'padding': 30,
-            'randomize': False,
-            'componentSpacing': 100,
-            'nodeRepulsion': 400000,
-            'edgeElasticity': 100,
-            'nestingFactor': 5,
-            'gravity': 80,
-            'numIter': 1000,
-            'initialTemp': 200,
-            'coolingFactor': 0.95,
-            'minTemp': 1.0
-        }
-    )
-])
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run_server(debug=True)

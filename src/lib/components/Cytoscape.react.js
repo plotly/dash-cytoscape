@@ -36,19 +36,19 @@ class Cytoscape extends Component {
             style = ele.style();
 
         // Trim down the element objects to only the data contained
-        const edgesData = ele.connectedEdges().map(ele => {
+        const edgesData = ele.connectedEdges().map((ele) => {
                 return ele.data();
             }),
-            childrenData = ele.children().map(ele => {
+            childrenData = ele.children().map((ele) => {
                 return ele.data();
             }),
-            ancestorsData = ele.ancestors().map(ele => {
+            ancestorsData = ele.ancestors().map((ele) => {
                 return ele.data();
             }),
-            descendantsData = ele.descendants().map(ele => {
+            descendantsData = ele.descendants().map((ele) => {
                 return ele.data();
             }),
-            siblingsData = ele.siblings().map(ele => {
+            siblingsData = ele.siblings().map((ele) => {
                 return ele.data();
             });
 
@@ -61,7 +61,7 @@ class Cytoscape extends Component {
             locked,
             position,
             selected,
-            selectable
+            selectable,
         } = ele.json();
 
         let parentData;
@@ -97,7 +97,7 @@ class Cytoscape extends Component {
             isOrphan,
             relativePosition,
             // Styling
-            style
+            style,
         };
         return nodeObject;
     }
@@ -115,15 +115,8 @@ class Cytoscape extends Component {
             targetEndpoint = ele.targetEndpoint();
 
         const {timeStamp} = event;
-        const {
-            classes,
-            data,
-            grabbable,
-            group,
-            locked,
-            selectable,
-            selected
-        } = ele.json();
+        const {classes, data, grabbable, group, locked, selectable, selected} =
+            ele.json();
 
         const edgeObject = {
             // Edges attributes
@@ -144,7 +137,7 @@ class Cytoscape extends Component {
             selectable,
             selected,
             // Styling
-            style
+            style,
         };
 
         return edgeObject;
@@ -187,86 +180,86 @@ class Cytoscape extends Component {
              added/removed from the selectedNodes collection, and then updates
              the selectedNodeData prop.
              */
-            const nodeData = selectedNodes.map(el => el.data());
+            const nodeData = selectedNodes.map((el) => el.data());
 
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
-                    selectedNodeData: nodeData
+                    selectedNodeData: nodeData,
                 });
             }
         }, SELECT_THRESHOLD);
 
         const sendSelectedEdgesData = _.debounce(() => {
-            const edgeData = selectedEdges.map(el => el.data());
+            const edgeData = selectedEdges.map((el) => el.data());
 
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
-                    selectedEdgeData: edgeData
+                    selectedEdgeData: edgeData,
                 });
             }
         }, SELECT_THRESHOLD);
 
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
-        cy.on('tap', 'node', event => {
+        cy.on('tap', 'node', (event) => {
             const nodeObject = this.generateNode(event);
 
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
                     tapNode: nodeObject,
-                    tapNodeData: nodeObject.data
+                    tapNodeData: nodeObject.data,
                 });
             }
         });
 
-        cy.on('tap', 'edge', event => {
+        cy.on('tap', 'edge', (event) => {
             const edgeObject = this.generateEdge(event);
 
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
                     tapEdge: edgeObject,
-                    tapEdgeData: edgeObject.data
+                    tapEdgeData: edgeObject.data,
                 });
             }
         });
 
-        cy.on('mouseover', 'node', event => {
+        cy.on('mouseover', 'node', (event) => {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
-                    mouseoverNodeData: event.target.data()
+                    mouseoverNodeData: event.target.data(),
                 });
             }
         });
 
-        cy.on('mouseover', 'edge', event => {
+        cy.on('mouseover', 'edge', (event) => {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
-                    mouseoverEdgeData: event.target.data()
+                    mouseoverEdgeData: event.target.data(),
                 });
             }
         });
 
-        cy.on('select', 'node', event => {
+        cy.on('select', 'node', (event) => {
             const ele = event.target;
 
             selectedNodes.merge(ele);
             sendSelectedNodesData();
         });
 
-        cy.on('unselect remove', 'node', event => {
+        cy.on('unselect remove', 'node', (event) => {
             const ele = event.target;
 
             selectedNodes.unmerge(ele);
             sendSelectedNodesData();
         });
 
-        cy.on('select', 'edge', event => {
+        cy.on('select', 'edge', (event) => {
             const ele = event.target;
 
             selectedEdges.merge(ele);
             sendSelectedEdgesData();
         });
 
-        cy.on('unselect remove', 'edge', event => {
+        cy.on('unselect remove', 'edge', (event) => {
             const ele = event.target;
 
             selectedEdges.unmerge(ele);
@@ -342,7 +335,7 @@ class Cytoscape extends Component {
                 this.downloadBlob(output, fName + '.' + imageType);
             } else {
                 const blob = new Blob([output], {
-                    type: 'image/svg+xml;charset=utf-8'
+                    type: 'image/svg+xml;charset=utf-8',
                 });
                 this.downloadBlob(blob, fName + '.' + imageType);
             }
@@ -430,7 +423,7 @@ class Cytoscape extends Component {
             // Image handling
             generateImage,
             // Responsive graphs
-            responsive
+            responsive,
         } = this.props;
 
         if (Object.keys(generateImage).length > 0) {
@@ -533,14 +526,14 @@ Cytoscape.propTypes = {
                     /** Only for edges. The id of the source node, which is where the edge starts. */
                     source: PropTypes.string,
                     /** Only for edges. The id of the target node, where the edge ends. */
-                    target: PropTypes.string
+                    target: PropTypes.string,
                 }),
                 /** Only for nodes. The position of the node. */
                 position: PropTypes.shape({
                     /** The x-coordinate of the node. */
                     x: PropTypes.number,
                     /** The y-coordinate of the node. */
-                    y: PropTypes.number
+                    y: PropTypes.number,
                 }),
                 /** If the element is selected upon initialisation. */
                 selected: PropTypes.bool,
@@ -554,13 +547,13 @@ Cytoscape.propTypes = {
                  * Space separated string of class names of the element. Those classes can be selected
                  * by a style selector.
                  */
-                classes: PropTypes.string
+                classes: PropTypes.string,
             })
         ),
         PropTypes.exact({
             nodes: PropTypes.array,
-            edges: PropTypes.array
-        })
+            edges: PropTypes.array,
+        }),
     ]),
 
     /**
@@ -584,7 +577,7 @@ Cytoscape.propTypes = {
              * What aspects of the elements you want to modify. This could be the size or
              * color of a node, the shape of an edge arrow, or many more.
              */
-            style: PropTypes.object.isRequired
+            style: PropTypes.object.isRequired,
         })
     ),
 
@@ -640,7 +633,7 @@ Cytoscape.propTypes = {
             'euler',
             'spread',
             'dagre',
-            'klay'
+            'klay',
         ]).isRequired,
         /**  Whether to render the nodes in order to fit the canvas. */
         fit: PropTypes.bool,
@@ -654,7 +647,7 @@ Cytoscape.propTypes = {
          * How to constrain the layout in a specific area. Keys accepted are either
          * `x1, y1, x2, y2` or `x1, y1, w, h`, all of which receive a pixel value.
          */
-        boundingBox: PropTypes.object
+        boundingBox: PropTypes.object,
     }),
 
     // Viewport Manipulation
@@ -667,7 +660,7 @@ Cytoscape.propTypes = {
         /** The x-coordinate of the node */
         x: PropTypes.number,
         /** The y-coordinate of the node  */
-        y: PropTypes.number
+        y: PropTypes.number,
     }),
 
     /**
@@ -777,7 +770,10 @@ Cytoscape.propTypes = {
         /** Item for compound nodes */
         childrenData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         /** Item for compound nodes */
-        descendantsData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+        descendantsData: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.array,
+        ]),
         /** Item for compound nodes */
         parentData: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
         /** Item for compound nodes */
@@ -791,7 +787,7 @@ Cytoscape.propTypes = {
         /** Item for compound nodes */
         isOrphan: PropTypes.bool,
         /** Item for compound nodes */
-        relativePosition: PropTypes.object
+        relativePosition: PropTypes.object,
     }),
 
     /**
@@ -834,7 +830,7 @@ Cytoscape.propTypes = {
         /** General item (for all elements) */
         selected: PropTypes.bool,
         /** General item (for all elements) */
-        style: PropTypes.object
+        style: PropTypes.object,
     }),
 
     /**
@@ -889,7 +885,7 @@ Cytoscape.propTypes = {
          */
         action: PropTypes.oneOf(['store', 'download', 'both']),
         /** Name for the file to be downloaded. Default: 'cyto'.*/
-        filename: PropTypes.string
+        filename: PropTypes.string,
     }),
 
     /**
@@ -901,7 +897,7 @@ Cytoscape.propTypes = {
     /**
      * Toggles intelligent responsive resize of Cytoscape graph with viewport size change
      */
-    responsive: PropTypes.bool
+    responsive: PropTypes.bool,
 };
 
 Cytoscape.defaultProps = {
@@ -923,7 +919,7 @@ Cytoscape.defaultProps = {
     generateImage: {},
     imageData: null,
     responsive: false,
-    elements: []
+    elements: [],
 };
 
 export default Cytoscape;

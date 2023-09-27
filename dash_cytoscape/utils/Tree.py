@@ -2,13 +2,15 @@ from collections import deque
 
 
 class Tree(object):
-    def __init__(self,
-                 node_id,
-                 children=None,
-                 data=None,
-                 props=None,
-                 edge_data=None,
-                 edge_props=None):
+    def __init__(
+        self,
+        node_id,
+        children=None,
+        data=None,
+        props=None,
+        edge_data=None,
+        edge_props=None,
+    ):
         """
         A class to facilitate tree manipulation in Cytoscape.
         :param node_id: The ID of this tree, passed to the node data dict
@@ -88,13 +90,8 @@ class Tree(object):
         edges = []
 
         for child in self.children:
-            di = {
-                'data': {
-                    'source': self.node_id,
-                    'target': child.node_id
-                }
-            }
-            di['data'].update(child.edge_data)
+            di = {"data": {"source": self.node_id, "target": child.node_id}}
+            di["data"].update(child.edge_data)
             di.update(child.edge_props)
             edges.append(di)
 
@@ -108,13 +105,9 @@ class Tree(object):
         Get all the nodes of the tree in Cytoscape JSON format.
         :return: List of dictionaries, each specifying a node
         """
-        di = {
-            'data': {
-                'id': self.node_id
-            }
-        }
+        di = {"data": {"id": self.node_id}}
 
-        di['data'].update(self.data)
+        di["data"].update(self.data)
         di.update(self.props)
         nodes = [di]
 
@@ -130,7 +123,7 @@ class Tree(object):
         """
         return self.get_nodes() + self.get_edges()
 
-    def find_by_id(self, search_id, method='bfs'):
+    def find_by_id(self, search_id, method="bfs"):
         """
         Find a Tree object by its ID.
         :param search_id: the queried ID
@@ -139,12 +132,12 @@ class Tree(object):
         """
         method = method.lower()
 
-        if method == 'bfs':
+        if method == "bfs":
             return self._bfs(search_id)
-        elif method == 'dfs':
+        elif method == "dfs":
             return self._dfs(search_id)
         else:
-            raise ValueError('Unknown traversal method')
+            raise ValueError("Unknown traversal method")
 
     def create_index(self):
         """
@@ -168,15 +161,19 @@ class Tree(object):
         return self.index
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import pprint
 
-    t1 = Tree('a', data={'hello': 'goodbye'}, children=[
-        Tree('b', edge_data={'foo': 'bar'}, edge_props={'classes': 'directed'}),
-        Tree('c', props={'selected': True})
-    ])
+    t1 = Tree(
+        "a",
+        data={"hello": "goodbye"},
+        children=[
+            Tree("b", edge_data={"foo": "bar"}, edge_props={"classes": "directed"}),
+            Tree("c", props={"selected": True}),
+        ],
+    )
 
     print("Nodes:")
     pprint.pprint(t1.get_nodes())
-    print('\nEdges:')
+    print("\nEdges:")
     pprint.pprint(t1.get_edges())

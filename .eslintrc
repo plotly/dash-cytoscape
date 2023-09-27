@@ -1,7 +1,8 @@
 {
-  "extends": ["eslint:recommended", "prettier"],
-  "parser": "babel-eslint",
+  "extends": ["eslint:recommended", "prettier", "plugin:react/recommended"],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
+    "requireConfigFile": false,
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
@@ -117,5 +118,10 @@
         "ignore": [-1, 0, 1, 2, 3, 100, 10, 0.5]
     }],
     "no-underscore-dangle": ["off"]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
