@@ -23,8 +23,6 @@ app.scripts.append_script(
     }
 )
 
-app.scripts.config.serve_locally = True
-app.css.config.serve_locally = True
 
 # Load Data
 with open("data/cose-bilkent-layout/data.json", "r", encoding="utf-8") as f:

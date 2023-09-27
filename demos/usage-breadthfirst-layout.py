@@ -12,8 +12,6 @@ import dash_cytoscape as cyto
 app = dash.Dash(__name__)
 server = app.server
 
-app.scripts.config.serve_locally = True
-app.css.config.serve_locally = True
 
 elements = [
     {"data": {"id": "cat"}},

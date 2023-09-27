@@ -28,8 +28,6 @@ import dash_cytoscape as cyto
 app = dash.Dash(__name__)
 server = app.server
 
-app.scripts.config.serve_locally = True
-app.css.config.serve_locally = True
 
 with open("data/edge-types/data.json", "r", encoding="utf-8") as f:
     elements = json.loads(f.read())
