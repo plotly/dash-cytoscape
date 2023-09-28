@@ -10,9 +10,9 @@ import _ from 'lodash';
 import CyResponsive from '../cyResponsive.js';
 
 /**
-A Component Library for Dash aimed at facilitating network visualization in
-Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
- */
+  A Component Library for Dash aimed at facilitating network visualization in
+  Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
+   */
 class Cytoscape extends Component {
     constructor(props) {
         super(props);
@@ -173,13 +173,13 @@ class Cytoscape extends Component {
 
         const sendSelectedNodesData = _.debounce(() => {
             /**
-             This function is repetitively called every time a node is selected
-             or unselected, but keeps being debounced if it is called again
-             within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
-             runs when all the nodes have been correctly selected/unselected and
-             added/removed from the selectedNodes collection, and then updates
-             the selectedNodeData prop.
-             */
+               This function is repetitively called every time a node is selected
+               or unselected, but keeps being debounced if it is called again
+               within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
+               runs when all the nodes have been correctly selected/unselected and
+               added/removed from the selectedNodes collection, and then updates
+               the selectedNodeData prop.
+               */
             const nodeData = selectedNodes.map((el) => el.data());
 
             if (typeof this.props.setProps === 'function') {
@@ -206,7 +206,9 @@ class Cytoscape extends Component {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
                     tapNode: nodeObject,
-                    tapNodeData: nodeObject.data,
+                    tapNodeData: Object.assign({}, nodeObject.data, {
+                        timeStamp: nodeObject.timeStamp,
+                    }),
                 });
             }
         });
@@ -217,7 +219,9 @@ class Cytoscape extends Component {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
                     tapEdge: edgeObject,
-                    tapEdgeData: edgeObject.data,
+                    tapEdgeData: Object.assign({}, edgeObject.data, {
+                        timeStamp: edgeObject.timeStamp,
+                    }),
                 });
             }
         });
@@ -225,7 +229,9 @@ class Cytoscape extends Component {
         cy.on('mouseover', 'node', (event) => {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
-                    mouseoverNodeData: event.target.data(),
+                    mouseoverNodeData: Object.assign({}, event.target.data(), {
+                        timeStamp: event.timeStamp,
+                    }),
                 });
             }
         });
@@ -233,10 +239,30 @@ class Cytoscape extends Component {
         cy.on('mouseover', 'edge', (event) => {
             if (typeof this.props.setProps === 'function') {
                 this.props.setProps({
-                    mouseoverEdgeData: event.target.data(),
+                    mouseoverEdgeData: Object.assign({}, event.target.data(), {
+                        timeStamp: event.timeStamp,
+                    }),
                 });
             }
         });
+
+        if (this.props.clearOnUnhover === true) {
+            cy.on('mouseout', 'node', (_) => {
+                if (typeof this.props.setProps === 'function') {
+                    this.props.setProps({
+                        mouseoverNodeData: null,
+                    });
+                }
+            });
+
+            cy.on('mouseout', 'edge', (_) => {
+                if (typeof this.props.setProps === 'function') {
+                    this.props.setProps({
+                        mouseoverEdgeData: null,
+                    });
+                }
+            });
+        }
 
         cy.on('select', 'node', (event) => {
             const ele = event.target;
@@ -266,8 +292,25 @@ class Cytoscape extends Component {
             sendSelectedEdgesData();
         });
 
-        cy.on('add remove', () => {
+        cy.on('add remove ', () => {
             refreshLayout();
+        });
+
+        cy.on('position', 'node', (event) => {
+            if (typeof this.props.setProps === 'function') {
+                const newElements = this.props.elements.map((item) => {
+                    if (item.data.id === event.target._private.data.id) {
+                        return Object.assign({}, item, {
+                            position: event.target._private.position,
+                            timeStamp: event.timeStamp,
+                        });
+                    }
+                    return item;
+                });
+                this.props.setProps({
+                    elements: newElements,
+                });
+            }
         });
 
         this.cyResponsiveClass = new CyResponsive(cy);
@@ -898,6 +941,11 @@ Cytoscape.propTypes = {
      * Toggles intelligent responsive resize of Cytoscape graph with viewport size change
      */
     responsive: PropTypes.bool,
+
+    /**
+     * Clear mouseoverNodeData and mouseoverEdgeData on unhover
+     */
+    clearOnUnhover: PropTypes.bool,
 };
 
 Cytoscape.defaultProps = {
@@ -919,6 +967,7 @@ Cytoscape.defaultProps = {
     generateImage: {},
     imageData: null,
     responsive: false,
+    clearOnUnhover: false,
     elements: [],
 };
 
