@@ -6,7 +6,7 @@ from dash.development.base_component import Component, _explicitize_args
 class Cytoscape(Component):
     """A Cytoscape component.
     A Component Library for Dash aimed at facilitating network visualization in
-    Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
+      Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
 
     Keyword arguments:
 
@@ -37,6 +37,9 @@ class Cytoscape(Component):
     - className (string; optional):
         Sets the class name of the element (the value of an element's html
         class attribute).
+
+    - clearOnUnhover (boolean; default False):
+        Clear mouseoverNodeData and mouseoverEdgeData on unhover.
 
     - elements (list of dicts; optional):
         A list of dictionaries representing the elements of the networks.
@@ -467,6 +470,7 @@ class Cytoscape(Component):
         generateImage=Component.UNDEFINED,
         imageData=Component.UNDEFINED,
         responsive=Component.UNDEFINED,
+        clearOnUnhover=Component.UNDEFINED,
         **kwargs
     ):
         self._prop_names = [
@@ -477,6 +481,7 @@ class Cytoscape(Component):
             "autounselectify",
             "boxSelectionEnabled",
             "className",
+            "clearOnUnhover",
             "elements",
             "generateImage",
             "imageData",
@@ -510,6 +515,7 @@ class Cytoscape(Component):
             "autounselectify",
             "boxSelectionEnabled",
             "className",
+            "clearOnUnhover",
             "elements",
             "generateImage",
             "imageData",

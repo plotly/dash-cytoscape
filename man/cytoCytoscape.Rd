@@ -6,17 +6,17 @@
 \title{Cytoscape component}
 
 \description{
-A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
+A Component Library for Dash aimed at facilitating network visualization in   Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
 }
 
 \usage{
 cytoCytoscape(id=NULL, autoRefreshLayout=NULL, autolock=NULL,
 autoungrabify=NULL, autounselectify=NULL,
-boxSelectionEnabled=NULL, className=NULL, elements=NULL,
-generateImage=NULL, imageData=NULL, layout=NULL,
-maxZoom=NULL, minZoom=NULL, mouseoverEdgeData=NULL,
-mouseoverNodeData=NULL, pan=NULL, panningEnabled=NULL,
-responsive=NULL, selectedEdgeData=NULL,
+boxSelectionEnabled=NULL, className=NULL,
+clearOnUnhover=NULL, elements=NULL, generateImage=NULL,
+imageData=NULL, layout=NULL, maxZoom=NULL, minZoom=NULL,
+mouseoverEdgeData=NULL, mouseoverNodeData=NULL, pan=NULL,
+panningEnabled=NULL, responsive=NULL, selectedEdgeData=NULL,
 selectedNodeData=NULL, style=NULL, stylesheet=NULL,
 tapEdge=NULL, tapEdgeData=NULL, tapNode=NULL,
 tapNodeData=NULL, userPanningEnabled=NULL,
@@ -42,6 +42,8 @@ to select) is enabled. If enabled, the user must taphold to pan the graph.}
 
 \item{className}{Character. Sets the class name of the element (the value of an element's html
 class attribute).}
+
+\item{clearOnUnhover}{Logical. Clear mouseoverNodeData and mouseoverEdgeData on unhover}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:
