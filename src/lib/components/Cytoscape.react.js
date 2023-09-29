@@ -298,17 +298,10 @@ class Cytoscape extends Component {
 
         cy.on('position', 'node', (event) => {
             if (typeof this.props.setProps === 'function') {
-                const newElements = this.props.elements.map((item) => {
-                    if (item.data.id === event.target._private.data.id) {
-                        return Object.assign({}, item, {
-                            position: event.target._private.position,
-                            timeStamp: event.timeStamp,
-                        });
-                    }
-                    return item;
-                });
                 this.props.setProps({
-                    elements: newElements,
+                    elements: this.props.elements.map((item) =>
+                        Object.assign({}, item, {timeStamp: event.timeStamp})
+                    ),
                 });
             }
         });
