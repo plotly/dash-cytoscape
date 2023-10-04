@@ -292,7 +292,7 @@ class Cytoscape extends Component {
             sendSelectedEdgesData();
         });
 
-        cy.on('add remove ', () => {
+        cy.on('add remove', () => {
             refreshLayout();
         });
 
