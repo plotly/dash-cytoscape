@@ -10,9 +10,9 @@ import _ from 'lodash';
 import CyResponsive from '../cyResponsive.js';
 
 /**
-  A Component Library for Dash aimed at facilitating network visualization in
-  Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
-   */
+ * A Component Library for Dash aimed at facilitating network visualization in
+ * Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
+ */
 class Cytoscape extends Component {
     constructor(props) {
         super(props);
