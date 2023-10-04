@@ -7,19 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [UNRELEASED]
 
 ### Added
+* `prettier` and `black` lint/format scripts have been added.
+* React 18 job has been added to circleCI workflow.
 * [#195](https://github.com/plotly/dash-cytoscape/pull/195)
   - Add `clearOnUnhover` property.
   - Add timestamp to `tapNodeData`, `tapEdgeData`, `mouseoverNodeData`, and `mouseoverEdgeData` properties.
-
-### Changed
-* [#195](https://github.com/plotly/dash-cytoscape/pull/195) Update `elements` positions when nodes are dragged.
-
-
-## [0.3.1] - 2023-09-27 
-
-### Added
-* `prettier` and `black` lint/format scripts have been added.
-* React 18 job has been added to circleCI workflow.
 
 ### Changed
 * Dash has been upgraded to 2.* in requirements.txt and tests/requirements.txt.
@@ -27,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * CircleCI workflow has been updated to version 2.1.
 * Python version in CircleCI workflow has been updated to 3.11.
 * Node version in CircleCI workflow has been updated to 20.5.1.
+* [#195](https://github.com/plotly/dash-cytoscape/pull/195) Update `elements` positions when nodes are dragged.
 
 ### Fixed
 * CircleCI workflow has been fixed. 
