@@ -6,7 +6,7 @@ from dash.development.base_component import Component, _explicitize_args
 class Cytoscape(Component):
     """A Cytoscape component.
     A Component Library for Dash aimed at facilitating network visualization in
-      Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
+    Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
 
     Keyword arguments:
 

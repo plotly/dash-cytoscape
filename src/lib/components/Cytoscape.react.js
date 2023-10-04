@@ -182,85 +182,69 @@ class Cytoscape extends Component {
                */
             const nodeData = selectedNodes.map((el) => el.data());
 
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    selectedNodeData: nodeData,
-                });
-            }
+            this.props.setProps({
+                selectedNodeData: nodeData,
+            });
         }, SELECT_THRESHOLD);
 
         const sendSelectedEdgesData = _.debounce(() => {
             const edgeData = selectedEdges.map((el) => el.data());
 
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    selectedEdgeData: edgeData,
-                });
-            }
+            this.props.setProps({
+                selectedEdgeData: edgeData,
+            });
         }, SELECT_THRESHOLD);
 
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
         cy.on('tap', 'node', (event) => {
             const nodeObject = this.generateNode(event);
 
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    tapNode: nodeObject,
-                    tapNodeData: Object.assign({}, nodeObject.data, {
-                        timeStamp: nodeObject.timeStamp,
-                    }),
-                });
-            }
+            this.props.setProps({
+                tapNode: nodeObject,
+                tapNodeData: Object.assign({}, nodeObject.data, {
+                    timeStamp: nodeObject.timeStamp,
+                }),
+            });
         });
 
         cy.on('tap', 'edge', (event) => {
             const edgeObject = this.generateEdge(event);
 
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    tapEdge: edgeObject,
-                    tapEdgeData: Object.assign({}, edgeObject.data, {
-                        timeStamp: edgeObject.timeStamp,
-                    }),
-                });
-            }
+            this.props.setProps({
+                tapEdge: edgeObject,
+                tapEdgeData: Object.assign({}, edgeObject.data, {
+                    timeStamp: edgeObject.timeStamp,
+                }),
+            });
         });
 
         cy.on('mouseover', 'node', (event) => {
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    mouseoverNodeData: Object.assign({}, event.target.data(), {
-                        timeStamp: event.timeStamp,
-                    }),
-                });
-            }
+            this.props.setProps({
+                mouseoverNodeData: Object.assign({}, event.target.data(), {
+                    timeStamp: event.timeStamp,
+                }),
+            });
         });
 
         cy.on('mouseover', 'edge', (event) => {
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    mouseoverEdgeData: Object.assign({}, event.target.data(), {
-                        timeStamp: event.timeStamp,
-                    }),
-                });
-            }
+            this.props.setProps({
+                mouseoverEdgeData: Object.assign({}, event.target.data(), {
+                    timeStamp: event.timeStamp,
+                }),
+            });
         });
 
         if (this.props.clearOnUnhover === true) {
             cy.on('mouseout', 'node', (_) => {
-                if (typeof this.props.setProps === 'function') {
-                    this.props.setProps({
-                        mouseoverNodeData: null,
-                    });
-                }
+                this.props.setProps({
+                    mouseoverNodeData: null,
+                });
             });
 
             cy.on('mouseout', 'edge', (_) => {
-                if (typeof this.props.setProps === 'function') {
-                    this.props.setProps({
-                        mouseoverEdgeData: null,
-                    });
-                }
+                this.props.setProps({
+                    mouseoverEdgeData: null,
+                });
             });
         }
 
@@ -296,14 +280,15 @@ class Cytoscape extends Component {
             refreshLayout();
         });
 
-        cy.on('position', 'node', (event) => {
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    elements: this.props.elements.map((item) =>
-                        Object.assign({}, item, {timeStamp: event.timeStamp})
-                    ),
-                });
-            }
+        cy.on('position', 'node', (_) => {
+            this.props.setProps({
+                elements: cy.elements('').map((item) => {
+                    return {
+                        data: item.json().data,
+                        position: item.json().position,
+                    };
+                }),
+            });
         });
 
         this.cyResponsiveClass = new CyResponsive(cy);

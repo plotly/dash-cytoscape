@@ -7,7 +7,7 @@ export cyto_cytoscape
 
 A Cytoscape component.
 A Component Library for Dash aimed at facilitating network visualization in
-  Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
+Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
 Keyword arguments:
 - `id` (String; optional): The ID used to identify this component in Dash callbacks.
 - `autoRefreshLayout` (Bool; optional): Whether the layout should be refreshed when elements are added or removed.
