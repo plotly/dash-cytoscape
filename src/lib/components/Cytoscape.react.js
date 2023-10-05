@@ -280,7 +280,7 @@ class Cytoscape extends Component {
             refreshLayout();
         });
 
-        cy.on('position', 'node', (_) => {
+        cy.on('dragfree', 'node', (_) => {
             this.props.setProps({
                 elements: cy.elements('').map((item) => {
                     return {
