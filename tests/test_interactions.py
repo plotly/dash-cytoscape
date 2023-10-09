@@ -219,7 +219,7 @@ def test_cyin004_mouseover_unhover(dash_duo):
     elem_mouseover = dash_duo.find_element("pre#mouseover-node-data-json-output")
 
     # Test hovering the nodes
-    label = f"Node 1"
+    label = "Node 1"
     assert (
         perform_mouseover(
             dash_duo,
