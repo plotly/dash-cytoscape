@@ -116,6 +116,7 @@ app.layout = html.Div(
                     elements=basic_elements,
                     layout={"name": "preset"},
                     style={"height": "500px", "width": "500px"},
+                    clearOnUnhover=True,
                 )
             ],
         ),

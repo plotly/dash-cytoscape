@@ -119,7 +119,9 @@ def perform_clicking(dash_duo, x, y, elem, actions, dir_name="interactions"):
     return clicked_label
 
 
-def perform_mouseover(dash_duo, x, y, elem, actions, dir_name="interactions"):
+def perform_mouseover(
+    dash_duo, x, y, elem, actions, dir_name="interactions", screenshot_name="Mouseover"
+):
     actions.reset_actions()
     actions.move_to_element_with_offset(
         dash_duo.driver.find_element_by_tag_name("body"), x - 50, y
@@ -128,9 +130,12 @@ def perform_mouseover(dash_duo, x, y, elem, actions, dir_name="interactions"):
     actions.perform()
     time.sleep(1)
 
-    mouseover_label = json.loads(elem.text).get("label")
+    text = json.loads(elem.text)
+    mouseover_label = json.loads(elem.text).get("label") if text else "null"
 
-    save_screenshot(dash_duo, dir_name, "Mouseover" + mouseover_label.replace(" ", ""))
+    save_screenshot(
+        dash_duo, dir_name, screenshot_name + mouseover_label.replace(" ", "")
+    )
 
     return mouseover_label
 
@@ -199,3 +204,42 @@ def test_cyin003_mouseover(dash_duo):
             perform_mouseover(dash_duo, *init_pos[label], elem_mouseover, actions)
             == label
         ), mouseover_error
+
+
+def test_cyin004_mouseover_unhover(dash_duo):
+    init_pos, actions = create_app(dash_duo)
+    mouseover_error = "Unable to mouseover Cytoscape nodes properly"
+
+    # Open the Mouseover JSON tab
+    actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(3)"))
+    actions.click().perform()
+    time.sleep(1)
+
+    # Select the JSON output element
+    elem_mouseover = dash_duo.find_element("pre#mouseover-node-data-json-output")
+
+    # Test hovering the nodes
+    label = f"Node 1"
+    assert (
+        perform_mouseover(
+            dash_duo,
+            *init_pos[label],
+            elem_mouseover,
+            actions,
+            screenshot_name="Mouseover Hover",
+        )
+        == label
+    ), mouseover_error
+
+    label = "null"
+    assert (
+        perform_mouseover(
+            dash_duo,
+            70,
+            250,
+            elem_mouseover,
+            actions,
+            screenshot_name="Mouseover Unhover",
+        )
+        == label
+    )
