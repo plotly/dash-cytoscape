@@ -231,6 +231,7 @@ def test_cyin004_mouseover_unhover(dash_duo):
         == label
     ), mouseover_error
 
+    # Test unhover
     label = "null"
     assert (
         perform_mouseover(
@@ -242,4 +243,42 @@ def test_cyin004_mouseover_unhover(dash_duo):
             screenshot_name="Mouseover Unhover",
         )
         == label
+    ), mouseover_error
+
+
+def test_cyin005_click_twice(dash_duo):
+    init_pos, actions = create_app(dash_duo)
+
+    # Open the Tap Data JSON tab
+    actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(2)"))
+    actions.click().perform()
+    time.sleep(1)
+
+    # Select the JSON output element
+    elem_tap = dash_duo.find_element("pre#tap-node-data-json-output")
+
+    # Test clicking the same node twice
+    label = f"Node {1}"
+    x, y = init_pos[label]
+
+    actions.reset_actions()
+    actions.move_to_element_with_offset(
+        dash_duo.driver.find_element_by_tag_name("body"), x, y
     )
+    actions.click()
+    actions.perform()
+
+    time.sleep(1)
+    clicked_label_1 = json.loads(elem_tap.text).get("label")
+    clicked_timestamp_1 = json.loads(elem_tap.text).get("timeStamp")
+
+    # Second click
+    actions.click()
+    actions.perform()
+
+    time.sleep(1)
+    clicked_label_2 = json.loads(elem_tap.text).get("label")
+    clicked_timestamp_2 = json.loads(elem_tap.text).get("timeStamp")
+
+    assert clicked_label_1 == clicked_label_2
+    assert clicked_timestamp_1 != clicked_timestamp_2
