@@ -258,7 +258,7 @@ def test_cyin005_click_twice(dash_duo):
     elem_tap = dash_duo.find_element("pre#tap-node-data-json-output")
 
     # Test clicking the same node twice
-    label = f"Node {1}"
+    label = "Node 1"
     x, y = init_pos[label]
 
     actions.reset_actions()
