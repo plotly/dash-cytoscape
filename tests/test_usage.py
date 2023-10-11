@@ -1,6 +1,7 @@
 import os
 import importlib
 import pytest
+import time
 
 
 def create_usage_test(dash_duo, filename, dir_name="usage"):
@@ -8,6 +9,10 @@ def create_usage_test(dash_duo, filename, dir_name="usage"):
 
     dash_duo.start_server(app)
     dash_duo.wait_for_element_by_id("cytoscape", 20)
+
+    # Wait for the flickr images to load
+    if filename == "demos.usage-breadthfirst-layout":
+        time.sleep(1)
 
     directory_path = os.path.join(os.path.dirname(__file__), "screenshots", dir_name)
 
