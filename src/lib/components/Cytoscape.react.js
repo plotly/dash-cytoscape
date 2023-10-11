@@ -234,19 +234,19 @@ class Cytoscape extends Component {
             });
         });
 
-        if (this.props.clearOnUnhover === true) {
-            cy.on('mouseout', 'node', (_) => {
-                this.props.setProps({
-                    mouseoverNodeData: null,
-                });
-            });
+        cy.on('mouseout', 'node', (_) => {
+            if (this.props.clearOnUnhover === true) {
+                this.props.setProps({mouseoverNodeData: null});
+            }
+        });
 
-            cy.on('mouseout', 'edge', (_) => {
+        cy.on('mouseout', 'edge', (_) => {
+            if (this.props.clearOnUnhover === true) {
                 this.props.setProps({
                     mouseoverEdgeData: null,
                 });
-            });
-        }
+            }
+        });
 
         cy.on('select', 'node', (event) => {
             const ele = event.target;
