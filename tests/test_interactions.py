@@ -226,7 +226,7 @@ def test_cyin004_mouseover_unhover(dash_duo):
             *init_pos[label],
             elem_mouseover,
             actions,
-            screenshot_name="Mouseover Hover",
+            screenshot_name="MouseoverHover",
         )
         == label
     ), mouseover_error
@@ -240,7 +240,7 @@ def test_cyin004_mouseover_unhover(dash_duo):
             250,
             elem_mouseover,
             actions,
-            screenshot_name="Mouseover Unhover",
+            screenshot_name="MouseoverUnhover",
         )
         == label
     ), mouseover_error
