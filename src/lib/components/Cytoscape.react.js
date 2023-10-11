@@ -921,7 +921,9 @@ Cytoscape.propTypes = {
     responsive: PropTypes.bool,
 
     /**
-     * Clear mouseoverNodeData and mouseoverEdgeData on unhover
+     * If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
+     * If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
+     * Node or Edge hovered over
      */
     clearOnUnhover: PropTypes.bool,
 };
