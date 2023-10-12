@@ -164,8 +164,6 @@ def perform_mouseover(
 def test_cyin001_dragging(dash_duo):
     init_pos, actions, _ = create_app(dash_duo)
 
-    drag_error = "Unable to drag Cytoscape nodes properly"
-
     # View module docstring for more information about initial positions
     init_x, init_y = init_pos["Node 1"]
 
@@ -225,11 +223,8 @@ def test_cyin003_clicking_edges(dash_duo):
     elem_tap = dash_duo.find_element("pre#tap-edge-json-output")
 
     # Test clicking the edges
-    for label in edges_positions.keys():
-        assert (
-            perform_clicking(dash_duo, *edges_positions[label], elem_tap, actions)
-            == label
-        )
+    for label, positions in edges_positions.items():
+        assert perform_clicking(dash_duo, *positions, elem_tap, actions) == label
 
 
 def test_cyin004_mouseover(dash_duo):
@@ -265,13 +260,8 @@ def test_cyin005_mouseover_edges(dash_duo):
     elem_mouseover = dash_duo.find_element("pre#mouseover-edge-data-json-output")
 
     # Test mouseover the edges
-    for label in edges_positions.keys():
-        assert (
-            perform_mouseover(
-                dash_duo, *edges_positions[label], elem_mouseover, actions
-            )
-            == label
-        )
+    for label, positions in edges_positions.items():
+        assert perform_mouseover(dash_duo, *positions, elem_mouseover, actions) == label
 
 
 def test_cyin006_mouseover_unhover(dash_duo):
