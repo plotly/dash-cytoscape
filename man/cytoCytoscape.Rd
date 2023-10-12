@@ -43,7 +43,9 @@ to select) is enabled. If enabled, the user must taphold to pan the graph.}
 \item{className}{Character. Sets the class name of the element (the value of an element's html
 class attribute).}
 
-\item{clearOnUnhover}{Logical. Clear mouseoverNodeData and mouseoverEdgeData on unhover}
+\item{clearOnUnhover}{Logical. If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
+If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
+Node or Edge hovered over}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:

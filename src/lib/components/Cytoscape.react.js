@@ -283,9 +283,15 @@ class Cytoscape extends Component {
         cy.on('dragfree', 'node', (_) => {
             this.props.setProps({
                 elements: cy.elements('').map((item) => {
+                    if (item.json().group === 'nodes') {
+                        return {
+                            data: item.json().data,
+                            position: item.json().position,
+                        };
+                    }
                     return {
                         data: item.json().data,
-                        position: item.json().position,
+                        position: void 0,
                     };
                 }),
             });
