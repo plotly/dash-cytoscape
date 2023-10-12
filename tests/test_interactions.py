@@ -25,6 +25,7 @@ import time
 import json
 
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 
 
 def create_app(dash_duo):
@@ -73,27 +74,30 @@ def perform_dragging(
     """
     actions.reset_actions()
     actions.move_to_element_with_offset(
-        dash_duo.driver.find_element_by_tag_name("body"), x, y
+        dash_duo.driver.find_element(By.TAG_NAME, "body"), x, y
     )
     actions.drag_and_drop_by_offset(source=None, xoffset=delta_x, yoffset=delta_y)
-    actions.click()
     actions.perform()
     time.sleep(1)
 
     elem_json = json.loads(elem.text)
-    new_pos = elem_json.get("renderedPosition")
-    clicked_label = elem_json.get("data", {}).get("label")
+    new_pos = (
+        elem_json[0].get("position")
+        if "position" in elem_json[0].keys()
+        else elem_json[0].get("renderedPosition")
+    )
+    dragged_label = elem_json[0].get("data", {}).get("label")
 
-    diff_x = round(new_pos["x"] - x)
-    diff_y = round(new_pos["y"] - y)
+    node_x = round(new_pos["x"])
+    node_y = round(new_pos["y"])
 
     save_screenshot(
         dash_duo,
         dir_name,
-        f"Dragged{clicked_label.replace(' ', '')}By{diff_x}x{diff_y}y",
+        f"Dragged{dragged_label.replace(' ', '')}By{node_x}x{node_y}y",
     )
 
-    return diff_x, diff_y
+    return node_x, node_y
 
 
 def perform_clicking(dash_duo, x, y, elem, actions, dir_name="interactions"):
@@ -106,7 +110,7 @@ def perform_clicking(dash_duo, x, y, elem, actions, dir_name="interactions"):
     """
     actions.reset_actions()
     actions.move_to_element_with_offset(
-        dash_duo.driver.find_element_by_tag_name("body"), x, y
+        dash_duo.driver.find_element(By.TAG_NAME, "body"), x, y
     )
     actions.click()
     actions.perform()
@@ -124,7 +128,7 @@ def perform_mouseover(
 ):
     actions.reset_actions()
     actions.move_to_element_with_offset(
-        dash_duo.driver.find_element_by_tag_name("body"), x - 50, y
+        dash_duo.driver.find_element(By.TAG_NAME, "body"), x - 50, y
     )
     actions.move_by_offset(50, 0)
     actions.perform()
@@ -148,26 +152,38 @@ def test_cyin001_dragging(dash_duo):
     # View module docstring for more information about initial positions
     init_x, init_y = init_pos["Node 1"]
 
+    # Open the Drag data JSON tab
+    actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(5)"))
+    actions.click().perform()
+    time.sleep(1)
+
     # Select the JSON output element
-    elem_tap = dash_duo.find_element("pre#tap-node-json-output")
+    elem_tap = dash_duo.find_element("pre#elements-data-json-output")
 
-    # Test dragging the nodes around
-    offset_x, offset_y = perform_dragging(
-        dash_duo, init_x, init_y, 0, 0, elem_tap, actions
+    # Get initial positions. Not actualy dragging
+    init_node_x, init_node_y = perform_dragging(
+        dash_duo, init_x, init_y, 1, 1, elem_tap, actions
     )
-    init_x += offset_x
-    init_y += offset_y
 
+    pixels_to_position_conv_factor = 1280 * 0.00085
+    # Test dragging the nodes around
     assert perform_dragging(dash_duo, init_x, init_y, 150, 0, elem_tap, actions) == (
-        150,
-        0,
-    ), drag_error
+        round(150 / pixels_to_position_conv_factor) + init_node_x,
+        0 + init_node_y,
+    )
     assert perform_dragging(
         dash_duo, init_x + 150, init_y, 0, 150, elem_tap, actions
-    ) == (0, 150), drag_error
+    ) == (
+        round(150 / pixels_to_position_conv_factor) + init_node_x,
+        round(150 / pixels_to_position_conv_factor) + init_node_y,
+    )
     assert perform_dragging(
         dash_duo, init_x + 150, init_y + 150, -150, -150, elem_tap, actions
-    ) == (-150, -150), drag_error
+    ) == (init_node_x, init_node_y)
+    assert perform_dragging(dash_duo, init_x, init_y, 100, -100, elem_tap, actions) == (
+        round(100 / pixels_to_position_conv_factor) + init_node_x,
+        round(-100 / pixels_to_position_conv_factor) + init_node_y,
+    )
 
 
 def test_cyin002_clicking(dash_duo):
@@ -263,7 +279,7 @@ def test_cyin005_click_twice(dash_duo):
 
     actions.reset_actions()
     actions.move_to_element_with_offset(
-        dash_duo.driver.find_element_by_tag_name("body"), x, y
+        dash_duo.driver.find_element(By.TAG_NAME, "body"), x, y
     )
     actions.click()
     actions.perform()

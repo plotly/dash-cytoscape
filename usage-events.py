@@ -206,6 +206,21 @@ app.layout = html.Div(
                                 )
                             ],
                         ),
+                        dcc.Tab(
+                            label="Drag Data",
+                            children=[
+                                html.Div(
+                                    style=styles["tab"],
+                                    children=[
+                                        html.P("Elements Data JSON:"),
+                                        html.Pre(
+                                            id="elements-data-json-output",
+                                            style=styles["json-output"],
+                                        ),
+                                    ],
+                                )
+                            ],
+                        ),
                     ],
                 ),
             ],
@@ -268,6 +283,14 @@ def displaySelectedNodeData(data):
     Input("cytoscape", "selectedEdgeData"),
 )
 def displaySelectedEdgeData(data):
+    return json.dumps(data, indent=2)
+
+
+@callback(
+    Output("elements-data-json-output", "children"),
+    Input("cytoscape", "elements"),
+)
+def displayElementsData(data):
     return json.dumps(data, indent=2)
 
 
