@@ -45,7 +45,24 @@ def create_app(dash_duo):
         "Node 5": (277, 236),
         "Node 6": (168, 283),
     }
-    return init_pos, actions
+
+    def calculate_edge_position(node_1, node_2):
+        x = round((node_1[0] + node_2[0]) * 0.5)
+        y = round((node_1[1] + node_2[1]) * 0.5)
+        return (x, y)
+
+    edges_positions = {
+        "Edge from Node 1 to Node 2": calculate_edge_position(
+            init_pos["Node 1"], init_pos["Node 2"]
+        ),
+        "Edge from Node 2 to Node 4": calculate_edge_position(
+            init_pos["Node 2"], init_pos["Node 4"]
+        ),
+        "Edge from Node 5 to Node 1": calculate_edge_position(
+            init_pos["Node 5"], init_pos["Node 1"]
+        ),
+    }
+    return init_pos, actions, edges_positions
 
 
 def save_screenshot(dash_duo, dir_name, name):
@@ -145,7 +162,7 @@ def perform_mouseover(
 
 
 def test_cyin001_dragging(dash_duo):
-    init_pos, actions = create_app(dash_duo)
+    init_pos, actions, _ = create_app(dash_duo)
 
     drag_error = "Unable to drag Cytoscape nodes properly"
 
@@ -187,7 +204,7 @@ def test_cyin001_dragging(dash_duo):
 
 
 def test_cyin002_clicking(dash_duo):
-    init_pos, actions = create_app(dash_duo)
+    init_pos, actions, _ = create_app(dash_duo)
     click_error = "Unable to click Cytoscape nodes properly"
 
     # Select the JSON output element
@@ -201,8 +218,22 @@ def test_cyin002_clicking(dash_duo):
         ), click_error
 
 
-def test_cyin003_mouseover(dash_duo):
-    init_pos, actions = create_app(dash_duo)
+def test_cyin003_clicking_edges(dash_duo):
+    _, actions, edges_positions = create_app(dash_duo)
+
+    # Select the JSON output element
+    elem_tap = dash_duo.find_element("pre#tap-edge-json-output")
+
+    # Test clicking the edges
+    for label in edges_positions.keys():
+        assert (
+            perform_clicking(dash_duo, *edges_positions[label], elem_tap, actions)
+            == label
+        )
+
+
+def test_cyin004_mouseover(dash_duo):
+    init_pos, actions, _ = create_app(dash_duo)
     mouseover_error = "Unable to mouseover Cytoscape nodes properly"
 
     # Open the Mouseover JSON tab
@@ -222,8 +253,29 @@ def test_cyin003_mouseover(dash_duo):
         ), mouseover_error
 
 
-def test_cyin004_mouseover_unhover(dash_duo):
-    init_pos, actions = create_app(dash_duo)
+def test_cyin005_mouseover_edges(dash_duo):
+    _, actions, edges_positions = create_app(dash_duo)
+
+    # Open the Mouseover JSON tab
+    actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(3)"))
+    actions.click().perform()
+    time.sleep(1)
+
+    # Select the JSON output element
+    elem_mouseover = dash_duo.find_element("pre#mouseover-edge-data-json-output")
+
+    # Test mouseover the edges
+    for label in edges_positions.keys():
+        assert (
+            perform_mouseover(
+                dash_duo, *edges_positions[label], elem_mouseover, actions
+            )
+            == label
+        )
+
+
+def test_cyin006_mouseover_unhover(dash_duo):
+    init_pos, actions, _ = create_app(dash_duo)
     mouseover_error = "Unable to mouseover Cytoscape nodes properly"
 
     # Open the Mouseover JSON tab
@@ -262,8 +314,8 @@ def test_cyin004_mouseover_unhover(dash_duo):
     ), mouseover_error
 
 
-def test_cyin005_click_twice(dash_duo):
-    init_pos, actions = create_app(dash_duo)
+def test_cyin007_click_twice(dash_duo):
+    init_pos, actions, _ = create_app(dash_duo)
 
     # Open the Tap Data JSON tab
     actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(2)"))

@@ -36,7 +36,7 @@ basic_elements = [
             "id": "one-two",
             "source": "one",
             "target": "two",
-            "label": "Edge from Node1 to Node2",
+            "label": "Edge from Node 1 to Node 2",
         }
     },
     {
