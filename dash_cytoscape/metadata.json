@@ -880,6 +880,17 @@
           "value": "false",
           "computed": false
         }
+      },
+      "clearOnUnhover": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.\nIf set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last\nNode or Edge hovered over",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
       }
     }
   }

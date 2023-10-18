@@ -21,6 +21,9 @@ default (if true, overrides individual element state).
 to select) is enabled. If enabled, the user must taphold to pan the graph.
 - `className` (String; optional): Sets the class name of the element (the value of an element's html
 class attribute).
+- `clearOnUnhover` (Bool; optional): If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
+If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
+Node or Edge hovered over
 - `elements` (optional): A list of dictionaries representing the elements of the networks. Each dictionary describes an element, and
 specifies its purpose. The [official Cytoscape.js documentation](https://js.cytoscape.org/#notation/elements-json)
 offers an extensive overview and examples of element declaration.
@@ -195,7 +198,7 @@ to pan the graph.
 is mutable overall).
 """
 function cyto_cytoscape(; kwargs...)
-        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :elements, :generateImage, :imageData, :layout, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :zoom, :zoomingEnabled]
+        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :clearOnUnhover, :elements, :generateImage, :imageData, :layout, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :zoom, :zoomingEnabled]
         wild_props = Symbol[]
         return Component("cyto_cytoscape", "Cytoscape", "dash_cytoscape", available_props, wild_props; kwargs...)
 end

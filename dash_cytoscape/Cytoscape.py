@@ -38,6 +38,12 @@ class Cytoscape(Component):
         Sets the class name of the element (the value of an element's html
         class attribute).
 
+    - clearOnUnhover (boolean; default False):
+        If set to True, mouseoverNodeData and mouseoverEdgeData will be
+        cleared on unhover. If set to False, the value of
+        mouseoverNodeData and mouseoverEdgeData will be the last Node or
+        Edge hovered over.
+
     - elements (list of dicts; optional):
         A list of dictionaries representing the elements of the networks.
         Each dictionary describes an element, and specifies its purpose.
@@ -467,6 +473,7 @@ class Cytoscape(Component):
         generateImage=Component.UNDEFINED,
         imageData=Component.UNDEFINED,
         responsive=Component.UNDEFINED,
+        clearOnUnhover=Component.UNDEFINED,
         **kwargs
     ):
         self._prop_names = [
@@ -477,6 +484,7 @@ class Cytoscape(Component):
             "autounselectify",
             "boxSelectionEnabled",
             "className",
+            "clearOnUnhover",
             "elements",
             "generateImage",
             "imageData",
@@ -510,6 +518,7 @@ class Cytoscape(Component):
             "autounselectify",
             "boxSelectionEnabled",
             "className",
+            "clearOnUnhover",
             "elements",
             "generateImage",
             "imageData",

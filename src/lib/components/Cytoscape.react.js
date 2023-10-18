@@ -10,8 +10,8 @@ import _ from 'lodash';
 import CyResponsive from '../cyResponsive.js';
 
 /**
-A Component Library for Dash aimed at facilitating network visualization in
-Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
+ * A Component Library for Dash aimed at facilitating network visualization in
+ * Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
  */
 class Cytoscape extends Component {
     constructor(props) {
@@ -173,67 +173,77 @@ class Cytoscape extends Component {
 
         const sendSelectedNodesData = _.debounce(() => {
             /**
-             This function is repetitively called every time a node is selected
-             or unselected, but keeps being debounced if it is called again
-             within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
-             runs when all the nodes have been correctly selected/unselected and
-             added/removed from the selectedNodes collection, and then updates
-             the selectedNodeData prop.
-             */
+               This function is repetitively called every time a node is selected
+               or unselected, but keeps being debounced if it is called again
+               within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
+               runs when all the nodes have been correctly selected/unselected and
+               added/removed from the selectedNodes collection, and then updates
+               the selectedNodeData prop.
+               */
             const nodeData = selectedNodes.map((el) => el.data());
 
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    selectedNodeData: nodeData,
-                });
-            }
+            this.props.setProps({
+                selectedNodeData: nodeData,
+            });
         }, SELECT_THRESHOLD);
 
         const sendSelectedEdgesData = _.debounce(() => {
             const edgeData = selectedEdges.map((el) => el.data());
 
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    selectedEdgeData: edgeData,
-                });
-            }
+            this.props.setProps({
+                selectedEdgeData: edgeData,
+            });
         }, SELECT_THRESHOLD);
 
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
         cy.on('tap', 'node', (event) => {
             const nodeObject = this.generateNode(event);
 
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    tapNode: nodeObject,
-                    tapNodeData: nodeObject.data,
-                });
-            }
+            this.props.setProps({
+                tapNode: nodeObject,
+                tapNodeData: Object.assign({}, nodeObject.data, {
+                    timeStamp: nodeObject.timeStamp,
+                }),
+            });
         });
 
         cy.on('tap', 'edge', (event) => {
             const edgeObject = this.generateEdge(event);
 
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    tapEdge: edgeObject,
-                    tapEdgeData: edgeObject.data,
-                });
-            }
+            this.props.setProps({
+                tapEdge: edgeObject,
+                tapEdgeData: Object.assign({}, edgeObject.data, {
+                    timeStamp: edgeObject.timeStamp,
+                }),
+            });
         });
 
         cy.on('mouseover', 'node', (event) => {
-            if (typeof this.props.setProps === 'function') {
-                this.props.setProps({
-                    mouseoverNodeData: event.target.data(),
-                });
-            }
+            this.props.setProps({
+                mouseoverNodeData: Object.assign({}, event.target.data(), {
+                    timeStamp: event.timeStamp,
+                }),
+            });
         });
 
         cy.on('mouseover', 'edge', (event) => {
-            if (typeof this.props.setProps === 'function') {
+            this.props.setProps({
+                mouseoverEdgeData: Object.assign({}, event.target.data(), {
+                    timeStamp: event.timeStamp,
+                }),
+            });
+        });
+
+        cy.on('mouseout', 'node', (_) => {
+            if (this.props.clearOnUnhover === true) {
+                this.props.setProps({mouseoverNodeData: null});
+            }
+        });
+
+        cy.on('mouseout', 'edge', (_) => {
+            if (this.props.clearOnUnhover === true) {
                 this.props.setProps({
-                    mouseoverEdgeData: event.target.data(),
+                    mouseoverEdgeData: null,
                 });
             }
         });
@@ -268,6 +278,23 @@ class Cytoscape extends Component {
 
         cy.on('add remove', () => {
             refreshLayout();
+        });
+
+        cy.on('dragfree', 'node', (_) => {
+            this.props.setProps({
+                elements: cy.elements('').map((item) => {
+                    if (item.json().group === 'nodes') {
+                        return {
+                            data: item.json().data,
+                            position: item.json().position,
+                        };
+                    }
+                    return {
+                        data: item.json().data,
+                        position: void 0,
+                    };
+                }),
+            });
         });
 
         this.cyResponsiveClass = new CyResponsive(cy);
@@ -898,6 +925,13 @@ Cytoscape.propTypes = {
      * Toggles intelligent responsive resize of Cytoscape graph with viewport size change
      */
     responsive: PropTypes.bool,
+
+    /**
+     * If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
+     * If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
+     * Node or Edge hovered over
+     */
+    clearOnUnhover: PropTypes.bool,
 };
 
 Cytoscape.defaultProps = {
@@ -919,6 +953,7 @@ Cytoscape.defaultProps = {
     generateImage: {},
     imageData: null,
     responsive: false,
+    clearOnUnhover: false,
     elements: [],
 };
 
