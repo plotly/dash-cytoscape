@@ -102,7 +102,7 @@
         "required": false,
         "description": "Add inline styles to the root element.",
         "defaultValue": {
-          "value": "{width: '600px', height: '600px'}",
+          "value": "{ width: '600px', height: '600px' }",
           "computed": false
         }
       },
@@ -345,7 +345,29 @@
         "required": false,
         "description": "A dictionary specifying how to set the position of the elements in your\ngraph. The `'name'` key is required, and indicates which layout (algorithm) to\nuse. The keys accepted by `layout` vary depending on the algorithm, but these\nkeys are accepted by all layouts: `fit`,  `padding`, `animate`, `animationDuration`,\n`boundingBox`.\n\n The complete list of layouts and their accepted options are available on the\n [Cytoscape.js docs](https://js.cytoscape.org/#layouts) . For the external layouts,\nthe options are listed in the \"API\" section of the  README.\n Note that certain keys are not supported in Dash since the value is a JavaScript\n function or a callback. Please visit this\n[issue](https://github.com/plotly/dash-cytoscape/issues/25) for more information.",
         "defaultValue": {
-          "value": "{name: 'grid'}",
+          "value": "{ name: 'grid' }",
+          "computed": false
+        }
+      },
+      "contextMenuData": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "Define a custom context menu",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "tapContextMenu": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Retrieve relevant data when context menu item is clicked",
+        "defaultValue": {
+          "value": "{}",
           "computed": false
         }
       },
@@ -368,7 +390,7 @@
         "required": false,
         "description": "Dictionary indicating the initial panning position of the graph. The\nfollowing keys are accepted:",
         "defaultValue": {
-          "value": "{x: 0, y: 0}",
+          "value": "{ x: 0, y: 0 }",
           "computed": false
         }
       },

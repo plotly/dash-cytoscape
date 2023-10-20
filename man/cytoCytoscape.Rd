@@ -13,13 +13,14 @@ A Component Library for Dash aimed at facilitating network visualization in Pyth
 cytoCytoscape(id=NULL, autoRefreshLayout=NULL, autolock=NULL,
 autoungrabify=NULL, autounselectify=NULL,
 boxSelectionEnabled=NULL, className=NULL,
-clearOnUnhover=NULL, elements=NULL, generateImage=NULL,
-imageData=NULL, layout=NULL, maxZoom=NULL, minZoom=NULL,
-mouseoverEdgeData=NULL, mouseoverNodeData=NULL, pan=NULL,
-panningEnabled=NULL, responsive=NULL, selectedEdgeData=NULL,
+clearOnUnhover=NULL, contextMenuData=NULL, elements=NULL,
+generateImage=NULL, imageData=NULL, layout=NULL,
+maxZoom=NULL, minZoom=NULL, mouseoverEdgeData=NULL,
+mouseoverNodeData=NULL, pan=NULL, panningEnabled=NULL,
+responsive=NULL, selectedEdgeData=NULL,
 selectedNodeData=NULL, style=NULL, stylesheet=NULL,
-tapEdge=NULL, tapEdgeData=NULL, tapNode=NULL,
-tapNodeData=NULL, userPanningEnabled=NULL,
+tapContextMenu=NULL, tapEdge=NULL, tapEdgeData=NULL,
+tapNode=NULL, tapNodeData=NULL, userPanningEnabled=NULL,
 userZoomingEnabled=NULL, zoom=NULL, zoomingEnabled=NULL)
 }
 
@@ -46,6 +47,8 @@ class attribute).}
 \item{clearOnUnhover}{Logical. If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
 If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
 Node or Edge hovered over}
+
+\item{contextMenuData}{Unnamed list. Define a custom context menu}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:
@@ -181,6 +184,8 @@ the [style](https://js.cytoscape.org/#style/node-body) are
 exhaustively documented in the Cytoscape.js docs. Although methods such
 as `cy.elements(...)` and `cy.filter(...)` are not available, the selector
 string syntax stays the same.}
+
+\item{tapContextMenu}{Named list. Retrieve relevant data when context menu item is clicked}
 
 \item{tapEdge}{Lists containing elements 'isloop', 'issimple', 'midpoint', 'sourcedata', 'sourceendpoint', 'targetdata', 'targetendpoint', 'timestamp', 'classes', 'data', 'grabbable', 'group', 'locked', 'selectable', 'selected', 'style'.
 those elements have the following types:

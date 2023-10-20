@@ -44,6 +44,9 @@ class Cytoscape(Component):
         mouseoverNodeData and mouseoverEdgeData will be the last Node or
         Edge hovered over.
 
+    - contextMenuData (list; optional):
+        Define a custom context menu.
+
     - elements (list of dicts; optional):
         A list of dictionaries representing the elements of the networks.
         Each dictionary describes an element, and specifies its purpose.
@@ -158,7 +161,7 @@ class Cytoscape(Component):
         Null if no image was requested yet or the previous request failed.
         Read-only.
 
-    - layout (dict; default {name: 'grid'}):
+    - layout (dict; default { name: 'grid' }):
         A dictionary specifying how to set the position of the elements in
         your graph. The `'name'` key is required, and indicates which
         layout (algorithm) to use. The keys accepted by `layout` vary
@@ -231,7 +234,7 @@ class Cytoscape(Component):
         The data dictionary of a node returned when you hover over it.
         Read-only.
 
-    - pan (dict; default {x: 0, y: 0}):
+    - pan (dict; default { x: 0, y: 0 }):
         Dictionary indicating the initial panning position of the graph.
         The following keys are accepted:.
 
@@ -261,7 +264,7 @@ class Cytoscape(Component):
         Shift+Click to select multiple nodes, or Shift+Drag to use box
         selection). Read-only.
 
-    - style (dict; default {width: '600px', height: '600px'}):
+    - style (dict; default { width: '600px', height: '600px' }):
         Add inline styles to the root element.
 
     - stylesheet (list of dicts; optional):
@@ -284,6 +287,9 @@ class Cytoscape(Component):
             What aspects of the elements you want to modify. This could be
             the size or color of a node, the shape of an edge arrow, or
             many more.
+
+    - tapContextMenu (dict; optional):
+        Retrieve relevant data when context menu item is clicked.
 
     - tapEdge (dict; optional):
         The complete edge dictionary returned when you tap or click it.
@@ -449,6 +455,8 @@ class Cytoscape(Component):
         elements=Component.UNDEFINED,
         stylesheet=Component.UNDEFINED,
         layout=Component.UNDEFINED,
+        contextMenuData=Component.UNDEFINED,
+        tapContextMenu=Component.UNDEFINED,
         pan=Component.UNDEFINED,
         zoom=Component.UNDEFINED,
         panningEnabled=Component.UNDEFINED,
@@ -485,6 +493,7 @@ class Cytoscape(Component):
             "boxSelectionEnabled",
             "className",
             "clearOnUnhover",
+            "contextMenuData",
             "elements",
             "generateImage",
             "imageData",
@@ -500,6 +509,7 @@ class Cytoscape(Component):
             "selectedNodeData",
             "style",
             "stylesheet",
+            "tapContextMenu",
             "tapEdge",
             "tapEdgeData",
             "tapNode",
@@ -519,6 +529,7 @@ class Cytoscape(Component):
             "boxSelectionEnabled",
             "className",
             "clearOnUnhover",
+            "contextMenuData",
             "elements",
             "generateImage",
             "imageData",
@@ -534,6 +545,7 @@ class Cytoscape(Component):
             "selectedNodeData",
             "style",
             "stylesheet",
+            "tapContextMenu",
             "tapEdge",
             "tapEdgeData",
             "tapNode",
