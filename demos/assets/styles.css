@@ -1,0 +1,14 @@
+.cytoscape-reference p {
+    display: inline
+}
+
+
+.custom-menu-item {
+    background-color: rgb(241, 241, 241);
+    font-weight: bold !important;
+    width: 160px;
+}
+
+.cy-context-menus-cxt-menu {
+    display: none;
+}

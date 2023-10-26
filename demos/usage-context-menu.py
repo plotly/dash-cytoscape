@@ -55,7 +55,7 @@ app.layout = html.Div(
                     "content": "Revert Edge (PY)",
                     "tooltipText": "revert edge",
                     "selector": "edge",
-                    "onClickFunction": "revert_edge",
+                    # "onClickFunction": "revert_edge",
                 },
                 {
                     "id": "add-2-nodes",
@@ -74,6 +74,7 @@ app.layout = html.Div(
                         "curve-style": "straight",
                     },
                 },
+                {"selector": "node", "style": {"label": "data(label)"}},
             ],
         ),
         html.Div(id="output-selection"),
