@@ -365,11 +365,7 @@
           "name": "object"
         },
         "required": false,
-        "description": "Retrieve relevant data when context menu item is clicked",
-        "defaultValue": {
-          "value": "{}",
-          "computed": false
-        }
+        "description": "Retrieve relevant data when context menu item is clicked"
       },
       "pan": {
         "type": {

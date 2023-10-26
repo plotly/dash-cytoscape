@@ -8,8 +8,8 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import CyResponsive from '../cyResponsive.js';
-var cytoscape = require('cytoscape');
-var contextMenus = require('cytoscape-context-menus');
+let cytoscape = require('cytoscape');
+let contextMenus = require('cytoscape-context-menus');
 
 contextMenus(cytoscape); // register extension
 /**
@@ -41,17 +41,17 @@ class Cytoscape extends Component {
         // Trim down the element objects to only the data contained
         const edgesData = ele.connectedEdges().map((ele) => {
             return ele.data();
-        }),
-            childrenData = ele.children().map((ele) => {
+        });
+        const childrenData = ele.children().map((ele) => {
                 return ele.data();
-            }),
-            ancestorsData = ele.ancestors().map((ele) => {
+            });
+            const ancestorsData = ele.ancestors().map((ele) => {
                 return ele.data();
-            }),
-            descendantsData = ele.descendants().map((ele) => {
+            });
+            const descendantsData = ele.descendants().map((ele) => {
                 return ele.data();
-            }),
-            siblingsData = ele.siblings().map((ele) => {
+            });
+            const siblingsData = ele.siblings().map((ele) => {
                 return ele.data();
             });
 
@@ -204,20 +204,20 @@ class Cytoscape extends Component {
             this.props.setProps({ tapContextMenu: newContext });
         }
         const updateElements = (newElement) => {
-            var updatedElements = this.props.elements
+            let updatedElements = this.props.elements
             updatedElements.push(newElement)
             this.props.setProps({ elements: updatedElements });
         }
         const contextMenuDefaultFunctions = {
             remove: function (event) {
-                var target = event.target || event.cyTarget;
+                let target = event.target || event.cyTarget;
                 target.remove();
             },
             add_node: function (event) {
-                var data = {
+                let data = {
                     group: 'nodes'
                 };
-                var pos = event.position || event.cyPosition;
+                let pos = event.position || event.cyPosition;
                 cy.add({
                     data: data,
                     position: {
@@ -229,7 +229,7 @@ class Cytoscape extends Component {
             add_edge: function (event) {
                 const selectedNodeIds = selectedNodes.map(node => node.id());
                 if (selectedNodes.length === 2) {
-                    var newEdge = {
+                    let newEdge = {
                         data: {
                             id: uuidv4(),
                             group: 'edges',
@@ -239,34 +239,33 @@ class Cytoscape extends Component {
                     }
                     cy.add(newEdge)
                     updateElements(newEdge)
-
-                    // this.props.setProps({ elements: newEdge })
                 };
             },
         }
 
         const createMenuItems = (ctxMenuData) => {
-            var new_menu_items = []
+            const new_menu_items = []
             for (const item of ctxMenuData) {
+                let onClickFunction
                 // use default javascript function
                 if (contextMenuDefaultFunctions.hasOwnProperty(item.onClickFunction)) {
-                    var onClickFunction = contextMenuDefaultFunctions[item.onClickFunction]
+                    onClickFunction = contextMenuDefaultFunctions[item.onClickFunction]
                 }
                 else if (window.dashCytoscapeComponentFunctions.hasOwnProperty(item.onClickFunction)) {
-                    var onClickFunction = window.dashCytoscapeComponentFunctions[item.onClickFunction]
+                    onClickFunction = window.dashCytoscapeComponentFunctions[item.onClickFunction]
                 }
                 // return data to define custom on click function in Python
                 else {
-                    var onClickFunction = function (event) {
-                        var elementProps = {};
-                        elementProps.id = item.id;
-                        elementProps.x = event.position.x;
-                        elementProps.y = event.position.y;
-                        elementProps.timeStamp = event.timeStamp
-                        elementProps.elementId = event.target.data().id
-                        elementProps.edgeSource = event.target.data().source
-                        elementProps.edgeTarget = event.target.data().target
-                        updateTapContextMenu(elementProps);
+                    onClickFunction = function (event) {
+                        updateTapContextMenu(     {                  
+                            menuItemId : item.id,
+                            x : event.position.x,
+                            y : event.position.y,
+                            timeStamp : event.timeStamp,
+                            elementId : event.target.data().id,
+                            edgeSource : event.target.data().source,
+                            edgeTarget :event.target.data().target
+                        })
                     };
                 }
                 item.onClickFunction = onClickFunction;
@@ -1051,8 +1050,7 @@ Cytoscape.defaultProps = {
     responsive: false,
     clearOnUnhover: false,
     elements: [],
-    contextMenuData: [],
-    tapContextMenu: {}
+    contextMenuData: []
 };
 
 export default Cytoscape;

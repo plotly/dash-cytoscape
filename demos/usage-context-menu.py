@@ -55,7 +55,6 @@ app.layout = html.Div(
                     "content": "Revert Edge (PY)",
                     "tooltipText": "revert edge",
                     "selector": "edge",
-                    # "onClickFunction": "revert_edge",
                 },
                 {
                     "id": "add-2-nodes",
@@ -94,9 +93,9 @@ app.layout = html.Div(
 def update_output(ctx, elements, selectedEdges, selectedNodes):
     if not ctx:
         return "", elements
-    if ctx["id"] == "split-edge":
+    if ctx["menuItemId"] == "split-edge":
         elements = split_edge(elements, ctx)
-    elif ctx["id"] == "revert-edge":
+    elif ctx["menuItemId"] == "revert-edge":
         elements = revert_egde(elements, ctx)
     tap = f"You clicked on: {str(ctx)}"
     return tap, elements
