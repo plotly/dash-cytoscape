@@ -2,11 +2,11 @@
  * JavaScript Requirements: cytoscape, cytoscape-svg
  * React.js requirements: react-cytoscapejs
  */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import CyResponsive from '../cyResponsive.js';
 let cytoscape = require('cytoscape');
 let contextMenus = require('cytoscape-context-menus');
@@ -43,19 +43,19 @@ class Cytoscape extends Component {
             return ele.data();
         });
         const childrenData = ele.children().map((ele) => {
-                return ele.data();
-            });
-            const ancestorsData = ele.ancestors().map((ele) => {
-                return ele.data();
-            });
-            const descendantsData = ele.descendants().map((ele) => {
-                return ele.data();
-            });
-            const siblingsData = ele.siblings().map((ele) => {
-                return ele.data();
-            });
+            return ele.data();
+        });
+        const ancestorsData = ele.ancestors().map((ele) => {
+            return ele.data();
+        });
+        const descendantsData = ele.descendants().map((ele) => {
+            return ele.data();
+        });
+        const siblingsData = ele.siblings().map((ele) => {
+            return ele.data();
+        });
 
-        const { timeStamp } = event;
+        const {timeStamp} = event;
         const {
             classes,
             data,
@@ -117,8 +117,8 @@ class Cytoscape extends Component {
             targetData = ele.target().data(),
             targetEndpoint = ele.targetEndpoint();
 
-        const { timeStamp } = event;
-        const { classes, data, grabbable, group, locked, selectable, selected } =
+        const {timeStamp} = event;
+        const {classes, data, grabbable, group, locked, selectable, selected} =
             ele.json();
 
         const edgeObject = {
@@ -161,14 +161,14 @@ class Cytoscape extends Component {
 
         const selectedNodes = cy.collection();
         const selectedEdges = cy.collection();
-        const ctxMenuData = this.props.contextMenuData
+        const ctxMenuData = this.props.contextMenuData;
 
         // ///////////////////////////////////// FUNCTIONS /////////////////////////////////////////
         const refreshLayout = _.debounce(() => {
             /**
              * Refresh Layout if needed
              */
-            const { autoRefreshLayout, layout } = this.props;
+            const {autoRefreshLayout, layout} = this.props;
 
             if (autoRefreshLayout) {
                 cy.layout(layout).run();
@@ -201,13 +201,13 @@ class Cytoscape extends Component {
 
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
         const updateTapContextMenu = (newContext) => {
-            this.props.setProps({ tapContextMenu: newContext });
-        }
+            this.props.setProps({tapContextMenu: newContext});
+        };
         const updateElements = (newElement) => {
-            let updatedElements = this.props.elements
-            updatedElements.push(newElement)
-            this.props.setProps({ elements: updatedElements });
-        }
+            let updatedElements = this.props.elements;
+            updatedElements.push(newElement);
+            this.props.setProps({elements: updatedElements});
+        };
         const contextMenuDefaultFunctions = {
             remove: function (event) {
                 let target = event.target || event.cyTarget;
@@ -215,19 +215,19 @@ class Cytoscape extends Component {
             },
             add_node: function (event) {
                 let data = {
-                    group: 'nodes'
+                    group: 'nodes',
                 };
                 let pos = event.position || event.cyPosition;
                 cy.add({
                     data: data,
                     position: {
                         x: pos.x,
-                        y: pos.y
-                    }
+                        y: pos.y,
+                    },
                 });
             },
             add_edge: function (event) {
-                const selectedNodeIds = selectedNodes.map(node => node.id());
+                const selectedNodeIds = selectedNodes.map((node) => node.id());
                 if (selectedNodes.length === 2) {
                     let newEdge = {
                         data: {
@@ -235,42 +235,53 @@ class Cytoscape extends Component {
                             group: 'edges',
                             source: selectedNodeIds[0],
                             target: selectedNodeIds[1],
-                        }
-                    }
-                    cy.add(newEdge)
-                    updateElements(newEdge)
-                };
+                        },
+                    };
+                    cy.add(newEdge);
+                    updateElements(newEdge);
+                }
             },
-        }
+        };
 
         const createMenuItems = (ctxMenuData) => {
-            const new_menu_items = []
+            const new_menu_items = [];
             for (const item of ctxMenuData) {
-                let onClickFunction
+                let onClickFunction;
                 // use default javascript function
-                if (contextMenuDefaultFunctions.hasOwnProperty(item.onClickFunction)) {
-                    onClickFunction = contextMenuDefaultFunctions[item.onClickFunction]
-                }
-                else if (window.dashCytoscapeComponentFunctions.hasOwnProperty(item.onClickFunction)) {
-                    onClickFunction = window.dashCytoscapeComponentFunctions[item.onClickFunction]
+                if (
+                    contextMenuDefaultFunctions.hasOwnProperty(
+                        item.onClickFunction
+                    )
+                ) {
+                    onClickFunction =
+                        contextMenuDefaultFunctions[item.onClickFunction];
+                } else if (
+                    window.dashCytoscapeComponentFunctions.hasOwnProperty(
+                        item.onClickFunction
+                    )
+                ) {
+                    onClickFunction =
+                        window.dashCytoscapeComponentFunctions[
+                            item.onClickFunction
+                        ];
                 }
                 // return data to define custom on click function in Python
                 else {
                     onClickFunction = function (event) {
-                        updateTapContextMenu(     {                  
-                            menuItemId : item.id,
-                            x : event.position.x,
-                            y : event.position.y,
-                            timeStamp : event.timeStamp,
-                            elementId : event.target.data().id,
-                            edgeSource : event.target.data().source,
-                            edgeTarget :event.target.data().target
-                        })
+                        updateTapContextMenu({
+                            menuItemId: item.id,
+                            x: event.position.x,
+                            y: event.position.y,
+                            timeStamp: event.timeStamp,
+                            elementId: event.target.data().id,
+                            edgeSource: event.target.data().source,
+                            edgeTarget: event.target.data().target,
+                        });
                     };
                 }
                 item.onClickFunction = onClickFunction;
                 new_menu_items.push(item);
-            };
+            }
             return new_menu_items;
         };
 
@@ -314,7 +325,7 @@ class Cytoscape extends Component {
 
         cy.on('mouseout', 'node', (_) => {
             if (this.props.clearOnUnhover === true) {
-                this.props.setProps({ mouseoverNodeData: null });
+                this.props.setProps({mouseoverNodeData: null});
             }
         });
 
@@ -357,7 +368,6 @@ class Cytoscape extends Component {
         cy.on('add remove', () => {
             refreshLayout();
         });
-
 
         cy.on('dragfree', 'node', (_) => {
             this.props.setProps({
@@ -477,7 +487,7 @@ class Cytoscape extends Component {
                 if (desiredOutput === 'base64') {
                     callbackData = callbackData.replace(/^data:.+;base64,/, '');
                 }
-                this.props.setProps({ imageData: callbackData });
+                this.props.setProps({imageData: callbackData});
             };
             reader.readAsDataURL(output);
         }
@@ -541,7 +551,7 @@ class Cytoscape extends Component {
         if (Object.keys(generateImage).length > 0) {
             // If no cytoscape object has been created yet, an image cannot be generated,
             // so generateImage will be ignored and cleared.
-            this.props.setProps({ generateImage: {} });
+            this.props.setProps({generateImage: {}});
             if (this._cy) {
                 this.handleImageGeneration(
                     generateImage.type,
@@ -764,8 +774,8 @@ Cytoscape.propTypes = {
         boundingBox: PropTypes.object,
     }),
     /**
- * Define a custom context menu
- */
+     * Define a custom context menu
+     */
     contextMenuData: PropTypes.array,
     /**
      * Retrieve relevant data when context menu item is clicked
@@ -1030,9 +1040,9 @@ Cytoscape.propTypes = {
 };
 
 Cytoscape.defaultProps = {
-    style: { width: '600px', height: '600px' },
-    layout: { name: 'grid' },
-    pan: { x: 0, y: 0 },
+    style: {width: '600px', height: '600px'},
+    layout: {name: 'grid'},
+    pan: {x: 0, y: 0},
     zoom: 1,
     minZoom: 1e-50,
     maxZoom: 1e50,
@@ -1050,7 +1060,7 @@ Cytoscape.defaultProps = {
     responsive: false,
     clearOnUnhover: false,
     elements: [],
-    contextMenuData: []
+    contextMenuData: [],
 };
 
 export default Cytoscape;
