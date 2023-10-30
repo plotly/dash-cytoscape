@@ -13,14 +13,14 @@ A Component Library for Dash aimed at facilitating network visualization in Pyth
 cytoCytoscape(id=NULL, autoRefreshLayout=NULL, autolock=NULL,
 autoungrabify=NULL, autounselectify=NULL,
 boxSelectionEnabled=NULL, className=NULL,
-clearOnUnhover=NULL, contextMenuData=NULL, elements=NULL,
-generateImage=NULL, imageData=NULL, layout=NULL,
-maxZoom=NULL, minZoom=NULL, mouseoverEdgeData=NULL,
-mouseoverNodeData=NULL, pan=NULL, panningEnabled=NULL,
-responsive=NULL, selectedEdgeData=NULL,
+clearOnUnhover=NULL, contextMenu=NULL, contextMenuData=NULL,
+elements=NULL, generateImage=NULL, imageData=NULL,
+layout=NULL, maxZoom=NULL, minZoom=NULL,
+mouseoverEdgeData=NULL, mouseoverNodeData=NULL, pan=NULL,
+panningEnabled=NULL, responsive=NULL, selectedEdgeData=NULL,
 selectedNodeData=NULL, style=NULL, stylesheet=NULL,
-tapContextMenu=NULL, tapEdge=NULL, tapEdgeData=NULL,
-tapNode=NULL, tapNodeData=NULL, userPanningEnabled=NULL,
+tapEdge=NULL, tapEdgeData=NULL, tapNode=NULL,
+tapNodeData=NULL, userPanningEnabled=NULL,
 userZoomingEnabled=NULL, zoom=NULL, zoomingEnabled=NULL)
 }
 
@@ -48,7 +48,24 @@ class attribute).}
 If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
 Node or Edge hovered over}
 
-\item{contextMenuData}{Unnamed list. Define a custom context menu}
+\item{contextMenu}{List of lists containing elements 'id', 'content', 'tooltiptext', 'coreaswell', 'selector', 'onclickfunction'.
+those elements have the following types:
+  - id (character; required)
+  - content (character; required)
+  - tooltiptext (character; optional)
+  - coreaswell (character; optional)
+  - selector (character; optional)
+  - onclickfunction (character; optional)s. Define a custom context menu}
+
+\item{contextMenuData}{Lists containing elements 'menuitemid', 'x', 'y', 'timestamp', 'elementid', 'edgesource', 'edgetarget'.
+those elements have the following types:
+  - menuitemid (character; optional)
+  - x (numeric; optional)
+  - y (numeric; optional)
+  - timestamp (numeric; optional)
+  - elementid (character; optional)
+  - edgesource (character; optional)
+  - edgetarget (character; optional). Retrieve relevant data when context menu item is clicked}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:
@@ -184,8 +201,6 @@ the [style](https://js.cytoscape.org/#style/node-body) are
 exhaustively documented in the Cytoscape.js docs. Although methods such
 as `cy.elements(...)` and `cy.filter(...)` are not available, the selector
 string syntax stays the same.}
-
-\item{tapContextMenu}{Named list. Retrieve relevant data when context menu item is clicked}
 
 \item{tapEdge}{Lists containing elements 'isloop', 'issimple', 'midpoint', 'sourcedata', 'sourceendpoint', 'targetdata', 'targetendpoint', 'timestamp', 'classes', 'data', 'grabbable', 'group', 'locked', 'selectable', 'selected', 'style'.
 those elements have the following types:

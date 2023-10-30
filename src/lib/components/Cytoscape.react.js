@@ -161,7 +161,7 @@ class Cytoscape extends Component {
 
         const selectedNodes = cy.collection();
         const selectedEdges = cy.collection();
-        const ctxMenuData = this.props.contextMenuData;
+        const ctxMenu = this.props.contextMenu;
 
         // ///////////////////////////////////// FUNCTIONS /////////////////////////////////////////
         const refreshLayout = _.debounce(() => {
@@ -200,8 +200,8 @@ class Cytoscape extends Component {
         }, SELECT_THRESHOLD);
 
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
-        const updateTapContextMenu = (newContext) => {
-            this.props.setProps({tapContextMenu: newContext});
+        const updateContextMenuData = (newContext) => {
+            this.props.setProps({contextMenuData: newContext});
         };
         const updateElements = (newElement) => {
             let updatedElements = this.props.elements;
@@ -243,9 +243,9 @@ class Cytoscape extends Component {
             },
         };
 
-        const createMenuItems = (ctxMenuData) => {
+        const createMenuItems = (ctxMenu) => {
             const new_menu_items = [];
-            for (const item of ctxMenuData) {
+            for (const item of ctxMenu) {
                 let onClickFunction;
                 // use default javascript function
                 if (
@@ -268,7 +268,7 @@ class Cytoscape extends Component {
                 // return data to define custom on click function in Python
                 else {
                     onClickFunction = function (event) {
-                        updateTapContextMenu({
+                        updateContextMenuData({
                             menuItemId: item.id,
                             x: event.position.x,
                             y: event.position.y,
@@ -386,7 +386,7 @@ class Cytoscape extends Component {
             });
         });
         cy.contextMenus({
-            menuItems: createMenuItems(ctxMenuData),
+            menuItems: createMenuItems(ctxMenu),
             menuItemClasses: ['custom-menu-item'],
         });
 
@@ -526,8 +526,8 @@ class Cytoscape extends Component {
             elements,
             stylesheet,
             layout,
+            contextMenu,
             contextMenuData,
-            tapContextMenu,
             // Viewport Manipulation
             pan,
             zoom,
@@ -575,8 +575,8 @@ class Cytoscape extends Component {
                 elements={CytoscapeComponent.normalizeElements(elements)}
                 stylesheet={stylesheet}
                 layout={layout}
+                contextMenu={contextMenu}
                 contextMenuData={contextMenuData}
-                tapContextMenu={tapContextMenu}
                 pan={pan}
                 zoom={zoom}
                 panningEnabled={panningEnabled}
@@ -776,12 +776,31 @@ Cytoscape.propTypes = {
     /**
      * Define a custom context menu
      */
-    contextMenuData: PropTypes.array,
+    contextMenu: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            content: PropTypes.string.isRequired,
+            tooltipText: PropTypes.string,
+            coreAsWell: PropTypes.string,
+            selector: PropTypes.string,
+            onClickFunction: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.function,
+            ]),
+        })
+    ),
     /**
      * Retrieve relevant data when context menu item is clicked
      */
-    tapContextMenu: PropTypes.object,
-
+    contextMenuData: PropTypes.shape({
+        menuItemId: PropTypes.string,
+        x: PropTypes.number,
+        y: PropTypes.number,
+        timeStamp: PropTypes.number,
+        elementId: PropTypes.string,
+        edgeSource: PropTypes.string,
+        edgeTarget: PropTypes.string,
+    }),
     // Viewport Manipulation
 
     /**
@@ -1060,7 +1079,7 @@ Cytoscape.defaultProps = {
     responsive: false,
     clearOnUnhover: false,
     elements: [],
-    contextMenuData: [],
+    contextMenu: [],
 };
 
 export default Cytoscape;

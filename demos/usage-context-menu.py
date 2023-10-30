@@ -22,7 +22,7 @@ app.layout = html.Div(
                 {"data": {"source": "one", "target": "two"}},
             ],
             layout={"name": "preset"},
-            contextMenuData=[
+            contextMenu=[
                 {
                     "id": "add-node",
                     "content": "Add Node (JS)",
@@ -85,7 +85,7 @@ app.layout = html.Div(
 @callback(
     Output("output", "children"),
     Output("cytoscape", "elements"),
-    Input("cytoscape", "tapContextMenu"),
+    Input("cytoscape", "contextMenuData"),
     State("cytoscape", "elements"),
     State("cytoscape", "selectedEdgeData"),
     State("cytoscape", "selectedNodeData"),

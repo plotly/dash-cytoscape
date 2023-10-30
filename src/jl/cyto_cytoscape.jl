@@ -24,7 +24,23 @@ class attribute).
 - `clearOnUnhover` (Bool; optional): If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
 If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
 Node or Edge hovered over
-- `contextMenuData` (Array; optional): Define a custom context menu
+- `contextMenu` (optional): Define a custom context menu. contextMenu has the following type: Array of lists containing elements 'id', 'content', 'tooltipText', 'coreAsWell', 'selector', 'onClickFunction'.
+Those elements have the following types:
+  - `id` (String; required)
+  - `content` (String; required)
+  - `tooltipText` (String; optional)
+  - `coreAsWell` (String; optional)
+  - `selector` (String; optional)
+  - `onClickFunction` (String; optional)s
+- `contextMenuData` (optional): Retrieve relevant data when context menu item is clicked. contextMenuData has the following type: lists containing elements 'menuItemId', 'x', 'y', 'timeStamp', 'elementId', 'edgeSource', 'edgeTarget'.
+Those elements have the following types:
+  - `menuItemId` (String; optional)
+  - `x` (Real; optional)
+  - `y` (Real; optional)
+  - `timeStamp` (Real; optional)
+  - `elementId` (String; optional)
+  - `edgeSource` (String; optional)
+  - `edgeTarget` (String; optional)
 - `elements` (optional): A list of dictionaries representing the elements of the networks. Each dictionary describes an element, and
 specifies its purpose. The [official Cytoscape.js documentation](https://js.cytoscape.org/#notation/elements-json)
 offers an extensive overview and examples of element declaration.
@@ -145,7 +161,6 @@ Those elements have the following types:
 a class (that you declare in the element dictionary), or an element by ID.
   - `style` (Dict; required): What aspects of the elements you want to modify. This could be the size or
 color of a node, the shape of an edge arrow, or many more.s
-- `tapContextMenu` (Dict; optional): Retrieve relevant data when context menu item is clicked
 - `tapEdge` (optional): The complete edge dictionary returned when you tap or click it. Read-only.. tapEdge has the following type: lists containing elements 'isLoop', 'isSimple', 'midpoint', 'sourceData', 'sourceEndpoint', 'targetData', 'targetEndpoint', 'timeStamp', 'classes', 'data', 'grabbable', 'group', 'locked', 'selectable', 'selected', 'style'.
 Those elements have the following types:
   - `isLoop` (Bool; optional): Edge-specific item
@@ -200,7 +215,7 @@ to pan the graph.
 is mutable overall).
 """
 function cyto_cytoscape(; kwargs...)
-        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :clearOnUnhover, :contextMenuData, :elements, :generateImage, :imageData, :layout, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapContextMenu, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :zoom, :zoomingEnabled]
+        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :clearOnUnhover, :contextMenu, :contextMenuData, :elements, :generateImage, :imageData, :layout, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :zoom, :zoomingEnabled]
         wild_props = Symbol[]
         return Component("cyto_cytoscape", "Cytoscape", "dash_cytoscape", available_props, wild_props; kwargs...)
 end
