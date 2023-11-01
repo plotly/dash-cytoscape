@@ -203,11 +203,6 @@ class Cytoscape extends Component {
         const updateContextMenuData = (newContext) => {
             this.props.setProps({contextMenuData: newContext});
         };
-        const updateElements = (newElement) => {
-            let updatedElements = this.props.elements;
-            updatedElements.push(newElement);
-            this.props.setProps({elements: updatedElements});
-        };
         const contextMenuDefaultFunctions = {
             remove: function (event) {
                 let target = event.target || event.cyTarget;
@@ -238,7 +233,6 @@ class Cytoscape extends Component {
                         },
                     };
                     cy.add(newEdge);
-                    updateElements(newEdge);
                 }
             },
         };
@@ -369,7 +363,7 @@ class Cytoscape extends Component {
             refreshLayout();
         });
 
-        cy.on('dragfree', 'node', (_) => {
+        cy.on('dragfree add remove', (_) => {
             this.props.setProps({
                 elements: cy.elements('').map((item) => {
                     if (item.json().group === 'nodes') {
