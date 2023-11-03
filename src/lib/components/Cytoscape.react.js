@@ -250,6 +250,7 @@ class Cytoscape extends Component {
                     onClickFunction =
                         contextMenuDefaultFunctions[item.onClickFunction];
                 } else if (
+                    window.hasOwnProperty('dashCytoscapeComponentFunctions') &&
                     window.dashCytoscapeComponentFunctions.hasOwnProperty(
                         item.onClickFunction
                     )
