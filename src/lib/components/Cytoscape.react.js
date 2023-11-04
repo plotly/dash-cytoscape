@@ -8,8 +8,10 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 import {v4 as uuidv4} from 'uuid';
 import CyResponsive from '../cyResponsive.js';
+import '../css/cytoscape.css';
 let cytoscape = require('cytoscape');
 let contextMenus = require('cytoscape-context-menus');
+
 
 contextMenus(cytoscape); // register extension
 /**
