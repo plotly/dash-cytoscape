@@ -102,21 +102,21 @@ context_menu = [
         "content": "Add Node (JS)",
         "tooltipText": "Add Node",
         "coreAsWell": "true",
-        "onClickFunction": "add_node",
+        "onClick": "add_node",
     },
     {
         "id": "remove",
         "content": "Remove (JS)",
         "tooltipText": "Remove",
         "selector": "node, edge",
-        "onClickFunction": "remove",
+        "onClick": "remove",
     },
     {
         "id": "add-edge",
         "content": "Add Edge (JS)",
         "tooltipText": "add edge",
         "selector": "node",
-        "onClickFunction": "add_edge",
+        "onClick": "add_edge",
     },
 ]
 
