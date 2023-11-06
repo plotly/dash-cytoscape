@@ -233,8 +233,7 @@ class Cytoscape extends Component {
                             target: selectedNodeIds[0],
                         },
                     });
-                }
-                if (selectedNodes.length === 2) {
+                } else if (selectedNodes.length === 2) {
                     cy.add({
                         data: {
                             id: uuidv4(),
@@ -243,6 +242,10 @@ class Cytoscape extends Component {
                             target: selectedNodeIds[1],
                         },
                     });
+                } else {
+                    console.log(
+                        'Error: more than 2 nodes selected, cannot add edge'
+                    );
                 }
             },
         };
