@@ -375,7 +375,20 @@
                 "name": "string",
                 "required": false
               },
-              "onClickFunction": {
+              "onClick": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "string"
+                  },
+                  {
+                    "name": "custom",
+                    "raw": "PropTypes.function"
+                  }
+                ],
+                "required": false
+              },
+              "onClickUser": {
                 "name": "union",
                 "value": [
                   {

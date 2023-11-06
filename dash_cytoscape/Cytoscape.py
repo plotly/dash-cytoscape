@@ -55,7 +55,9 @@ class Cytoscape(Component):
 
         - id (string; required)
 
-        - onClickFunction (string; optional)
+        - onClick (string; optional)
+
+        - onClickUser (string; optional)
 
         - selector (string; optional)
 

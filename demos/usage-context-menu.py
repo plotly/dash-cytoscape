@@ -28,21 +28,21 @@ app.layout = html.Div(
                     "content": "Add Node (JS)",
                     "tooltipText": "Add Node",
                     "coreAsWell": "true",
-                    "onClickFunction": "add_node",
+                    "onClick": "add_node",
                 },
                 {
                     "id": "remove",
                     "content": "Remove (JS)",
                     "tooltipText": "Remove",
                     "selector": "node, edge",
-                    "onClickFunction": "remove",
+                    "onClick": "remove",
                 },
                 {
                     "id": "add-edge",
                     "content": "Add Edge (JS)",
                     "tooltipText": "add edge",
                     "selector": "node",
-                    "onClickFunction": "add_edge",
+                    "onClick": "add_edge",
                 },
                 {
                     "id": "split-edge",
@@ -61,7 +61,7 @@ app.layout = html.Div(
                     "content": "Add 2 Nodes (NS)",
                     "tooltipText": "add 2 nodes",
                     "coreAsWell": "true",
-                    "onClickFunction": "add_2_nodes",
+                    "onClickUser": "add_2_nodes",
                 },
             ],
             stylesheet=[

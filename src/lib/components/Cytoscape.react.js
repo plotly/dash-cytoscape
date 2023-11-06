@@ -242,25 +242,22 @@ class Cytoscape extends Component {
             for (const item of ctxMenu) {
                 let onClickFunction;
                 // use default javascript function
-                if (
-                    contextMenuDefaultFunctions.hasOwnProperty(
-                        item.onClickFunction
-                    )
-                ) {
-                    onClickFunction =
-                        contextMenuDefaultFunctions[item.onClickFunction];
-                } else if (
+                if (contextMenuDefaultFunctions.hasOwnProperty(item.onClick)) {
+                    onClickFunction = contextMenuDefaultFunctions[item.onClick];
+                }
+                // use user defined javascript function in a namespace under assets/
+                else if (
                     window.hasOwnProperty('dashCytoscapeComponentFunctions') &&
                     window.dashCytoscapeComponentFunctions.hasOwnProperty(
-                        item.onClickFunction
+                        item.onClickUser
                     )
                 ) {
                     onClickFunction =
                         window.dashCytoscapeComponentFunctions[
-                            item.onClickFunction
+                            item.onClickUser
                         ];
                 }
-                // return data to define custom on click function in Python
+                // return data so a user can define a custom on click function in Python
                 else {
                     onClickFunction = function (event) {
                         updateContextMenuData({
@@ -778,7 +775,11 @@ Cytoscape.propTypes = {
             tooltipText: PropTypes.string,
             coreAsWell: PropTypes.string,
             selector: PropTypes.string,
-            onClickFunction: PropTypes.oneOfType([
+            onClick: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.function,
+            ]),
+            onClickUser: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.function,
             ]),
