@@ -7,3 +7,4 @@ include dash_cytoscape/package.json
 include dash_cytoscape/utils
 include README.md
 include LICENSE
+include assets
