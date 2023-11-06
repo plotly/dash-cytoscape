@@ -211,12 +211,11 @@ class Cytoscape extends Component {
                 target.remove();
             },
             add_node: function (event) {
-                let data = {
-                    group: 'nodes',
-                };
                 let pos = event.position || event.cyPosition;
                 cy.add({
-                    data: data,
+                    data: {
+                        group: 'nodes',
+                    },
                     position: {
                         x: pos.x,
                         y: pos.y,
@@ -225,16 +224,25 @@ class Cytoscape extends Component {
             },
             add_edge: function (event) {
                 const selectedNodeIds = selectedNodes.map((node) => node.id());
+                if (selectedNodes.length === 1) {
+                    cy.add({
+                        data: {
+                            id: uuidv4(),
+                            group: 'edges',
+                            source: selectedNodeIds[0],
+                            target: selectedNodeIds[0],
+                        },
+                    });
+                }
                 if (selectedNodes.length === 2) {
-                    let newEdge = {
+                    cy.add({
                         data: {
                             id: uuidv4(),
                             group: 'edges',
                             source: selectedNodeIds[0],
                             target: selectedNodeIds[1],
                         },
-                    };
-                    cy.add(newEdge);
+                    });
                 }
             },
         };
