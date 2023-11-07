@@ -250,7 +250,7 @@ class Cytoscape extends Component {
         };
 
         const createMenuItems = (ctxMenu) => {
-            const new_menu_items = [];
+            const newMenuItems = [];
             for (const item of ctxMenu) {
                 let onClickFunction;
                 // use default javascript function
@@ -261,12 +261,12 @@ class Cytoscape extends Component {
                 else if (
                     window.hasOwnProperty('dashCytoscapeComponentFunctions') &&
                     window.dashCytoscapeComponentFunctions.hasOwnProperty(
-                        item.onClickUser
+                        item.onClickCustom
                     )
                 ) {
                     onClickFunction =
                         window.dashCytoscapeComponentFunctions[
-                            item.onClickUser
+                            item.onClickCustom
                         ];
                 }
                 // return data so a user can define a custom on click function in Python
@@ -282,11 +282,17 @@ class Cytoscape extends Component {
                             edgeTarget: event.target.data().target,
                         });
                     };
+                    if (item.hasOwnProperty('onClick')) {
+                        console.log('onClick function is not defined');
+                    }
+                    if (item.hasOwnProperty('onClickCustom')) {
+                        console.log('onClickCustom function is not defined');
+                    }
                 }
                 item.onClickFunction = onClickFunction;
-                new_menu_items.push(item);
+                newMenuItems.push(item);
             }
-            return new_menu_items;
+            return newMenuItems;
         };
 
         cy.on('tap', 'node', (event) => {
@@ -389,10 +395,12 @@ class Cytoscape extends Component {
                 }),
             });
         });
-        cy.contextMenus({
-            menuItems: createMenuItems(ctxMenu),
-            menuItemClasses: ['custom-menu-item'],
-        });
+        if (ctxMenu.length > 0) {
+            cy.contextMenus({
+                menuItems: createMenuItems(ctxMenu),
+                menuItemClasses: ['custom-menu-item'],
+            });
+        }
 
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
@@ -787,14 +795,8 @@ Cytoscape.propTypes = {
             tooltipText: PropTypes.string,
             coreAsWell: PropTypes.string,
             selector: PropTypes.string,
-            onClick: PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.function,
-            ]),
-            onClickUser: PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.function,
-            ]),
+            onClick: PropTypes.string,
+            onClickCustom: PropTypes.string,
         })
     ),
     /**

@@ -61,7 +61,7 @@ app.layout = html.Div(
                     "content": "Add 2 Nodes (NS)",
                     "tooltipText": "add 2 nodes",
                     "coreAsWell": "true",
-                    "onClickUser": "add_2_nodes",
+                    "onClickCustom": "add_2_nodes",
                 },
             ],
             stylesheet=[
@@ -87,17 +87,15 @@ app.layout = html.Div(
     Output("cytoscape", "elements"),
     Input("cytoscape", "contextMenuData"),
     State("cytoscape", "elements"),
-    State("cytoscape", "selectedEdgeData"),
-    State("cytoscape", "selectedNodeData"),
 )
-def update_output(ctx, elements, selectedEdges, selectedNodes):
-    if not ctx:
+def update_output(ctxMenuData, elements):
+    if not ctxMenuData:
         return "", elements
-    if ctx["menuItemId"] == "split-edge":
-        elements = split_edge(elements, ctx)
-    elif ctx["menuItemId"] == "revert-edge":
-        elements = revert_egde(elements, ctx)
-    tap = f"You clicked on: {str(ctx)}"
+    if ctxMenuData["menuItemId"] == "split-edge":
+        elements = split_edge(elements, ctxMenuData)
+    elif ctxMenuData["menuItemId"] == "revert-edge":
+        elements = revert_egde(elements, ctxMenuData)
+    tap = f"You clicked on: {str(ctxMenuData)}"
     return tap, elements
 
 

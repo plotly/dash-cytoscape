@@ -24,7 +24,7 @@ class attribute).
 - `clearOnUnhover` (Bool; optional): If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
 If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
 Node or Edge hovered over
-- `contextMenu` (optional): Define a custom context menu. contextMenu has the following type: Array of lists containing elements 'id', 'content', 'tooltipText', 'coreAsWell', 'selector', 'onClick', 'onClickUser'.
+- `contextMenu` (optional): Define a custom context menu. contextMenu has the following type: Array of lists containing elements 'id', 'content', 'tooltipText', 'coreAsWell', 'selector', 'onClick', 'onClickCustom'.
 Those elements have the following types:
   - `id` (String; required)
   - `content` (String; required)
@@ -32,7 +32,7 @@ Those elements have the following types:
   - `coreAsWell` (String; optional)
   - `selector` (String; optional)
   - `onClick` (String; optional)
-  - `onClickUser` (String; optional)s
+  - `onClickCustom` (String; optional)s
 - `contextMenuData` (optional): Retrieve relevant data when context menu item is clicked. contextMenuData has the following type: lists containing elements 'menuItemId', 'x', 'y', 'timeStamp', 'elementId', 'edgeSource', 'edgeTarget'.
 Those elements have the following types:
   - `menuItemId` (String; optional)

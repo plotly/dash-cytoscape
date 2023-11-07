@@ -376,29 +376,11 @@
                 "required": false
               },
               "onClick": {
-                "name": "union",
-                "value": [
-                  {
-                    "name": "string"
-                  },
-                  {
-                    "name": "custom",
-                    "raw": "PropTypes.function"
-                  }
-                ],
+                "name": "string",
                 "required": false
               },
-              "onClickUser": {
-                "name": "union",
-                "value": [
-                  {
-                    "name": "string"
-                  },
-                  {
-                    "name": "custom",
-                    "raw": "PropTypes.function"
-                  }
-                ],
+              "onClickCustom": {
+                "name": "string",
                 "required": false
               }
             }

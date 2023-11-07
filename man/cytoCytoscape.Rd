@@ -48,7 +48,7 @@ class attribute).}
 If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
 Node or Edge hovered over}
 
-\item{contextMenu}{List of lists containing elements 'id', 'content', 'tooltiptext', 'coreaswell', 'selector', 'onclick', 'onclickuser'.
+\item{contextMenu}{List of lists containing elements 'id', 'content', 'tooltiptext', 'coreaswell', 'selector', 'onclick', 'onclickcustom'.
 those elements have the following types:
   - id (character; required)
   - content (character; required)
@@ -56,7 +56,7 @@ those elements have the following types:
   - coreaswell (character; optional)
   - selector (character; optional)
   - onclick (character; optional)
-  - onclickuser (character; optional)s. Define a custom context menu}
+  - onclickcustom (character; optional)s. Define a custom context menu}
 
 \item{contextMenuData}{Lists containing elements 'menuitemid', 'x', 'y', 'timestamp', 'elementid', 'edgesource', 'edgetarget'.
 those elements have the following types:
