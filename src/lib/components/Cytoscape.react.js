@@ -3,7 +3,6 @@
  * React.js requirements: react-cytoscapejs
  */
 import '/assets/contextmenu.css';
-import '/assets/base.css';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import CytoscapeComponent from 'react-cytoscapejs';
