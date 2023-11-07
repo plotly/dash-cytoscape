@@ -48,16 +48,19 @@ class attribute).}
 If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
 Node or Edge hovered over}
 
-\item{contextMenu}{List of lists containing elements 'id', 'content', 'tooltiptext', 'selector', 'coreaswell', 'onclick', 'onclickcustom'.
+\item{contextMenu}{List of lists containing elements 'id', 'content', 'tooltiptext', 'selector', 'showonwhitespace', 'onclick', 'onclickcustom'.
 those elements have the following types:
   - id (character; required)
   - content (character; required)
   - tooltiptext (character; optional)
   - selector (character; optional): one of 'node' or 'edge', both or neither. this will determine where the context
  menu item will show up.
-  - coreaswell (logical; optional)
+  - showonwhitespace (logical; optional)
   - onclick (character; optional)
-  - onclickcustom (character; optional)s. Define a custom context menu}
+  - onclickcustom (character; optional)s. Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.
+1. By passing a string to onClick that refers to one of the built in javascript functions
+2. By passing a string to onClickCustom that refers to one of the user defined functions in a namespace
+3. By omitting both of these properties; this will update the contextMenuData property and trigger a dash callback.}
 
 \item{contextMenuData}{Lists containing elements 'menuitemid', 'x', 'y', 'timestamp', 'elementid', 'edgesource', 'edgetarget'.
 those elements have the following types:
@@ -67,7 +70,7 @@ those elements have the following types:
   - timestamp (numeric; optional)
   - elementid (character; optional)
   - edgesource (character; optional)
-  - edgetarget (character; optional). Retrieve relevant data when context menu item is clicked}
+  - edgetarget (character; optional). Retrieve relevant data when a context menu item is clicked.  Read-only.}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:

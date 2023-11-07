@@ -296,10 +296,9 @@ class Cytoscape extends Component {
                     tooltipText: item.tooltipText,
                     selector: item.selector,
                     onClickFunction: onClickFunction,
-                    coreAsWell: item.coreAsWell,
+                    coreAsWell: item.showOnWhiteSpace,
                 };
                 newMenuItems.push(new_item);
-                console.log(new_item);
             }
             return newMenuItems;
         };
@@ -795,7 +794,10 @@ Cytoscape.propTypes = {
         boundingBox: PropTypes.object,
     }),
     /**
-     * Define a custom context menu
+     * Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.
+     * 1. By passing a string to onClick that refers to one of the built in javascript functions
+     * 2. By passing a string to onClickCustom that refers to one of the user defined functions in a namespace
+     * 3. By omitting both of these properties; this will update the contextMenuData property and trigger a dash callback.
      */
     contextMenu: PropTypes.arrayOf(
         PropTypes.exact({
@@ -810,17 +812,19 @@ Cytoscape.propTypes = {
              */
             selector: PropTypes.string,
             /**Determines if context menu item shows up on white space*/
-            coreAsWell: PropTypes.bool,
-            /**Sepcify which js function to use as behaviour for the context menu item
-             * One of 'remove', 'add_node', or 'add_edge'
+            showOnWhiteSpace: PropTypes.bool,
+            /**Specify which built-in JavaScript function to use as behaviour for the context
+             * menu item. One of 'remove', 'add_node', or 'add_edge'
              */
             onClick: PropTypes.string,
-            /**Use a custom js function in a namespace to define context menu item behaviour*/
+            /**Specify which user defined JavaScript function to use in the dashCytoscapeFunctions
+             * namespace as behaviour for the context menu item
+             */
             onClickCustom: PropTypes.string,
         })
     ),
     /**
-     * Retrieve relevant data when context menu item is clicked
+     * Retrieve relevant data when a context menu item is clicked.  Read-only.
      */
     contextMenuData: PropTypes.exact({
         /**ID of the menu item in the context menu */
@@ -831,11 +835,15 @@ Cytoscape.propTypes = {
         y: PropTypes.number,
         /**timestamp of context click*/
         timeStamp: PropTypes.number,
-        /**elementID on context click*/
+        /**elementID on context click if the context click was on an element.
+         * If context click was on white space, this property is not returned
+         */
         elementId: PropTypes.string,
-        /**node ID of the edge source*/
+        /**Node ID of the edge source if the clicked element is an edge,
+         * or else this property is not returned*/
         edgeSource: PropTypes.string,
-        /**node ID of the edge target*/
+        /**node ID of the edge target if the clicked element is an edge,
+         * or else this property is not returned*/
         edgeTarget: PropTypes.string,
     }),
     // Viewport Manipulation

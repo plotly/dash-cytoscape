@@ -24,17 +24,20 @@ class attribute).
 - `clearOnUnhover` (Bool; optional): If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
 If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
 Node or Edge hovered over
-- `contextMenu` (optional): Define a custom context menu. contextMenu has the following type: Array of lists containing elements 'id', 'content', 'tooltipText', 'selector', 'coreAsWell', 'onClick', 'onClickCustom'.
+- `contextMenu` (optional): Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.
+1. By passing a string to onClick that refers to one of the built in javascript functions
+2. By passing a string to onClickCustom that refers to one of the user defined functions in a namespace
+3. By omitting both of these properties; this will update the contextMenuData property and trigger a dash callback.. contextMenu has the following type: Array of lists containing elements 'id', 'content', 'tooltipText', 'selector', 'showOnWhiteSpace', 'onClick', 'onClickCustom'.
 Those elements have the following types:
   - `id` (String; required)
   - `content` (String; required)
   - `tooltipText` (String; optional)
   - `selector` (String; optional): One of 'node' or 'edge', both or neither. This will determine where the context
  menu item will show up.
-  - `coreAsWell` (Bool; optional)
+  - `showOnWhiteSpace` (Bool; optional)
   - `onClick` (String; optional)
   - `onClickCustom` (String; optional)s
-- `contextMenuData` (optional): Retrieve relevant data when context menu item is clicked. contextMenuData has the following type: lists containing elements 'menuItemId', 'x', 'y', 'timeStamp', 'elementId', 'edgeSource', 'edgeTarget'.
+- `contextMenuData` (optional): Retrieve relevant data when a context menu item is clicked.  Read-only.. contextMenuData has the following type: lists containing elements 'menuItemId', 'x', 'y', 'timeStamp', 'elementId', 'edgeSource', 'edgeTarget'.
 Those elements have the following types:
   - `menuItemId` (String; optional)
   - `x` (Real; optional)

@@ -372,7 +372,7 @@
                 "description": "One of 'node' or 'edge', both or neither. This will determine where the context\n menu item will show up.",
                 "required": false
               },
-              "coreAsWell": {
+              "showOnWhiteSpace": {
                 "name": "bool",
                 "required": false
               },
@@ -388,7 +388,7 @@
           }
         },
         "required": false,
-        "description": "Define a custom context menu",
+        "description": "Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.\n1. By passing a string to onClick that refers to one of the built in javascript functions\n2. By passing a string to onClickCustom that refers to one of the user defined functions in a namespace\n3. By omitting both of these properties; this will update the contextMenuData property and trigger a dash callback.",
         "defaultValue": {
           "value": "[]",
           "computed": false
@@ -429,7 +429,7 @@
           }
         },
         "required": false,
-        "description": "Retrieve relevant data when context menu item is clicked"
+        "description": "Retrieve relevant data when a context menu item is clicked.  Read-only."
       },
       "pan": {
         "type": {
