@@ -27,8 +27,8 @@ app.layout = html.Div(
                     "id": "add-node",
                     "content": "Add Node (JS)",
                     "tooltipText": "Add Node",
-                    "coreAsWell": "true",
                     "onClick": "add_node",
+                    "coreAsWell": True,
                 },
                 {
                     "id": "remove",
@@ -60,8 +60,8 @@ app.layout = html.Div(
                     "id": "add-2-nodes",
                     "content": "Add 2 Nodes (NS)",
                     "tooltipText": "add 2 nodes",
-                    "coreAsWell": "true",
                     "onClickCustom": "add_2_nodes",
+                    "coreAsWell": True,
                 },
             ],
             stylesheet=[

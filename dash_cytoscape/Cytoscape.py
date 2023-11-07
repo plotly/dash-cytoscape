@@ -51,7 +51,7 @@ class Cytoscape(Component):
 
         - content (string; required)
 
-        - coreAsWell (string; optional)
+        - coreAsWell (boolean; optional)
 
         - id (string; required)
 

@@ -1,6 +1,6 @@
-window.dashCytoscapeComponentFunctions = {};
+window.dashCytoscapeFunctions = {};
 
-window.dashCytoscapeComponentFunctions.add_2_nodes = function (event) {
+window.dashCytoscapeFunctions.add_2_nodes = function (event) {
     var pos = event.position || event.cyPosition;
     cy.add({
         data: {

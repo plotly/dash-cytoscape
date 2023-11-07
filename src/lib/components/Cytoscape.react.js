@@ -255,21 +255,20 @@ class Cytoscape extends Component {
             const newMenuItems = [];
             for (const item of ctxMenu) {
                 let onClickFunction;
+                let new_item = {};
                 // use default javascript function
                 if (contextMenuDefaultFunctions.hasOwnProperty(item.onClick)) {
                     onClickFunction = contextMenuDefaultFunctions[item.onClick];
                 }
                 // use user defined javascript function in a namespace under assets/
                 else if (
-                    window.hasOwnProperty('dashCytoscapeComponentFunctions') &&
-                    window.dashCytoscapeComponentFunctions.hasOwnProperty(
+                    window.hasOwnProperty('dashCytoscapeFunctions') &&
+                    window.dashCytoscapeFunctions.hasOwnProperty(
                         item.onClickCustom
                     )
                 ) {
                     onClickFunction =
-                        window.dashCytoscapeComponentFunctions[
-                            item.onClickCustom
-                        ];
+                        window.dashCytoscapeFunctions[item.onClickCustom];
                 }
                 // return data so a user can define a custom on click function in Python
                 else {
@@ -291,8 +290,16 @@ class Cytoscape extends Component {
                         console.error('onClickCustom function is not defined');
                     }
                 }
-                item.onClickFunction = onClickFunction;
-                newMenuItems.push(item);
+                new_item = {
+                    id: item.id,
+                    content: item.content,
+                    tooltipText: item.tooltipText,
+                    selector: item.selector,
+                    onClickFunction: onClickFunction,
+                    coreAsWell: item.coreAsWell,
+                };
+                newMenuItems.push(new_item);
+                console.log(new_item);
             }
             return newMenuItems;
         };
@@ -791,19 +798,19 @@ Cytoscape.propTypes = {
      * Define a custom context menu
      */
     contextMenu: PropTypes.arrayOf(
-        PropTypes.shape({
+        PropTypes.exact({
             /**ID of the menu item in the context menu */
             id: PropTypes.string.isRequired,
             /**The label on the context menu item*/
             content: PropTypes.string.isRequired,
             /**The tooltip text when hoevring on top of a context menu item */
             tooltipText: PropTypes.string,
-            /***/
-            coreAsWell: PropTypes.string,
             /** One of 'node' or 'edge', both or neither. This will determine where the context
              *  menu item will show up.
              */
             selector: PropTypes.string,
+            /**Determines if context menu item shows up on white space*/
+            coreAsWell: PropTypes.bool,
             /**Sepcify which js function to use as behaviour for the context menu item
              * One of 'remove', 'add_node', or 'add_edge'
              */
