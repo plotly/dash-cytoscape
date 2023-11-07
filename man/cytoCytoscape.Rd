@@ -54,7 +54,8 @@ those elements have the following types:
   - content (character; required)
   - tooltiptext (character; optional)
   - coreaswell (character; optional)
-  - selector (character; optional)
+  - selector (character; optional): one of 'node' or 'edge', both or neither. this will determine where the context
+ menu item will show up.
   - onclick (character; optional)
   - onclickcustom (character; optional)s. Define a custom context menu}
 

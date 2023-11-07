@@ -223,7 +223,9 @@ class Cytoscape extends Component {
             },
             add_edge: function (event) {
                 const selectedNodeIds = selectedNodes.map((node) => node.id());
-                if (selectedNodes.length === 1) {
+                if (selectedNodes.length === 0) {
+                    console.error('Error: No nodes selected, cannot add edge');
+                } else if (selectedNodes.length === 1) {
                     cy.add({
                         data: {
                             id: uuidv4(),
@@ -242,7 +244,7 @@ class Cytoscape extends Component {
                         },
                     });
                 } else {
-                    console.log(
+                    console.error(
                         'Error: more than 2 nodes selected, cannot add edge'
                     );
                 }
@@ -283,10 +285,10 @@ class Cytoscape extends Component {
                         });
                     };
                     if (item.hasOwnProperty('onClick')) {
-                        console.log('onClick function is not defined');
+                        console.error('onClick function is not defined');
                     }
                     if (item.hasOwnProperty('onClickCustom')) {
-                        console.log('onClickCustom function is not defined');
+                        console.error('onClickCustom function is not defined');
                     }
                 }
                 item.onClickFunction = onClickFunction;
@@ -790,25 +792,43 @@ Cytoscape.propTypes = {
      */
     contextMenu: PropTypes.arrayOf(
         PropTypes.shape({
+            /**ID of the menu item in the context menu */
             id: PropTypes.string.isRequired,
+            /**The label on the context menu item*/
             content: PropTypes.string.isRequired,
+            /**The tooltip text when hoevring on top of a context menu item */
             tooltipText: PropTypes.string,
+            /***/
             coreAsWell: PropTypes.string,
+            /** One of 'node' or 'edge', both or neither. This will determine where the context
+             *  menu item will show up.
+             */
             selector: PropTypes.string,
+            /**Sepcify which js function to use as behaviour for the context menu item
+             * One of 'remove', 'add_node', or 'add_edge'
+             */
             onClick: PropTypes.string,
+            /**Use a custom js function in a namespace to define context menu item behaviour*/
             onClickCustom: PropTypes.string,
         })
     ),
     /**
      * Retrieve relevant data when context menu item is clicked
      */
-    contextMenuData: PropTypes.shape({
+    contextMenuData: PropTypes.exact({
+        /**ID of the menu item in the context menu */
         menuItemId: PropTypes.string,
+        /**x-position of the context click */
         x: PropTypes.number,
+        /**y-position of the context click */
         y: PropTypes.number,
+        /**timestamp of context click*/
         timeStamp: PropTypes.number,
+        /**elementID on context click*/
         elementId: PropTypes.string,
+        /**node ID of the edge source*/
         edgeSource: PropTypes.string,
+        /**node ID of the edge target*/
         edgeTarget: PropTypes.string,
     }),
     // Viewport Manipulation

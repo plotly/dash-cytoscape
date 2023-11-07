@@ -59,7 +59,9 @@ class Cytoscape(Component):
 
         - onClickCustom (string; optional)
 
-        - selector (string; optional)
+        - selector (string; optional):
+            One of 'node' or 'edge', both or neither. This will determine
+            where the context  menu item will show up.
 
         - tooltipText (string; optional)
 

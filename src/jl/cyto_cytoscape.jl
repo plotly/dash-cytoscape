@@ -30,7 +30,8 @@ Those elements have the following types:
   - `content` (String; required)
   - `tooltipText` (String; optional)
   - `coreAsWell` (String; optional)
-  - `selector` (String; optional)
+  - `selector` (String; optional): One of 'node' or 'edge', both or neither. This will determine where the context
+ menu item will show up.
   - `onClick` (String; optional)
   - `onClickCustom` (String; optional)s
 - `contextMenuData` (optional): Retrieve relevant data when context menu item is clicked. contextMenuData has the following type: lists containing elements 'menuItemId', 'x', 'y', 'timeStamp', 'elementId', 'edgeSource', 'edgeTarget'.
