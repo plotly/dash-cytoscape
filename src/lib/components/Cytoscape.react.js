@@ -292,12 +292,27 @@ class Cytoscape extends Component {
                 }
                 new_item = {
                     id: item.id,
-                    content: item.content,
+                    content: item.label,
                     tooltipText: item.tooltipText,
-                    selector: item.selector,
+                    selector: '',
                     onClickFunction: onClickFunction,
-                    coreAsWell: item.showOnWhiteSpace,
+                    coreAsWell: false,
                 };
+                if (item.hasOwnProperty('availableOn')) {
+                    if (item.availableOn.includes('edge')) {
+                        new_item.selector = 'edge';
+                    }
+                    if (item.availableOn.includes('node')) {
+                        if (new_item.selector === 'edge') {
+                            new_item.selector = 'edge, node';
+                        } else {
+                            new_item.selector = 'node';
+                        }
+                    }
+                    if (item.availableOn.includes('canvas')) {
+                        new_item.coreAsWell = true;
+                    }
+                }
                 newMenuItems.push(new_item);
             }
             return newMenuItems;
@@ -804,13 +819,13 @@ Cytoscape.propTypes = {
             /**ID of the menu item in the context menu */
             id: PropTypes.string.isRequired,
             /**The label on the context menu item*/
-            content: PropTypes.string.isRequired,
+            label: PropTypes.string.isRequired,
             /**The tooltip text when hoevring on top of a context menu item */
             tooltipText: PropTypes.string,
-            /** One of 'node' or 'edge', both or neither. This will determine where the context
+            /** A list containing either 'node', 'edge',and/or 'canvas'. This will determine where the context
              *  menu item will show up.
              */
-            selector: PropTypes.string,
+            availableOn: PropTypes.array,
             /**Determines if context menu item shows up on white space*/
             showOnWhiteSpace: PropTypes.bool,
             /**Specify which built-in JavaScript function to use as behaviour for the context

@@ -27,12 +27,12 @@ Node or Edge hovered over
 - `contextMenu` (optional): Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.
 1. By passing a string to onClick that refers to one of the built in javascript functions
 2. By passing a string to onClickCustom that refers to one of the user defined functions in a namespace
-3. By omitting both of these properties; this will update the contextMenuData property and trigger a dash callback.. contextMenu has the following type: Array of lists containing elements 'id', 'content', 'tooltipText', 'selector', 'showOnWhiteSpace', 'onClick', 'onClickCustom'.
+3. By omitting both of these properties; this will update the contextMenuData property and trigger a dash callback.. contextMenu has the following type: Array of lists containing elements 'id', 'label', 'tooltipText', 'availableOn', 'showOnWhiteSpace', 'onClick', 'onClickCustom'.
 Those elements have the following types:
   - `id` (String; required)
-  - `content` (String; required)
+  - `label` (String; required)
   - `tooltipText` (String; optional)
-  - `selector` (String; optional): One of 'node' or 'edge', both or neither. This will determine where the context
+  - `availableOn` (Array; optional): A list containing either 'node', 'edge',and/or 'canvas'. This will determine where the context
  menu item will show up.
   - `showOnWhiteSpace` (Bool; optional)
   - `onClick` (String; optional)

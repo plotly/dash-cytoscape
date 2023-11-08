@@ -359,7 +359,7 @@
                 "name": "string",
                 "required": true
               },
-              "content": {
+              "label": {
                 "name": "string",
                 "required": true
               },
@@ -367,9 +367,9 @@
                 "name": "string",
                 "required": false
               },
-              "selector": {
-                "name": "string",
-                "description": "One of 'node' or 'edge', both or neither. This will determine where the context\n menu item will show up.",
+              "availableOn": {
+                "name": "array",
+                "description": "A list containing either 'node', 'edge',and/or 'canvas'. This will determine where the context\n menu item will show up.",
                 "required": false
               },
               "showOnWhiteSpace": {

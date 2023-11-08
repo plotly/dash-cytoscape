@@ -55,17 +55,17 @@ class Cytoscape(Component):
 
         `contextMenu` is a list of dicts with keys:
 
-        - content (string; required)
+        - availableOn (list; optional):
+            A list containing either 'node', 'edge',and/or 'canvas'. This
+            will determine where the context  menu item will show up.
 
         - id (string; required)
+
+        - label (string; required)
 
         - onClick (string; optional)
 
         - onClickCustom (string; optional)
-
-        - selector (string; optional):
-            One of 'node' or 'edge', both or neither. This will determine
-            where the context  menu item will show up.
 
         - showOnWhiteSpace (boolean; optional)
 
