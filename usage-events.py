@@ -99,23 +99,23 @@ basic_elements = [
 context_menu = [
     {
         "id": "add-node",
-        "content": "Add Node (JS)",
+        "label": "Add Node (JS)",
         "tooltipText": "Add Node",
-        "coreAsWell": "true",
+        "availableOn": ["canvas"],
         "onClick": "add_node",
     },
     {
         "id": "remove",
-        "content": "Remove (JS)",
+        "label": "Remove (JS)",
         "tooltipText": "Remove",
-        "selector": "node, edge",
+        "availableOn": ["node", "edge"],
         "onClick": "remove",
     },
     {
         "id": "add-edge",
-        "content": "Add Edge (JS)",
+        "label": "Add Edge (JS)",
         "tooltipText": "add edge",
-        "selector": "node",
+        "availableOn": ["node"],
         "onClick": "add_edge",
     },
 ]

@@ -146,61 +146,7 @@ class Cytoscape extends Component {
 
         return edgeObject;
     }
-
-    handleCy(cy) {
-        // If the cy pointer has not been modified, and handleCy has already
-        // been called before, than we don't run this function.
-        if (cy === this._cy && this._handleCyCalled) {
-            return;
-        }
-        this._cy = cy;
-        window.cy = cy;
-        this._handleCyCalled = true;
-
-        // ///////////////////////////////////// CONSTANTS /////////////////////////////////////////
-        const SELECT_THRESHOLD = 100;
-
-        const selectedNodes = cy.collection();
-        const selectedEdges = cy.collection();
-        const ctxMenu = this.props.contextMenu;
-
-        // ///////////////////////////////////// FUNCTIONS /////////////////////////////////////////
-        const refreshLayout = _.debounce(() => {
-            /**
-             * Refresh Layout if needed
-             */
-            const {autoRefreshLayout, layout} = this.props;
-
-            if (autoRefreshLayout) {
-                cy.layout(layout).run();
-            }
-        }, SELECT_THRESHOLD);
-
-        const sendSelectedNodesData = _.debounce(() => {
-            /**
-               This function is repetitively called every time a node is selected
-               or unselected, but keeps being debounced if it is called again
-               within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
-               runs when all the nodes have been correctly selected/unselected and
-               added/removed from the selectedNodes collection, and then updates
-               the selectedNodeData prop.
-               */
-            const nodeData = selectedNodes.map((el) => el.data());
-
-            this.props.setProps({
-                selectedNodeData: nodeData,
-            });
-        }, SELECT_THRESHOLD);
-
-        const sendSelectedEdgesData = _.debounce(() => {
-            const edgeData = selectedEdges.map((el) => el.data());
-
-            this.props.setProps({
-                selectedEdgeData: edgeData,
-            });
-        }, SELECT_THRESHOLD);
-
-        // /////////////////////////////////////// EVENTS //////////////////////////////////////////
+    createMenuItems(ctxMenu) {
         const updateContextMenuData = (newContext) => {
             this.props.setProps({contextMenuData: newContext});
         };
@@ -250,73 +196,123 @@ class Cytoscape extends Component {
                 }
             },
         };
-
-        const createMenuItems = (ctxMenu) => {
-            const newMenuItems = [];
-            for (const item of ctxMenu) {
-                let onClickFunction;
-                let new_item = {};
-                // use default javascript function
-                if (contextMenuDefaultFunctions.hasOwnProperty(item.onClick)) {
-                    onClickFunction = contextMenuDefaultFunctions[item.onClick];
-                }
-                // use user defined javascript function in a namespace under assets/
-                else if (
-                    window.hasOwnProperty('dashCytoscapeFunctions') &&
-                    window.dashCytoscapeFunctions.hasOwnProperty(
-                        item.onClickCustom
-                    )
-                ) {
-                    onClickFunction =
-                        window.dashCytoscapeFunctions[item.onClickCustom];
-                }
-                // return data so a user can define a custom on click function in Python
-                else {
-                    onClickFunction = function (event) {
-                        updateContextMenuData({
-                            menuItemId: item.id,
-                            x: event.position.x,
-                            y: event.position.y,
-                            timeStamp: event.timeStamp,
-                            elementId: event.target.data().id,
-                            edgeSource: event.target.data().source,
-                            edgeTarget: event.target.data().target,
-                        });
-                    };
-                    if (item.hasOwnProperty('onClick')) {
-                        console.error('onClick function is not defined');
-                    }
-                    if (item.hasOwnProperty('onClickCustom')) {
-                        console.error('onClickCustom function is not defined');
-                    }
-                }
-                new_item = {
-                    id: item.id,
-                    content: item.label,
-                    tooltipText: item.tooltipText,
-                    selector: '',
-                    onClickFunction: onClickFunction,
-                    coreAsWell: false,
-                };
-                if (item.hasOwnProperty('availableOn')) {
-                    if (item.availableOn.includes('edge')) {
-                        new_item.selector = 'edge';
-                    }
-                    if (item.availableOn.includes('node')) {
-                        if (new_item.selector === 'edge') {
-                            new_item.selector = 'edge, node';
-                        } else {
-                            new_item.selector = 'node';
-                        }
-                    }
-                    if (item.availableOn.includes('canvas')) {
-                        new_item.coreAsWell = true;
-                    }
-                }
-                newMenuItems.push(new_item);
+        const newMenuItems = [];
+        for (const item of ctxMenu) {
+            let onClickFunction;
+            let new_item = {};
+            // use default javascript function
+            if (contextMenuDefaultFunctions.hasOwnProperty(item.onClick)) {
+                onClickFunction = contextMenuDefaultFunctions[item.onClick];
             }
-            return newMenuItems;
-        };
+            // use user defined javascript function in a namespace under assets/
+            else if (
+                window.hasOwnProperty('dashCytoscapeFunctions') &&
+                window.dashCytoscapeFunctions.hasOwnProperty(item.onClickCustom)
+            ) {
+                onClickFunction =
+                    window.dashCytoscapeFunctions[item.onClickCustom];
+            }
+            // return data so a user can define a custom on click function in Python
+            else {
+                onClickFunction = function (event) {
+                    updateContextMenuData({
+                        menuItemId: item.id,
+                        x: event.position.x,
+                        y: event.position.y,
+                        timeStamp: event.timeStamp,
+                        elementId: event.target.data().id,
+                        edgeSource: event.target.data().source,
+                        edgeTarget: event.target.data().target,
+                    });
+                };
+                if (item.hasOwnProperty('onClick')) {
+                    console.error('onClick function is not defined');
+                }
+                if (item.hasOwnProperty('onClickCustom')) {
+                    console.error('onClickCustom function is not defined');
+                }
+            }
+            new_item = {
+                id: item.id,
+                content: item.label,
+                tooltipText: item.tooltipText,
+                selector: '',
+                onClickFunction: onClickFunction,
+                coreAsWell: false,
+            };
+            if (item.hasOwnProperty('availableOn')) {
+                if (item.availableOn.includes('edge')) {
+                    new_item.selector = 'edge';
+                }
+                if (item.availableOn.includes('node')) {
+                    if (new_item.selector === 'edge') {
+                        new_item.selector = 'edge, node';
+                    } else {
+                        new_item.selector = 'node';
+                    }
+                }
+                if (item.availableOn.includes('canvas')) {
+                    new_item.coreAsWell = true;
+                }
+            }
+            newMenuItems.push(new_item);
+        }
+        return newMenuItems;
+    }
+
+    handleCy(cy) {
+        // If the cy pointer has not been modified, and handleCy has already
+        // been called before, than we don't run this function.
+        if (cy === this._cy && this._handleCyCalled) {
+            return;
+        }
+        this._cy = cy;
+        window.cy = cy;
+        this._handleCyCalled = true;
+
+        // ///////////////////////////////////// CONSTANTS /////////////////////////////////////////
+        const SELECT_THRESHOLD = 100;
+
+        const selectedNodes = cy.collection();
+        const selectedEdges = cy.collection();
+
+        // ///////////////////////////////////// FUNCTIONS /////////////////////////////////////////
+        const refreshLayout = _.debounce(() => {
+            /**
+             * Refresh Layout if needed
+             */
+            const {autoRefreshLayout, layout} = this.props;
+
+            if (autoRefreshLayout) {
+                cy.layout(layout).run();
+            }
+        }, SELECT_THRESHOLD);
+
+        const sendSelectedNodesData = _.debounce(() => {
+            /**
+               This function is repetitively called every time a node is selected
+               or unselected, but keeps being debounced if it is called again
+               within 100 ms (given by SELECT_THRESHOLD). Effectively, it only
+               runs when all the nodes have been correctly selected/unselected and
+               added/removed from the selectedNodes collection, and then updates
+               the selectedNodeData prop.
+               */
+            const nodeData = selectedNodes.map((el) => el.data());
+
+            this.props.setProps({
+                selectedNodeData: nodeData,
+            });
+        }, SELECT_THRESHOLD);
+
+        const sendSelectedEdgesData = _.debounce(() => {
+            const edgeData = selectedEdges.map((el) => el.data());
+
+            this.props.setProps({
+                selectedEdgeData: edgeData,
+            });
+        }, SELECT_THRESHOLD);
+
+        // /////////////////////////////////////// EVENTS //////////////////////////////////////////
 
         cy.on('tap', 'node', (event) => {
             const nodeObject = this.generateNode(event);
@@ -418,12 +414,6 @@ class Cytoscape extends Component {
                 }),
             });
         });
-        if (ctxMenu.length > 0) {
-            cy.contextMenus({
-                menuItems: createMenuItems(ctxMenu),
-                menuItemClasses: ['custom-menu-item'],
-            });
-        }
 
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
@@ -594,6 +584,14 @@ class Cytoscape extends Component {
                     generateImage.action,
                     generateImage.filename
                 );
+            }
+        }
+        if (this._cy) {
+            if (contextMenu.length > 0) {
+                this._cy.contextMenus({
+                    menuItems: this.createMenuItems(contextMenu),
+                    menuItemClasses: ['custom-menu-item'],
+                });
             }
         }
 
