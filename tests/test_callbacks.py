@@ -278,3 +278,27 @@ def test_cycb001_callbacks(dash_duo):
         options=["3", "2", "1"],
         prefix="EdgeArrowScale",
     )
+
+
+def test_cycb002_callbacks(dash_duo):
+    app = importlib.import_module("usage-context-menu").app
+    dash_duo.start_server(app)
+    dash_duo.wait_for_element_by_id("cytoscape", 20)
+
+    def test_context_menu_after_cb(dash_duo, options, css_selector="#dropdown input"):
+        elem = dash_duo.find_element(css_selector)
+        for option in options:
+            elem.send_keys(Keys.CONTROL + "a")
+            elem.send_keys(option)
+            elem.send_keys(Keys.RETURN)
+            css_selector = f"button#{option}"
+            try:
+                dash_duo.find_element(css_selector)
+                assert True
+            except:
+                assert False
+
+    test_context_menu_after_cb(
+        dash_duo,
+        options=["add-node", "remove", "add-edge"],
+    )

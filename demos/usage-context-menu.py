@@ -76,7 +76,6 @@ app.layout = html.Div(
                 {"selector": "node", "style": {"label": "data(label)"}},
             ],
         ),
-        html.Div(id="output-selection"),
         html.Div(id="output"),
     ]
 )
