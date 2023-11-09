@@ -367,8 +367,8 @@ def test_cyin008_ctx_menu_remove_node(dash_duo):
     # Select the JSON output element after removal
     elements = dash_duo.find_element("pre#elements-data-json-output")
     nb_elements_after = len(json.loads(elements.text))
-
-    assert nb_elements_before > nb_elements_after
+    # removed one node and 3 edges
+    assert nb_elements_before - 4 == nb_elements_after
 
 
 def test_cyin009_ctx_menu_remove_edge(dash_duo):
