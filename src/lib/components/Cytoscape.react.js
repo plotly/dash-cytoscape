@@ -146,119 +146,6 @@ class Cytoscape extends Component {
 
         return edgeObject;
     }
-    createMenuItems(ctxMenu) {
-        const updateContextMenuData = (newContext) => {
-            this.props.setProps({contextMenuData: newContext});
-        };
-        const contextMenuDefaultFunctions = {
-            remove: function (event) {
-                let target = event.target || event.cyTarget;
-                target.remove();
-            },
-            add_node: function (event) {
-                let pos = event.position || event.cyPosition;
-                cy.add({
-                    data: {
-                        group: 'nodes',
-                    },
-                    position: {
-                        x: pos.x,
-                        y: pos.y,
-                    },
-                });
-            },
-            add_edge: function (event) {
-                const selectedNodeIds = selectedNodes.map((node) => node.id());
-                if (selectedNodes.length === 0) {
-                    console.error('Error: No nodes selected, cannot add edge');
-                } else if (selectedNodes.length === 1) {
-                    cy.add({
-                        data: {
-                            id: uuidv4(),
-                            group: 'edges',
-                            source: selectedNodeIds[0],
-                            target: selectedNodeIds[0],
-                        },
-                    });
-                } else if (selectedNodes.length === 2) {
-                    cy.add({
-                        data: {
-                            id: uuidv4(),
-                            group: 'edges',
-                            source: selectedNodeIds[0],
-                            target: selectedNodeIds[1],
-                        },
-                    });
-                } else {
-                    console.error(
-                        'Error: more than 2 nodes selected, cannot add edge'
-                    );
-                }
-            },
-        };
-        const newMenuItems = [];
-        for (const item of ctxMenu) {
-            let onClickFunction;
-            let new_item = {};
-            // use default javascript function
-            if (contextMenuDefaultFunctions.hasOwnProperty(item.onClick)) {
-                onClickFunction = contextMenuDefaultFunctions[item.onClick];
-            }
-            // use user defined javascript function in a namespace under assets/
-            else if (
-                window.hasOwnProperty('dashCytoscapeFunctions') &&
-                window.dashCytoscapeFunctions.hasOwnProperty(item.onClickCustom)
-            ) {
-                onClickFunction =
-                    window.dashCytoscapeFunctions[item.onClickCustom];
-            }
-            // return data so a user can define a custom on click function in Python
-            else {
-                onClickFunction = function (event) {
-                    updateContextMenuData({
-                        menuItemId: item.id,
-                        x: event.position.x,
-                        y: event.position.y,
-                        timeStamp: event.timeStamp,
-                        elementId: event.target.data().id,
-                        edgeSource: event.target.data().source,
-                        edgeTarget: event.target.data().target,
-                    });
-                };
-                if (item.hasOwnProperty('onClick')) {
-                    console.error('onClick function is not defined');
-                }
-                if (item.hasOwnProperty('onClickCustom')) {
-                    console.error('onClickCustom function is not defined');
-                }
-            }
-            new_item = {
-                id: item.id,
-                content: item.label,
-                tooltipText: item.tooltipText,
-                selector: '',
-                onClickFunction: onClickFunction,
-                coreAsWell: false,
-            };
-            if (item.hasOwnProperty('availableOn')) {
-                if (item.availableOn.includes('edge')) {
-                    new_item.selector = 'edge';
-                }
-                if (item.availableOn.includes('node')) {
-                    if (new_item.selector === 'edge') {
-                        new_item.selector = 'edge, node';
-                    } else {
-                        new_item.selector = 'node';
-                    }
-                }
-                if (item.availableOn.includes('canvas')) {
-                    new_item.coreAsWell = true;
-                }
-            }
-            newMenuItems.push(new_item);
-        }
-        return newMenuItems;
-    }
 
     handleCy(cy) {
         // If the cy pointer has not been modified, and handleCy has already
@@ -415,6 +302,126 @@ class Cytoscape extends Component {
             });
         });
 
+        this.createMenuItems = (ctxMenu) => {
+            const updateContextMenuData = (newContext) => {
+                this.props.setProps({contextMenuData: newContext});
+            };
+            const contextMenuDefaultFunctions = {
+                remove: function (event) {
+                    let target = event.target || event.cyTarget;
+                    target.remove();
+                },
+                add_node: function (event) {
+                    let pos = event.position || event.cyPosition;
+                    cy.add({
+                        data: {
+                            group: 'nodes',
+                        },
+                        position: {
+                            x: pos.x,
+                            y: pos.y,
+                        },
+                    });
+                },
+                add_edge: function (event) {
+                    const selectedNodeIds = selectedNodes.map((node) =>
+                        node.id()
+                    );
+                    if (selectedNodes.length === 0) {
+                        console.error(
+                            'Error: No nodes selected, cannot add edge'
+                        );
+                    } else if (selectedNodes.length === 1) {
+                        cy.add({
+                            data: {
+                                id: uuidv4(),
+                                group: 'edges',
+                                source: selectedNodeIds[0],
+                                target: selectedNodeIds[0],
+                            },
+                        });
+                    } else if (selectedNodes.length === 2) {
+                        cy.add({
+                            data: {
+                                id: uuidv4(),
+                                group: 'edges',
+                                source: selectedNodeIds[0],
+                                target: selectedNodeIds[1],
+                            },
+                        });
+                    } else {
+                        console.error(
+                            'Error: more than 2 nodes selected, cannot add edge'
+                        );
+                    }
+                },
+            };
+            const newMenuItems = [];
+            for (const item of ctxMenu) {
+                let onClickFunction;
+                let new_item = {};
+                // use default javascript function
+                if (contextMenuDefaultFunctions.hasOwnProperty(item.onClick)) {
+                    onClickFunction = contextMenuDefaultFunctions[item.onClick];
+                }
+                // use user defined javascript function in a namespace under assets/
+                else if (
+                    window.hasOwnProperty('dashCytoscapeFunctions') &&
+                    window.dashCytoscapeFunctions.hasOwnProperty(
+                        item.onClickCustom
+                    )
+                ) {
+                    onClickFunction =
+                        window.dashCytoscapeFunctions[item.onClickCustom];
+                }
+                // return data so a user can define a custom on click function in Python
+                else {
+                    onClickFunction = function (event) {
+                        updateContextMenuData({
+                            menuItemId: item.id,
+                            x: event.position.x,
+                            y: event.position.y,
+                            timeStamp: event.timeStamp,
+                            elementId: event.target.data().id,
+                            edgeSource: event.target.data().source,
+                            edgeTarget: event.target.data().target,
+                        });
+                    };
+                    if (item.hasOwnProperty('onClick')) {
+                        console.error('onClick function is not defined');
+                    }
+                    if (item.hasOwnProperty('onClickCustom')) {
+                        console.error('onClickCustom function is not defined');
+                    }
+                }
+                new_item = {
+                    id: item.id,
+                    content: item.label,
+                    tooltipText: item.tooltipText,
+                    selector: '',
+                    onClickFunction: onClickFunction,
+                    coreAsWell: false,
+                };
+                if (item.hasOwnProperty('availableOn')) {
+                    if (item.availableOn.includes('edge')) {
+                        new_item.selector = 'edge';
+                    }
+                    if (item.availableOn.includes('node')) {
+                        if (new_item.selector === 'edge') {
+                            new_item.selector = 'edge, node';
+                        } else {
+                            new_item.selector = 'node';
+                        }
+                    }
+                    if (item.availableOn.includes('canvas')) {
+                        new_item.coreAsWell = true;
+                    }
+                }
+                newMenuItems.push(new_item);
+            }
+            return newMenuItems;
+        };
+
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
     }
@@ -541,6 +548,24 @@ class Cytoscape extends Component {
         document.body.removeChild(downloadLink);
     }
 
+    componentDidUpdate(prevProps) {
+        const {contextMenu} = this.props;
+        if (!_.isEqual(prevProps.contextMenu, contextMenu) && this._cy) {
+            this._cy.contextMenus({
+                menuItems: this.createMenuItems(contextMenu),
+                menuItemClasses: ['custom-menu-item'],
+            });
+        }
+    }
+    componentDidMount() {
+        const {contextMenu} = this.props;
+        if (this._cy && contextMenu.length > 0) {
+            this._cy.contextMenus({
+                menuItems: this.createMenuItems(contextMenu),
+                menuItemClasses: ['custom-menu-item'],
+            });
+        }
+    }
     render() {
         const {
             // HTML attribute props
@@ -584,14 +609,6 @@ class Cytoscape extends Component {
                     generateImage.action,
                     generateImage.filename
                 );
-            }
-        }
-        if (this._cy) {
-            if (contextMenu.length > 0) {
-                this._cy.contextMenus({
-                    menuItems: this.createMenuItems(contextMenu),
-                    menuItemClasses: ['custom-menu-item'],
-                });
             }
         }
 

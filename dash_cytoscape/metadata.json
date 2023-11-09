@@ -28,18 +28,6 @@
         "returns": null
       },
       {
-        "name": "createMenuItems",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "ctxMenu",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
         "name": "handleCy",
         "docblock": null,
         "modifiers": [],
