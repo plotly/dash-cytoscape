@@ -78,6 +78,18 @@
           }
         ],
         "returns": null
+      },
+      {
+        "name": "generateContextMenu",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "contextMenu",
+            "type": null
+          }
+        ],
+        "returns": null
       }
     ],
     "props": {

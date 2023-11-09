@@ -2,8 +2,8 @@ import dash
 import dash_cytoscape as cyto
 import dash_html_components as html
 from dash import callback, Input, Output, html, State
-import dash_core_components as dcc
 import time
+
 
 app = dash.Dash(__name__)
 app.layout = html.Div(
