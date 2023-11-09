@@ -67,8 +67,6 @@ class Cytoscape(Component):
 
         - onClickCustom (string; optional)
 
-        - showOnWhiteSpace (boolean; optional)
-
         - tooltipText (string; optional)
 
     - contextMenuData (dict; optional):

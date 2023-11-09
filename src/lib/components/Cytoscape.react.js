@@ -841,8 +841,6 @@ Cytoscape.propTypes = {
              *  menu item will show up.
              */
             availableOn: PropTypes.array,
-            /**Determines if context menu item shows up on white space*/
-            showOnWhiteSpace: PropTypes.bool,
             /**Specify which built-in JavaScript function to use as behaviour for the context
              * menu item. One of 'remove', 'add_node', or 'add_edge'
              */

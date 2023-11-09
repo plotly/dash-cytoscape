@@ -48,14 +48,13 @@ class attribute).}
 If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
 Node or Edge hovered over}
 
-\item{contextMenu}{List of lists containing elements 'id', 'label', 'tooltiptext', 'availableon', 'showonwhitespace', 'onclick', 'onclickcustom'.
+\item{contextMenu}{List of lists containing elements 'id', 'label', 'tooltiptext', 'availableon', 'onclick', 'onclickcustom'.
 those elements have the following types:
   - id (character; required)
   - label (character; required)
   - tooltiptext (character; optional)
   - availableon (unnamed list; optional): a list containing either 'node', 'edge',and/or 'canvas'. this will determine where the context
  menu item will show up.
-  - showonwhitespace (logical; optional)
   - onclick (character; optional)
   - onclickcustom (character; optional)s. Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.
 1. By passing a string to onClick that refers to one of the built in javascript functions

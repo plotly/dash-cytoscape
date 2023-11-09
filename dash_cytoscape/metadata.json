@@ -384,10 +384,6 @@
                 "description": "A list containing either 'node', 'edge',and/or 'canvas'. This will determine where the context\n menu item will show up.",
                 "required": false
               },
-              "showOnWhiteSpace": {
-                "name": "bool",
-                "required": false
-              },
               "onClick": {
                 "name": "string",
                 "required": false
