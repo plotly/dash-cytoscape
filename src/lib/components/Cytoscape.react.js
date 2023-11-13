@@ -381,9 +381,7 @@ class Cytoscape extends Component {
                             contextMenuDefaultFunctions[item.onClick];
                     } else {
                         console.error(
-                            'onClick function ' +
-                                item.onClick +
-                                ' is not defined'
+                            `onClick function ${item.onClick} is not defined`
                         );
                     }
                 }
@@ -399,9 +397,7 @@ class Cytoscape extends Component {
                             window.dashCytoscapeFunctions[item.onClickCustom];
                     } else {
                         console.error(
-                            'onClickCustom function ' +
-                                item.onClickCustom +
-                                ' is not defined'
+                            `onClickCustom function ${item.onClickCustom} is not defined`
                         );
                     }
                 }
@@ -415,18 +411,24 @@ class Cytoscape extends Component {
                     coreAsWell: false,
                 };
                 if (item.hasOwnProperty('availableOn')) {
-                    if (item.availableOn.includes('edge')) {
-                        new_item.selector = 'edge';
-                    }
-                    if (item.availableOn.includes('node')) {
-                        if (new_item.selector === 'edge') {
-                            new_item.selector = 'edge, node';
+                    for (const selector of item.availableOn) {
+                        if (selector == 'edge') {
+                            if (new_item.selector.length > 0) {
+                                new_item.selector = new_item.selector + ', ';
+                            }
+                            new_item.selector = new_item.selector + 'edge';
+                        } else if (selector == 'node') {
+                            if (new_item.selector.length > 0) {
+                                new_item.selector = new_item.selector + ', ';
+                            }
+                            new_item.selector = new_item.selector + 'node';
+                        } else if (selector === 'canvas') {
+                            new_item.coreAsWell = true;
                         } else {
-                            new_item.selector = 'node';
+                            console.error(
+                                `Error: selector ${selector} is not available. Choose one of 'node', 'edge' or 'canvas'.`
+                            );
                         }
-                    }
-                    if (item.availableOn.includes('canvas')) {
-                        new_item.coreAsWell = true;
                     }
                 }
                 newMenuItems.push(new_item);
