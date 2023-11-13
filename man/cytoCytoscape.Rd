@@ -52,7 +52,7 @@ Node or Edge hovered over}
 those elements have the following types:
   - id (character; required): id of the menu item in the context menu
   - label (character; required): the label on the context menu item
-  - tooltiptext (character; optional)
+  - tooltiptext (character; optional): the tooltip text when hovering on top of a context menu item
   - availableon (unnamed list; optional): a list containing either 'node', 'edge',and/or 'canvas'. this will determine where the context
  menu item will show up.
   - onclick (character; optional): specify which built-in javascript function to use as behaviour for the context

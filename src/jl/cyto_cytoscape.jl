@@ -31,7 +31,7 @@ Node or Edge hovered over
 Those elements have the following types:
   - `id` (String; required): ID of the menu item in the context menu
   - `label` (String; required): The label on the context menu item
-  - `tooltipText` (String; optional)
+  - `tooltipText` (String; optional): The tooltip text when hovering on top of a context menu item
   - `availableOn` (Array; optional): A list containing either 'node', 'edge',and/or 'canvas'. This will determine where the context
  menu item will show up.
   - `onClick` (String; optional): Specify which built-in JavaScript function to use as behaviour for the context
@@ -44,7 +44,7 @@ Those elements have the following types:
   - `x` (Real; optional): x-position of the context click
   - `y` (Real; optional): y-position of the context click
   - `timeStamp` (Real; optional): Timestamp of context click
-  - `elementId` (String; optional): element ID on context click if the context click was on an element.
+  - `elementId` (String; optional): Element ID on context click if the context click was on an element.
 If context click was on white space, this property is not returned
   - `edgeSource` (String; optional): Node ID of the edge source if the clicked element is an edge,
 or else this property is not returned

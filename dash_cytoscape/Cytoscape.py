@@ -75,7 +75,8 @@ class Cytoscape(Component):
             dashCytoscapeFunctions namespace as behaviour for the context
             menu item.
 
-        - tooltipText (string; optional)
+        - tooltipText (string; optional):
+            The tooltip text when hovering on top of a context menu item.
 
     - contextMenuData (dict; optional):
         Retrieve relevant data when a context menu item is clicked.
@@ -92,7 +93,7 @@ class Cytoscape(Component):
             or else this property is not returned.
 
         - elementId (string; optional):
-            element ID on context click if the context click was on an
+            Element ID on context click if the context click was on an
             element. If context click was on white space, this property is
             not returned.
 

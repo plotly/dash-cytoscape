@@ -379,6 +379,7 @@
               },
               "tooltipText": {
                 "name": "string",
+                "description": "The tooltip text when hovering on top of a context menu item",
                 "required": false
               },
               "availableOn": {
@@ -432,7 +433,7 @@
             },
             "elementId": {
               "name": "string",
-              "description": "element ID on context click if the context click was on an element.\nIf context click was on white space, this property is not returned",
+              "description": "Element ID on context click if the context click was on an element.\nIf context click was on white space, this property is not returned",
               "required": false
             },
             "edgeSource": {

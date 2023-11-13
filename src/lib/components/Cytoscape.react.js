@@ -12,7 +12,8 @@ import CyResponsive from '../cyResponsive.js';
 const cytoscape = require('cytoscape');
 const contextMenus = require('cytoscape-context-menus');
 
-contextMenus(cytoscape); // register extension
+// register extension
+contextMenus(cytoscape);
 /**
  * A Component Library for Dash aimed at facilitating network visualization in
  * Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
@@ -312,7 +313,7 @@ class Cytoscape extends Component {
                     target.remove();
                 },
                 add_node: function (event) {
-                    let pos = event.position || event.cyPosition;
+                    const pos = event.position || event.cyPosition;
                     cy.add({
                         data: {
                             group: 'nodes',
@@ -410,7 +411,7 @@ class Cytoscape extends Component {
                         );
                     }
                 }
-                let new_item;
+                const new_item = {};
                 new_item = {
                     id: item.id,
                     content: item.label,
@@ -858,7 +859,7 @@ Cytoscape.propTypes = {
             id: PropTypes.string.isRequired,
             /** The label on the context menu item*/
             label: PropTypes.string.isRequired,
-            /**The tooltip text when hovering on top of a context menu item */
+            /** The tooltip text when hovering on top of a context menu item */
             tooltipText: PropTypes.string,
             /** A list containing either 'node', 'edge',and/or 'canvas'. This will determine where the context
              *  menu item will show up.
@@ -886,7 +887,7 @@ Cytoscape.propTypes = {
         y: PropTypes.number,
         /** Timestamp of context click*/
         timeStamp: PropTypes.number,
-        /** element ID on context click if the context click was on an element.
+        /** Element ID on context click if the context click was on an element.
          * If context click was on white space, this property is not returned
          */
         elementId: PropTypes.string,
