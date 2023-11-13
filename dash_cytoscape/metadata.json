@@ -369,10 +369,12 @@
             "value": {
               "id": {
                 "name": "string",
+                "description": "ID of the menu item in the context menu",
                 "required": true
               },
               "label": {
                 "name": "string",
+                "description": "The label on the context menu item",
                 "required": true
               },
               "tooltipText": {
@@ -386,10 +388,12 @@
               },
               "onClick": {
                 "name": "string",
+                "description": "Specify which built-in JavaScript function to use as behaviour for the context\nmenu item. One of 'remove', 'add_node', or 'add_edge'",
                 "required": false
               },
               "onClickCustom": {
                 "name": "string",
+                "description": "Specify which user-defined Javascript function to use in the dashCytoscapeFunctions\nnamespace as behaviour for the context menu item",
                 "required": false
               }
             }
@@ -408,30 +412,37 @@
           "value": {
             "menuItemId": {
               "name": "string",
+              "description": "ID of the menu item in the context menu",
               "required": false
             },
             "x": {
               "name": "number",
+              "description": "x-position of the context click",
               "required": false
             },
             "y": {
               "name": "number",
+              "description": "y-position of the context click",
               "required": false
             },
             "timeStamp": {
               "name": "number",
+              "description": "Timestamp of context click",
               "required": false
             },
             "elementId": {
               "name": "string",
+              "description": "element ID on context click if the context click was on an element.\nIf context click was on white space, this property is not returned",
               "required": false
             },
             "edgeSource": {
               "name": "string",
+              "description": "Node ID of the edge source if the clicked element is an edge,\nor else this property is not returned",
               "required": false
             },
             "edgeTarget": {
               "name": "string",
+              "description": "Node ID of the edge target if the clicked element is an edge,\nor else this property is not returned",
               "required": false
             }
           }

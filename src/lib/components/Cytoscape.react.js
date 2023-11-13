@@ -9,8 +9,8 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 import {v4 as uuidv4} from 'uuid';
 import CyResponsive from '../cyResponsive.js';
-let cytoscape = require('cytoscape');
-let contextMenus = require('cytoscape-context-menus');
+const cytoscape = require('cytoscape');
+const contextMenus = require('cytoscape-context-menus');
 
 contextMenus(cytoscape); // register extension
 /**
@@ -308,7 +308,7 @@ class Cytoscape extends Component {
             };
             const contextMenuDefaultFunctions = {
                 remove: function (event) {
-                    let target = event.target || event.cyTarget;
+                    const target = event.target || event.cyTarget;
                     target.remove();
                 },
                 add_node: function (event) {
@@ -323,7 +323,7 @@ class Cytoscape extends Component {
                         },
                     });
                 },
-                add_edge: function (event) {
+                add_edge: function () {
                     const selectedNodeIds = selectedNodes.map((node) =>
                         node.id()
                     );
@@ -412,12 +412,12 @@ class Cytoscape extends Component {
                 };
                 if (item.hasOwnProperty('availableOn')) {
                     for (const selector of item.availableOn) {
-                        if (selector == 'edge') {
+                        if (selector === 'edge') {
                             if (new_item.selector.length > 0) {
                                 new_item.selector = new_item.selector + ', ';
                             }
                             new_item.selector = new_item.selector + 'edge';
-                        } else if (selector == 'node') {
+                        } else if (selector === 'node') {
                             if (new_item.selector.length > 0) {
                                 new_item.selector = new_item.selector + ', ';
                             }
@@ -845,9 +845,9 @@ Cytoscape.propTypes = {
      */
     contextMenu: PropTypes.arrayOf(
         PropTypes.exact({
-            /**ID of the menu item in the context menu */
+            /** ID of the menu item in the context menu */
             id: PropTypes.string.isRequired,
-            /**The label on the context menu item*/
+            /** The label on the context menu item*/
             label: PropTypes.string.isRequired,
             /**The tooltip text when hovering on top of a context menu item */
             tooltipText: PropTypes.string,
@@ -855,11 +855,11 @@ Cytoscape.propTypes = {
              *  menu item will show up.
              */
             availableOn: PropTypes.array,
-            /**Specify which built-in JavaScript function to use as behaviour for the context
+            /** Specify which built-in JavaScript function to use as behaviour for the context
              * menu item. One of 'remove', 'add_node', or 'add_edge'
              */
             onClick: PropTypes.string,
-            /**Specify which user-defined Javascript function to use in the dashCytoscapeFunctions
+            /** Specify which user-defined Javascript function to use in the dashCytoscapeFunctions
              * namespace as behaviour for the context menu item
              */
             onClickCustom: PropTypes.string,
@@ -869,22 +869,22 @@ Cytoscape.propTypes = {
      * Retrieve relevant data when a context menu item is clicked.  Read-only.
      */
     contextMenuData: PropTypes.exact({
-        /**ID of the menu item in the context menu */
+        /** ID of the menu item in the context menu */
         menuItemId: PropTypes.string,
-        /**x-position of the context click */
+        /** x-position of the context click */
         x: PropTypes.number,
-        /**y-position of the context click */
+        /** y-position of the context click */
         y: PropTypes.number,
-        /**timestamp of context click*/
+        /** Timestamp of context click*/
         timeStamp: PropTypes.number,
-        /**element ID on context click if the context click was on an element.
+        /** element ID on context click if the context click was on an element.
          * If context click was on white space, this property is not returned
          */
         elementId: PropTypes.string,
-        /**Node ID of the edge source if the clicked element is an edge,
+        /** Node ID of the edge source if the clicked element is an edge,
          * or else this property is not returned*/
         edgeSource: PropTypes.string,
-        /**node ID of the edge target if the clicked element is an edge,
+        /** Node ID of the edge target if the clicked element is an edge,
          * or else this property is not returned*/
         edgeTarget: PropTypes.string,
     }),

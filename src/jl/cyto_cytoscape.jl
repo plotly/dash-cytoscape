@@ -29,22 +29,27 @@ Node or Edge hovered over
 2. By passing a string to onClickCustom that refers to one of the user-defined functions in a namespace.
 3. By omitting both of these properties; this will update the contextMenuData property and trigger a Dash callback.. contextMenu has the following type: Array of lists containing elements 'id', 'label', 'tooltipText', 'availableOn', 'onClick', 'onClickCustom'.
 Those elements have the following types:
-  - `id` (String; required)
-  - `label` (String; required)
+  - `id` (String; required): ID of the menu item in the context menu
+  - `label` (String; required): The label on the context menu item
   - `tooltipText` (String; optional)
   - `availableOn` (Array; optional): A list containing either 'node', 'edge',and/or 'canvas'. This will determine where the context
  menu item will show up.
-  - `onClick` (String; optional)
-  - `onClickCustom` (String; optional)s
+  - `onClick` (String; optional): Specify which built-in JavaScript function to use as behaviour for the context
+menu item. One of 'remove', 'add_node', or 'add_edge'
+  - `onClickCustom` (String; optional): Specify which user-defined Javascript function to use in the dashCytoscapeFunctions
+namespace as behaviour for the context menu items
 - `contextMenuData` (optional): Retrieve relevant data when a context menu item is clicked.  Read-only.. contextMenuData has the following type: lists containing elements 'menuItemId', 'x', 'y', 'timeStamp', 'elementId', 'edgeSource', 'edgeTarget'.
 Those elements have the following types:
-  - `menuItemId` (String; optional)
-  - `x` (Real; optional)
-  - `y` (Real; optional)
-  - `timeStamp` (Real; optional)
-  - `elementId` (String; optional)
-  - `edgeSource` (String; optional)
-  - `edgeTarget` (String; optional)
+  - `menuItemId` (String; optional): ID of the menu item in the context menu
+  - `x` (Real; optional): x-position of the context click
+  - `y` (Real; optional): y-position of the context click
+  - `timeStamp` (Real; optional): Timestamp of context click
+  - `elementId` (String; optional): element ID on context click if the context click was on an element.
+If context click was on white space, this property is not returned
+  - `edgeSource` (String; optional): Node ID of the edge source if the clicked element is an edge,
+or else this property is not returned
+  - `edgeTarget` (String; optional): Node ID of the edge target if the clicked element is an edge,
+or else this property is not returned
 - `elements` (optional): A list of dictionaries representing the elements of the networks. Each dictionary describes an element, and
 specifies its purpose. The [official Cytoscape.js documentation](https://js.cytoscape.org/#notation/elements-json)
 offers an extensive overview and examples of element declaration.

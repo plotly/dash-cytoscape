@@ -59,13 +59,21 @@ class Cytoscape(Component):
             A list containing either 'node', 'edge',and/or 'canvas'. This
             will determine where the context  menu item will show up.
 
-        - id (string; required)
+        - id (string; required):
+            ID of the menu item in the context menu.
 
-        - label (string; required)
+        - label (string; required):
+            The label on the context menu item.
 
-        - onClick (string; optional)
+        - onClick (string; optional):
+            Specify which built-in JavaScript function to use as behaviour
+            for the context menu item. One of 'remove', 'add_node', or
+            'add_edge'.
 
-        - onClickCustom (string; optional)
+        - onClickCustom (string; optional):
+            Specify which user-defined Javascript function to use in the
+            dashCytoscapeFunctions namespace as behaviour for the context
+            menu item.
 
         - tooltipText (string; optional)
 
@@ -75,19 +83,30 @@ class Cytoscape(Component):
 
         `contextMenuData` is a dict with keys:
 
-        - edgeSource (string; optional)
+        - edgeSource (string; optional):
+            Node ID of the edge source if the clicked element is an edge,
+            or else this property is not returned.
 
-        - edgeTarget (string; optional)
+        - edgeTarget (string; optional):
+            Node ID of the edge target if the clicked element is an edge,
+            or else this property is not returned.
 
-        - elementId (string; optional)
+        - elementId (string; optional):
+            element ID on context click if the context click was on an
+            element. If context click was on white space, this property is
+            not returned.
 
-        - menuItemId (string; optional)
+        - menuItemId (string; optional):
+            ID of the menu item in the context menu.
 
-        - timeStamp (number; optional)
+        - timeStamp (number; optional):
+            Timestamp of context click.
 
-        - x (number; optional)
+        - x (number; optional):
+            x-position of the context click.
 
-        - y (number; optional)
+        - y (number; optional):
+            y-position of the context click.
 
     - elements (list of dicts; optional):
         A list of dictionaries representing the elements of the networks.
