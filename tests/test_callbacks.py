@@ -295,7 +295,7 @@ def test_cycb002_callbacks(dash_duo):
             try:
                 dash_duo.find_element(css_selector)
                 assert True
-            except:
+            except Exception as e:
                 assert False
 
     test_context_menu_after_cb(

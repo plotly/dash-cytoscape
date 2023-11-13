@@ -1,7 +1,7 @@
 import dash
 import dash_cytoscape as cyto
 import dash_html_components as html
-from dash import callback, Input, Output, html, State
+from dash import callback, Input, Output, State
 import time
 
 
