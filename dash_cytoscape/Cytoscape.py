@@ -47,10 +47,10 @@ class Cytoscape(Component):
     - contextMenu (list of dicts; optional):
         Define a custom context menu. The behaviour of each menu item can
         be defined in 1 of 3 ways. 1. By passing a string to onClick that
-        refers to one of the built in javascript functions 2. By passing a
-        string to onClickCustom that refers to one of the user defined
-        functions in a namespace 3. By omitting both of these properties;
-        this will update the contextMenuData property and trigger a dash
+        refers to one of the built-in Javascript functions. 2. By passing
+        a string to onClickCustom that refers to one of the user-defined
+        functions in a namespace. 3. By omitting both of these properties;
+        this will update the contextMenuData property and trigger a Dash
         callback.
 
         `contextMenu` is a list of dicts with keys:

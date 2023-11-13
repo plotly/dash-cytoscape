@@ -562,8 +562,8 @@ class Cytoscape extends Component {
         document.body.removeChild(downloadLink);
     }
 
-    generateContextMenu(contextMenu) {
-        return this._cy.contextMenus({
+    updateContextMenu(contextMenu) {
+        this._cy.contextMenus({
             menuItems: this.createMenuItems(contextMenu),
             menuItemClasses: ['custom-menu-item'],
         });
@@ -571,13 +571,13 @@ class Cytoscape extends Component {
     componentDidUpdate(prevProps) {
         const {contextMenu} = this.props;
         if (!_.isEqual(prevProps.contextMenu, contextMenu) && this._cy) {
-            this.generateContextMenu(contextMenu);
+            this.updateContextMenu(contextMenu);
         }
     }
     componentDidMount() {
         const {contextMenu} = this.props;
         if (this._cy && contextMenu.length > 0) {
-            this.generateContextMenu(contextMenu);
+            this.updateContextMenu(contextMenu);
         }
     }
     render() {

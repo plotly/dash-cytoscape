@@ -80,7 +80,7 @@
         "returns": null
       },
       {
-        "name": "generateContextMenu",
+        "name": "updateContextMenu",
         "docblock": null,
         "modifiers": [],
         "params": [
@@ -396,7 +396,7 @@
           }
         },
         "required": false,
-        "description": "Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.\n1. By passing a string to onClick that refers to one of the built in javascript functions\n2. By passing a string to onClickCustom that refers to one of the user defined functions in a namespace\n3. By omitting both of these properties; this will update the contextMenuData property and trigger a dash callback.",
+        "description": "Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.\n1. By passing a string to onClick that refers to one of the built-in Javascript functions.\n2. By passing a string to onClickCustom that refers to one of the user-defined functions in a namespace.\n3. By omitting both of these properties; this will update the contextMenuData property and trigger a Dash callback.",
         "defaultValue": {
           "value": "[]",
           "computed": false

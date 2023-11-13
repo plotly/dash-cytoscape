@@ -57,9 +57,9 @@ those elements have the following types:
  menu item will show up.
   - onclick (character; optional)
   - onclickcustom (character; optional)s. Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.
-1. By passing a string to onClick that refers to one of the built in javascript functions
-2. By passing a string to onClickCustom that refers to one of the user defined functions in a namespace
-3. By omitting both of these properties; this will update the contextMenuData property and trigger a dash callback.}
+1. By passing a string to onClick that refers to one of the built-in Javascript functions.
+2. By passing a string to onClickCustom that refers to one of the user-defined functions in a namespace.
+3. By omitting both of these properties; this will update the contextMenuData property and trigger a Dash callback.}
 
 \item{contextMenuData}{Lists containing elements 'menuitemid', 'x', 'y', 'timestamp', 'elementid', 'edgesource', 'edgetarget'.
 those elements have the following types:
