@@ -411,8 +411,7 @@ class Cytoscape extends Component {
                         );
                     }
                 }
-                const new_item = {};
-                new_item = {
+                const new_item = {
                     id: item.id,
                     content: item.label,
                     tooltipText: item.tooltipText,
