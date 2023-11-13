@@ -359,41 +359,53 @@ class Cytoscape extends Component {
             const newMenuItems = [];
             for (const item of ctxMenu) {
                 let onClickFunction;
-                let new_item = {};
-                // use default javascript function
-                if (contextMenuDefaultFunctions.hasOwnProperty(item.onClick)) {
-                    onClickFunction = contextMenuDefaultFunctions[item.onClick];
-                }
-                // use user defined javascript function in a namespace under assets/
-                else if (
-                    window.hasOwnProperty('dashCytoscapeFunctions') &&
-                    window.dashCytoscapeFunctions.hasOwnProperty(
-                        item.onClickCustom
-                    )
-                ) {
-                    onClickFunction =
-                        window.dashCytoscapeFunctions[item.onClickCustom];
-                }
-                // return data so a user can define a custom on click function in Python
-                else {
-                    onClickFunction = function (event) {
-                        updateContextMenuData({
-                            menuItemId: item.id,
-                            x: event.position.x,
-                            y: event.position.y,
-                            timeStamp: event.timeStamp,
-                            elementId: event.target.data().id,
-                            edgeSource: event.target.data().source,
-                            edgeTarget: event.target.data().target,
-                        });
-                    };
-                    if (item.hasOwnProperty('onClick')) {
-                        console.error('onClick function is not defined');
-                    }
-                    if (item.hasOwnProperty('onClickCustom')) {
-                        console.error('onClickCustom function is not defined');
+                // data so a user can define a custom on click function in Python
+                // if onClick or on onClickCustom are not specified
+                onClickFunction = function (event) {
+                    updateContextMenuData({
+                        menuItemId: item.id,
+                        x: event.position.x,
+                        y: event.position.y,
+                        timeStamp: event.timeStamp,
+                        elementId: event.target.data().id,
+                        edgeSource: event.target.data().source,
+                        edgeTarget: event.target.data().target,
+                    });
+                };
+                // use default javascript function as onClickFunction
+                if (item.hasOwnProperty('onClick')) {
+                    if (
+                        contextMenuDefaultFunctions.hasOwnProperty(item.onClick)
+                    ) {
+                        onClickFunction =
+                            contextMenuDefaultFunctions[item.onClick];
+                    } else {
+                        console.error(
+                            'onClick function ' +
+                                item.onClick +
+                                ' is not defined'
+                        );
                     }
                 }
+                // use user defined javascript function in a namespace under assets/ as onClickFunction
+                else if (item.hasOwnProperty('onClickCustom')) {
+                    if (
+                        window.hasOwnProperty('dashCytoscapeFunctions') &&
+                        window.dashCytoscapeFunctions.hasOwnProperty(
+                            item.onClickCustom
+                        )
+                    ) {
+                        onClickFunction =
+                            window.dashCytoscapeFunctions[item.onClickCustom];
+                    } else {
+                        console.error(
+                            'onClickCustom function ' +
+                                item.onClickCustom +
+                                ' is not defined'
+                        );
+                    }
+                }
+                let new_item;
                 new_item = {
                     id: item.id,
                     content: item.label,

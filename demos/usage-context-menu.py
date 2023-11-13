@@ -51,9 +51,9 @@ app.layout = html.Div(
                     "availableOn": ["edge"],
                 },
                 {
-                    "id": "revert-edge",
-                    "label": "Revert Edge (PY)",
-                    "tooltipText": "revert edge",
+                    "id": "reverse-edge",
+                    "label": "Reverse Edge (PY)",
+                    "tooltipText": "reverse edge",
                     "availableOn": ["edge"],
                 },
                 {
@@ -92,8 +92,8 @@ def update_output(ctxMenuData, elements):
         return "", elements
     if ctxMenuData["menuItemId"] == "split-edge":
         elements = split_edge(elements, ctxMenuData)
-    elif ctxMenuData["menuItemId"] == "revert-edge":
-        elements = revert_egde(elements, ctxMenuData)
+    elif ctxMenuData["menuItemId"] == "reverse-edge":
+        elements = reverse_egde(elements, ctxMenuData)
     tap = f"You clicked on: {str(ctxMenuData)}"
     return tap, elements
 
@@ -128,7 +128,7 @@ def split_edge(elements, ctx):
     return elements
 
 
-def revert_egde(elements, ctx):
+def reverse_egde(elements, ctx):
     elements = [e for e in elements if not e["data"]["id"] == ctx["elementId"]]
     elements.append(
         {
