@@ -359,7 +359,7 @@ class Cytoscape extends Component {
             const newMenuItems = [];
             for (const item of ctxMenu) {
                 let onClickFunction;
-                // data so a user can define a custom on click function in Python
+                // return data so a user can define a custom on click function in Python
                 // if onClick or on onClickCustom are not specified
                 onClickFunction = function (event) {
                     updateContextMenuData({
@@ -385,7 +385,7 @@ class Cytoscape extends Component {
                         );
                     }
                 }
-                // use user defined javascript function in a namespace under assets/ as onClickFunction
+                // use user-defined Javascript function in a namespace under assets/ as onClickFunction
                 else if (item.hasOwnProperty('onClickCustom')) {
                     if (
                         window.hasOwnProperty('dashCytoscapeFunctions') &&
@@ -839,9 +839,9 @@ Cytoscape.propTypes = {
     }),
     /**
      * Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.
-     * 1. By passing a string to onClick that refers to one of the built in javascript functions
-     * 2. By passing a string to onClickCustom that refers to one of the user defined functions in a namespace
-     * 3. By omitting both of these properties; this will update the contextMenuData property and trigger a dash callback.
+     * 1. By passing a string to onClick that refers to one of the built-in Javascript functions.
+     * 2. By passing a string to onClickCustom that refers to one of the user-defined functions in a namespace.
+     * 3. By omitting both of these properties; this will update the contextMenuData property and trigger a Dash callback.
      */
     contextMenu: PropTypes.arrayOf(
         PropTypes.exact({
@@ -849,7 +849,7 @@ Cytoscape.propTypes = {
             id: PropTypes.string.isRequired,
             /**The label on the context menu item*/
             label: PropTypes.string.isRequired,
-            /**The tooltip text when hoevring on top of a context menu item */
+            /**The tooltip text when hovering on top of a context menu item */
             tooltipText: PropTypes.string,
             /** A list containing either 'node', 'edge',and/or 'canvas'. This will determine where the context
              *  menu item will show up.
@@ -859,7 +859,7 @@ Cytoscape.propTypes = {
              * menu item. One of 'remove', 'add_node', or 'add_edge'
              */
             onClick: PropTypes.string,
-            /**Specify which user defined JavaScript function to use in the dashCytoscapeFunctions
+            /**Specify which user-defined Javascript function to use in the dashCytoscapeFunctions
              * namespace as behaviour for the context menu item
              */
             onClickCustom: PropTypes.string,
@@ -877,7 +877,7 @@ Cytoscape.propTypes = {
         y: PropTypes.number,
         /**timestamp of context click*/
         timeStamp: PropTypes.number,
-        /**elementID on context click if the context click was on an element.
+        /**element ID on context click if the context click was on an element.
          * If context click was on white space, this property is not returned
          */
         elementId: PropTypes.string,
