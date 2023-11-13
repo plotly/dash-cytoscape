@@ -373,9 +373,12 @@ class Cytoscape extends Component {
                     });
                 };
                 // use default javascript function as onClickFunction
-                if (item.hasOwnProperty('onClick')) {
+                if (Object.prototype.hasOwnProperty.call(item, 'onClick')) {
                     if (
-                        contextMenuDefaultFunctions.hasOwnProperty(item.onClick)
+                        Object.prototype.hasOwnProperty.call(
+                            contextMenuDefaultFunctions,
+                            item.onClick
+                        )
                     ) {
                         onClickFunction =
                             contextMenuDefaultFunctions[item.onClick];
@@ -386,10 +389,16 @@ class Cytoscape extends Component {
                     }
                 }
                 // use user-defined Javascript function in a namespace under assets/ as onClickFunction
-                else if (item.hasOwnProperty('onClickCustom')) {
+                else if (
+                    Object.prototype.hasOwnProperty.call(item, 'onClickCustom')
+                ) {
                     if (
-                        window.hasOwnProperty('dashCytoscapeFunctions') &&
-                        window.dashCytoscapeFunctions.hasOwnProperty(
+                        Object.prototype.hasOwnProperty.call(
+                            window,
+                            'dashCytoscapeFunctions'
+                        ) &&
+                        Object.prototype.hasOwnProperty.call(
+                            window.dashCytoscapeFunctions,
                             item.onClickCustom
                         )
                     ) {
@@ -410,7 +419,7 @@ class Cytoscape extends Component {
                     onClickFunction: onClickFunction,
                     coreAsWell: false,
                 };
-                if (item.hasOwnProperty('availableOn')) {
+                if (Object.prototype.hasOwnProperty.call(item, 'availableOn')) {
                     for (const selector of item.availableOn) {
                         if (selector === 'edge') {
                             if (new_item.selector.length > 0) {
