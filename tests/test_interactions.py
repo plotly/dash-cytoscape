@@ -24,7 +24,7 @@ import importlib
 import time
 import json
 
-from selenium.webdriver.common.action_chains import ActionChains, ActionBuilder
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
@@ -428,8 +428,6 @@ def test_cyin010_ctx_menu_add_node(dash_duo):
 
 
 def test_cyin011_ctx_menu_add_edge(dash_duo):
-    # This version contains move to location whears the other actions does not.
-    actions_build = ActionBuilder(dash_duo.driver)
     init_pos, actions, _ = create_app(dash_duo)
     node1_x, node1_y = init_pos["Node 1"]
     node2_x, node2_y = init_pos["Node 4"]
@@ -445,9 +443,9 @@ def test_cyin011_ctx_menu_add_edge(dash_duo):
 
     # click on 2 nodes to add an edge between them
     actions.key_down(Keys.COMMAND)
-    actions_build.pointer_action.move_to_location(node1_x, node1_y)
+    actions.move_to_location(node1_x, node1_y)
     actions.click()
-    actions_build.pointer_action.move_to_location(node2_x, node2_y)
+    actions.move_to_location(node2_x, node2_y)
     actions.click()
     actions.context_click()
     actions.move_to_element(dash_duo.find_element("button#add-edge"))
