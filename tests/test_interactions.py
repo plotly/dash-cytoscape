@@ -24,7 +24,7 @@ import importlib
 import time
 import json
 
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.action_chains import ActionChains, ActionBuilder
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
@@ -428,6 +428,7 @@ def test_cyin010_ctx_menu_add_node(dash_duo):
 
 
 def test_cyin011_ctx_menu_add_edge(dash_duo):
+    actions = ActionBuilder(dash_duo.driver)
     init_pos, actions, _ = create_app(dash_duo)
     node1_x, node1_y = init_pos["Node 1"]
     node2_x, node2_y = init_pos["Node 4"]
