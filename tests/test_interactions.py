@@ -443,9 +443,9 @@ def test_cyin011_ctx_menu_add_edge(dash_duo):
 
     # click on 2 nodes to add an edge between them
     actions.key_down(Keys.COMMAND)
-    actions.move_to_location(node1_x, node1_y)
+    actions.move_by_offset(node1_x, node1_y)
     actions.click()
-    actions.move_to_location(node2_x, node2_y)
+    actions.move_by_offset(node2_x, node2_y)
     actions.click()
     actions.context_click()
     actions.move_to_element(dash_duo.find_element("button#add-edge"))
