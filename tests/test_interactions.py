@@ -344,8 +344,7 @@ def test_cyin007_click_twice(dash_duo):
 
 
 def test_cyin008_ctx_menu_remove_node(dash_duo):
-    init_pos, actions, _ = create_app(dash_duo)
-    init_x, init_y = init_pos["Node 1"]
+    _, actions, _ = create_app(dash_duo)
 
     # Open the Drag data JSON tab
     actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(5)"))
@@ -357,7 +356,7 @@ def test_cyin008_ctx_menu_remove_node(dash_duo):
     nb_elements_before = len(json.loads(elements.text))
 
     # move mouse to first node and right click and click on remove
-    actions.move_to_location(init_x, init_y)
+    actions.move_by_offset(-1170, 130)
     actions.context_click()
     actions.move_to_element(dash_duo.find_element("button#remove"))
     actions.click()
@@ -372,9 +371,7 @@ def test_cyin008_ctx_menu_remove_node(dash_duo):
 
 
 def test_cyin009_ctx_menu_remove_edge(dash_duo):
-    _, actions, edge_positions = create_app(dash_duo)
-    print(edge_positions)
-    init_x, init_y = edge_positions["Edge from Node 1 to Node 2"]
+    _, actions, _ = create_app(dash_duo)
 
     # Open the Drag data JSON tab
     actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(5)"))
@@ -386,7 +383,7 @@ def test_cyin009_ctx_menu_remove_edge(dash_duo):
     nb_elements_before = len(json.loads(elements.text))
 
     # move mouse to an edge and right click and click on remove
-    actions.move_to_location(init_x, init_y)
+    actions.move_by_offset(-1100, 150)
     actions.context_click()
     actions.move_to_element(dash_duo.find_element("button#remove"))
     actions.click()
@@ -413,7 +410,7 @@ def test_cyin010_ctx_menu_add_node(dash_duo):
     nb_elements_before = len(json.loads(elements.text))
 
     # click anywhere to add a node
-    actions.move_to_location(10, 10)
+    actions.move_by_offset(-1000, 40)
     actions.context_click()
     actions.move_to_element(dash_duo.find_element("button#add-node"))
     actions.click()
@@ -428,9 +425,7 @@ def test_cyin010_ctx_menu_add_node(dash_duo):
 
 
 def test_cyin011_ctx_menu_add_edge(dash_duo):
-    init_pos, actions, _ = create_app(dash_duo)
-    node1_x, node1_y = init_pos["Node 1"]
-    node2_x, node2_y = init_pos["Node 4"]
+    _, actions, _ = create_app(dash_duo)
 
     # Open the Drag data JSON tab
     actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(5)"))
@@ -443,9 +438,9 @@ def test_cyin011_ctx_menu_add_edge(dash_duo):
 
     # click on 2 nodes to add an edge between them
     actions.key_down(Keys.COMMAND)
-    actions.move_by_offset(node1_x, node1_y)
+    actions.move_by_offset(-1170, 130)
     actions.click()
-    actions.move_by_offset(node2_x, node2_y)
+    actions.move_by_offset(400, 0)
     actions.click()
     actions.context_click()
     actions.move_to_element(dash_duo.find_element("button#add-edge"))
