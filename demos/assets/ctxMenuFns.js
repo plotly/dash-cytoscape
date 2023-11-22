@@ -1,5 +1,3 @@
-window.dashCytoscapeFunctions = {};
-
 window.dashCytoscapeFunctions = Object.assign(
     {},
     window.dashCytoscapeFunctions,
