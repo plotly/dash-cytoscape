@@ -2,13 +2,18 @@
  * JavaScript Requirements: cytoscape, cytoscape-svg
  * React.js requirements: react-cytoscapejs
  */
+import '/src/assets/contextmenu.css';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
-
+import {v4 as uuidv4} from 'uuid';
 import CyResponsive from '../cyResponsive.js';
+const cytoscape = require('cytoscape');
+const contextMenus = require('cytoscape-context-menus');
 
+// register extension
+contextMenus(cytoscape);
 /**
  * A Component Library for Dash aimed at facilitating network visualization in
  * Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
@@ -37,20 +42,20 @@ class Cytoscape extends Component {
 
         // Trim down the element objects to only the data contained
         const edgesData = ele.connectedEdges().map((ele) => {
-                return ele.data();
-            }),
-            childrenData = ele.children().map((ele) => {
-                return ele.data();
-            }),
-            ancestorsData = ele.ancestors().map((ele) => {
-                return ele.data();
-            }),
-            descendantsData = ele.descendants().map((ele) => {
-                return ele.data();
-            }),
-            siblingsData = ele.siblings().map((ele) => {
-                return ele.data();
-            });
+            return ele.data();
+        });
+        const childrenData = ele.children().map((ele) => {
+            return ele.data();
+        });
+        const ancestorsData = ele.ancestors().map((ele) => {
+            return ele.data();
+        });
+        const descendantsData = ele.descendants().map((ele) => {
+            return ele.data();
+        });
+        const siblingsData = ele.siblings().map((ele) => {
+            return ele.data();
+        });
 
         const {timeStamp} = event;
         const {
@@ -196,6 +201,7 @@ class Cytoscape extends Component {
         }, SELECT_THRESHOLD);
 
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
+
         cy.on('tap', 'node', (event) => {
             const nodeObject = this.generateNode(event);
 
@@ -280,7 +286,7 @@ class Cytoscape extends Component {
             refreshLayout();
         });
 
-        cy.on('dragfree', 'node', (_) => {
+        cy.on('dragfree add remove', (_) => {
             this.props.setProps({
                 elements: cy.elements('').map((item) => {
                     if (item.json().group === 'nodes') {
@@ -296,6 +302,148 @@ class Cytoscape extends Component {
                 }),
             });
         });
+
+        this.createMenuItems = (ctxMenu) => {
+            const updateContextMenuData = (newContext) => {
+                this.props.setProps({contextMenuData: newContext});
+            };
+            const contextMenuDefaultFunctions = {
+                remove: function (event) {
+                    const target = event.target || event.cyTarget;
+                    target.remove();
+                },
+                add_node: function (event) {
+                    const pos = event.position || event.cyPosition;
+                    cy.add({
+                        data: {
+                            group: 'nodes',
+                        },
+                        position: {
+                            x: pos.x,
+                            y: pos.y,
+                        },
+                    });
+                },
+                add_edge: function () {
+                    const selectedNodeIds = selectedNodes.map((node) =>
+                        node.id()
+                    );
+                    if (selectedNodes.length === 0) {
+                        console.error(
+                            'Error: No nodes selected, cannot add edge'
+                        );
+                    } else if (selectedNodes.length === 1) {
+                        cy.add({
+                            data: {
+                                id: uuidv4(),
+                                group: 'edges',
+                                source: selectedNodeIds[0],
+                                target: selectedNodeIds[0],
+                            },
+                        });
+                    } else if (selectedNodes.length === 2) {
+                        cy.add({
+                            data: {
+                                id: uuidv4(),
+                                group: 'edges',
+                                source: selectedNodeIds[0],
+                                target: selectedNodeIds[1],
+                            },
+                        });
+                    } else {
+                        console.error(
+                            'Error: more than 2 nodes selected, cannot add edge'
+                        );
+                    }
+                },
+            };
+            const newMenuItems = [];
+            for (const item of ctxMenu) {
+                let onClickFunction;
+                // return data so a user can define a custom on click function in Python
+                // if onClick or on onClickCustom are not specified
+                onClickFunction = function (event) {
+                    updateContextMenuData({
+                        menuItemId: item.id,
+                        x: event.position.x,
+                        y: event.position.y,
+                        timeStamp: event.timeStamp,
+                        elementId: event.target.data().id,
+                        edgeSource: event.target.data().source,
+                        edgeTarget: event.target.data().target,
+                    });
+                };
+                // use default javascript function as onClickFunction
+                if (Object.prototype.hasOwnProperty.call(item, 'onClick')) {
+                    if (
+                        Object.prototype.hasOwnProperty.call(
+                            contextMenuDefaultFunctions,
+                            item.onClick
+                        )
+                    ) {
+                        onClickFunction =
+                            contextMenuDefaultFunctions[item.onClick];
+                    } else {
+                        console.error(
+                            `onClick function ${item.onClick} is not defined`
+                        );
+                    }
+                }
+                // use user-defined Javascript function in a namespace under assets/ as onClickFunction
+                else if (
+                    Object.prototype.hasOwnProperty.call(item, 'onClickCustom')
+                ) {
+                    if (
+                        Object.prototype.hasOwnProperty.call(
+                            window,
+                            'dashCytoscapeFunctions'
+                        ) &&
+                        Object.prototype.hasOwnProperty.call(
+                            window.dashCytoscapeFunctions,
+                            item.onClickCustom
+                        )
+                    ) {
+                        onClickFunction =
+                            window.dashCytoscapeFunctions[item.onClickCustom];
+                    } else {
+                        console.error(
+                            `onClickCustom function ${item.onClickCustom} is not defined`
+                        );
+                    }
+                }
+                const new_item = {
+                    id: item.id,
+                    content: item.label,
+                    tooltipText: item.tooltipText,
+                    selector: '',
+                    onClickFunction: onClickFunction,
+                    coreAsWell: false,
+                };
+                if (Object.prototype.hasOwnProperty.call(item, 'availableOn')) {
+                    for (const selector of item.availableOn) {
+                        if (selector === 'edge') {
+                            if (new_item.selector.length > 0) {
+                                new_item.selector = new_item.selector + ', ';
+                            }
+                            new_item.selector = new_item.selector + 'edge';
+                        } else if (selector === 'node') {
+                            if (new_item.selector.length > 0) {
+                                new_item.selector = new_item.selector + ', ';
+                            }
+                            new_item.selector = new_item.selector + 'node';
+                        } else if (selector === 'canvas') {
+                            new_item.coreAsWell = true;
+                        } else {
+                            console.error(
+                                `Error: selector ${selector} is not available. Choose one of 'node', 'edge' or 'canvas'.`
+                            );
+                        }
+                    }
+                }
+                newMenuItems.push(new_item);
+            }
+            return newMenuItems;
+        };
 
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
@@ -423,6 +571,24 @@ class Cytoscape extends Component {
         document.body.removeChild(downloadLink);
     }
 
+    updateContextMenu(contextMenu) {
+        this._cy.contextMenus({
+            menuItems: this.createMenuItems(contextMenu),
+            menuItemClasses: ['custom-menu-item'],
+        });
+    }
+    componentDidUpdate(prevProps) {
+        const {contextMenu} = this.props;
+        if (!_.isEqual(prevProps.contextMenu, contextMenu) && this._cy) {
+            this.updateContextMenu(contextMenu);
+        }
+    }
+    componentDidMount() {
+        const {contextMenu} = this.props;
+        if (this._cy && contextMenu.length > 0) {
+            this.updateContextMenu(contextMenu);
+        }
+    }
     render() {
         const {
             // HTML attribute props
@@ -433,6 +599,8 @@ class Cytoscape extends Component {
             elements,
             stylesheet,
             layout,
+            contextMenu,
+            contextMenuData,
             // Viewport Manipulation
             pan,
             zoom,
@@ -480,6 +648,8 @@ class Cytoscape extends Component {
                 elements={CytoscapeComponent.normalizeElements(elements)}
                 stylesheet={stylesheet}
                 layout={layout}
+                contextMenu={contextMenu}
+                contextMenuData={contextMenuData}
                 pan={pan}
                 zoom={zoom}
                 panningEnabled={panningEnabled}
@@ -676,7 +846,57 @@ Cytoscape.propTypes = {
          */
         boundingBox: PropTypes.object,
     }),
-
+    /**
+     * Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.
+     * 1. By passing a string to onClick that refers to one of the built-in Javascript functions.
+     * 2. By passing a string to onClickCustom that refers to one of the user-defined functions in a namespace.
+     * 3. By omitting both of these properties; this will update the contextMenuData property and trigger a Dash callback.
+     */
+    contextMenu: PropTypes.arrayOf(
+        PropTypes.exact({
+            /** ID of the menu item in the context menu */
+            id: PropTypes.string.isRequired,
+            /** The label on the context menu item*/
+            label: PropTypes.string.isRequired,
+            /** The tooltip text when hovering on top of a context menu item */
+            tooltipText: PropTypes.string,
+            /** A list containing either 'node', 'edge',and/or 'canvas'. This will determine where the context
+             *  menu item will show up.
+             */
+            availableOn: PropTypes.array,
+            /** Specify which built-in JavaScript function to use as behaviour for the context
+             * menu item. One of 'remove', 'add_node', or 'add_edge'
+             */
+            onClick: PropTypes.string,
+            /** Specify which user-defined Javascript function to use in the dashCytoscapeFunctions
+             * namespace as behaviour for the context menu item
+             */
+            onClickCustom: PropTypes.string,
+        })
+    ),
+    /**
+     * Retrieve relevant data when a context menu item is clicked.  Read-only.
+     */
+    contextMenuData: PropTypes.exact({
+        /** ID of the menu item in the context menu */
+        menuItemId: PropTypes.string,
+        /** x-position of the context click */
+        x: PropTypes.number,
+        /** y-position of the context click */
+        y: PropTypes.number,
+        /** Timestamp of context click*/
+        timeStamp: PropTypes.number,
+        /** Element ID on context click if the context click was on an element.
+         * If context click was on white space, this property is not returned
+         */
+        elementId: PropTypes.string,
+        /** Node ID of the edge source if the clicked element is an edge,
+         * or else this property is not returned*/
+        edgeSource: PropTypes.string,
+        /** Node ID of the edge target if the clicked element is an edge,
+         * or else this property is not returned*/
+        edgeTarget: PropTypes.string,
+    }),
     // Viewport Manipulation
 
     /**
@@ -955,6 +1175,7 @@ Cytoscape.defaultProps = {
     responsive: false,
     clearOnUnhover: false,
     elements: [],
+    contextMenu: [],
 };
 
 export default Cytoscape;

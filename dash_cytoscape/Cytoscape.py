@@ -44,6 +44,71 @@ class Cytoscape(Component):
         mouseoverNodeData and mouseoverEdgeData will be the last Node or
         Edge hovered over.
 
+    - contextMenu (list of dicts; optional):
+        Define a custom context menu. The behaviour of each menu item can
+        be defined in 1 of 3 ways. 1. By passing a string to onClick that
+        refers to one of the built-in Javascript functions. 2. By passing
+        a string to onClickCustom that refers to one of the user-defined
+        functions in a namespace. 3. By omitting both of these properties;
+        this will update the contextMenuData property and trigger a Dash
+        callback.
+
+        `contextMenu` is a list of dicts with keys:
+
+        - availableOn (list; optional):
+            A list containing either 'node', 'edge',and/or 'canvas'. This
+            will determine where the context  menu item will show up.
+
+        - id (string; required):
+            ID of the menu item in the context menu.
+
+        - label (string; required):
+            The label on the context menu item.
+
+        - onClick (string; optional):
+            Specify which built-in JavaScript function to use as behaviour
+            for the context menu item. One of 'remove', 'add_node', or
+            'add_edge'.
+
+        - onClickCustom (string; optional):
+            Specify which user-defined Javascript function to use in the
+            dashCytoscapeFunctions namespace as behaviour for the context
+            menu item.
+
+        - tooltipText (string; optional):
+            The tooltip text when hovering on top of a context menu item.
+
+    - contextMenuData (dict; optional):
+        Retrieve relevant data when a context menu item is clicked.
+        Read-only.
+
+        `contextMenuData` is a dict with keys:
+
+        - edgeSource (string; optional):
+            Node ID of the edge source if the clicked element is an edge,
+            or else this property is not returned.
+
+        - edgeTarget (string; optional):
+            Node ID of the edge target if the clicked element is an edge,
+            or else this property is not returned.
+
+        - elementId (string; optional):
+            Element ID on context click if the context click was on an
+            element. If context click was on white space, this property is
+            not returned.
+
+        - menuItemId (string; optional):
+            ID of the menu item in the context menu.
+
+        - timeStamp (number; optional):
+            Timestamp of context click.
+
+        - x (number; optional):
+            x-position of the context click.
+
+        - y (number; optional):
+            y-position of the context click.
+
     - elements (list of dicts; optional):
         A list of dictionaries representing the elements of the networks.
         Each dictionary describes an element, and specifies its purpose.
@@ -449,6 +514,8 @@ class Cytoscape(Component):
         elements=Component.UNDEFINED,
         stylesheet=Component.UNDEFINED,
         layout=Component.UNDEFINED,
+        contextMenu=Component.UNDEFINED,
+        contextMenuData=Component.UNDEFINED,
         pan=Component.UNDEFINED,
         zoom=Component.UNDEFINED,
         panningEnabled=Component.UNDEFINED,
@@ -485,6 +552,8 @@ class Cytoscape(Component):
             "boxSelectionEnabled",
             "className",
             "clearOnUnhover",
+            "contextMenu",
+            "contextMenuData",
             "elements",
             "generateImage",
             "imageData",
@@ -519,6 +588,8 @@ class Cytoscape(Component):
             "boxSelectionEnabled",
             "className",
             "clearOnUnhover",
+            "contextMenu",
+            "contextMenuData",
             "elements",
             "generateImage",
             "imageData",

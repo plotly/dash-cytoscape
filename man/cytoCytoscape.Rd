@@ -13,8 +13,9 @@ A Component Library for Dash aimed at facilitating network visualization in Pyth
 cytoCytoscape(id=NULL, autoRefreshLayout=NULL, autolock=NULL,
 autoungrabify=NULL, autounselectify=NULL,
 boxSelectionEnabled=NULL, className=NULL,
-clearOnUnhover=NULL, elements=NULL, generateImage=NULL,
-imageData=NULL, layout=NULL, maxZoom=NULL, minZoom=NULL,
+clearOnUnhover=NULL, contextMenu=NULL, contextMenuData=NULL,
+elements=NULL, generateImage=NULL, imageData=NULL,
+layout=NULL, maxZoom=NULL, minZoom=NULL,
 mouseoverEdgeData=NULL, mouseoverNodeData=NULL, pan=NULL,
 panningEnabled=NULL, responsive=NULL, selectedEdgeData=NULL,
 selectedNodeData=NULL, style=NULL, stylesheet=NULL,
@@ -46,6 +47,34 @@ class attribute).}
 \item{clearOnUnhover}{Logical. If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
 If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
 Node or Edge hovered over}
+
+\item{contextMenu}{List of lists containing elements 'id', 'label', 'tooltiptext', 'availableon', 'onclick', 'onclickcustom'.
+those elements have the following types:
+  - id (character; required): id of the menu item in the context menu
+  - label (character; required): the label on the context menu item
+  - tooltiptext (character; optional): the tooltip text when hovering on top of a context menu item
+  - availableon (unnamed list; optional): a list containing either 'node', 'edge',and/or 'canvas'. this will determine where the context
+ menu item will show up.
+  - onclick (character; optional): specify which built-in javascript function to use as behaviour for the context
+menu item. one of 'remove', 'add_node', or 'add_edge'
+  - onclickcustom (character; optional): specify which user-defined javascript function to use in the dashcytoscapefunctions
+namespace as behaviour for the context menu items. Define a custom context menu. The behaviour of each menu item can be defined in 1 of 3 ways.
+1. By passing a string to onClick that refers to one of the built-in Javascript functions.
+2. By passing a string to onClickCustom that refers to one of the user-defined functions in a namespace.
+3. By omitting both of these properties; this will update the contextMenuData property and trigger a Dash callback.}
+
+\item{contextMenuData}{Lists containing elements 'menuitemid', 'x', 'y', 'timestamp', 'elementid', 'edgesource', 'edgetarget'.
+those elements have the following types:
+  - menuitemid (character; optional): id of the menu item in the context menu
+  - x (numeric; optional): x-position of the context click
+  - y (numeric; optional): y-position of the context click
+  - timestamp (numeric; optional): timestamp of context click
+  - elementid (character; optional): element id on context click if the context click was on an element.
+if context click was on white space, this property is not returned
+  - edgesource (character; optional): node id of the edge source if the clicked element is an edge,
+or else this property is not returned
+  - edgetarget (character; optional): node id of the edge target if the clicked element is an edge,
+or else this property is not returned. Retrieve relevant data when a context menu item is clicked.  Read-only.}
 
 \item{elements}{List of lists containing elements 'group', 'data', 'position', 'selected', 'selectable', 'locked', 'grabbable', 'classes'.
 those elements have the following types:

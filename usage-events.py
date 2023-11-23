@@ -96,6 +96,29 @@ basic_elements = [
         }
     },
 ]
+context_menu = [
+    {
+        "id": "add-node",
+        "label": "Add Node (JS)",
+        "tooltipText": "Add Node",
+        "availableOn": ["canvas"],
+        "onClick": "add_node",
+    },
+    {
+        "id": "remove",
+        "label": "Remove (JS)",
+        "tooltipText": "Remove",
+        "availableOn": ["node", "edge"],
+        "onClick": "remove",
+    },
+    {
+        "id": "add-edge",
+        "label": "Add Edge (JS)",
+        "tooltipText": "add edge",
+        "availableOn": ["node"],
+        "onClick": "add_edge",
+    },
+]
 
 styles = {
     "json-output": {
@@ -114,6 +137,7 @@ app.layout = html.Div(
                 cyto.Cytoscape(
                     id="cytoscape",
                     elements=basic_elements,
+                    contextMenu=context_menu,
                     layout={"name": "preset"},
                     style={"height": "500px", "width": "500px"},
                     clearOnUnhover=True,

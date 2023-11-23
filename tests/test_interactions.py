@@ -25,6 +25,7 @@ import time
 import json
 
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
@@ -340,3 +341,115 @@ def test_cyin007_click_twice(dash_duo):
 
     assert clicked_label_1 == clicked_label_2
     assert clicked_timestamp_1 != clicked_timestamp_2
+
+
+def test_cyin008_ctx_menu_remove_node(dash_duo):
+    _, actions, _ = create_app(dash_duo)
+
+    # Open the Drag data JSON tab
+    actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(5)"))
+    actions.click().perform()
+    time.sleep(1)
+
+    # Select the JSON output element before removal
+    elements = dash_duo.find_element("pre#elements-data-json-output")
+    nb_elements_before = len(json.loads(elements.text))
+
+    # move mouse to first node and right click and click on remove
+    actions.move_by_offset(-1170, 130)
+    actions.context_click()
+    actions.move_to_element(dash_duo.find_element("button#remove"))
+    actions.click()
+    actions.perform()
+    time.sleep(1)
+
+    # Select the JSON output element after removal
+    elements = dash_duo.find_element("pre#elements-data-json-output")
+    nb_elements_after = len(json.loads(elements.text))
+    # removed one node and 3 edges
+    assert nb_elements_before - 4 == nb_elements_after
+
+
+def test_cyin009_ctx_menu_remove_edge(dash_duo):
+    _, actions, _ = create_app(dash_duo)
+
+    # Open the Drag data JSON tab
+    actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(5)"))
+    actions.click().perform()
+    time.sleep(1)
+
+    # Select the JSON output element before removal
+    elements = dash_duo.find_element("pre#elements-data-json-output")
+    nb_elements_before = len(json.loads(elements.text))
+
+    # move mouse to an edge and right click and click on remove
+    actions.move_by_offset(-1100, 150)
+    actions.context_click()
+    actions.move_to_element(dash_duo.find_element("button#remove"))
+    actions.click()
+    actions.perform()
+    time.sleep(1)
+
+    # Select the JSON output element after removal
+    elements = dash_duo.find_element("pre#elements-data-json-output")
+    nb_elements_after = len(json.loads(elements.text))
+
+    assert nb_elements_before - 1 == nb_elements_after
+
+
+def test_cyin010_ctx_menu_add_node(dash_duo):
+    _, actions, _ = create_app(dash_duo)
+
+    # Open the Drag data JSON tab
+    actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(5)"))
+    actions.click().perform()
+    time.sleep(1)
+
+    # Select the JSON output element before addition
+    elements = dash_duo.find_element("pre#elements-data-json-output")
+    nb_elements_before = len(json.loads(elements.text))
+
+    # click anywhere to add a node
+    actions.move_by_offset(-1000, 40)
+    actions.context_click()
+    actions.move_to_element(dash_duo.find_element("button#add-node"))
+    actions.click()
+    actions.perform()
+    time.sleep(1)
+
+    # Select the JSON output element after addition
+    elements = dash_duo.find_element("pre#elements-data-json-output")
+    nb_elements_after = len(json.loads(elements.text))
+
+    assert nb_elements_before + 1 == nb_elements_after
+
+
+def test_cyin011_ctx_menu_add_edge(dash_duo):
+    _, actions, _ = create_app(dash_duo)
+
+    # Open the Drag data JSON tab
+    actions.move_to_element(dash_duo.find_element("#tabs > div:nth-child(5)"))
+    actions.click().perform()
+    time.sleep(1)
+
+    # Select the JSON output element before addition
+    elements = dash_duo.find_element("pre#elements-data-json-output")
+    nb_elements_before = len(json.loads(elements.text))
+
+    # click on 2 nodes to add an edge between them
+    actions.key_down(Keys.COMMAND)
+    actions.move_by_offset(-1170, 130)
+    actions.click()
+    actions.move_by_offset(400, 0)
+    actions.click()
+    actions.context_click()
+    actions.move_to_element(dash_duo.find_element("button#add-edge"))
+    actions.click()
+    actions.perform()
+    time.sleep(1)
+
+    # Select the JSON output element after addition
+    elements = dash_duo.find_element("pre#elements-data-json-output")
+    nb_elements_after = len(json.loads(elements.text))
+
+    assert nb_elements_before + 1 == nb_elements_after
