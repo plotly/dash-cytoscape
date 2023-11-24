@@ -3,48 +3,39 @@ if (!window.dash_clientside) {
 }
 
 window.dash_clientside.utils = {
-    CONVERSION_FACTOR: 100000,
+    // Proj4 coordinate conversion object
+    // object with 2 methods: `forward` converts from lat/lon to x/y,
+    // and `inverse` converts from x/y to lat/lon.
+    //  - EPSG:4326 is the 'standard' lat/lon coordinate system,
+    //  - EPSG:3857 is the 'Web Mercator' projection used by many
+    //    online mapping serveces including Leaflet
+    // Note: proj4.js is imported as an part of `external_scripts`
+    // in demos/usage-cy-leaflet-aio-ekl.py
+    _proj4js_converter: proj4('EPSG:4326', 'EPSG:3857'),
 
-    latToY: function (lat) {
-        return -lat * this.CONVERSION_FACTOR;
+    lonLatToXY: function (lon, lat) {
+        var xy = this._proj4js_converter.forward([lon, lat]);
+        var x = xy[0];
+        var y = -xy[1];
+        return [x, y];
     },
-    yToLat: function (y, averageLat) {
-        lat = -y / this.CONVERSION_FACTOR;
-        latMod =
-            -0.00349674 * lat - 0.00021492 * (lat ^ 2) + 1.00500000974457868175;
-        diff = lat - averageLat;
-        lat = lat + diff * latMod;
 
-        if (lat > 90) {
-            lat = 90;
-        } else if (lat < -90) {
-            lat = -90;
-        }
-        return lat;
+    xYToLonLat: function (x, y) {
+        var lonlat = this._proj4js_converter.inverse([x, -y]);
+        var lon = lonlat[0];
+        var lat = lonlat[1];
+        return [lon, lat];
     },
-    lonToX: function (lon) {
-        return lon * this.CONVERSION_FACTOR;
-    },
-    xToLon: function (x, averageLon) {
-        lon = x / this.CONVERSION_FACTOR;
-        diff = lon - averageLon;
-        lon = lon + diff * 1;
 
-        if (lon > 180) {
-            lon = 180;
-        } else if (lon < -180) {
-            lon = -180;
-        }
-        return lon;
-    },
     transformElements: function (elements) {
         return elements.map((e) => {
             if (e.data.hasOwnProperty('lat')) {
+                var xy = this.lonLatToXY(e.data.lon, e.data.lat);
                 return {
                     data: e.data,
                     position: {
-                        y: this.latToY(e.data.lat),
-                        x: this.lonToX(e.data.lon),
+                        y: xy[1],
+                        x: xy[0],
                     },
                 };
             }
@@ -57,20 +48,23 @@ window.dash_clientside.clientside = {
     updateLeafBounds: function (cyExtent) {
         return cyExtent;
     },
-    updateLeafBoundsAIO: function (cyExtent, averageCoor) {
+    updateLeafBoundsAIO: function (cyExtent) {
         if (!cyExtent) {
             return window.dash_clientside.no_update;
         }
         var utils = window.dash_clientside.utils;
+
+        var lonLatMin = utils.xYToLonLat(cyExtent.x1, cyExtent.y1);
+        var lonMin = lonLatMin[0];
+        var latMin = lonLatMin[1];
+
+        var lonLatMax = utils.xYToLonLat(cyExtent.x2, cyExtent.y2);
+        var lonMax = lonLatMax[0];
+        var latMax = lonLatMax[1];
+
         var bounds = [
-            [
-                utils.yToLat(cyExtent.y2, averageCoor.averageLat),
-                utils.xToLon(cyExtent.x1, averageCoor.averageLon),
-            ],
-            [
-                utils.yToLat(cyExtent.y1, averageCoor.averageLat),
-                utils.xToLon(cyExtent.x2, averageCoor.averageLon),
-            ],
+            [latMax, lonMin],
+            [latMin, lonMax],
         ];
         return bounds;
     },

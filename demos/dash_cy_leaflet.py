@@ -68,12 +68,10 @@ class DashCyLeaflet(html.Div):
                     count += 1
 
             # Calculate the average latitude and longitude
-            average_lat = total_lat / count if count > 0 else 0.01
-            average_lon = total_lon / count if count > 0 else 0.01
+            average_lat = total_lat / count if count > 0 else None
+            average_lon = total_lon / count if count > 0 else None
 
             return {"averageLat": average_lat, "averageLon": average_lon}
-
-        avg_coordinates = find_average_lat_lon(elements)
 
         super().__init__(
             [
@@ -100,7 +98,6 @@ class DashCyLeaflet(html.Div):
                     },
                 ),
                 dcc.Store(id=self.ids["elements-store"], data=elements),
-                dcc.Store(id=self.ids["avg-coor-store"], data=avg_coordinates),
             ],
             style={
                 "height": "100%",
@@ -117,7 +114,6 @@ class DashCyLeaflet(html.Div):
             ),
             Output(self.ids["leaf"], "bounds"),
             Input(self.ids["cy"], "extent"),
-            State(self.ids["avg-coor-store"], "data"),
         )
         clientside_callback(
             ClientsideFunction(

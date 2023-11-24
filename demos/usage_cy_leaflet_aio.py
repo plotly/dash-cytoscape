@@ -15,7 +15,10 @@ from dash_cy_leaflet import DashCyLeaflet
 
 cyto.load_extra_layouts()
 
-app = dash.Dash(__name__)
+app = dash.Dash(
+    __name__,
+    external_scripts=["https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"],
+)
 server = app.server
 
 
@@ -26,7 +29,7 @@ cy_stylesheet = [
 ]
 
 default_div_style = {
-    "height": "600px",
+    "height": "650px",
     "width": "800px",
     "border": "2px solid gray",
     "padding": "10px",
@@ -36,7 +39,6 @@ default_div_style = {
 location_options = [
     {"label": x, "value": x}
     for x in [
-        "Nort of Montreal",
         "Montreal",
         "Reykjavik",
         "Punta Arenas",
@@ -47,34 +49,12 @@ location_options = [
 ]
 
 city_lat_lon = {
-    "Nort of Montreal": (
-        80,
-        -73.5757529436986,
-    ),  # poco y: 0.4942222 , 0.59125 ------ -0.65
-    "Montreal": (
-        45.52028867870132,
-        -73.5757529436986,
-    ),  # poco y: 0.4942222 , 0.59125 ------ 0.4
-    "Reykjavik": (
-        64.14536852496903,
-        -21.930855990003625,
-    ),  # poco x: 0.287273, 0.87815 ----- -0.131 lat
-    "Punta Arenas": (
-        -53.16155139684391,
-        -70.90581697003078,
-    ),  # poco mas x: 0.4093, 0.6061 ------  0.2 lat
-    "Quito": (
-        -0.181573087774938,
-        -78.48203920834054,
-    ),  # poco mas y: 0.9980, 0.5639 ------ 1 lat
-    "Santa Cruz de Tenerife": (
-        28.4636,
-        -16.2518,
-    ),  # bastante y: 0.68373, 0.9097 ----- 0.75 lat
-    "Gold Coast": (
-        -28.026901440211205,
-        153.4208293956674,
-    ),  # bastante x: 0.68859, 0.14765 ------ 0.75 lon
+    "Montreal": (45.52028867870132, -73.5757529436986),
+    "Reykjavik": (64.14536852496903, -21.930855990003625),
+    "Punta Arenas": (-53.16155139684391, -70.90581697003078),
+    "Quito": (-0.181573087774938, -78.48203920834054),
+    "Santa Cruz de Tenerife": (28.4636, -16.2518),
+    "Gold Coast": (-28.026901440211205, 153.4208293956674),
 }
 
 # App
@@ -92,6 +72,7 @@ app.layout = html.Div(
             style=default_div_style,
         ),
         html.Div(id="bounds-display"),
+        html.Div(id="extent-display"),
         html.Div(
             [
                 "Settings",
@@ -99,6 +80,18 @@ app.layout = html.Div(
                     id="location-dropdown",
                     options=location_options,
                     value=location_options[0]["value"],
+                ),
+                dcc.Input(
+                    id="width-input",
+                    type="number",
+                    value=int(default_div_style["width"][:-2]),
+                    debounce=True,
+                ),
+                dcc.Input(
+                    id="height-input",
+                    type="number",
+                    value=int(default_div_style["height"][:-2]),
+                    debounce=True,
                 ),
             ],
         ),
@@ -108,11 +101,15 @@ app.layout = html.Div(
 
 @callback(
     Output("cy-leaflet-div", "children"),
+    Output("cy-leaflet-div", "style"),
+    Output({"id": "my-cy-leaflet", "sub": "leaf"}, "children"),
     Input("location-dropdown", "value"),
+    Input("width-input", "value"),
+    Input("height-input", "value"),
 )
-def update_location(location):
-    d = 0.01
-    d2 = 0.001
+def update_location(location, width, height):
+    d = 0.001
+    d2 = 0.0001
     lat, lon = city_lat_lon[location]
     new_elements = [
         {"data": {"id": "a", "label": "Node A", "lat": lat - d, "lon": lon - d}},
@@ -120,21 +117,64 @@ def update_location(location):
         {"data": {"id": "c", "label": "Node C", "lat": lat + d - d2, "lon": lon + d}},
         {"data": {"id": "ab", "source": "a", "target": "b"}},
     ]
-    return DashCyLeaflet(
-        id="my-cy-leaflet",
-        cytoscape_props=dict(
-            elements=new_elements,
-            stylesheet=cy_stylesheet,
+    markers = [
+        dl.Marker(
+            position=[e["data"]["lat"], e["data"]["lon"]],
+            children=[
+                dl.Tooltip(
+                    "(" + str(e["data"]["lat"]) + ", " + str(e["data"]["lon"]) + ")"
+                ),
+            ],
+        )
+        for e in new_elements
+        if "lat" in e["data"]
+    ]
+    leaflet_children = [dl.TileLayer()] + markers
+    new_style = dict(default_div_style)
+    new_style["width"] = str(width) + "px" if width else default_div_style["width"]
+    new_style["height"] = str(height) + "px" if height else default_div_style["height"]
+    return (
+        DashCyLeaflet(
+            id="my-cy-leaflet",
+            cytoscape_props=dict(
+                elements=new_elements,
+                stylesheet=cy_stylesheet,
+            ),
         ),
+        new_style,
+        leaflet_children,
     )
 
 
 @callback(
     Output("bounds-display", "children"),
+    Output("extent-display", "children"),
     Input({"id": "my-cy-leaflet", "sub": "leaf"}, "bounds"),
+    Input({"id": "my-cy-leaflet", "sub": "cy"}, "extent"),
 )
-def display_leaf_bounds(bounds):
-    return "Leaflet bounds:" + str(bounds)
+def display_leaf_bounds(bounds, extent):
+    bounds = (
+        [
+            [f"{bounds[0][0]:.5f}", f"{bounds[0][1]:.5f}"],
+            [f"{bounds[1][0]:.5f}", f"{bounds[1][1]:.5f}"],
+        ]
+        if bounds
+        else None
+    )
+    extent = (
+        [
+            [f"{-extent['y2']/ 100000:.5f}", f"{extent['x1']/ 100000:.5f}"],
+            [f"{-extent['y1']/ 100000:.5f}", f"{extent['x2']/ 100000:.5f}"],
+        ]
+        if extent
+        else None
+    )
+    # extent = {k: v / 100000 for k, v in extent.items() if k in {"x1", "x2", "y1", "y2"}}
+
+    return [
+        "Leaflet bounds:" + str(bounds),
+        "Cy extent:" + str(extent),
+    ]
 
 
 if __name__ == "__main__":
