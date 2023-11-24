@@ -2,11 +2,8 @@ import dash
 from dash import (
     html,
     callback,
-    clientside_callback,
-    ClientsideFunction,
     Input,
     Output,
-    State,
     dcc,
 )
 import dash_cytoscape as cyto

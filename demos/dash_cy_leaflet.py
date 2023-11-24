@@ -3,7 +3,6 @@ from dash import (
     ClientsideFunction,
     Output,
     Input,
-    State,
     html,
     dcc,
 )
