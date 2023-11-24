@@ -1163,6 +1163,13 @@ Cytoscape.propTypes = {
     responsive: PropTypes.bool,
 
     /**
+     * Extent of the viewport, a bounding box in model co-ordinates that lets you know what model
+     * positions are visible in the viewport. This function returns a plain object bounding box
+     * with format { x1, y1, x2, y2, w, h }.
+     */
+    extent: PropTypes.object,
+
+    /**
      * If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.
      * If set to False, the value of mouseoverNodeData and mouseoverEdgeData will be the last
      * Node or Edge hovered over
