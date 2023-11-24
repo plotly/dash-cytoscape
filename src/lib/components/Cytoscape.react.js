@@ -204,6 +204,12 @@ class Cytoscape extends Component {
             });
         }, SELECT_THRESHOLD);
 
+        const setExtent = _.debounce((cyExtent) => {
+            this.props.setProps({
+                extent: cyExtent,
+            });
+        }, 0);
+
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
 
         cy.on('tap', 'node', (event) => {
@@ -451,6 +457,12 @@ class Cytoscape extends Component {
 
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
+        cy.on('viewport resize', () => {
+            setExtent(cy.extent());
+        });
+        this.cyResponsiveClass = new CyResponsive(cy);
+        this.cyResponsiveClass.toggle(this.props.responsive);
+        setExtent(cy.extent());
     }
 
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
