@@ -9,6 +9,10 @@ import CytoscapeComponent from 'react-cytoscapejs';
 import _ from 'lodash';
 import {v4 as uuidv4} from 'uuid';
 import CyResponsive from '../cyResponsive.js';
+
+// Polyfill so that context menu extension works in Safari
+import '@ungap/custom-elements';
+
 const cytoscape = require('cytoscape');
 const contextMenus = require('cytoscape-context-menus');
 
