@@ -11,7 +11,7 @@ import dash_cytoscape as cyto
 import dash_leaflet as dl
 
 
-class DashCyLeaflet(html.Div):
+class CyLeaflet(html.Div):
     def __init__(self, id, cytoscape_props=None, leaflet_props=None):
         cytoscape_props = cytoscape_props or {}
         leaflet_props = leaflet_props or {}

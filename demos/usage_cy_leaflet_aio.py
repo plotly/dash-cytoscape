@@ -8,7 +8,6 @@ from dash import (
 )
 import dash_cytoscape as cyto
 import dash_leaflet as dl
-from dash_cy_leaflet import DashCyLeaflet
 
 cyto.load_extra_layouts()
 
@@ -58,7 +57,7 @@ city_lat_lon = {
 app.layout = html.Div(
     [
         html.Div(
-            DashCyLeaflet(
+            cyto.CyLeaflet(
                 id="my-cy-leaflet",
                 cytoscape_props=dict(
                     elements=[],
@@ -131,7 +130,7 @@ def update_location(location, width, height):
     new_style["width"] = str(width) + "px" if width else default_div_style["width"]
     new_style["height"] = str(height) + "px" if height else default_div_style["height"]
     return (
-        DashCyLeaflet(
+        cyto.CyLeaflet(
             id="my-cy-leaflet",
             cytoscape_props=dict(
                 elements=new_elements,
