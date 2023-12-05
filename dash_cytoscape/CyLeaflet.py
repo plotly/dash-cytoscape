@@ -16,10 +16,7 @@ class CyLeaflet(html.Div):
         cytoscape_props = cytoscape_props or {}
         leaflet_props = leaflet_props or {}
         elements = cytoscape_props["elements"]
-        self.ids = {
-            s: {"id": id, "sub": s}
-            for s in ["cy", "leaf", "elements-store", "avg-coor-store"]
-        }
+        self.ids = {s: {"id": id, "sub": s} for s in ["cy", "leaf", "elements-store"]}
         cytoscape_props = dict(
             cytoscape_props,
             id=self.ids["cy"],
@@ -109,7 +106,7 @@ class CyLeaflet(html.Div):
             ClientsideFunction(
                 namespace="cyleaflet", function_name="updateLeafBoundsAIO"
             ),
-            Output(self.ids["leaf"], "bounds"),
+            Output(self.ids["leaf"], "viewport"),
             Input(self.ids["cy"], "extent"),
         )
         clientside_callback(

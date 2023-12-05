@@ -48,9 +48,6 @@ window.dash_clientside.cyleaflet_utils = {
 };
 
 window.dash_clientside.cyleaflet = {
-    updateLeafBounds: function (cyExtent) {
-        return cyExtent;
-    },
     updateLeafBoundsAIO: function (cyExtent) {
         if (!cyExtent) {
             return window.dash_clientside.no_update;
@@ -69,7 +66,10 @@ window.dash_clientside.cyleaflet = {
             [latMax, lonMin],
             [latMin, lonMax],
         ];
-        return bounds;
+        return {
+            bounds: bounds,
+            transition: 'panTo',
+        };
     },
     transformElements: function (elements) {
         return window.dash_clientside.cyleaflet_utils.transformElements(elements);
