@@ -16,7 +16,7 @@ class CyLeaflet(html.Div):
         cytoscape_props = cytoscape_props or {}
         leaflet_props = leaflet_props or {}
         elements = cytoscape_props["elements"]
-        self.ids = {s: {"id": id, "sub": s} for s in ["cy", "leaf", "elements-store"]}
+        self.ids = {s: {"id": id, "sub": s} for s in ["cy", "leaf", "elements"]}
         cytoscape_props = dict(
             cytoscape_props,
             id=self.ids["cy"],
@@ -91,7 +91,7 @@ class CyLeaflet(html.Div):
                         "zIndex": 1,
                     },
                 ),
-                dcc.Store(id=self.ids["elements-store"], data=elements),
+                dcc.Store(id=self.ids["elements"], data=elements),
             ],
             style={
                 "height": "100%",
@@ -114,5 +114,5 @@ class CyLeaflet(html.Div):
                 namespace="cyleaflet", function_name="transformElements"
             ),
             Output(self.ids["cy"], "elements"),
-            Input(self.ids["elements-store"], "data"),
+            Input(self.ids["elements"], "data"),
         )
