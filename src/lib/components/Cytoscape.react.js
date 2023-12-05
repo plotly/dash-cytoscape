@@ -16,6 +16,9 @@ import '@ungap/custom-elements';
 const cytoscape = require('cytoscape');
 const contextMenus = require('cytoscape-context-menus');
 
+// Clientside callback functions for CyLeaflet AIO component
+import * as cyleaflet_clientside from '../cyleaflet_clientside.js';
+
 // register extension
 contextMenus(cytoscape);
 /**

@@ -70,31 +70,6 @@ class CyLeaflet(html.Div):
             style={"width": "100%", "height": "100%"},
         )
 
-        def find_average_lat_lon(elements):
-            # Variables to store the total latitudes and longitudes
-            total_lat = 0
-            total_lon = 0
-
-            # Count of elements with valid latitudes and longitudes
-            count = 0
-
-            # Loop through the elements list
-            for element in elements:
-                if (
-                    "data" in element
-                    and "lat" in element["data"]
-                    and "lon" in element["data"]
-                ):
-                    total_lat += element["data"]["lat"]
-                    total_lon += element["data"]["lon"]
-                    count += 1
-
-            # Calculate the average latitude and longitude
-            average_lat = total_lat / count if count > 0 else None
-            average_lon = total_lon / count if count > 0 else None
-
-            return {"averageLat": average_lat, "averageLon": average_lon}
-
         super().__init__(
             [
                 html.Div(
@@ -132,14 +107,14 @@ class CyLeaflet(html.Div):
     def add_clientside_callbacks(self):
         clientside_callback(
             ClientsideFunction(
-                namespace="clientside", function_name="updateLeafBoundsAIO"
+                namespace="cyleaflet", function_name="updateLeafBoundsAIO"
             ),
             Output(self.ids["leaf"], "bounds"),
             Input(self.ids["cy"], "extent"),
         )
         clientside_callback(
             ClientsideFunction(
-                namespace="clientside", function_name="transformElements"
+                namespace="cyleaflet", function_name="transformElements"
             ),
             Output(self.ids["cy"], "elements"),
             Input(self.ids["elements-store"], "data"),

@@ -11,6 +11,9 @@ from ._imports_ import *
 from ._imports_ import __all__
 from . import utils
 
+# Import CyLeaflet AIO component
+from .CyLeaflet import CyLeaflet
+
 
 if not hasattr(_dash, "__plotly_dash") and not hasattr(_dash, "development"):
     print(

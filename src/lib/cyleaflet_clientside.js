@@ -2,7 +2,7 @@ if (!window.dash_clientside) {
     window.dash_clientside = {};
 }
 
-window.dash_clientside.utils = {
+window.dash_clientside.cyleaflet_utils = {
     // Proj4 coordinate conversion object
     // object with 2 methods: `forward` converts from lat/lon to x/y,
     // and `inverse` converts from x/y to lat/lon.
@@ -44,7 +44,7 @@ window.dash_clientside.utils = {
     },
 };
 
-window.dash_clientside.clientside = {
+window.dash_clientside.cyleaflet = {
     updateLeafBounds: function (cyExtent) {
         return cyExtent;
     },
@@ -52,7 +52,7 @@ window.dash_clientside.clientside = {
         if (!cyExtent) {
             return window.dash_clientside.no_update;
         }
-        var utils = window.dash_clientside.utils;
+        var utils = window.dash_clientside.cyleaflet_utils;
 
         var lonLatMin = utils.xYToLonLat(cyExtent.x1, cyExtent.y1);
         var lonMin = lonLatMin[0];
@@ -69,6 +69,6 @@ window.dash_clientside.clientside = {
         return bounds;
     },
     transformElements: function (elements) {
-        return window.dash_clientside.utils.transformElements(elements);
+        return window.dash_clientside.cyleaflet_utils.transformElements(elements);
     },
 };
