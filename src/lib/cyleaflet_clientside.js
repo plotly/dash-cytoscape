@@ -1,3 +1,6 @@
+import proj4 from 'proj4'
+
+
 if (!window.dash_clientside) {
     window.dash_clientside = {};
 }

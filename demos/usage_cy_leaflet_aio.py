@@ -11,10 +11,7 @@ import dash_leaflet as dl
 
 cyto.load_extra_layouts()
 
-app = dash.Dash(
-    __name__,
-    external_scripts=["https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"],
-)
+app = dash.Dash(__name__)
 server = app.server
 
 

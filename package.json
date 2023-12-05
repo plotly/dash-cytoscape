@@ -48,6 +48,7 @@
     "cytoscape-spread": "^3.0.0",
     "cytoscape-svg": "0.4.0",
     "lodash": "^4.17.21",
+    "proj4": "^2.9.2",
     "ramda": "^0.29.0",
     "react": ">=16",
     "react-cytoscapejs": "2.0.0",
