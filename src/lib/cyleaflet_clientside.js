@@ -68,7 +68,7 @@ window.dash_clientside.cyleaflet = {
         ];
         return {
             bounds: bounds,
-            transition: 'panTo',
+            options: { animate: true },
         };
     },
     transformElements: function (elements) {
