@@ -81,7 +81,7 @@ class CyLeaflet(html.Div):
                     },
                 ),
                 html.Div(
-                    dl.Map(**leaflet_props),
+                    dl.MapContainer(**leaflet_props),
                     style={
                         "height": "100%",
                         "width": "100%",
