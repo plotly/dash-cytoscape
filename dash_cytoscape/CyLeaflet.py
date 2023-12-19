@@ -15,7 +15,7 @@ class CyLeaflet(html.Div):
     def __init__(self, id, cytoscape_props=None, leaflet_props=None):
         cytoscape_props = cytoscape_props or {}
         leaflet_props = leaflet_props or {}
-        elements = cytoscape_props["elements"]
+        elements = cytoscape_props.get("elements", [])
         self.ids = {s: {"id": id, "sub": s} for s in ["cy", "leaf", "elements"]}
         cytoscape_props = dict(
             cytoscape_props,
@@ -29,29 +29,6 @@ class CyLeaflet(html.Div):
             },
             maxZoom=5,
             minZoom=3 / 100000,
-            contextMenu=[
-                {
-                    "id": "add-node",
-                    "label": "Add Node (JS)",
-                    "tooltipText": "Add Node",
-                    "onClick": "add_node",
-                    "availableOn": ["canvas"],
-                },
-                {
-                    "id": "remove",
-                    "label": "Remove (JS)",
-                    "tooltipText": "Remove",
-                    "availableOn": ["node", "edge"],
-                    "onClick": "remove",
-                },
-                {
-                    "id": "add-edge",
-                    "label": "Add Edge (JS)",
-                    "tooltipText": "add edge",
-                    "availableOn": ["node"],
-                    "onClick": "add_edge",
-                },
-            ],
         )
         leaflet_props = dict(
             leaflet_props,
