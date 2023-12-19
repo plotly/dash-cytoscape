@@ -62,14 +62,18 @@ window.dash_clientside.cyleaflet = {
         var lonMax = lonLatMax[0];
         var latMax = lonLatMax[1];
 
+        var invalidateSize = new Date().getTime();
         var bounds = [
             [latMax, lonMin],
             [latMin, lonMax],
         ];
-        return {
-            bounds: bounds,
-            options: { animate: true },
-        };
+        return [
+            invalidateSize,
+            {
+                bounds: bounds,
+                options: { animate: true },
+            }
+        ];
     },
     transformElements: function (elements) {
         return window.dash_clientside.cyleaflet_utils.transformElements(elements);

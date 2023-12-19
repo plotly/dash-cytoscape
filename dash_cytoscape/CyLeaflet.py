@@ -106,6 +106,7 @@ class CyLeaflet(html.Div):
             ClientsideFunction(
                 namespace="cyleaflet", function_name="updateLeafBoundsAIO"
             ),
+            Output(self.ids["leaf"], "invalidateSize"),
             Output(self.ids["leaf"], "viewport"),
             Input(self.ids["cy"], "extent"),
         )
