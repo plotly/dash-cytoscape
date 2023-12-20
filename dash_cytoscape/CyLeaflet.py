@@ -56,9 +56,6 @@ class CyLeaflet(html.Div):
         self.add_clientside_callbacks()
 
     def set_default_props_and_overrides(self, user_cytoscape_props, user_leaflet_props):
-        user_cytoscape_props = user_cytoscape_props or {}
-        user_leaflet_props = user_leaflet_props or {}
-
         # Props where we want to override values supplied by the user
         # These are props which are required for CyLeaflet to work properly
         cytoscape_overrides = {
