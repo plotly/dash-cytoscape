@@ -167,6 +167,7 @@ class Cytoscape extends Component {
 
         // ///////////////////////////////////// CONSTANTS /////////////////////////////////////////
         const SELECT_THRESHOLD = 100;
+        const EXTENT_THRESHOLD = 5;
 
         const selectedNodes = cy.collection();
         const selectedEdges = cy.collection();
@@ -211,7 +212,7 @@ class Cytoscape extends Component {
             this.props.setProps({
                 extent: cyExtent,
             });
-        }, 0);
+        }, EXTENT_THRESHOLD);
 
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
 
