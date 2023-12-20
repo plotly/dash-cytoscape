@@ -90,6 +90,13 @@
           }
         ],
         "returns": null
+      },
+      {
+        "name": "graphOutOfView",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
       }
     ],
     "props": {

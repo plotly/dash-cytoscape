@@ -65,7 +65,7 @@ class CyLeaflet(html.Div):
             "elements": [],  # Elements are set via clientside callback, so set to empty list initially
             "layout": {"name": "preset"},
             "style": {"width": "100%", "height": "100%"},
-            "maxZoom": 5,
+            "maxZoom": 1.67,
             "minZoom": 3 / 100000,
         }
         leaflet_overrides = {
