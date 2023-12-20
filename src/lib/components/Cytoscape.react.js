@@ -596,10 +596,28 @@ class Cytoscape extends Component {
             menuItemClasses: ['custom-menu-item'],
         });
     }
+
+    // Returns true if there is no overlap between the element bounding box
+    // and the rendered area of the graph, meaning the graph is entirely outside the viewport;
+    // returns false otherwise
+    graphOutOfView() {
+        const cyWidth = this._cy.width();
+        const cyHeight = this._cy.height();
+        const elBox = this._cy.elements().renderedBoundingbox();
+        return elBox.x1 < 0 || elBox.y1 < 0 || elBox.x2  > cyWidth || elBox.y2  > cyHeight;
+    }
+
     componentDidUpdate(prevProps) {
-        const {contextMenu} = this.props;
+        const {contextMenu, elements} = this.props;
         if (!_.isEqual(prevProps.contextMenu, contextMenu) && this._cy) {
             this.updateContextMenu(contextMenu);
+        }
+        if (!_.isEqual(prevProps.elements, elements) && this._cy) {
+            // If elements were updated, and the new graph is *entirely* outside the viewport,
+            // fit the viewport to the new elements
+            if (this.graphOutOfView()) {
+                this._cy.fit();
+            }
         }
     }
     componentDidMount() {
