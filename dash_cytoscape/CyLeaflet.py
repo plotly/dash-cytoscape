@@ -14,8 +14,9 @@ import dash_leaflet as dl
 class CyLeaflet(html.Div):
     def __init__(self, id, cytoscape_props=None, leaflet_props=None):
         self.ids = {s: {"id": id, "sub": s} for s in ["cy", "leaf", "elements"]}
+        cytoscape_props = cytoscape_props or {}
+        leaflet_props = leaflet_props or {}
         elements = cytoscape_props.get("elements", [])
-
         cytoscape_props, leaflet_props = self.set_default_props_and_overrides(
             cytoscape_props, leaflet_props
         )
