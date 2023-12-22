@@ -12,7 +12,14 @@ import dash_leaflet as dl
 
 
 class CyLeaflet(html.Div):
-    def __init__(self, id, cytoscape_props=None, leaflet_props=None):
+    def __init__(
+        self,
+        id,
+        cytoscape_props=None,
+        leaflet_props=None,
+        width="600px",
+        height="480px",
+    ):
         self.ids = {s: {"id": id, "sub": s} for s in ["cy", "leaf", "elements"]}
         cytoscape_props = cytoscape_props or {}
         leaflet_props = leaflet_props or {}
@@ -22,31 +29,37 @@ class CyLeaflet(html.Div):
         )
 
         super().__init__(
-            [
-                html.Div(
-                    cyto.Cytoscape(**cytoscape_props),
-                    style={
-                        "height": "100%",
-                        "width": "100%",
-                        "position": "absolute",
-                        "top": 0,
-                        "left": 0,
-                        "zIndex": 2,
-                    },
-                ),
-                html.Div(
-                    dl.MapContainer(**leaflet_props),
-                    style={
-                        "height": "100%",
-                        "width": "100%",
-                        "position": "absolute",
-                        "top": 0,
-                        "left": 0,
-                        "zIndex": 1,
-                    },
-                ),
-                dcc.Store(id=self.ids["elements"], data=elements),
-            ],
+            html.Div(
+                [
+                    html.Div(
+                        cyto.Cytoscape(**cytoscape_props),
+                        style={
+                            "height": "100%",
+                            "width": "100%",
+                            "position": "absolute",
+                            "top": 0,
+                            "left": 0,
+                            "zIndex": 2,
+                        },
+                    ),
+                    html.Div(
+                        dl.Map(**leaflet_props),
+                        style={
+                            "height": "100%",
+                            "width": "100%",
+                            "position": "absolute",
+                            "top": 0,
+                            "left": 0,
+                            "zIndex": 1,
+                        },
+                    ),
+                    dcc.Store(id=self.ids["elements"], data=elements),
+                ],
+                style={
+                    "width": width,
+                    "height": height,
+                },
+            ),
             style={
                 "height": "100%",
                 "width": "100%",
@@ -70,7 +83,7 @@ class CyLeaflet(html.Div):
             "id": self.ids["leaf"],
             "zoomSnap": 0,
             "zoomControl": False,
-            "zoomAnimation": True,
+            "zoomAnimation": False,
             "maxZoom": 100000,
             "maxBoundsViscosity": 1,
             "maxBounds": [[-85, -180.0], [85, 180.0]],
