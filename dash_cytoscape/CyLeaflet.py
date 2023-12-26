@@ -1,5 +1,6 @@
 from dash import (
     clientside_callback,
+    callback,
     ClientsideFunction,
     Output,
     Input,
