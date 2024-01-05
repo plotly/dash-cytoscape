@@ -6,6 +6,7 @@ from dash import (
     Input,
     html,
     dcc,
+    MATCH,
 )
 
 import dash_cytoscape as cyto
@@ -22,6 +23,7 @@ class CyLeaflet(html.Div):
         height="480px",
     ):
         self.ids = {s: {"id": id, "sub": s} for s in ["cy", "leaf", "elements"]}
+        self.ids["component"] = "leaflet"
         cytoscape_props = cytoscape_props or {}
         leaflet_props = leaflet_props or {}
         elements = cytoscape_props.get("elements", [])
@@ -67,7 +69,6 @@ class CyLeaflet(html.Div):
                 "position": "relative",
             },
         )
-        self.add_clientside_callbacks()
 
     def set_default_props_and_overrides(self, user_cytoscape_props, user_leaflet_props):
         # Props where we want to override values supplied by the user
@@ -114,19 +115,15 @@ class CyLeaflet(html.Div):
 
         return cytoscape_props, leaflet_props
 
-    def add_clientside_callbacks(self):
-        clientside_callback(
-            ClientsideFunction(
-                namespace="cyleaflet", function_name="updateLeafBoundsAIO"
-            ),
-            Output(self.ids["leaf"], "invalidateSize"),
-            Output(self.ids["leaf"], "viewport"),
-            Input(self.ids["cy"], "extent"),
-        )
-        clientside_callback(
-            ClientsideFunction(
-                namespace="cyleaflet", function_name="transformElements"
-            ),
-            Output(self.ids["cy"], "elements"),
-            Input(self.ids["elements"], "data"),
-        )
+
+clientside_callback(
+    ClientsideFunction(namespace="cyleaflet", function_name="updateLeafBoundsAIO"),
+    Output({"id": MATCH, "sub": "leaf"}, "invalidateSize"),
+    Output({"id": MATCH, "sub": "leaf"}, "viewport"),
+    Input({"id": MATCH, "sub": "cy"}, "extent"),
+)
+clientside_callback(
+    ClientsideFunction(namespace="cyleaflet", function_name="transformElements"),
+    Output({"id": MATCH, "sub": "cy"}, "elements"),
+    Input({"id": MATCH, "sub": "elements"}, "data"),
+)
