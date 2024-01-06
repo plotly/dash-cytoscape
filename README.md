@@ -33,6 +33,12 @@ Install the library using `pip`:
 pip install dash-cytoscape
 ```
 
+If you wish to use the CyLeaflet mapping extension, you must install the optional `leaflet` dependencies:
+
+```
+pip install dash-cytoscape[leaflet]
+```
+
 Create the following example inside an `app.py` file:
 
 ```python
