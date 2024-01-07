@@ -81,8 +81,12 @@ class CyLeaflet(html.Div):
             "maxZoom": 1.67,
             "minZoom": 3 / 100000,
         }
+        # Note: Leaflet MUST be initialized with a center and zoom to avoid an error,
+        # even though these will be immediately overwritten by syncing w/ Cytoscape
         leaflet_overrides = {
             "id": self.ids["leaf"],
+            "center": [0, 0],
+            "zoom": 6,
             "zoomSnap": 0,
             "zoomControl": False,
             "zoomAnimation": False,
@@ -117,7 +121,7 @@ class CyLeaflet(html.Div):
 
 
 clientside_callback(
-    ClientsideFunction(namespace="cyleaflet", function_name="updateLeafBoundsAIO"),
+    ClientsideFunction(namespace="cyleaflet", function_name="updateLeafBounds"),
     Output({"id": MATCH, "sub": "leaf"}, "invalidateSize"),
     Output({"id": MATCH, "sub": "leaf"}, "viewport"),
     Input({"id": MATCH, "sub": "cy"}, "extent"),

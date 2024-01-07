@@ -48,7 +48,7 @@ window.dash_clientside.cyleaflet_utils = {
 };
 
 window.dash_clientside.cyleaflet = {
-    updateLeafBoundsAIO: function (cyExtent) {
+    updateLeafBounds: function (cyExtent) {
         if (!cyExtent) {
             return window.dash_clientside.no_update;
         }
@@ -67,6 +67,13 @@ window.dash_clientside.cyleaflet = {
             [latMax, lonMin],
             [latMin, lonMax],
         ];
+
+        // Prevent callback from returning invalid bounds
+        // which would cause dash_leaflet to crash
+        if (latMin === latMax || lonMin === lonMax) {
+            return window.dash_clientside.no_update;
+        }
+
         return [
             invalidateSize,
             {
