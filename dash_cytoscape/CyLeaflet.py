@@ -22,7 +22,10 @@ class CyLeaflet(html.Div):
         width="600px",
         height="480px",
     ):
-        self.ids = {s: {"id": id, "sub": s} for s in ["cy", "leaf", "elements"]}
+        self.ids = {
+            s: {"id": id, "component": "cyleaflet", "sub": s}
+            for s in ["cy", "leaf", "elements"]
+        }
         self.ids["component"] = "leaflet"
         cytoscape_props = cytoscape_props or {}
         leaflet_props = leaflet_props or {}
@@ -122,12 +125,12 @@ class CyLeaflet(html.Div):
 
 clientside_callback(
     ClientsideFunction(namespace="cyleaflet", function_name="updateLeafBounds"),
-    Output({"id": MATCH, "sub": "leaf"}, "invalidateSize"),
-    Output({"id": MATCH, "sub": "leaf"}, "viewport"),
-    Input({"id": MATCH, "sub": "cy"}, "extent"),
+    Output({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "invalidateSize"),
+    Output({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "viewport"),
+    Input({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "extent"),
 )
 clientside_callback(
     ClientsideFunction(namespace="cyleaflet", function_name="transformElements"),
-    Output({"id": MATCH, "sub": "cy"}, "elements"),
-    Input({"id": MATCH, "sub": "elements"}, "data"),
+    Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "elements"),
+    Input({"id": MATCH, "component": "cyleaflet", "sub": "elements"}, "data"),
 )
