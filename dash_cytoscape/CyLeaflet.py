@@ -10,7 +10,11 @@ from dash import (
 )
 
 import dash_cytoscape as cyto
-import dash_leaflet as dl
+
+try:
+    import dash_leaflet as dl
+except ImportError:
+    dl = None
 
 
 class CyLeaflet(html.Div):
@@ -22,6 +26,13 @@ class CyLeaflet(html.Div):
         width="600px",
         height="480px",
     ):
+        # Throw error if `dash_leaflet` package is not installed
+        if dl is None:
+            raise ImportError(
+                "dash_leaflet not found. Please install it, either directly (`pip install dash_leaflet`) "
+                + "or by using `pip install dash_cytoscape[leaflet]`"
+            )
+
         self.ids = {
             s: {"id": id, "component": "cyleaflet", "sub": s}
             for s in ["cy", "leaf", "elements"]
@@ -123,14 +134,17 @@ class CyLeaflet(html.Div):
         return cytoscape_props, leaflet_props
 
 
-clientside_callback(
-    ClientsideFunction(namespace="cyleaflet", function_name="updateLeafBounds"),
-    Output({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "invalidateSize"),
-    Output({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "viewport"),
-    Input({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "extent"),
-)
-clientside_callback(
-    ClientsideFunction(namespace="cyleaflet", function_name="transformElements"),
-    Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "elements"),
-    Input({"id": MATCH, "component": "cyleaflet", "sub": "elements"}, "data"),
-)
+if dl is not None:
+    clientside_callback(
+        ClientsideFunction(namespace="cyleaflet", function_name="updateLeafBounds"),
+        Output(
+            {"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "invalidateSize"
+        ),
+        Output({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "viewport"),
+        Input({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "extent"),
+    )
+    clientside_callback(
+        ClientsideFunction(namespace="cyleaflet", function_name="transformElements"),
+        Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "elements"),
+        Input({"id": MATCH, "component": "cyleaflet", "sub": "elements"}, "data"),
+    )
