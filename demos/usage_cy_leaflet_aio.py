@@ -97,7 +97,9 @@ app.layout = html.Div(
 @callback(
     Output("cy-leaflet-div", "children"),
     Output("cy-leaflet-div", "style"),
-    Output({"id": "my-cy-leaflet", "sub": "leaf"}, "children"),
+    Output(
+        {"id": "my-cy-leaflet", "sub": "leaf", "component": "cyleaflet"}, "children"
+    ),
     Input("location-dropdown", "value"),
     Input("width-input", "value"),
     Input("height-input", "value"),
@@ -146,8 +148,8 @@ def update_location(location, width, height):
 @callback(
     Output("bounds-display", "children"),
     Output("extent-display", "children"),
-    Input({"id": "my-cy-leaflet", "sub": "leaf"}, "bounds"),
-    Input({"id": "my-cy-leaflet", "sub": "cy"}, "extent"),
+    Input({"id": "my-cy-leaflet", "sub": "leaf", "component": "cyleaflet"}, "bounds"),
+    Input({"id": "my-cy-leaflet", "sub": "cy", "component": "cyleaflet"}, "extent"),
 )
 def display_leaf_bounds(bounds, extent):
     bounds = (
