@@ -92,7 +92,6 @@ class CyLeaflet(html.Div):
             "elements": [],  # Elements are set via clientside callback, so set to empty list initially
             "layout": {"name": "preset"},
             "style": {"width": "100%", "height": "100%"},
-            "maxZoom": 1.67,
             "minZoom": 3 / 100000,
         }
         # Note: Leaflet MUST be initialized with a center and zoom to avoid an error,
@@ -114,6 +113,7 @@ class CyLeaflet(html.Div):
         # if a value is not supplied by the user
         cytoscape_defaults = {
             "boxSelectionEnabled": True,
+            "maxZoom": 1.67,
         }
         leaflet_defaults = {
             "children": dl.TileLayer(),
