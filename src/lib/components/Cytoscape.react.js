@@ -605,7 +605,7 @@ class Cytoscape extends Component {
         const cyWidth = this._cy.width();
         const cyHeight = this._cy.height();
         const elBox = this._cy.elements().renderedBoundingbox();
-        return elBox.x1 < 0 || elBox.y1 < 0 || elBox.x2  > cyWidth || elBox.y2  > cyHeight;
+        return elBox.x1 > cyWidth || elBox.y1 > cyHeight || elBox.x2 < 0 || elBox.y2 < 0;
     }
 
     componentDidUpdate(prevProps) {
