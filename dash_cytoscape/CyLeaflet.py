@@ -113,7 +113,7 @@ class CyLeaflet(html.Div):
         cytoscape_overrides = {
             "id": self.ids["cy"],
             "elements": [],  # Elements are set via clientside callback, so set to empty list initially
-            "layout": {"name": "preset"},
+            "layout": {"name": "preset", "fit": False},
             "style": {"width": "100%", "height": "100%"},
             "minZoom": 3 / 100000,
         }
