@@ -33,6 +33,17 @@ LEAF_TO_CYTO_MAX_ZOOM_MAPPING = {
 
 
 class CyLeaflet(html.Div):
+    # Predefined Leaflet tile layer with max zoom of 19
+    OSM = (
+        dl.TileLayer(
+            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            maxZoom=19,
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        )
+        if dl
+        else None
+    )
+
     def __init__(
         self,
         id,
@@ -40,7 +51,7 @@ class CyLeaflet(html.Div):
         leaflet_props=None,
         width="600px",
         height="480px",
-        max_zoom=None,
+        tiles=None,
     ):
         # Throw error if `dash_leaflet` package is not installed
         if dl is None:
@@ -58,7 +69,7 @@ class CyLeaflet(html.Div):
         leaflet_props = leaflet_props or {}
         elements = cytoscape_props.get("elements", [])
         cytoscape_props, leaflet_props = self.set_default_props_and_overrides(
-            cytoscape_props, leaflet_props, max_zoom
+            cytoscape_props, leaflet_props, tiles
         )
 
         super().__init__(
@@ -101,11 +112,19 @@ class CyLeaflet(html.Div):
         )
 
     def set_default_props_and_overrides(
-        self, user_cytoscape_props, user_leaflet_props, max_zoom
+        self, user_cytoscape_props, user_leaflet_props, tiles
     ):
+        # If `tiles` is specified, append to end of Leaflet children
+        # This will make it the visible TileLayer
+        leaflet_children = user_leaflet_props.get("children", [])
+        if not isinstance(leaflet_children, list):
+            leaflet_children = [leaflet_children]
+        if tiles is not None:
+            leaflet_children.append(tiles)
+
         # Try to figure out Leaflet maxZoom from Leaflet children,
         # then convert to Cytoscape max zoom
-        leaflet_max_zoom = max_zoom or self.get_leaflet_max_zoom(user_leaflet_props)
+        leaflet_max_zoom = self.get_leaflet_max_zoom(leaflet_children)
         cytoscape_max_zoom = self.get_cytoscape_max_zoom(leaflet_max_zoom)
 
         # Props where we want to override values supplied by the user
@@ -121,6 +140,7 @@ class CyLeaflet(html.Div):
         # even though these will be immediately overwritten by syncing w/ Cytoscape
         leaflet_overrides = {
             "id": self.ids["leaf"],
+            "children": leaflet_children or [dl.TileLayer()],
             "center": [0, 0],
             "zoom": 6,
             "zoomSnap": 0,
@@ -138,9 +158,7 @@ class CyLeaflet(html.Div):
             "boxSelectionEnabled": True,
             "maxZoom": cytoscape_max_zoom,
         }
-        leaflet_defaults = {
-            "children": dl.TileLayer(),
-        }
+        leaflet_defaults = {}
 
         # Start with default props
         cytoscape_props = dict(cytoscape_defaults)
@@ -158,14 +176,9 @@ class CyLeaflet(html.Div):
 
     # Try to figure out Leaflet maxZoom from Leaflet children
     # If not possible, return the maxZoom of the default Leaflet tile layer
-    def get_leaflet_max_zoom(self, user_leaflet_props):
-        if "children" not in user_leaflet_props or user_leaflet_props["children"] == []:
+    def get_leaflet_max_zoom(self, leaflet_children):
+        if leaflet_children is None or leaflet_children == []:
             return LEAFLET_DEFAULT_MAX_ZOOM
-
-        if isinstance(user_leaflet_props["children"], list):
-            leaflet_children = user_leaflet_props["children"]
-        else:
-            leaflet_children = [user_leaflet_props["children"]]
 
         max_zooms = [
             c.maxZoom
@@ -173,7 +186,7 @@ class CyLeaflet(html.Div):
             if isinstance(c, dl.TileLayer) and hasattr(c, "maxZoom")
         ]
 
-        return max_zooms[0] if max_zooms else LEAFLET_DEFAULT_MAX_ZOOM
+        return max_zooms[-1] if len(max_zooms) > 0 else LEAFLET_DEFAULT_MAX_ZOOM
 
     # Given a maxZoom value for Leaflet, map it to the corresponding maxZoom value for Cytoscape
     # If the value is out of range, return the closest value
