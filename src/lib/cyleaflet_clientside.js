@@ -1,32 +1,33 @@
-import proj4 from 'proj4'
-
-
 if (!window.dash_clientside) {
     window.dash_clientside = {};
 }
 
-// Proj4 coordinate conversion object
-// object with 2 methods: `forward` converts from lat/lon to x/y,
-// and `inverse` converts from x/y to lat/lon.
-//  - EPSG:4326 is the 'standard' lat/lon coordinate system,
+// Functions to convert lat/lon used by Leaflet to x/y used by Cytoscape.
+//  - EPSG:4326 is the 'standard' (Mercator) grid coordinate system,
+//    which maps nicely to Cytoscape's x/y grid
 //  - EPSG:3857 is the 'Web Mercator' projection used by many
 //    online mapping serveces including Leaflet
-var _proj4js_converter = proj4('EPSG:4326', 'EPSG:3857');
+// Reference: https://epsg.io/3857
 
+// Conversion factor based on EPSG:3857 bounds
+var conversion_factor = 20037508.34;
+
+// Convert EPSG:4326 to EPSG:3857
+// We also flip the sign of the y-value to match Cytoscape's coordinate system
 function lonLatToXY(lon, lat) {
-    var xy = _proj4js_converter.forward([lon, lat]);
-    var x = xy[0];
-    var y = -xy[1];
-    return [x, y];
+    var x = lon * conversion_factor / 180;
+    var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
+    y = y * conversion_factor / 180;
+    return [x, -y];
 }
 
+// Convert EPSG:3857 to EPSG:4326
+// We also flip the sign of the y-value to match Cytoscape's coordinate system
 function xYToLonLat(x, y) {
-    var lonlat = _proj4js_converter.inverse([x, -y]);
-    var lon = lonlat[0];
-    var lat = lonlat[1];
+    var lon = x * 180 / conversion_factor;
+    var lat = Math.atan(Math.exp(-y * Math.PI / conversion_factor)) * 360 / Math.PI - 90;
     return [lon, lat];
 }
-
 
 window.dash_clientside.cyleaflet_utils = {
 };
