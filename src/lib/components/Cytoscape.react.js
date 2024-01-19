@@ -317,6 +317,10 @@ class Cytoscape extends Component {
             });
         });
 
+        cy.on('viewport resize', () => {
+            setExtent(cy.extent());
+        });
+
         this.createMenuItems = (ctxMenu) => {
             const updateContextMenuData = (newContext) => {
                 this.props.setProps({contextMenuData: newContext});
@@ -461,11 +465,7 @@ class Cytoscape extends Component {
 
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
-        cy.on('viewport resize', () => {
-            setExtent(cy.extent());
-        });
-        this.cyResponsiveClass = new CyResponsive(cy);
-        this.cyResponsiveClass.toggle(this.props.responsive);
+
         setExtent(cy.extent());
     }
 
