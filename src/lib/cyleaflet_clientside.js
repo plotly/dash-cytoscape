@@ -16,9 +16,8 @@ var conversion_factor = 20037508.34;
 // We also flip the sign of the y-value to match Cytoscape's coordinate system
 function lonLatToXY(lon, lat) {
     var x = lon * conversion_factor / 180;
-    var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
-    y = y * conversion_factor / 180;
-    return [x, -y];
+    var y = -Math.log(Math.tan((90 + lat) * Math.PI / 360)) * conversion_factor / Math.PI;
+    return [x, y];
 }
 
 // Convert EPSG:3857 to EPSG:4326
