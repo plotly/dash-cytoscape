@@ -28,8 +28,6 @@ function xYToLonLat(x, y) {
     return [lon, lat];
 }
 
-window.dash_clientside.cyleaflet_utils = {
-};
 
 window.dash_clientside.cyleaflet = {
     updateLeafBounds: function (cyExtent) {
