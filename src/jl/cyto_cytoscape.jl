@@ -78,6 +78,9 @@ by a style selector.s | lists containing elements 'nodes', 'edges'.
 Those elements have the following types:
   - `nodes` (Array; optional)
   - `edges` (Array; optional)
+- `extent` (Dict; optional): Extent of the viewport, a bounding box in model co-ordinates that lets you know what model
+positions are visible in the viewport. This function returns a plain object bounding box
+with format { x1, y1, x2, y2, w, h }.
 - `generateImage` (optional): Dictionary specifying options to generate an image of the current cytoscape graph.
 Value is cleared after data is received and image is generated. This property will
 be ignored on the initial creation of the cytoscape object and must be invoked through
@@ -224,7 +227,7 @@ to pan the graph.
 is mutable overall).
 """
 function cyto_cytoscape(; kwargs...)
-        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :clearOnUnhover, :contextMenu, :contextMenuData, :elements, :generateImage, :imageData, :layout, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :zoom, :zoomingEnabled]
+        available_props = Symbol[:id, :autoRefreshLayout, :autolock, :autoungrabify, :autounselectify, :boxSelectionEnabled, :className, :clearOnUnhover, :contextMenu, :contextMenuData, :elements, :extent, :generateImage, :imageData, :layout, :maxZoom, :minZoom, :mouseoverEdgeData, :mouseoverNodeData, :pan, :panningEnabled, :responsive, :selectedEdgeData, :selectedNodeData, :style, :stylesheet, :tapEdge, :tapEdgeData, :tapNode, :tapNodeData, :userPanningEnabled, :userZoomingEnabled, :zoom, :zoomingEnabled]
         wild_props = Symbol[]
         return Component("cyto_cytoscape", "Cytoscape", "dash_cytoscape", available_props, wild_props; kwargs...)
 end

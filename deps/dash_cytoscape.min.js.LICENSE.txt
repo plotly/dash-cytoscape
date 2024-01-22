@@ -4,6 +4,10 @@ Copyright (c) 2013-2014 Ralf S. Engelschall (http://engelschall.com)
 Licensed under The MIT License (http://opensource.org/licenses/MIT)
 */
 
+/*! (c) Andrea Giammarchi - ISC */
+
+/*! (c) Andrea Giammarchi @webreflection ISC */
+
 /*! Bezier curve function generator. Copyright Gaetan Renaudeau. MIT License: http://en.wikipedia.org/wiki/MIT_License */
 
 /*! Runge-Kutta spring physics function generator. Adapted from Framer.js, copyright Koen Bok. MIT License: http://en.wikipedia.org/wiki/MIT_License */

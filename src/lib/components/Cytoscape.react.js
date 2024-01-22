@@ -16,6 +16,9 @@ import '@ungap/custom-elements';
 const cytoscape = require('cytoscape');
 const contextMenus = require('cytoscape-context-menus');
 
+// Clientside callback functions for CyLeaflet AIO component
+import * as cyleaflet_clientside from '../cyleaflet_clientside.js';
+
 // register extension
 contextMenus(cytoscape);
 /**
@@ -164,6 +167,7 @@ class Cytoscape extends Component {
 
         // ///////////////////////////////////// CONSTANTS /////////////////////////////////////////
         const SELECT_THRESHOLD = 100;
+        const EXTENT_THRESHOLD = 5;
 
         const selectedNodes = cy.collection();
         const selectedEdges = cy.collection();
@@ -203,6 +207,12 @@ class Cytoscape extends Component {
                 selectedEdgeData: edgeData,
             });
         }, SELECT_THRESHOLD);
+
+        const setExtent = _.debounce((cyExtent) => {
+            this.props.setProps({
+                extent: cyExtent,
+            });
+        }, EXTENT_THRESHOLD);
 
         // /////////////////////////////////////// EVENTS //////////////////////////////////////////
 
@@ -305,6 +315,10 @@ class Cytoscape extends Component {
                     };
                 }),
             });
+        });
+
+        cy.on('viewport resize', () => {
+            setExtent(cy.extent());
         });
 
         this.createMenuItems = (ctxMenu) => {
@@ -451,6 +465,8 @@ class Cytoscape extends Component {
 
         this.cyResponsiveClass = new CyResponsive(cy);
         this.cyResponsiveClass.toggle(this.props.responsive);
+
+        setExtent(cy.extent());
     }
 
     handleImageGeneration(imageType, imageOptions, actionsToPerform, fileName) {
@@ -581,10 +597,28 @@ class Cytoscape extends Component {
             menuItemClasses: ['custom-menu-item'],
         });
     }
+
+    // Returns true if there is no overlap between the element bounding box
+    // and the rendered area of the graph, meaning the graph is entirely outside the viewport;
+    // returns false otherwise
+    graphOutOfView() {
+        const cyWidth = this._cy.width();
+        const cyHeight = this._cy.height();
+        const elBox = this._cy.elements().renderedBoundingbox();
+        return elBox.x1 > cyWidth || elBox.y1 > cyHeight || elBox.x2 < 0 || elBox.y2 < 0;
+    }
+
     componentDidUpdate(prevProps) {
-        const {contextMenu} = this.props;
+        const {contextMenu, elements} = this.props;
         if (!_.isEqual(prevProps.contextMenu, contextMenu) && this._cy) {
             this.updateContextMenu(contextMenu);
+        }
+        if (!_.isEqual(prevProps.elements, elements) && this._cy) {
+            // If elements were updated, and the new graph is *entirely* outside the viewport,
+            // fit the viewport to the new elements
+            if (this.graphOutOfView()) {
+                this._cy.fit();
+            }
         }
     }
     componentDidMount() {
@@ -1149,6 +1183,13 @@ Cytoscape.propTypes = {
      * Toggles intelligent responsive resize of Cytoscape graph with viewport size change
      */
     responsive: PropTypes.bool,
+
+    /**
+     * Extent of the viewport, a bounding box in model co-ordinates that lets you know what model
+     * positions are visible in the viewport. This function returns a plain object bounding box
+     * with format { x1, y1, x2, y2, w, h }.
+     */
+    extent: PropTypes.object,
 
     /**
      * If set to True, mouseoverNodeData and mouseoverEdgeData will be cleared on unhover.

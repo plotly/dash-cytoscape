@@ -14,8 +14,8 @@ cytoCytoscape(id=NULL, autoRefreshLayout=NULL, autolock=NULL,
 autoungrabify=NULL, autounselectify=NULL,
 boxSelectionEnabled=NULL, className=NULL,
 clearOnUnhover=NULL, contextMenu=NULL, contextMenuData=NULL,
-elements=NULL, generateImage=NULL, imageData=NULL,
-layout=NULL, maxZoom=NULL, minZoom=NULL,
+elements=NULL, extent=NULL, generateImage=NULL,
+imageData=NULL, layout=NULL, maxZoom=NULL, minZoom=NULL,
 mouseoverEdgeData=NULL, mouseoverNodeData=NULL, pan=NULL,
 panningEnabled=NULL, responsive=NULL, selectedEdgeData=NULL,
 selectedNodeData=NULL, style=NULL, stylesheet=NULL,
@@ -104,6 +104,10 @@ specifies its purpose. The [official Cytoscape.js documentation](https://js.cyto
 offers an extensive overview and examples of element declaration.
 Alternatively, a dictionary with the format { 'nodes': [], 'edges': [] } is allowed at initialization,
 but arrays remain the recommended format.}
+
+\item{extent}{Named list. Extent of the viewport, a bounding box in model co-ordinates that lets you know what model
+positions are visible in the viewport. This function returns a plain object bounding box
+with format { x1, y1, x2, y2, w, h }.}
 
 \item{generateImage}{Lists containing elements 'type', 'options', 'action', 'filename'.
 those elements have the following types:

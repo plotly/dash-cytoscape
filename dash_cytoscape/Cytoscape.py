@@ -185,6 +185,12 @@ class Cytoscape(Component):
 
         - nodes (list; optional)
 
+    - extent (dict; optional):
+        Extent of the viewport, a bounding box in model co-ordinates that
+        lets you know what model positions are visible in the viewport.
+        This function returns a plain object bounding box with format {
+        x1, y1, x2, y2, w, h }.
+
     - generateImage (dict; optional):
         Dictionary specifying options to generate an image of the current
         cytoscape graph. Value is cleared after data is received and image
@@ -540,6 +546,7 @@ class Cytoscape(Component):
         generateImage=Component.UNDEFINED,
         imageData=Component.UNDEFINED,
         responsive=Component.UNDEFINED,
+        extent=Component.UNDEFINED,
         clearOnUnhover=Component.UNDEFINED,
         **kwargs
     ):
@@ -555,6 +562,7 @@ class Cytoscape(Component):
             "contextMenu",
             "contextMenuData",
             "elements",
+            "extent",
             "generateImage",
             "imageData",
             "layout",
@@ -591,6 +599,7 @@ class Cytoscape(Component):
             "contextMenu",
             "contextMenuData",
             "elements",
+            "extent",
             "generateImage",
             "imageData",
             "layout",

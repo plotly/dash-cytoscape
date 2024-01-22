@@ -90,6 +90,13 @@
           }
         ],
         "returns": null
+      },
+      {
+        "name": "graphOutOfView",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
       }
     ],
     "props": {
@@ -982,6 +989,13 @@
           "value": "false",
           "computed": false
         }
+      },
+      "extent": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Extent of the viewport, a bounding box in model co-ordinates that lets you know what model\npositions are visible in the viewport. This function returns a plain object bounding box\nwith format { x1, y1, x2, y2, w, h }."
       },
       "clearOnUnhover": {
         "type": {
