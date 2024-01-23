@@ -56,10 +56,10 @@ app.layout = html.Div(
         html.Div(
             cyto.CyLeaflet(
                 id="my-cy-leaflet",
-                cytoscape_props=dict(
-                    elements=[],
-                    stylesheet=cy_stylesheet,
-                ),
+                cytoscape_props={
+                    "elements": [],
+                    "stylesheet": cy_stylesheet,
+                },
                 width=int(default_div_style["width"][:-2]),
                 height=int(default_div_style["height"][:-2]),
             ),
@@ -133,10 +133,10 @@ def update_location(location, width, height):
     return (
         cyto.CyLeaflet(
             id="my-cy-leaflet",
-            cytoscape_props=dict(
-                elements=new_elements,
-                stylesheet=cy_stylesheet,
-            ),
+            cytoscape_props={
+                "elements": new_elements,
+                "stylesheet": cy_stylesheet,
+            },
             width=width,
             height=height,
         ),

@@ -17,6 +17,7 @@ const cytoscape = require('cytoscape');
 const contextMenus = require('cytoscape-context-menus');
 
 // Clientside callback functions for CyLeaflet AIO component
+// eslint-disable-next-line no-unused-vars
 import * as cyleaflet_clientside from '../cyleaflet_clientside.js';
 
 // register extension
@@ -605,7 +606,12 @@ class Cytoscape extends Component {
         const cyWidth = this._cy.width();
         const cyHeight = this._cy.height();
         const elBox = this._cy.elements().renderedBoundingbox();
-        return elBox.x1 > cyWidth || elBox.y1 > cyHeight || elBox.x2 < 0 || elBox.y2 < 0;
+        return (
+            elBox.x1 > cyWidth ||
+            elBox.y1 > cyHeight ||
+            elBox.x2 < 0 ||
+            elBox.y2 < 0
+        );
     }
 
     componentDidUpdate(prevProps) {
