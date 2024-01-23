@@ -21,9 +21,9 @@ executors:
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
-    python-3-6-executor:
+    python-3-8-executor:
         docker:
-            - image: cimg/python:3.6.15-browsers
+            - image: cimg/python:3.8.18-browsers
               auth:
                   username: dashautomation
                   password: $DASH_PAT_DOCKERHUB
@@ -119,9 +119,9 @@ jobs:
                       pytest --headless tests/test_percy_snapshot.py
                   when: always
 
-    python-3-6:
+    python-3-8:
         <<: *test-template
-        executor: python-3-6-executor
+        executor: python-3-8-executor
 
         environment:
             PERCY_ENABLE: False
@@ -139,7 +139,7 @@ workflows:
     build:
         jobs:
             - python-3-11
-            - python-3-6
+            - python-3-8
             - python-3-11-react-18
             - node
             - percy-finalize:
