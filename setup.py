@@ -27,7 +27,7 @@ setup(
     extras_require={
         "leaflet": ["dash-leaflet>=1.0.10"],
     },
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Flask",
