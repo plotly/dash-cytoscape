@@ -43,7 +43,7 @@ jobs:
 
             - run:
                   name: Install tests/requirements.txt
-                  command: rm -rf venv && python -m venv venv && . venv/bin/activate && pip install -r tests/requirements.txt
+                  command: pip install -r tests/requirements.txt
 
             - run:
                   name: Run build
