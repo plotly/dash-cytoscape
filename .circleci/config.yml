@@ -42,6 +42,10 @@ jobs:
                   command: npm i
 
             - run:
+                  name: Install tests/requirements.txt
+                  command: python -m pip install -r tests/requirements.txt
+
+            - run:
                   name: Run build
                   command: npm run build:all-test
 
