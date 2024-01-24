@@ -47,7 +47,7 @@ jobs:
 
             - run:
                   name: Run build
-                  command: npm run build:all-test
+                  command: npm run build:all
 
             - save_cache:
                   key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
