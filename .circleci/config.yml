@@ -41,6 +41,10 @@ jobs:
                   name: Install package.json
                   command: npm i
 
+            - run:
+                  name: Run build
+                  command: npm run build:all
+
             - save_cache:
                   key: deps1-{{ .Branch }}-{{ checksum "package.json" }}
                   paths:
