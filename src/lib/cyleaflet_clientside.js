@@ -12,22 +12,31 @@ if (!window.dash_clientside) {
 // Conversion factor based on EPSG:3857 bounds
 var conversion_factor = 20037508.34;
 
+var double_lon = 360;
+var max_lon = 180;
+var max_lat = 90;
+
 // Convert EPSG:4326 to EPSG:3857
 // We also flip the sign of the y-value to match Cytoscape's coordinate system
 function lonLatToXY(lon, lat) {
-    var x = lon * conversion_factor / 180;
-    var y = -Math.log(Math.tan((90 + lat) * Math.PI / 360)) * conversion_factor / Math.PI;
+    var x = (lon * conversion_factor) / max_lon;
+    var y =
+        (-Math.log(Math.tan(((max_lat + lat) * Math.PI) / double_lon)) *
+            conversion_factor) /
+        Math.PI;
     return [x, y];
 }
 
 // Convert EPSG:3857 to EPSG:4326
 // We also flip the sign of the y-value to match Cytoscape's coordinate system
 function xYToLonLat(x, y) {
-    var lon = x * 180 / conversion_factor;
-    var lat = Math.atan(Math.exp(-y * Math.PI / conversion_factor)) * 360 / Math.PI - 90;
+    var lon = (x * max_lon) / conversion_factor;
+    var lat =
+        (Math.atan(Math.exp((-y * Math.PI) / conversion_factor)) * double_lon) /
+            Math.PI -
+        max_lat;
     return [lon, lat];
 }
-
 
 window.dash_clientside.cyleaflet = {
     updateLeafBounds: function (cyExtent) {
@@ -59,13 +68,13 @@ window.dash_clientside.cyleaflet = {
             invalidateSize,
             {
                 bounds: bounds,
-                options: { animate: true },
-            }
+                options: {animate: true},
+            },
         ];
     },
     transformElements: function (elements) {
         return elements.map((e) => {
-            if (e.data.hasOwnProperty('lat')) {
+            if (Object.prototype.hasOwnProperty.call(e.data, 'lat')) {
                 var xy = lonLatToXY(e.data.lon, e.data.lat);
                 return {
                     data: e.data,
@@ -76,6 +85,6 @@ window.dash_clientside.cyleaflet = {
                 };
             }
             return e;
-        });    
+        });
     },
 };
