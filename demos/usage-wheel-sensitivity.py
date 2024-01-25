@@ -1,7 +1,6 @@
 import dash
-from dash import callback, Input, Output, html
+from dash import html
 import dash_cytoscape as cyto
-import json
 
 app = dash.Dash(__name__)
 server = app.server
