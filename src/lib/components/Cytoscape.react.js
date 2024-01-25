@@ -17,8 +17,7 @@ const cytoscape = require('cytoscape');
 const contextMenus = require('cytoscape-context-menus');
 
 // Clientside callback functions for CyLeaflet AIO component
-// eslint-disable-next-line no-unused-vars
-import * as cyleaflet_clientside from '../cyleaflet_clientside.js';
+import '../cyleaflet_clientside.js';
 
 // register extension
 contextMenus(cytoscape);
