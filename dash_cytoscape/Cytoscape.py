@@ -498,6 +498,9 @@ class Cytoscape(Component):
         Whether user events (e.g. dragging the graph background) are
         allowed to pan the graph.
 
+    - wheelSensitivity (number; default 1):
+        Changes the scroll wheel sensitivity when zooming.
+
     - zoom (number; default 1):
         The initial zoom level of the graph. You can set `minZoom` and
         `maxZoom` to set restrictions on the zoom level.
@@ -530,6 +533,7 @@ class Cytoscape(Component):
         maxZoom=Component.UNDEFINED,
         zoomingEnabled=Component.UNDEFINED,
         userZoomingEnabled=Component.UNDEFINED,
+        wheelSensitivity=Component.UNDEFINED,
         boxSelectionEnabled=Component.UNDEFINED,
         autoungrabify=Component.UNDEFINED,
         autolock=Component.UNDEFINED,
@@ -583,6 +587,7 @@ class Cytoscape(Component):
             "tapNodeData",
             "userPanningEnabled",
             "userZoomingEnabled",
+            "wheelSensitivity",
             "zoom",
             "zoomingEnabled",
         ]
@@ -620,6 +625,7 @@ class Cytoscape(Component):
             "tapNodeData",
             "userPanningEnabled",
             "userZoomingEnabled",
+            "wheelSensitivity",
             "zoom",
             "zoomingEnabled",
         ]

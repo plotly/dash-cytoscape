@@ -654,6 +654,7 @@ class Cytoscape extends Component {
             maxZoom,
             zoomingEnabled,
             userZoomingEnabled,
+            wheelSensitivity,
             boxSelectionEnabled,
             autoungrabify,
             autolock,
@@ -701,6 +702,7 @@ class Cytoscape extends Component {
                 maxZoom={maxZoom}
                 zoomingEnabled={zoomingEnabled}
                 userZoomingEnabled={userZoomingEnabled}
+                wheelSensitivity={wheelSensitivity}
                 boxSelectionEnabled={boxSelectionEnabled}
                 autoungrabify={autoungrabify}
                 autolock={autolock}
@@ -997,6 +999,11 @@ Cytoscape.propTypes = {
     userZoomingEnabled: PropTypes.bool,
 
     /**
+     * Changes the scroll wheel sensitivity when zooming.
+     */
+    wheelSensitivity: PropTypes.number,
+
+    /**
      * Whether box selection (i.e. drag a box overlay around, and release it
      * to select) is enabled. If enabled, the user must taphold to pan the graph.
      */
@@ -1215,6 +1222,7 @@ Cytoscape.defaultProps = {
     userZoomingEnabled: true,
     panningEnabled: true,
     userPanningEnabled: true,
+    wheelSensitivity: 1,
     boxSelectionEnabled: false,
     autolock: false,
     autoungrabify: false,
