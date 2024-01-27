@@ -192,20 +192,21 @@ def test_cyin001_dragging(dash_duo):
     pixels_to_position_conv_factor = 1280 * 0.00085
     # Test dragging the nodes around
     _test(
-        perform_dragging(dash_duo, init_x, init_y, 150, 0, elem_tap, actions),
-        (150, 0)
+        perform_dragging(dash_duo, init_x, init_y, 150, 0, elem_tap, actions), (150, 0)
     )
     _test(
         perform_dragging(dash_duo, init_x + 150, init_y, 0, 150, elem_tap, actions),
-        (150, 150)
+        (150, 150),
     )
     _test(
-        perform_dragging(dash_duo, init_x + 150, init_y + 150, -150, -150, elem_tap, actions),
-        (0, 0)
+        perform_dragging(
+            dash_duo, init_x + 150, init_y + 150, -150, -150, elem_tap, actions
+        ),
+        (0, 0),
     )
     _test(
         perform_dragging(dash_duo, init_x, init_y, 100, -100, elem_tap, actions),
-        (100, -100)
+        (100, -100),
     )
 
 
