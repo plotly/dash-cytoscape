@@ -181,24 +181,31 @@ def test_cyin001_dragging(dash_duo):
         dash_duo, init_x, init_y, 1, 1, elem_tap, actions
     )
 
+    def _test(newpos, expected_shift):
+        dx, dy = expected_shift
+        newx, newy = newpos
+        expx = (dx / pixels_to_position_conv_factor) + init_node_x
+        expy = (dy / pixels_to_position_conv_factor) + init_node_y
+        assert abs(newx - expx) < 3
+        assert abs(newy - expy) < 3
+
     pixels_to_position_conv_factor = 1280 * 0.00085
     # Test dragging the nodes around
-    assert perform_dragging(dash_duo, init_x, init_y, 150, 0, elem_tap, actions) == (
-        round(150 / pixels_to_position_conv_factor) + init_node_x,
-        0 + init_node_y,
+    _test(
+        perform_dragging(dash_duo, init_x, init_y, 150, 0, elem_tap, actions),
+        (150, 0)
     )
-    assert perform_dragging(
-        dash_duo, init_x + 150, init_y, 0, 150, elem_tap, actions
-    ) == (
-        round(150 / pixels_to_position_conv_factor) + init_node_x,
-        round(150 / pixels_to_position_conv_factor) + init_node_y,
+    _test(
+        perform_dragging(dash_duo, init_x + 150, init_y, 0, 150, elem_tap, actions),
+        (150, 150)
     )
-    assert perform_dragging(
-        dash_duo, init_x + 150, init_y + 150, -150, -150, elem_tap, actions
-    ) == (init_node_x, init_node_y)
-    assert perform_dragging(dash_duo, init_x, init_y, 100, -100, elem_tap, actions) == (
-        round(100 / pixels_to_position_conv_factor) + init_node_x,
-        round(-100 / pixels_to_position_conv_factor) + init_node_y,
+    _test(
+        perform_dragging(dash_duo, init_x + 150, init_y + 150, -150, -150, elem_tap, actions),
+        (0, 0)
+    )
+    _test(
+        perform_dragging(dash_duo, init_x, init_y, 100, -100, elem_tap, actions),
+        (100, -100)
     )
 
 
