@@ -6,25 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+### Removed
+* [#202](https://github.com/plotly/dash-cytoscape/pull/202) Drop support for Python 3.7 and below. New minimum Python version is 3.8
+
 ### Added
-* `prettier` and `black` lint/format scripts have been added.
-* React 18 job has been added to circleCI workflow.
+* [#203](https://github.com/plotly/dash-cytoscape/pull/203) Add `wheelSensitivity` prop to control the speed of scroll wheel interactions
+* [#200](https://github.com/plotly/dash-cytoscape/pull/200) Add `CyLeaflet` all-in-one component for network graphs overlaid on Leaflet maps. Requires the `dash-leaflet` package, which can be installed as an extra with this package: `pip install dash-cytoscape[leaflet]`.
+* [#196](https://github.com/plotly/dash-cytoscape/pull/196) and [#201](https://github.com/plotly/dash-cytoscape/pull/201) Add context menu support: `contextMenu` prop for configuration and `contextMenuData` prop for event handling
 * [#195](https://github.com/plotly/dash-cytoscape/pull/195)
   - Add `clearOnUnhover` property.
   - Add timestamp to `tapNodeData`, `tapEdgeData`, `mouseoverNodeData`, and `mouseoverEdgeData` properties.
+* [#147](https://github.com/plotly/dash-cytoscape/pull/147) Add `fcose` layout
 
 ### Changed
-* Dash has been upgraded to 2.* in requirements.txt and tests/requirements.txt.
-* Dependencies have been upgraded to lastest versions.
-* CircleCI workflow has been updated to version 2.1.
-* Python version in CircleCI workflow has been updated to 3.11.
-* Node version in CircleCI workflow has been updated to 20.5.1.
 * [#195](https://github.com/plotly/dash-cytoscape/pull/195) Update `elements` positions when nodes are dragged.
+* [#193](https://github.com/plotly/dash-cytoscape/pull/193) and [#202](https://github.com/plotly/dash-cytoscape/pull/202) Upgrade JS dependencies
 
 ### Fixed
-* CircleCI workflow has been fixed. 
+* [#147](https://github.com/plotly/dash-cytoscape/pull/147) Fix `cose-bilkent` layout
 
-## [0.3.0] - 2021-05-19 
+## [0.3.0] - 2021-05-19
 
 ### Added
 * Contributed initial build of Julia package.
@@ -45,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Contributed initial build of R package.
 * Added access to cytoscape.js PNG and JPG image generation API through `generateImage` and
   `imageData` properties (PR [#88](https://github.com/plotly/dash-cytoscape/pull/88)).
-* Added ability to download image files generated with `generateImage` client-side without sending 
+* Added ability to download image files generated with `generateImage` client-side without sending
   data to the server (PR [#88](https://github.com/plotly/dash-cytoscape/pull/88)).
 * Used the newly added `generateImage` and `imageData` properties to enable svg generation using [cytoscape-svg](https://github.com/kinimesi/cytoscape-svg).
 * Added responsive cytoscape.js graph feature toggled using the `responsive` property (PR [#93](https://github.com/plotly/dash-cytoscape/pull/92)).
@@ -65,7 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Upgrade `react-cytoscape.js` to latest.
 
 ### Fixed
-* `setup.py`: Use `packages=find_packages(include=[package_name, package_name + ".*"])` so that all 
+* `setup.py`: Use `packages=find_packages(include=[package_name, package_name + ".*"])` so that all
   subpackages like `utils` will be included when you `pip install dash-cytoscape`.
 * Issue where `dash-cytoscape` cannot read property of 'length' of undefined when elements is not specified.
 * `tests.test_interactions`.
@@ -156,7 +157,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 into a Cytoscape graph, with interactive features such as highlighting.
 
 ### Updated
-* React-Cytoscapejs version, from 1.0.1 to 1.1.0 
+* React-Cytoscapejs version, from 1.0.1 to 1.1.0
 
 ## [0.0.2] - 2018-11-08
 ### Added
