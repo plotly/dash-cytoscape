@@ -23,7 +23,7 @@ Under the hood, an instance of CyLeaflet consists of:
 
 ## Files
 
-CyLeaflet functionality is dimplemented in the following files:
+CyLeaflet functionality is implemented in the following files:
 
 1. `dash_cytoscape/CyLeaflet.py`: CyLeaflet class definition, instantiation of underlying Cytoscape and Leaflet components, layout and styling to align the two canvases, and registration of clientside callbacks
 2. `src/lib/cyleaflet_clientside.js`: Clientside callback function implementations
@@ -31,16 +31,19 @@ CyLeaflet functionality is dimplemented in the following files:
 
 ## Callbacks
 
+![fig2](img/cyleaflet-callbacks.png)
+
+
 The following callbacks are used by CyLeaflet:
 
 - **Synchronize Leaflet view with Cytoscape view**
-  - Input: Cytoscape extent property
-  - Output: Leaflet viewport property
+  - Input: Cytoscape `extent` property
+  - Outputs: Leaflet `viewport` property, Leaflet `invalidateSize` property
   
-  Purpose: Ensures that the nodes remain in the same places on the map whenever the view is zoomed or dragged. Whenever the Cytoscape view changes, this callback updates the Leaflet view to match.An additional output, the Leaflet invalidateSize property, ensures the map gets refreshed properly.
+  Purpose: Ensures that the nodes remain in the same places on the map whenever the view is zoomed or dragged. Whenever the Cytoscape view changes, this callback updates the Leaflet view to match. An additional output, the Leaflet  `invalidateSize` property, ensures the map gets refreshed properly.
 
 - **Update Cytoscape graph elements**
   - Input: dcc.Store `data` property
   - Output: Cytoscape `elements` property
   
-  Purpose: Provides a way for the Dash developer to update the graph elements displayed in Cytoscape. This callback transforms the lat and lon coordinates specified in the node data into a corresponding (x, y) canvas position that will align with the map.Updating the Cytoscape nodes directly does not work, because this skips the transformation step, and the nodes will not appear in the correct map positions. 
+  Purpose: Provides a way for the Dash developer to update the graph elements displayed in Cytoscape. This callback transforms the `lat` and `lon` coordinates specified in the node data into a corresponding (x, y) canvas position that will align with the map. Updating the Cytoscape nodes directly does not work, because this skips the transformation step, and the nodes will not appear in the correct map positions. 
