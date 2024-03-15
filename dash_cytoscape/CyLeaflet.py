@@ -64,7 +64,11 @@ class CyLeaflet(html.Div):
             s: {"id": id, "component": "cyleaflet", "sub": s}
             for s in ["cy", "leaf", "elements"]
         }
-        self.ids["component"] = "leaflet"
+
+        self.CYTOSCAPE_ID = self.ids["cy"]
+        self.LEAFLET_ID = self.ids["leaf"]
+        self.ELEMENTS_ID = self.ids["elements"]
+
         cytoscape_props = cytoscape_props or {}
         leaflet_props = leaflet_props or {}
         elements = cytoscape_props.get("elements", [])
