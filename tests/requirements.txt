@@ -13,5 +13,5 @@ colour==0.1.5
 biopython>=1.77
 pytest==7.0.1
 wrapt==1.14.0
-black==23.9.1
+black==24.3.0
 dash-leaflet>=1.0.10
