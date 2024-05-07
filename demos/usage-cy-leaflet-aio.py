@@ -50,19 +50,23 @@ city_lat_lon = {
     "Gold Coast": (-28.026901440211205, 153.4208293956674),
 }
 
+# Create an instance of CyLeaflet
+cyleaflet_instance = cyto.CyLeaflet(
+    id="my-cy-leaflet",
+    cytoscape_props={
+        "elements": [],
+        "stylesheet": cy_stylesheet,
+    },
+    width=int(default_div_style["width"][:-2]),
+    height=int(default_div_style["height"][:-2]),
+)
+
+
 # App
 app.layout = html.Div(
     [
         html.Div(
-            cyto.CyLeaflet(
-                id="my-cy-leaflet",
-                cytoscape_props={
-                    "elements": [],
-                    "stylesheet": cy_stylesheet,
-                },
-                width=int(default_div_style["width"][:-2]),
-                height=int(default_div_style["height"][:-2]),
-            ),
+            cyleaflet_instance,
             id="cy-leaflet-div",
             style=default_div_style,
         ),
@@ -97,9 +101,7 @@ app.layout = html.Div(
 @callback(
     Output("cy-leaflet-div", "children"),
     Output("cy-leaflet-div", "style"),
-    Output(
-        {"id": "my-cy-leaflet", "sub": "leaf", "component": "cyleaflet"}, "children"
-    ),
+    Output(cyleaflet_instance.LEAFLET_ID, "children"),
     Input("location-dropdown", "value"),
     Input("width-input", "value"),
     Input("height-input", "value"),
