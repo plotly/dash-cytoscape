@@ -20,8 +20,9 @@ except ImportError:
 # Max zoom of default Leaflet tile layer
 LEAFLET_DEFAULT_MAX_ZOOM = 18
 
+
 # Approximates max zoom values for Cytoscape from max zoom
-# values of Leaflet Empirically-determined
+# values of Leaflet. Empirically-determined
 def get_cytoscape_max_zoom(leaflet_max_zoom):
     leaflet_max_zoom = leaflet_max_zoom or 0
     return 0.418 * (2 ** (leaflet_max_zoom - 16))
@@ -218,7 +219,10 @@ if dl is not None:
     Input({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "children"),
 )
 def update_cyto_max_zoom(leaf_children):
-    tile_layer = list(filter(lambda x: x["type"] == "TileLayer", leaf_children))[0]
+    if isinstance(leaf_children, list) and len(leaf_children) >= 1:
+        tile_layer = list(filter(lambda x: x["type"] == "TileLayer", leaf_children))[0]
+    else:
+        tile_layer = leaf_children
     leaflet_max_zoom = 18
     if "maxZoom" in tile_layer["props"].keys():
         leaflet_max_zoom = tile_layer["props"]["maxZoom"]

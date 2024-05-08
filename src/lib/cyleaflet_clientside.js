@@ -39,13 +39,13 @@ function xYToLonLat(x, y) {
 }
 
 window.dash_clientside.cyleaflet = {
-    updateLeafBounds: function (cyExtent, max_zoom, cyExtentStore) {
+    updateLeafBounds: function (cyExtentInput, max_zoom, cyExtentStore) {
+        var cyExtent = cyExtentInput;
         if (!cyExtent) {
             if (!cyExtentStore) {
                 return window.dash_clientside.no_update;
-            } else {
-                cyExtent = cyExtentStore
-            }
+            } 
+            cyExtent = cyExtentStore;
         }
 
         var lonLatMin = xYToLonLat(cyExtent.x1, cyExtent.y1);

@@ -4,7 +4,7 @@ from dash import (
     callback,
     Input,
     Output,
-    dcc,State
+    dcc,
 )
 import dash_cytoscape as cyto
 import dash_leaflet as dl
