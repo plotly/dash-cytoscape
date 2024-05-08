@@ -4,6 +4,7 @@ from dash import (
     ClientsideFunction,
     Output,
     Input,
+    State,
     html,
     dcc,
     MATCH,
@@ -30,6 +31,13 @@ LEAF_TO_CYTO_MAX_ZOOM_MAPPING = {
     21: 13.396,
     22: 26.793,
 }
+
+
+def get_cytoscape_max_zoom(leaflet_max_zoom):
+    leaflet_max_zoom = leaflet_max_zoom or 0
+    leaflet_max_zoom = min(leaflet_max_zoom, max(LEAF_TO_CYTO_MAX_ZOOM_MAPPING.keys()))
+    leaflet_max_zoom = max(leaflet_max_zoom, min(LEAF_TO_CYTO_MAX_ZOOM_MAPPING.keys()))
+    return LEAF_TO_CYTO_MAX_ZOOM_MAPPING[leaflet_max_zoom]
 
 
 class CyLeaflet(html.Div):
@@ -62,7 +70,7 @@ class CyLeaflet(html.Div):
 
         self.ids = {
             s: {"id": id, "component": "cyleaflet", "sub": s}
-            for s in ["cy", "leaf", "elements"]
+            for s in ["cy", "leaf", "elements", "cy-extent"]
         }
 
         self.CYTOSCAPE_ID = self.ids["cy"]
@@ -102,6 +110,7 @@ class CyLeaflet(html.Div):
                         },
                     ),
                     dcc.Store(id=self.ids["elements"], data=elements),
+                    dcc.Store(id=self.ids["cy-extent"]),
                 ],
                 style={
                     "width": width,
@@ -195,14 +204,7 @@ class CyLeaflet(html.Div):
     # Given a maxZoom value for Leaflet, map it to the corresponding maxZoom value for Cytoscape
     # If the value is out of range, return the closest value
     def get_cytoscape_max_zoom(self, leaflet_max_zoom):
-        leaflet_max_zoom = leaflet_max_zoom or 0
-        leaflet_max_zoom = min(
-            leaflet_max_zoom, max(LEAF_TO_CYTO_MAX_ZOOM_MAPPING.keys())
-        )
-        leaflet_max_zoom = max(
-            leaflet_max_zoom, min(LEAF_TO_CYTO_MAX_ZOOM_MAPPING.keys())
-        )
-        return LEAF_TO_CYTO_MAX_ZOOM_MAPPING[leaflet_max_zoom]
+        return get_cytoscape_max_zoom(leaflet_max_zoom)
 
 
 if dl is not None:
@@ -212,10 +214,25 @@ if dl is not None:
             {"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "invalidateSize"
         ),
         Output({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "viewport"),
+        Output({"id": MATCH, "component": "cyleaflet", "sub": "cy-extent"}, "data"),
         Input({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "extent"),
+        Input({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "maxZoom"),
+        State({"id": MATCH, "component": "cyleaflet", "sub": "cy-extent"}, "data"),
     )
     clientside_callback(
         ClientsideFunction(namespace="cyleaflet", function_name="transformElements"),
         Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "elements"),
         Input({"id": MATCH, "component": "cyleaflet", "sub": "elements"}, "data"),
     )
+
+
+@callback(
+    Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "maxZoom"),
+    Input({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "children"),
+)
+def update_cyto_max_zoom(leaf_children):
+    tile_layer = list(filter(lambda x: x["type"] == "TileLayer", leaf_children))[0]
+    leaflet_max_zoom = 18
+    if "maxZoom" in tile_layer["props"].keys():
+        leaflet_max_zoom = tile_layer["props"]["maxZoom"]
+    return get_cytoscape_max_zoom(leaflet_max_zoom)

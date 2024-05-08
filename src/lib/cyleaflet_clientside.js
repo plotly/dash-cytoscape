@@ -39,9 +39,13 @@ function xYToLonLat(x, y) {
 }
 
 window.dash_clientside.cyleaflet = {
-    updateLeafBounds: function (cyExtent) {
+    updateLeafBounds: function (cyExtent, max_zoom, cyExtentStore) {
         if (!cyExtent) {
-            return window.dash_clientside.no_update;
+            if (!cyExtentStore) {
+                return window.dash_clientside.no_update;
+            } else {
+                cyExtent = cyExtentStore
+            }
         }
 
         var lonLatMin = xYToLonLat(cyExtent.x1, cyExtent.y1);
@@ -70,6 +74,7 @@ window.dash_clientside.cyleaflet = {
                 bounds: bounds,
                 options: {animate: true},
             },
+            cyExtent
         ];
     },
     transformElements: function (elements) {

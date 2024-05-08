@@ -4,14 +4,14 @@ from dash import (
     callback,
     Input,
     Output,
-    dcc,
+    dcc,State
 )
 import dash_cytoscape as cyto
 import dash_leaflet as dl
 
 cyto.load_extra_layouts()
 
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, prevent_initial_callbacks='initial_duplicate')
 server = app.server
 
 
@@ -92,6 +92,12 @@ app.layout = html.Div(
                     value=int(default_div_style["height"][:-2]),
                     debounce=True,
                 ),
+                dcc.Input(
+                    id="max-zoom",
+                    type="number",
+                    value=18,
+                    debounce=True
+                )
             ],
         ),
     ],
@@ -105,8 +111,9 @@ app.layout = html.Div(
     Input("location-dropdown", "value"),
     Input("width-input", "value"),
     Input("height-input", "value"),
+    Input("max-zoom", "value"),
 )
-def update_location(location, width, height):
+def update_location(location, width, height, max_zoom):
     d = 0.001
     d2 = 0.0001
     lat, lon = city_lat_lon[location]
@@ -128,7 +135,7 @@ def update_location(location, width, height):
         for e in new_elements
         if "lat" in e["data"]
     ]
-    leaflet_children = [dl.TileLayer()] + markers
+    leaflet_children = [dl.TileLayer(maxZoom=max_zoom)] + markers
     new_style = dict(default_div_style)
     new_style["width"] = str(width) + "px" if width else default_div_style["width"]
     new_style["height"] = str(height) + "px" if height else default_div_style["height"]
@@ -150,8 +157,8 @@ def update_location(location, width, height):
 @callback(
     Output("bounds-display", "children"),
     Output("extent-display", "children"),
-    Input({"id": "my-cy-leaflet", "sub": "leaf", "component": "cyleaflet"}, "bounds"),
-    Input({"id": "my-cy-leaflet", "sub": "cy", "component": "cyleaflet"}, "extent"),
+    Input(cyleaflet_instance.LEAFLET_ID, "bounds"),
+    Input(cyleaflet_instance.CYTOSCAPE_ID, "extent"),
 )
 def display_leaf_bounds(bounds, extent):
     bounds = (
