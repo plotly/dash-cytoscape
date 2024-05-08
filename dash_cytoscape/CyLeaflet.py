@@ -20,24 +20,11 @@ except ImportError:
 # Max zoom of default Leaflet tile layer
 LEAFLET_DEFAULT_MAX_ZOOM = 18
 
-# Empirically-determined max zoom values for Cytoscape
-# which correspond to max zoom values of Leaflet
-LEAF_TO_CYTO_MAX_ZOOM_MAPPING = {
-    16: 0.418,
-    17: 0.837,
-    18: 1.674,
-    19: 3.349,
-    20: 6.698,
-    21: 13.396,
-    22: 26.793,
-}
-
-
+# Approximates max zoom values for Cytoscape from max zoom
+# values of Leaflet Empirically-determined
 def get_cytoscape_max_zoom(leaflet_max_zoom):
     leaflet_max_zoom = leaflet_max_zoom or 0
-    leaflet_max_zoom = min(leaflet_max_zoom, max(LEAF_TO_CYTO_MAX_ZOOM_MAPPING.keys()))
-    leaflet_max_zoom = max(leaflet_max_zoom, min(LEAF_TO_CYTO_MAX_ZOOM_MAPPING.keys()))
-    return LEAF_TO_CYTO_MAX_ZOOM_MAPPING[leaflet_max_zoom]
+    return 0.418 * (2 ** (leaflet_max_zoom - 16))
 
 
 class CyLeaflet(html.Div):
