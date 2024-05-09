@@ -44,7 +44,7 @@ window.dash_clientside.cyleaflet = {
         if (!cyExtent) {
             if (!cyExtentStore) {
                 return window.dash_clientside.no_update;
-            } 
+            }
             cyExtent = cyExtentStore;
         }
 
@@ -74,7 +74,7 @@ window.dash_clientside.cyleaflet = {
                 bounds: bounds,
                 options: {animate: true},
             },
-            cyExtent
+            cyExtent,
         ];
     },
     transformElements: function (elements) {
