@@ -11,7 +11,7 @@ import dash_leaflet as dl
 
 cyto.load_extra_layouts()
 
-app = dash.Dash(__name__, prevent_initial_callbacks='initial_duplicate')
+app = dash.Dash(__name__, prevent_initial_callbacks="initial_duplicate")
 server = app.server
 
 
@@ -92,12 +92,7 @@ app.layout = html.Div(
                     value=int(default_div_style["height"][:-2]),
                     debounce=True,
                 ),
-                dcc.Input(
-                    id="max-zoom",
-                    type="number",
-                    value=18,
-                    debounce=True
-                )
+                dcc.Input(id="max-zoom", type="number", value=18, debounce=True),
             ],
         ),
     ],
