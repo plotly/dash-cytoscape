@@ -8,10 +8,11 @@ from dash import (
 )
 import dash_cytoscape as cyto
 import dash_leaflet as dl
+import random
 
 cyto.load_extra_layouts()
 
-app = dash.Dash(__name__, prevent_initial_callbacks="initial_duplicate")
+app = dash.Dash(__name__)
 server = app.server
 
 
@@ -93,10 +94,37 @@ app.layout = html.Div(
                     debounce=True,
                 ),
                 dcc.Input(id="max-zoom", type="number", value=18, debounce=True),
+                dcc.Input(id="n-nodes", type="number", value=4, debounce=True),
             ],
         ),
     ],
 )
+
+
+def generate_elements(n_nodes, location):
+    d = 0.00005
+    lat, lon = city_lat_lon[location]
+    if n_nodes < 2:
+        n_nodes = 2
+    elif n_nodes > 1000:
+        n_nodes = 1000
+
+    elements = []
+    for i in range(n_nodes):
+        rand_lat, rand_lon = random.randint(-5, 5) * i, random.randint(-5, 5) * i
+        elements.append({"data": {"id": f"{i}", "label": f"Node {i}", "lat": lat + d * rand_lat, "lon": lon + d * rand_lon}})
+    elements.append({"data": {"id": "0-1", "source": "0", "target": "1"}})
+    return elements
+
+
+@callback(
+    Output(cyleaflet_instance.CYTOSCAPE_ID, "elements", allow_duplicate=True),
+    Input("n-nodes", "value"),
+    Input("location-dropdown", "value"),
+    prevent_initial_call=True
+)
+def control_number_nodes(n_nodes, location):
+    return generate_elements(n_nodes, location)
 
 
 @callback(
@@ -109,15 +137,7 @@ app.layout = html.Div(
     Input("max-zoom", "value"),
 )
 def update_location(location, width, height, max_zoom):
-    d = 0.001
-    d2 = 0.0001
-    lat, lon = city_lat_lon[location]
-    new_elements = [
-        {"data": {"id": "a", "label": "Node A", "lat": lat - d, "lon": lon - d}},
-        {"data": {"id": "b", "label": "Node B", "lat": lat + d, "lon": lon + d}},
-        {"data": {"id": "c", "label": "Node C", "lat": lat + d - d2, "lon": lon + d}},
-        {"data": {"id": "ab", "source": "a", "target": "b"}},
-    ]
+    new_elements = generate_elements(4, location)
     markers = [
         dl.Marker(
             position=[e["data"]["lat"], e["data"]["lon"]],

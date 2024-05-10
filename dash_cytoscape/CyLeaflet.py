@@ -4,10 +4,10 @@ from dash import (
     ClientsideFunction,
     Output,
     Input,
-    State,
     html,
     dcc,
     MATCH,
+    no_update,
 )
 
 import dash_cytoscape as cyto
@@ -209,9 +209,25 @@ if dl is not None:
     )
     clientside_callback(
         ClientsideFunction(namespace="cyleaflet", function_name="transformElements"),
-        Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "elements"),
+        Output(
+            {"id": MATCH, "component": "cyleaflet", "sub": "cy"},
+            "elements",
+            allow_duplicate=True,
+        ),
         Input({"id": MATCH, "component": "cyleaflet", "sub": "elements"}, "data"),
+        prevent_initial_call="initial_duplicate",
     )
+
+
+@callback(
+    Output({"id": MATCH, "component": "cyleaflet", "sub": "elements"}, "data"),
+    Input({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "elements"),
+    prevent_initial_call=True,
+)
+def update_elements_store(elements):
+    if elements:
+        return elements
+    return no_update
 
 
 @callback(
