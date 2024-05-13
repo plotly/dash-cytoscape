@@ -25,7 +25,7 @@ What does this implement/fix? Explain your changes.
 - [ ] All changes were documented in CHANGELOG.md.
 - [ ] All tests on CircleCI have passed.
 - [ ] All Percy visual changes have been approved.
-- [ ] Two people have :dancer:'d the pull request. You can be one of these people if you are a Dash Cytoscape core contributor.
+- [ ] At least one person has :dancer:'d the pull request.
 
 
 ## Reference Issues
