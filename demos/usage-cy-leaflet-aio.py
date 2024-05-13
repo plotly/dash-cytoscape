@@ -101,17 +101,25 @@ app.layout = html.Div(
                 dcc.Input(id="n-nodes", type="number", value=4, debounce=True),
             ],
         ),
+        html.Div(id="elements")
     ],
 )
 
+
+@callback(
+    Output("elements", "children"),
+    Input(cyleaflet_instance.ELEMENTS_ID, "data")
+)
+def show_elements(elements):
+    return str(elements)
 
 def generate_elements(n_nodes, location):
     d = 0.00005
     lat, lon = city_lat_lon[location]
     if n_nodes < 2:
         n_nodes = 2
-    elif n_nodes > 1000:
-        n_nodes = 1000
+    elif n_nodes > 10000:
+        n_nodes = 10000
 
     elements = []
     for i in range(n_nodes):
