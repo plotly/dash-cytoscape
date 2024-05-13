@@ -101,17 +101,15 @@ app.layout = html.Div(
                 dcc.Input(id="n-nodes", type="number", value=4, debounce=True),
             ],
         ),
-        html.Div(id="elements")
+        html.Div(id="elements"),
     ],
 )
 
 
-@callback(
-    Output("elements", "children"),
-    Input(cyleaflet_instance.ELEMENTS_ID, "data")
-)
+@callback(Output("elements", "children"), Input(cyleaflet_instance.ELEMENTS_ID, "data"))
 def show_elements(elements):
     return str(elements)
+
 
 def generate_elements(n_nodes, location):
     d = 0.00005
@@ -124,7 +122,16 @@ def generate_elements(n_nodes, location):
     elements = []
     for i in range(n_nodes):
         rand_lat, rand_lon = random.randint(-5, 5) * i, random.randint(-5, 5) * i
-        elements.append({"data": {"id": f"{i}", "label": f"Node {i}", "lat": lat + d * rand_lat, "lon": lon + d * rand_lon}})
+        elements.append(
+            {
+                "data": {
+                    "id": f"{i}",
+                    "label": f"Node {i}",
+                    "lat": lat + d * rand_lat,
+                    "lon": lon + d * rand_lon,
+                }
+            }
+        )
     elements.append({"data": {"id": "0-1", "source": "0", "target": "1"}})
     return elements
 
@@ -133,7 +140,7 @@ def generate_elements(n_nodes, location):
     Output(cyleaflet_instance.CYTOSCAPE_ID, "elements", allow_duplicate=True),
     Input("n-nodes", "value"),
     Input("location-dropdown", "value"),
-    prevent_initial_call=True
+    prevent_initial_call=True,
 )
 def control_number_nodes(n_nodes, location):
     return generate_elements(n_nodes, location)
