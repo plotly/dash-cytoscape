@@ -16,6 +16,9 @@ var double_lon = 360;
 var max_lon = 180;
 var max_lat = 90;
 
+var leafletZoomMultiplier = 0.418;
+var leafletZoomReference = 16;
+
 // Convert EPSG:4326 to EPSG:3857
 // We also flip the sign of the y-value to match Cytoscape's coordinate system
 function lonLatToXY(lon, lat) {
@@ -109,5 +112,17 @@ window.dash_clientside.cyleaflet = {
             });
         }
         return window.dash_clientside.no_update;
+    },
+    updateCytoMaxZoom: function (children) {
+        var tileLayer = children;
+        if (children.length >= 1) {
+            tileLayer = children.filter((e) => {return e.type === 'TileLayer'})[0]
+        }
+
+        var leafletMaxZoom = 18
+        if (Object.prototype.hasOwnProperty.call(tileLayer.props, 'maxZoom')){
+            leafletMaxZoom = tileLayer.props.maxZoom;
+        }
+        return leafletZoomMultiplier * (2 ** (leafletMaxZoom - leafletZoomReference))
     },
 };

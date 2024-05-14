@@ -226,18 +226,8 @@ if dl is not None:
         Input({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "elements"),
         prevent_initial_call=True,
     )
-
-
-@callback(
-    Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "maxZoom"),
-    Input({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "children"),
-)
-def update_cyto_max_zoom(leaf_children):
-    if isinstance(leaf_children, list) and len(leaf_children) >= 1:
-        tile_layer = list(filter(lambda x: x["type"] == "TileLayer", leaf_children))[0]
-    else:
-        tile_layer = leaf_children
-    leaflet_max_zoom = 18
-    if "maxZoom" in tile_layer["props"].keys():
-        leaflet_max_zoom = tile_layer["props"]["maxZoom"]
-    return get_cytoscape_max_zoom(leaflet_max_zoom)
+    clientside_callback(
+        ClientsideFunction(namespace="cyleaflet", function_name="updateCytoMaxZoom"),
+        Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "maxZoom"),
+        Input({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "children"),
+    )
