@@ -220,41 +220,12 @@ if dl is not None:
         Input({"id": MATCH, "component": "cyleaflet", "sub": "elements"}, "data"),
         prevent_initial_call="initial_duplicate",
     )
-
-
-@callback(
-    Output({"id": MATCH, "component": "cyleaflet", "sub": "elements"}, "data"),
-    Input({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "elements"),
-    prevent_initial_call=True,
-)
-def update_elements_store(elements):
-    def xy_to_lon_lat(x, y):
-        conversion_factor = 20037508.34
-        double_lon = 360
-        max_lon = 180
-        max_lat = 90
-        lon = (x * max_lon) / conversion_factor
-        lat = (
-            math.atan(math.exp((-y * math.pi) / conversion_factor)) * double_lon
-        ) / math.pi - max_lat
-        return [lon, lat]
-
-    new_elements = []
-    if elements:
-        for e in elements:
-            new_element = e
-            if (
-                "position" in e.keys()
-                and "x" in e["position"].keys()
-                and e["position"]["x"]
-                and e["position"]["y"]
-            ):
-                lon_lat = xy_to_lon_lat(e["position"]["x"], e["position"]["y"])
-                new_element["data"]["lon"] = lon_lat[0]
-                new_element["data"]["lat"] = lon_lat[1]
-            new_elements.append(new_element)
-        return new_elements
-    return no_update
+    clientside_callback(
+        ClientsideFunction(namespace="cyleaflet", function_name="updateLonLat"),
+        Output({"id": MATCH, "component": "cyleaflet", "sub": "elements"}, "data"),
+        Input({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "elements"),
+        prevent_initial_call=True,
+    )
 
 
 @callback(

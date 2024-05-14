@@ -92,4 +92,22 @@ window.dash_clientside.cyleaflet = {
             return e;
         });
     },
+    updateLonLat: function (elements) {
+        if (elements.length > 0) {
+            return elements.map((e) => {
+                if (typeof e.position !== 'undefined' && Object.prototype.hasOwnProperty.call(e.position, 'x') && e.position.x !== 0 && e.position.y !== 0) {
+                    var lonLat = xYToLonLat(e.position.x, e.position.y)
+                    return {
+                        position: e.position,
+                        data: Object.assign({}, e.data, {
+                            lon: lonLat[0],
+                            lat: lonLat[1],
+                        }),
+                    };
+                }
+                return e;
+            });
+        }
+        return window.dash_clientside.no_update;
+    },
 };
