@@ -321,6 +321,14 @@ class Cytoscape extends Component {
             setExtent(cy.extent());
         });
 
+        // Refresh layout if current zoom is out of boundaries
+        cy.on('layoutstop', function () {
+            var zoom = cy.zoom();
+            if (zoom > cy.maxZoom() || zoom < cy.minZoom()) {
+                cy.fit();
+            }
+        });
+
         this.createMenuItems = (ctxMenu) => {
             const updateContextMenuData = (newContext) => {
                 this.props.setProps({contextMenuData: newContext});

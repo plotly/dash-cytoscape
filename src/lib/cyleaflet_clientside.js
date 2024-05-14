@@ -98,8 +98,13 @@ window.dash_clientside.cyleaflet = {
     updateLonLat: function (elements) {
         if (elements.length > 0) {
             return elements.map((e) => {
-                if (typeof e.position !== 'undefined' && Object.prototype.hasOwnProperty.call(e.position, 'x') && e.position.x !== 0 && e.position.y !== 0) {
-                    var lonLat = xYToLonLat(e.position.x, e.position.y)
+                if (
+                    typeof e.position !== 'undefined' &&
+                    Object.prototype.hasOwnProperty.call(e.position, 'x') &&
+                    e.position.x !== 0 &&
+                    e.position.y !== 0
+                ) {
+                    var lonLat = xYToLonLat(e.position.x, e.position.y);
                     return {
                         position: e.position,
                         data: Object.assign({}, e.data, {
@@ -116,13 +121,17 @@ window.dash_clientside.cyleaflet = {
     updateCytoMaxZoom: function (children) {
         var tileLayer = children;
         if (children.length >= 1) {
-            tileLayer = children.filter((e) => {return e.type === 'TileLayer'})[0]
+            tileLayer = children.filter((e) => {
+                return e.type === 'TileLayer';
+            })[0];
         }
 
-        var leafletMaxZoom = 18
-        if (Object.prototype.hasOwnProperty.call(tileLayer.props, 'maxZoom')){
+        var leafletMaxZoom = 18;
+        if (Object.prototype.hasOwnProperty.call(tileLayer.props, 'maxZoom')) {
             leafletMaxZoom = tileLayer.props.maxZoom;
         }
-        return leafletZoomMultiplier * (2 ** (leafletMaxZoom - leafletZoomReference))
+        return (
+            leafletZoomMultiplier * 2 ** (leafletMaxZoom - leafletZoomReference)
+        );
     },
 };
