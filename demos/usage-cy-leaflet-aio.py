@@ -8,6 +8,7 @@ from dash import (
 )
 import dash_cytoscape as cyto
 import dash_leaflet as dl
+import random
 
 cyto.load_extra_layouts()
 
@@ -80,22 +81,69 @@ app.layout = html.Div(
                     options=location_options,
                     value=location_options[0]["value"],
                 ),
+                "Width",
                 dcc.Input(
                     id="width-input",
                     type="number",
                     value=int(default_div_style["width"][:-2]),
                     debounce=True,
                 ),
+                "Height",
                 dcc.Input(
                     id="height-input",
                     type="number",
                     value=int(default_div_style["height"][:-2]),
                     debounce=True,
                 ),
+                "Max zoom",
+                dcc.Input(id="max-zoom", type="number", value=18, debounce=True),
+                "Number of Nodes",
+                dcc.Input(id="n-nodes", type="number", value=4, debounce=True),
             ],
         ),
+        html.Div(id="elements"),
     ],
 )
+
+
+@callback(Output("elements", "children"), Input(cyleaflet_instance.ELEMENTS_ID, "data"))
+def show_elements(elements):
+    return str(elements)
+
+
+def generate_elements(n_nodes, location):
+    d = 0.00005
+    lat, lon = city_lat_lon[location]
+    if n_nodes < 2:
+        n_nodes = 2
+    elif n_nodes > 10000:
+        n_nodes = 10000
+
+    elements = []
+    for i in range(n_nodes):
+        rand_lat, rand_lon = random.randint(-5, 5) * i, random.randint(-5, 5) * i
+        elements.append(
+            {
+                "data": {
+                    "id": f"{i}",
+                    "label": f"Node {i}",
+                    "lat": lat + d * rand_lat,
+                    "lon": lon + d * rand_lon,
+                }
+            }
+        )
+    elements.append({"data": {"id": "0-1", "source": "0", "target": "1"}})
+    return elements
+
+
+@callback(
+    Output(cyleaflet_instance.CYTOSCAPE_ID, "elements", allow_duplicate=True),
+    Input("n-nodes", "value"),
+    Input("location-dropdown", "value"),
+    prevent_initial_call=True,
+)
+def control_number_nodes(n_nodes, location):
+    return generate_elements(n_nodes, location)
 
 
 @callback(
@@ -105,17 +153,10 @@ app.layout = html.Div(
     Input("location-dropdown", "value"),
     Input("width-input", "value"),
     Input("height-input", "value"),
+    Input("max-zoom", "value"),
 )
-def update_location(location, width, height):
-    d = 0.001
-    d2 = 0.0001
-    lat, lon = city_lat_lon[location]
-    new_elements = [
-        {"data": {"id": "a", "label": "Node A", "lat": lat - d, "lon": lon - d}},
-        {"data": {"id": "b", "label": "Node B", "lat": lat + d, "lon": lon + d}},
-        {"data": {"id": "c", "label": "Node C", "lat": lat + d - d2, "lon": lon + d}},
-        {"data": {"id": "ab", "source": "a", "target": "b"}},
-    ]
+def update_location(location, width, height, max_zoom):
+    new_elements = generate_elements(4, location)
     markers = [
         dl.Marker(
             position=[e["data"]["lat"], e["data"]["lon"]],
@@ -128,7 +169,7 @@ def update_location(location, width, height):
         for e in new_elements
         if "lat" in e["data"]
     ]
-    leaflet_children = [dl.TileLayer()] + markers
+    leaflet_children = [dl.TileLayer(maxZoom=max_zoom)] + markers
     new_style = dict(default_div_style)
     new_style["width"] = str(width) + "px" if width else default_div_style["width"]
     new_style["height"] = str(height) + "px" if height else default_div_style["height"]
@@ -150,8 +191,8 @@ def update_location(location, width, height):
 @callback(
     Output("bounds-display", "children"),
     Output("extent-display", "children"),
-    Input({"id": "my-cy-leaflet", "sub": "leaf", "component": "cyleaflet"}, "bounds"),
-    Input({"id": "my-cy-leaflet", "sub": "cy", "component": "cyleaflet"}, "extent"),
+    Input(cyleaflet_instance.LEAFLET_ID, "bounds"),
+    Input(cyleaflet_instance.CYTOSCAPE_ID, "extent"),
 )
 def display_leaf_bounds(bounds, extent):
     bounds = (
