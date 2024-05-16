@@ -168,6 +168,7 @@ class Cytoscape extends Component {
         // ///////////////////////////////////// CONSTANTS /////////////////////////////////////////
         const SELECT_THRESHOLD = 100;
         const EXTENT_THRESHOLD = 5;
+        const UPDATE_ELEMENTS_THRESHOLD = 100;
 
         const selectedNodes = cy.collection();
         const selectedEdges = cy.collection();
@@ -213,6 +214,23 @@ class Cytoscape extends Component {
                 extent: cyExtent,
             });
         }, EXTENT_THRESHOLD);
+
+        const updateElements = _.debounce(() => {
+            this.props.setProps({
+                elements: cy.elements('').map((item) => {
+                    if (item.json().group === 'nodes') {
+                        return {
+                            data: item.json().data,
+                            position: item.json().position,
+                        };
+                    }
+                    return {
+                        data: item.json().data,
+                        position: void 0,
+                    };
+                }),
+            });
+        }, UPDATE_ELEMENTS_THRESHOLD);
 
         // Store the original maxZoom and minZoom functions
         const originalMaxZoomFn = cy.maxZoom;
@@ -331,20 +349,7 @@ class Cytoscape extends Component {
         });
 
         cy.on('dragfree add remove', (_) => {
-            this.props.setProps({
-                elements: cy.elements('').map((item) => {
-                    if (item.json().group === 'nodes') {
-                        return {
-                            data: item.json().data,
-                            position: item.json().position,
-                        };
-                    }
-                    return {
-                        data: item.json().data,
-                        position: void 0,
-                    };
-                }),
-            });
+            updateElements();
         });
 
         cy.on('viewport resize', () => {
