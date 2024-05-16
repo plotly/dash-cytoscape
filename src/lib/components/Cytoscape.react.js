@@ -219,10 +219,10 @@ class Cytoscape extends Component {
         const originalMinZoomFn = cy.minZoom;
 
         // Override the maxZoom function to trigger maxZoomChange custom event
-        cy.maxZoom = function(e) {
+        cy.maxZoom = function (e) {
             const currentMaxZoom = originalMaxZoomFn.call(cy, e);
-            
-            // Trigger your custom event if the current max zoom level is different from the 
+
+            // Trigger your custom event if the current max zoom level is different from the
             // previously stored max zoom level
             if (currentMaxZoom !== cy._previousMaxZoom) {
                 cy._previousMaxZoom = currentMaxZoom;
@@ -232,10 +232,10 @@ class Cytoscape extends Component {
         };
 
         // Override the minZoom function to trigger minZoomChange custom event
-        cy.minZoom = function(e) {
+        cy.minZoom = function (e) {
             const currentMinZoom = originalMinZoomFn.call(cy, e);
-            
-            // Trigger your custom event if the current min zoom level is different from the 
+
+            // Trigger your custom event if the current min zoom level is different from the
             // previously stored min zoom level
             if (currentMinZoom !== cy._previousMinZoom) {
                 cy._previousMinZoom = currentMinZoom;
@@ -353,7 +353,7 @@ class Cytoscape extends Component {
 
         // Refresh layout if current zoom is out of boundaries
         cy.on('minMaxZoomChange', function () {
-            var zoom = cy.zoom();
+            const zoom = cy.zoom();
             if (zoom > cy.maxZoom() || zoom < cy.minZoom()) {
                 cy.fit();
             }
