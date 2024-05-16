@@ -124,11 +124,17 @@ window.dash_clientside.cyleaflet = {
         if (children.length >= 1) {
             tileLayer = children.filter((e) => {
                 return e.type === 'TileLayer';
-            })[0];
+            });
+            if (tileLayer.length === 1) {
+                tileLayer = tileLayer[0];
+            }
         }
 
         var leafletMaxZoom = defaultLeafletMaxZoom;
-        if (Object.prototype.hasOwnProperty.call(tileLayer.props, 'maxZoom')) {
+        if (
+            typeof tileLayer.props !== 'undefined' &&
+            Object.prototype.hasOwnProperty.call(tileLayer.props, 'maxZoom')
+        ) {
             leafletMaxZoom = tileLayer.props.maxZoom;
         }
         return (
