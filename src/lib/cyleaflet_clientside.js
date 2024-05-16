@@ -10,14 +10,15 @@ if (!window.dash_clientside) {
 // Reference: https://epsg.io/3857
 
 // Conversion factor based on EPSG:3857 bounds
-var conversion_factor = 20037508.34;
+const conversion_factor = 20037508.34;
 
-var double_lon = 360;
-var max_lon = 180;
-var max_lat = 90;
+const double_lon = 360;
+const max_lon = 180;
+const max_lat = 90;
 
-var leafletZoomMultiplier = 0.418;
-var leafletZoomReference = 16;
+const leafletZoomMultiplier = 0.418;
+const leafletZoomReference = 16;
+const defaultLeafletMaxZoom = 18;
 
 // Convert EPSG:4326 to EPSG:3857
 // We also flip the sign of the y-value to match Cytoscape's coordinate system
@@ -126,7 +127,7 @@ window.dash_clientside.cyleaflet = {
             })[0];
         }
 
-        var leafletMaxZoom = 18;
+        var leafletMaxZoom = defaultLeafletMaxZoom;
         if (Object.prototype.hasOwnProperty.call(tileLayer.props, 'maxZoom')) {
             leafletMaxZoom = tileLayer.props.maxZoom;
         }
