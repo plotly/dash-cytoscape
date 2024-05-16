@@ -42,6 +42,10 @@ function xYToLonLat(x, y) {
     return [lon, lat];
 }
 
+function computeCytoscapeMaxZoom(leafletMaxZoom) {
+    return leafletZoomMultiplier * 2 ** (leafletMaxZoom - leafletZoomReference);
+}
+
 window.dash_clientside.cyleaflet = {
     updateLeafBounds: function (cyExtentInput, max_zoom, cyExtentStore) {
         var cyExtent = cyExtentInput;
@@ -137,8 +141,6 @@ window.dash_clientside.cyleaflet = {
         ) {
             leafletMaxZoom = tileLayer.props.maxZoom;
         }
-        return (
-            leafletZoomMultiplier * 2 ** (leafletMaxZoom - leafletZoomReference)
-        );
+        return computeCytoscapeMaxZoom(leafletMaxZoom);
     },
 };
