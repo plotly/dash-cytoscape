@@ -230,6 +230,7 @@ class Cytoscape extends Component {
                     };
                 }),
             });
+            cy.resize();
         }, UPDATE_ELEMENTS_THRESHOLD);
 
         // Store the original maxZoom and minZoom functions
@@ -352,8 +353,12 @@ class Cytoscape extends Component {
             updateElements();
         });
 
-        cy.on('viewport resize', () => {
+        cy.on('resize', () => {
             setExtent(cy.extent());
+        });
+
+        cy.on('viewport', () => {
+            cy.resize();
         });
 
         // Refresh layout if current zoom is out of boundaries
