@@ -169,6 +169,7 @@ class Cytoscape extends Component {
         const SELECT_THRESHOLD = 100;
         const EXTENT_THRESHOLD = 5;
         const UPDATE_ELEMENTS_THRESHOLD = 100;
+        const RESIZE_THRESHOLD = 50;
 
         const selectedNodes = cy.collection();
         const selectedEdges = cy.collection();
@@ -230,8 +231,9 @@ class Cytoscape extends Component {
                     };
                 }),
             });
-            cy.resize();
         }, UPDATE_ELEMENTS_THRESHOLD);
+
+        const resize = _.debounce(() => { cy.resize(); }, RESIZE_THRESHOLD);
 
         // Store the original maxZoom and minZoom functions
         const originalMaxZoomFn = cy.maxZoom;
@@ -353,12 +355,12 @@ class Cytoscape extends Component {
             updateElements();
         });
 
-        cy.on('resize', () => {
+        cy.on('resize viewport', () => {
             setExtent(cy.extent());
         });
 
-        cy.on('viewport', () => {
-            cy.resize();
+        cy.on('tapstart', () => {
+            resize();
         });
 
         // Refresh layout if current zoom is out of boundaries
