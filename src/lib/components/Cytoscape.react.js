@@ -233,7 +233,9 @@ class Cytoscape extends Component {
             });
         }, UPDATE_ELEMENTS_THRESHOLD);
 
-        const resize = _.debounce(() => { cy.resize(); }, RESIZE_THRESHOLD);
+        const resize = _.debounce(() => {
+            cy.resize();
+        }, RESIZE_THRESHOLD);
 
         // Store the original maxZoom and minZoom functions
         const originalMaxZoomFn = cy.maxZoom;
