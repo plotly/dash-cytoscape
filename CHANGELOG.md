@@ -4,12 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.1] - 2024-05-23
 
 ### Fixed
 * [#205](https://github.com/plotly/dash-cytoscape/pull/205) Fixed updating maxZoom via callback in CyLeaflet AIO component.
 * [#207](https://github.com/plotly/dash-cytoscape/pull/207) Allow access to updated lat/lon when Cytoscape nodes in CyLeaflet AIO component are modified via UI.
 * [#208](https://github.com/plotly/dash-cytoscape/pull/208) Allow updating Cytoscape elements in CyLeaflet AIO component via callback.
+* [#210](https://github.com/plotly/dash-cytoscape/pull/210) Performace improvement: added debounce to update elements event.
+* [#212](https://github.com/plotly/dash-cytoscape/pull/212) Added call to `cy.resize` to fix mouse position mismatch on `tapstart` event. 
 
 ## [1.0.0] - 2024-01-26
 

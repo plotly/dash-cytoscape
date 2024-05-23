@@ -168,6 +168,8 @@ class Cytoscape extends Component {
         // ///////////////////////////////////// CONSTANTS /////////////////////////////////////////
         const SELECT_THRESHOLD = 100;
         const EXTENT_THRESHOLD = 5;
+        const UPDATE_ELEMENTS_THRESHOLD = 100;
+        const RESIZE_THRESHOLD = 50;
 
         const selectedNodes = cy.collection();
         const selectedEdges = cy.collection();
@@ -213,6 +215,27 @@ class Cytoscape extends Component {
                 extent: cyExtent,
             });
         }, EXTENT_THRESHOLD);
+
+        const updateElements = _.debounce(() => {
+            this.props.setProps({
+                elements: cy.elements('').map((item) => {
+                    if (item.json().group === 'nodes') {
+                        return {
+                            data: item.json().data,
+                            position: item.json().position,
+                        };
+                    }
+                    return {
+                        data: item.json().data,
+                        position: void 0,
+                    };
+                }),
+            });
+        }, UPDATE_ELEMENTS_THRESHOLD);
+
+        const resize = _.debounce(() => {
+            cy.resize();
+        }, RESIZE_THRESHOLD);
 
         // Store the original maxZoom and minZoom functions
         const originalMaxZoomFn = cy.maxZoom;
@@ -331,24 +354,15 @@ class Cytoscape extends Component {
         });
 
         cy.on('dragfree add remove', (_) => {
-            this.props.setProps({
-                elements: cy.elements('').map((item) => {
-                    if (item.json().group === 'nodes') {
-                        return {
-                            data: item.json().data,
-                            position: item.json().position,
-                        };
-                    }
-                    return {
-                        data: item.json().data,
-                        position: void 0,
-                    };
-                }),
-            });
+            updateElements();
         });
 
-        cy.on('viewport resize', () => {
+        cy.on('resize viewport', () => {
             setExtent(cy.extent());
+        });
+
+        cy.on('tapstart', () => {
+            resize();
         });
 
         // Refresh layout if current zoom is out of boundaries
