@@ -1,5 +1,12 @@
 # Dash Cytoscape [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/plotly/dash-cytoscape/blob/master/LICENSE) [![PyPi Version](https://img.shields.io/pypi/v/dash-cytoscape.svg)](https://pypi.org/project/dash-cytoscape/)
 
+<div align="center">
+  <a href="https://dash.plotly.com/project-maintenance">
+    <img src="https://dash.plotly.com/assets/images/maintained-by-plotly.png" width="400px" alt="Maintained by Plotly">
+  </a>
+</div>
+
+
 [![CircleCI](https://circleci.com/gh/plotly/dash-cytoscape.svg?style=svg)](https://circleci.com/gh/plotly/dash-cytoscape)
 
 A Dash component library for creating interactive and customizable networks in Python, wrapped around [Cytoscape.js](http://js.cytoscape.org/).
