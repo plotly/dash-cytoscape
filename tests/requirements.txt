@@ -14,4 +14,4 @@ biopython>=1.77
 pytest==7.0.1
 wrapt==1.14.0
 black==23.9.1
-dash-leaflet>=1.0.10
+dash-leaflet>=1.0.16rc3
