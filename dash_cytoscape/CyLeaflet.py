@@ -230,4 +230,5 @@ if dl is not None:
         ClientsideFunction(namespace="cyleaflet", function_name="updateCytoMaxZoom"),
         Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "maxZoom"),
         Input({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "children"),
+        prevent_initial_call=True,
     )

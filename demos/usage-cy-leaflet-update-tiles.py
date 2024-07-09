@@ -38,7 +38,6 @@ def serve_layout():
                 leaflet_props={"zoomSnap": 1},
             ),
             html.Div(id="zoom"),
-            dcc.Input(id="set-zoom", type="number"),
         ],
     )
 

@@ -1,6 +1,6 @@
 
 name = "DashCytoscape"
-uuid = "1b08a953-4be3-4667-9a23-85cc21bfd5e9"
+uuid = "1b08a953-4be3-4667-9a23-d1fff2b5e6fa"
 authors = ["The Plotly Team <cytoscape@plotly.com>"]
 version = "1.0.1"
 
