@@ -144,7 +144,7 @@ class CyLeaflet(html.Div):
         # even though these will be immediately overwritten by syncing w/ Cytoscape
         leaflet_overrides = {
             "id": self.ids["leaf"],
-            "children": leaflet_children or [dl.TileLayer()],
+            "children": leaflet_children or [dl.TileLayer(maxZoom=100000)],
             "center": [0, 0],
             "zoom": 6,
             "zoomSnap": 0,
@@ -230,4 +230,5 @@ if dl is not None:
         ClientsideFunction(namespace="cyleaflet", function_name="updateCytoMaxZoom"),
         Output({"id": MATCH, "component": "cyleaflet", "sub": "cy"}, "maxZoom"),
         Input({"id": MATCH, "component": "cyleaflet", "sub": "leaf"}, "children"),
+        prevent_initial_call=True,
     )

@@ -25,7 +25,7 @@ setup(
         "dash",
     ],
     extras_require={
-        "leaflet": ["dash-leaflet>=1.0.10"],
+        "leaflet": ["dash-leaflet>=1.0.16rc3"],
     },
     python_requires=">=3.8",
     classifiers=[
