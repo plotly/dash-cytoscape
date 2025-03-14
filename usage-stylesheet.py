@@ -250,4 +250,4 @@ def generate_stylesheet(node, follower_color, following_color, node_shape):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)

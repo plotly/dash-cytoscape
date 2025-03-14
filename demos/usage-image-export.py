@@ -183,4 +183,4 @@ def get_image(tab, get_jpg_clicks, get_png_clicks, get_svg_clicks):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)

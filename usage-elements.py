@@ -274,4 +274,4 @@ def generate_elements(nodeData, elements, expansion_mode):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(debug=True)

@@ -41,7 +41,7 @@ app.layout = html.Div([
 ])
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)
 ```
 If the code is too long, feel free to put it in a public gist and link
 it in the issue: https://gist.github.com
